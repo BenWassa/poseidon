@@ -4,7 +4,30 @@ Read these before changing product behavior:
 
 1. `PRODUCT.md`
 2. `docs/PRD.md`
-3. `docs/CONTENT_AND_ASSETS.md`
+3. `docs/PROJECT_STATUS.md`
+4. `docs/APPLICATION.md`
+5. `docs/CONTENT_AND_ASSETS.md`
+6. `docs/UI_DATA_CONTRACT.md`
+
+## Current repository authority
+
+Poseidon is **not** a greenfield project anymore.
+
+The first coherent application shipped in PR #10 and is on `main`. Do not restart stack selection, recreate the former external prototype architecture, or split the app into a competing framework.
+
+Current architecture:
+
+- npm workspaces;
+- `apps/web` — React + Vite + TypeScript + Tailwind CSS v4;
+- React Router;
+- Lucide React for application icons;
+- `packages/domain` — framework-independent `PoseidonStore`, persistence and selectors;
+- local-first persistence behind an injected adapter;
+- Vite PWA/offline support;
+- canonical content and creature-asset pipelines;
+- Vitest/Testing Library and the repository gate.
+
+The current programme state and open residual streams live in `docs/PROJECT_STATUS.md` and issue #5.
 
 ## Product context
 
@@ -29,15 +52,13 @@ Optimize first for:
 
 ## Product ancestor
 
-`BenWassa/liebestraum` is an important product reference.
-
-Use it to understand principles such as:
+`BenWassa/liebestraum` remains an important product reference for principles such as:
 
 - personal history as the main character;
 - latest-memory/home composition;
 - quick creation;
 - timeline/history;
-- map/geographic history;
+- geographic history;
 - restrained stats and collections;
 - mobile-first interaction.
 
@@ -46,47 +67,65 @@ Do not clone its visual design or assume its Firebase/photo architecture belongs
 ## Non-negotiable product laws
 
 - Every dive can be recorded.
+- The Dive is canonical personal history.
 - Content availability must never prevent logging.
 - Creature logging is visual and delightful first, with search/manual entry as escape hatches.
 - Common names dominate the main UX.
-- The core experience must tolerate no network.
-- Missing creature artwork must degrade gracefully.
+- Core creation/browsing must tolerate no network.
+- Missing creature artwork is a first-class state.
+- Never invent rarity or encounter probability.
 - Never gamify unsafe diving or wildlife interaction.
-- Do not turn the MVP into a technical diving suite.
+- Do not turn the product into a technical-diving suite.
 
-## Engineering approach
+## Engineering boundaries
 
-The repository begins essentially from zero.
+Preserve the existing seams unless a specific issue requires a deliberate change:
 
-Before locking major architecture, assess the simplest stack that can provide:
+- UI components consume `PoseidonStore`; they do not import persistence internals.
+- Dives remain the source of truth; collection/stats/discoveries and similar personal-history views are derived where practical.
+- Curated content is replaceable enrichment, not canonical personal data.
+- `assets/creatures` is canonical runtime output.
+- The source-art programme in #11/#13 introduces `assets/source/creatures` only as an editorial input layer; application code must not consume it directly.
+- Keep the runtime `thumb` / `gallery` / `hero` manifest contract stable unless the asset issue explicitly changes it.
+- Prefer mature, well-supported libraries over custom framework-like infrastructure.
 
-- excellent mobile/PWA or app ergonomics;
-- local/offline persistence;
-- reliable migrations/backups;
-- image lazy loading and caching;
-- future optional sync without forcing an account in the first personal build;
-- deterministic automated testing.
+## Current scope discipline
 
-Prefer boring, well-supported dependencies over custom infrastructure.
+The north-star flow is already implemented:
 
-Use existing high-quality libraries for gestures, routing, persistence, image handling and maps when those capabilities are needed. Do not invent framework-like code unnecessarily.
+`Open app → Log Dive → choose creatures visually → save → Home/Journal → Collection → restart offline → history remains.`
 
-## Scope discipline
+Do not reopen completed #2/#3/#4/#6 work merely because a later feature touches adjacent code.
 
-The first excellent flow is:
+Current residual work is tracked under #5, especially:
 
-`Open app → Log Dive → choose creatures visually → save → see dive in Journal/Home → see creatures in Collection → restart offline → history remains.`
+- #11 source-art system;
+- #12 art QA/remakes/coverage;
+- #14 deployment/restore/field readiness;
+- #15 trips/milestones/richer Creature Detail;
+- #16 sourced map/geodata.
 
-If this flow is not excellent, do not distract the project with social features, dive-computer integration, photo management, broad global content or elaborate gamification.
+Keep photos, dive-computer sync, PADI integration, social mechanics, technical telemetry, mandatory accounts and global content breadth out of these streams unless explicitly promoted into new scope.
 
 ## Visual implementation
 
-The desired character is light, aquatic, saturated and alive:
+The established character is light, aquatic, saturated and alive:
 
 - rich ocean blues;
 - aquatic greens;
 - coral/tropical accents;
 - polished tactile interactions;
-- creature art as a primary source of colour and personality.
+- creature art as a primary source of colour and personality;
+- phone-first hierarchy rather than a desktop analytics dashboard.
 
-Delight does not mean loading full-resolution images into a dense gallery. Follow the asset-performance contract in `docs/CONTENT_AND_ASSETS.md`.
+Inspect rendered mobile composition for visual changes. Delight does not justify loading inappropriate image sizes or bypassing the asset pipeline.
+
+## Verification
+
+Before declaring repository work complete, run the relevant focused tests and the full gate:
+
+```bash
+npm run gate
+```
+
+For product/UI changes, also inspect the production build at realistic phone dimensions and preserve accessibility, reduced-motion and safe-area behavior.
