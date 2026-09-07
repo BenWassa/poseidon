@@ -1,14 +1,12 @@
 # Poseidon — UI Data Contract
 
-## Purpose
+## Status
 
-This document defines the application-facing data and service boundary that allows front-end design/prototyping and persistence/backend work to proceed in parallel.
+This is the stable application-facing domain/service boundary for the integrated Poseidon application.
 
-The contract is product-oriented, not database-oriented.
+The former external-front-end/backend parallel-development phase is complete. The real implementation now lives in `packages/domain` and is consumed by `apps/web`.
 
-The UI must not import or depend directly on a specific persistence SDK.
-
-The implementation may refine names/types, but should preserve these concepts and flows unless the product documents change.
+The TypeScript source in `packages/domain/src/domain.ts` is executable authority when this document and code differ. This document records the product/architecture contract that later changes should preserve deliberately.
 
 ---
 
@@ -16,34 +14,55 @@ The implementation may refine names/types, but should preserve these concepts an
 
 The **Dive** is the canonical historical record.
 
-Marine Collection, lifetime stats, recent discoveries and most Atlas summaries are derived from dives + creature metadata wherever practical.
+Marine Collection, lifetime stats, recent discoveries, place summaries, and future derived history views such as trips or milestones should be recomputed from dives + creature/content metadata wherever practical.
 
-Avoid creating competing sources of truth for the same personal history.
+Avoid competing persisted sources of truth for the same personal history.
+
+Curated content is enrichment. It is not canonical personal data.
 
 ---
 
-# 2. Core domain types
+# 2. UI / persistence boundary
 
-Conceptual TypeScript shape:
+Application components use `PoseidonStore` rather than importing persistence internals.
+
+Today the production app injects a local persistence implementation. The boundary is intentionally stable enough that a future IndexedDB/native/optional-sync adapter does not require a UI rewrite.
+
+The UI must not:
+
+- import a persistence SDK directly;
+- assume cloud/auth is required;
+- treat curated content as user-owned canonical history;
+- assume every dive has coordinates;
+- assume every creature has curated art;
+- assume every user-entered creature is scientifically normalized.
+
+---
+
+# 3. Core domain types
+
+The implemented shapes are defined in `packages/domain/src/domain.ts`. The important product-facing concepts are:
 
 ```ts
 type Id = string;
+type DepthUnit = 'm' | 'ft';
+type SightingQuantity = 'one' | 'few' | 'several' | 'many';
+type ArtworkStatus = 'curated' | 'placeholder' | 'missing';
+
+type Coordinates = {
+  lat: number;
+  lng: number;
+};
 
 type Dive = {
   id: Id;
-  date: string; // ISO local date, e.g. 2026-09-06
+  date: string; // ISO local date
   siteName: string;
   areaName: string;
   countryCode?: string;
   regionId?: Id;
-  coordinates?: {
-    lat: number;
-    lng: number;
-  };
-  maxDepth: {
-    value: number;
-    unit: 'm' | 'ft';
-  };
+  coordinates?: Coordinates;
+  maxDepth: { value: number; unit: DepthUnit };
   durationMinutes: number;
   operator?: string;
   buddies?: string[];
@@ -57,7 +76,7 @@ type Dive = {
 type Sighting = {
   id: Id;
   creatureId: Id;
-  quantity?: 'one' | 'few' | 'several' | 'many';
+  quantity?: SightingQuantity;
   note?: string;
 };
 
@@ -71,12 +90,17 @@ type Creature = {
   curated: boolean;
   userCreated?: boolean;
   artwork?: {
-    status: 'curated' | 'placeholder' | 'missing';
+    status: ArtworkStatus;
     thumb?: string;
     gallery?: string;
     hero?: string;
     aspectRatio?: number;
   };
+  provenance?: Array<{
+    source: string;
+    url?: string;
+    note?: string;
+  }>;
 };
 
 type Region = {
@@ -85,17 +109,26 @@ type Region = {
   countryCode?: string;
   parentRegionId?: Id;
 };
+
+type Place = {
+  id: Id;
+  name: string;
+  kind: 'country' | 'region' | 'area' | 'site';
+  countryCode?: string;
+  regionId?: Id;
+  parentPlaceId?: Id;
+  coordinates?: Coordinates;
+  curated: boolean;
+};
 ```
 
-A user-created creature may be much simpler internally, but the UI should receive it in a normalized `Creature` shape.
+A user-created creature is intentionally allowed to be much less enriched than a curated creature while still flowing through the same normalized UI shape.
 
 ---
 
-# 3. Derived UI models
+# 4. Derived UI models
 
-The backend/persistence layer may expose raw entities plus selectors, or directly expose derived view models.
-
-Useful derived shapes:
+The implemented store exposes derived history rather than separately persisted copies:
 
 ```ts
 type LifetimeStats = {
@@ -134,13 +167,13 @@ type PlaceSummary = {
 };
 ```
 
+New derived views should follow the same rule unless there is a strong reason to persist them.
+
 ---
 
-# 4. Application service boundary
+# 5. PoseidonStore
 
-Front-end components should use an application service/repository interface rather than database calls.
-
-Conceptual interface:
+The current application boundary is:
 
 ```ts
 interface PoseidonStore {
@@ -165,43 +198,17 @@ interface PoseidonStore {
   listPlaceSummaries(): Promise<PlaceSummary[]>;
 
   // Durability
-  exportData(): Promise<unknown>;
+  exportData(): Promise<PoseidonExportV1>;
 }
 ```
 
-Exact sync/reactive signatures may differ. The important boundary is that components do not know whether data comes from fixtures, IndexedDB, SQLite, Firestore, Supabase or another implementation.
+Issue #14 is the planned place to add a safe restore/import counterpart to the existing export contract.
 
 ---
 
-# 5. Creature suggestion context
+# 6. Create/update contract
 
-Creature gallery ordering needs enough context to combine local relevance with personal familiarity.
-
-```ts
-type CreatureSuggestionContext = {
-  areaName?: string;
-  countryCode?: string;
-  regionId?: Id;
-  siteName?: string;
-  date?: string;
-};
-```
-
-Recommended UI grouping:
-
-1. local / likely here;
-2. recent / familiar to the user;
-3. all/browse/search.
-
-The service does not need a probabilistic recommendation engine for v0. Deterministic region tags + recency are sufficient.
-
----
-
-# 6. Create/update input
-
-The UI should be able to build a dive incrementally across multiple steps without persisting partial invalid records unless the chosen persistence strategy deliberately supports drafts.
-
-Conceptual input:
+A dive is assembled in the UI and committed through the store as one canonical record.
 
 ```ts
 type CreateDiveInput = {
@@ -210,7 +217,7 @@ type CreateDiveInput = {
   areaName: string;
   countryCode?: string;
   regionId?: Id;
-  coordinates?: { lat: number; lng: number };
+  coordinates?: Coordinates;
   maxDepth: { value: number; unit: 'm' | 'ft' };
   durationMinutes: number;
   operator?: string;
@@ -223,117 +230,78 @@ type CreateDiveInput = {
   }>;
   highlightCreatureId?: Id;
 };
-
-type UpdateDiveInput = Partial<CreateDiveInput>;
 ```
 
----
+`UpdateDiveInput` is a partial update form of the same contract, with optional fields explicitly clearable.
 
-# 7. Fixture package for front-end work
-
-Gemini/front-end work should have realistic fixtures that include at least:
-
-## Personal history
-
-- 8–12 dives;
-- multiple dives on the same day;
-- Cozumel + Playa del Carmen;
-- several repeated sites;
-- varied depth/duration;
-- one dive with no notes;
-- one dive with only one creature;
-- one dive with many creatures;
-- one user-created/unillustrated creature.
-
-## Creature catalogue
-
-At least 16–24 creatures for realistic gallery density, including:
-
-- Green sea turtle
-- Hawksbill turtle
-- Spotted eagle ray
-- Southern stingray
-- Nurse shark
-- Barracuda
-- Green moray eel or generic Moray eel
-- Pufferfish
-- Porcupinefish
-- French angelfish
-- Queen angelfish
-- Parrotfish
-- Sergeant major
-- Trumpetfish
-- Grouper
-- Hogfish
-- Lionfish
-- Caribbean reef squid
-- Octopus
-- Lobster
-
-Some should have `curated` art; some should deliberately use placeholders to prove fallback behavior.
-
-## Derived states
-
-Fixture history should yield:
-
-- meaningful latest dive;
-- several recent discoveries;
-- repeated creatures across dives;
-- multiple sites/areas;
-- sparse but non-empty Atlas summaries.
-
-Also provide an empty-profile fixture and a one-dive fixture.
+Store validation guarantees the highlight references a current sighting and keeps stable sighting IDs for retained creatures across edits.
 
 ---
 
-# 8. Persistence/backend requirements
+# 7. Creature suggestion contract
 
-The production persistence implementation must eventually satisfy:
+The gallery combines regional relevance with personal familiarity.
 
-- local/offline creation, editing and deletion;
-- durable restart persistence;
-- schema versioning/migrations;
-- stable IDs;
-- safe relationship between dives and creature references;
-- later normalization of user-created creature records;
-- export of canonical personal data;
-- ability to add optional sync later without rewriting the UI/domain model.
+```ts
+type CreatureSuggestionContext = {
+  areaName?: string;
+  countryCode?: string;
+  regionId?: Id;
+  siteName?: string;
+  date?: string;
+};
+```
 
-The first backend agent should optimize for reliability and simplicity, not cloud feature count.
+The current deterministic ranking uses:
 
----
+1. region/content relevance;
+2. the user's own encounter recency/frequency;
+3. common-name ordering for unseen content.
 
-# 9. Front-end assumptions allowed before backend exists
-
-Gemini may safely assume:
-
-- all `PoseidonStore` operations work;
-- creature assets can expose thumbnail/gallery/hero variants;
-- loading/error/empty states can be simulated;
-- offline status can be represented in fixtures;
-- location-aware suggestions can be deterministic fixture data;
-- maps/coordinates may be partial.
-
-Gemini should **not**:
-
-- directly wire components to Firebase/Supabase/etc.;
-- invent account/auth requirements;
-- make cloud sync mandatory;
-- assume every dive has coordinates;
-- assume every creature has art;
-- assume every creature is scientifically normalized.
+It is not a probabilistic rarity engine and makes no encounter-likelihood percentage claim.
 
 ---
 
-# 10. Integration rule
+# 8. Content and artwork boundary
 
-The UI branch and persistence branch can diverge temporarily as long as both preserve this boundary.
+Production content is loaded from the sourced content pack and normalized into the domain catalogue.
 
-Integration should primarily mean:
+Artwork exposed to the UI uses only canonical runtime metadata:
 
-1. replace fixture store with real store;
-2. preserve component APIs and domain shapes;
-3. reconcile only evidence-backed contract differences;
-4. avoid visual redesign during backend integration.
+- `status`;
+- `thumb`;
+- `gallery`;
+- `hero`;
+- `aspectRatio`.
 
-This contract exists specifically to keep visual design and engineering parallel rather than sequential.
+Application code must not consume source-generation files directly.
+
+The source-art work in #11 / PR #13 introduces an editorial input layer under `assets/source/creatures`; canonical runtime output remains `assets/creatures/<id>/...`.
+
+Missing artwork remains valid product state and must render through a deliberate fallback.
+
+---
+
+# 9. Fixtures and tests
+
+Synthetic fixtures remain useful for deterministic development and acceptance tests, but they are not product authority or sourced marine content.
+
+Fixture exports are isolated behind the explicit `@poseidon/domain/fixtures` subpath.
+
+Production behavior should be tested against the same `PoseidonStore` boundary used by the app.
+
+---
+
+# 10. Integration rule going forward
+
+Later work should integrate through existing contracts rather than recreating parallel implementations.
+
+When changing this boundary:
+
+1. start from current `packages/domain` types/store;
+2. preserve stable concepts unless the product requirement genuinely changes;
+3. add migrations when canonical personal data changes;
+4. update this document, `DOMAIN_ARCHITECTURE.md`, and application tests together when the contract changes materially;
+5. avoid visual redesign merely because persistence/content internals change.
+
+The current architecture and application decisions are documented in `docs/APPLICATION.md`; current programme state lives in `docs/PROJECT_STATUS.md`.
