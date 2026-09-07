@@ -10,6 +10,10 @@ import type { Dive } from '@poseidon/domain';
 
 import { curatedAreas, curatedSites, type CuratedSite } from '../data/content';
 
+export function normalizePlaceName(value: string): string {
+  return normalize(value);
+}
+
 function normalize(value: string): string {
   return value
     .normalize('NFKD')

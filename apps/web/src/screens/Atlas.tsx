@@ -13,6 +13,7 @@ import { AtlasMotif } from '../components/AtlasMotif';
 import { ACTION_PRIMARY, Card, EmptyState, SectionHeader, TopBar } from '../components/ui';
 import { useDives, useLifetimeStats, usePlaceSummaries } from '../data/hooks';
 import { formatDate, pluralize } from '../lib/format';
+import { normalizePlaceName } from '../lib/suggestions';
 
 export function Atlas() {
   const { data: places, loading } = usePlaceSummaries();
@@ -21,7 +22,8 @@ export function Atlas() {
 
   const entries = places ?? [];
   const lastDiveAt = (label: string): string | null => {
-    const match = (dives ?? []).find((dive) => dive.areaName === label);
+    const target = normalizePlaceName(label);
+    const match = (dives ?? []).find((dive) => normalizePlaceName(dive.areaName) === target);
     return match ? match.date : null;
   };
 

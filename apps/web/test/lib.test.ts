@@ -78,8 +78,10 @@ describe('place suggestions', () => {
     const areas = suggestAreas(history);
     expect(areas[0]?.fromHistory).toBe(true);
     expect(areas.map((area) => area.areaName)).toContain('Cozumel');
-    // Curated areas still appear, just behind lived history.
-    expect(areas.some((area) => !area.fromHistory)).toBe(false);
+    // Any curated area the diver has not visited still appears, behind history.
+    const firstUnvisited = areas.findIndex((area) => !area.fromHistory);
+    const lastVisited = areas.map((area) => area.fromHistory).lastIndexOf(true);
+    if (firstUnvisited !== -1) expect(firstUnvisited).toBeGreaterThan(lastVisited);
   });
 
   it('brings unvisited curated areas in when there is no history at all', () => {

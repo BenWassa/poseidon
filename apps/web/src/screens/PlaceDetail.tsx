@@ -11,6 +11,7 @@ import { CreatureTile } from '../components/CreatureTile';
 import { Card, EmptyState, SectionHeader, TopBar } from '../components/ui';
 import { useCollection, useCreatureIndex, useDives, usePlaceSummaries } from '../data/hooks';
 import { formatDate, formatDepth, formatDuration, pluralize } from '../lib/format';
+import { normalizePlaceName } from '../lib/suggestions';
 
 export function PlaceDetail() {
   const { placeKey } = useParams<{ placeKey: string }>();
@@ -23,10 +24,11 @@ export function PlaceDetail() {
   const decoded = placeKey ? decodeURIComponent(placeKey) : '';
   const place = (places ?? []).find((entry) => entry.key === decoded);
 
-  const placeDives = useMemo(
-    () => (place ? (dives ?? []).filter((dive) => dive.areaName === place.label) : []),
-    [dives, place],
-  );
+  const placeDives = useMemo(() => {
+    if (!place) return [];
+    const target = normalizePlaceName(place.label);
+    return (dives ?? []).filter((dive) => normalizePlaceName(dive.areaName) === target);
+  }, [dives, place]);
 
   const creatures = useMemo(() => {
     if (!place) return [];
