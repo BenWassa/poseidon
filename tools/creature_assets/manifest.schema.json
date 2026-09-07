@@ -1,0 +1,101 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://poseidon.local/schemas/creature-asset-manifest-v1.json",
+  "title": "Poseidon Creature Asset Manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "creatureId", "source", "artwork"],
+  "properties": {
+    "version": { "const": 1 },
+    "creatureId": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9._-]*$"
+    },
+    "source": {
+      "oneOf": [
+        { "type": "null" },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["format", "width", "height", "aspectRatio", "bytes", "sha256"],
+          "properties": {
+            "format": { "enum": ["png", "webp"] },
+            "width": { "type": "integer", "minimum": 1, "maximum": 4096 },
+            "height": { "type": "integer", "minimum": 1, "maximum": 4096 },
+            "aspectRatio": { "type": "number", "exclusiveMinimum": 0 },
+            "bytes": { "type": "integer", "minimum": 1, "maximum": 20971520 },
+            "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+          }
+        }
+      ]
+    },
+    "artwork": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "aspectRatio", "thumb", "gallery", "hero", "variants"],
+      "properties": {
+        "status": { "enum": ["curated", "placeholder", "missing"] },
+        "aspectRatio": { "const": 1.0 },
+        "thumb": { "type": ["string", "null"] },
+        "gallery": { "type": ["string", "null"] },
+        "hero": { "type": ["string", "null"] },
+        "variants": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "thumb": { "$ref": "#/$defs/variant" },
+            "gallery": { "$ref": "#/$defs/variant" },
+            "hero": { "$ref": "#/$defs/variant" }
+          }
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "artwork": { "properties": { "status": { "const": "curated" } } } } },
+      "then": {
+        "properties": {
+          "source": { "type": "object" },
+          "artwork": {
+            "properties": {
+              "thumb": { "type": "string" },
+              "gallery": { "type": "string" },
+              "hero": { "type": "string" },
+              "variants": { "required": ["thumb", "gallery", "hero"] }
+            }
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "source": { "type": "null" },
+          "artwork": {
+            "properties": {
+              "thumb": { "type": "null" },
+              "gallery": { "type": "null" },
+              "hero": { "type": "null" },
+              "variants": { "maxProperties": 0 }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "variant": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "width", "height", "aspectRatio", "bytes", "sha256", "mediaType"],
+      "properties": {
+        "path": { "type": "string", "pattern": "^[^/\\\\]+\\.webp$" },
+        "width": { "type": "integer", "minimum": 1 },
+        "height": { "type": "integer", "minimum": 1 },
+        "aspectRatio": { "const": 1.0 },
+        "bytes": { "type": "integer", "minimum": 1 },
+        "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "mediaType": { "const": "image/webp" }
+      }
+    }
+  }
+}
