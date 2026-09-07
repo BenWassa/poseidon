@@ -37,9 +37,32 @@ Poseidon should learn heavily from **Liebestraum** (`BenWassa/liebestraum`) as a
 
 Poseidon should **not** simply reskin Liebestraum. Its own visual language should be light, aquatic, saturated and alive: rich ocean blues, greens, coral tones and colourful marine-life artwork.
 
+## Domain foundation
+
+The framework-independent domain and persistence layer lives in `src/` and implements the `PoseidonStore` boundary from `docs/UI_DATA_CONTRACT.md`.
+
+- canonical dives + stable sightings;
+- user-created creatures;
+- local/offline persistence with versioned migrations;
+- derived stats, collection/history, discoveries and place summaries;
+- deterministic creature suggestions;
+- structured JSON export;
+- synthetic dev fixtures isolated behind the `poseidon-domain/fixtures` subpath.
+
+See [`docs/DOMAIN_ARCHITECTURE.md`](docs/DOMAIN_ARCHITECTURE.md) for persistence and consistency decisions.
+
+Development gate:
+
+```bash
+npm install
+npm run typecheck
+npm test
+```
+
 ## Read before building
 
 - [`PRODUCT.md`](PRODUCT.md) — durable product vision and principles
 - [`docs/PRD.md`](docs/PRD.md) — MVP and ideal-state product requirements
+- [`docs/UI_DATA_CONTRACT.md`](docs/UI_DATA_CONTRACT.md) — application-facing domain/store seam
 - [`docs/CONTENT_AND_ASSETS.md`](docs/CONTENT_AND_ASSETS.md) — marine-life/content and artwork strategy
 - [`AGENTS.md`](AGENTS.md) — implementation-agent operating context
