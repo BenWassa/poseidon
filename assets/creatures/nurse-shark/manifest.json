@@ -1,0 +1,48 @@
+{
+  "artwork": {
+    "aspectRatio": 1.0,
+    "gallery": "gallery.webp",
+    "hero": "hero.webp",
+    "status": "curated",
+    "thumb": "thumb.webp",
+    "variants": {
+      "gallery": {
+        "aspectRatio": 1.0,
+        "bytes": 14604,
+        "height": 512,
+        "mediaType": "image/webp",
+        "path": "gallery.webp",
+        "sha256": "952a71292efe0808c03fe0d4c755d90632fe3f89fff689e56d198f9c83efd3bd",
+        "width": 512
+      },
+      "hero": {
+        "aspectRatio": 1.0,
+        "bytes": 21156,
+        "height": 1024,
+        "mediaType": "image/webp",
+        "path": "hero.webp",
+        "sha256": "196fa1d24dcbcf8ff5cea71ed2dcdc9cf7ddca2e33e7b594abd63fdc5903e962",
+        "width": 1024
+      },
+      "thumb": {
+        "aspectRatio": 1.0,
+        "bytes": 4628,
+        "height": 192,
+        "mediaType": "image/webp",
+        "path": "thumb.webp",
+        "sha256": "a374a54b9baf131dc40c4ee7d14b18b5e8c1387ebc5339d6da5ec6c001598eb0",
+        "width": 192
+      }
+    }
+  },
+  "creatureId": "nurse-shark",
+  "source": {
+    "aspectRatio": 1.0,
+    "bytes": 39055,
+    "format": "png",
+    "height": 1024,
+    "sha256": "17f442927e0c8396dc6e8dce7391121306bb4bb727720043d3a1d3de3647cba4",
+    "width": 1024
+  },
+  "version": 1
+}

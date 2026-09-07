@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024" role="img" aria-label="Southern stingray">
+  <title>Southern stingray</title>
+  <defs>
+    <linearGradient id="g-sst" x1="0" y1="0" x2="0.2" y2="1">
+      <stop offset="0" stop-color="#B0A183"/>
+      <stop offset="1" stop-color="#7A6B52"/>
+    </linearGradient>
+    <clipPath id="clip-sst"><path d="M 512 248 C 594 254 660 294 710 352 C 798 394 878 452 920 518 C 862 582 774 630 684 660 C 622 690 570 710 512 716 C 454 710 402 690 340 660 C 250 630 162 582 104 518 C 146 452 226 394 314 352 C 364 294 430 254 512 248 Z"/></clipPath>
+  </defs>
+  <g>
+    <path d="M 486 690 C 474 772 490 872 512 964 C 534 872 550 772 538 690 Z" fill="#7A6B52"/>
+    <path d="M 512 248 C 594 254 660 294 710 352 C 798 394 878 452 920 518 C 862 582 774 630 684 660 C 622 690 570 710 512 716 C 454 710 402 690 340 660 C 250 630 162 582 104 518 C 146 452 226 394 314 352 C 364 294 430 254 512 248 Z" fill="url(#g-sst)"/>
+    <g clip-path="url(#clip-sst)">
+      <path d="M 512 292 C 620 300 730 356 830 440 C 720 396 616 372 512 368 C 408 372 304 396 194 440 C 294 356 404 300 512 292 Z" fill="#FFFFFF" opacity="0.24"/><path d="M 512 604 C 640 604 760 588 880 552 C 800 626 700 668 600 692 C 570 706 542 714 512 718 C 482 714 454 706 424 692 C 324 668 224 626 144 552 C 264 588 384 604 512 604 Z" fill="#0B2F3E" opacity="0.12"/>
+        <ellipse cx="512" cy="452" rx="118" ry="150" fill="#C6B79A" opacity="0.22"/>
+      <path d="M 120 512 C 300 470 720 470 904 512 C 720 500 300 500 120 512 Z" fill="#0B2F3E" opacity="0.05"/>
+    </g>
+    <path d="M 472 288 C 472 258 552 258 552 288 C 552 308 472 308 472 288 Z" fill="#EFE7D5"/>
+    
+    <circle cx="452" cy="316" r="17" fill="#FFFFFF"/>
+    <circle cx="454.04" cy="316.68" r="9.86" fill="#0B2F3E"/>
+    <circle cx="459.82" cy="308.86" r="3.4000000000000004" fill="#FFFFFF" opacity="0.95"/>
+  
+    
+    <circle cx="574" cy="316" r="17" fill="#FFFFFF"/>
+    <circle cx="576.04" cy="316.68" r="9.86" fill="#0B2F3E"/>
+    <circle cx="581.82" cy="308.86" r="3.4000000000000004" fill="#FFFFFF" opacity="0.95"/>
+  
+  </g>
+</svg>

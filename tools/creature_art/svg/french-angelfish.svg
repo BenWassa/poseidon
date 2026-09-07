@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024" role="img" aria-label="French angelfish">
+  <title>French angelfish</title>
+  <defs>
+    <linearGradient id="g-faf" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3B4048"/>
+      <stop offset="1" stop-color="#1C2027"/>
+    </linearGradient>
+    <clipPath id="clip-faf"><path d="M 296 512 C 296 356 412 250 566 250 C 716 250 826 356 826 512 C 826 668 716 776 566 776 C 412 776 296 668 296 512 Z"/></clipPath>
+  </defs>
+  <g>
+    <g fill="#22262C" opacity="1"><path d="M 330 512 C 286 474 240 436 204 392 C 228 466 228 558 204 632 C 240 588 286 550 330 512 Z"/><path d="M 420 404 C 498 288 630 256 730 306 C 638 332 512 374 452 438 Z"/><path d="M 428 618 C 468 708 546 744 618 728 C 552 698 490 658 456 620 Z"/></g>
+    <path d="M 296 512 C 296 356 412 250 566 250 C 716 250 826 356 826 512 C 826 668 716 776 566 776 C 412 776 296 668 296 512 Z" fill="url(#g-faf)"/>
+    <g clip-path="url(#clip-faf)">
+      <circle cx="400" cy="420" r="16" fill="#F4C64A" opacity="0.85"/><circle cx="470" cy="372" r="14.4" fill="#F4C64A" opacity="0.85"/><circle cx="540" cy="420" r="16" fill="#F4C64A" opacity="0.85"/><circle cx="612" cy="380" r="13.6" fill="#F4C64A" opacity="0.85"/><circle cx="676" cy="440" r="14.4" fill="#F4C64A" opacity="0.85"/><circle cx="400" cy="520" r="15.2" fill="#F4C64A" opacity="0.85"/><circle cx="470" cy="476" r="14.4" fill="#F4C64A" opacity="0.85"/><circle cx="540" cy="520" r="16" fill="#F4C64A" opacity="0.85"/><circle cx="612" cy="480" r="13.6" fill="#F4C64A" opacity="0.85"/><circle cx="676" cy="540" r="14.4" fill="#F4C64A" opacity="0.85"/><circle cx="430" cy="620" r="14.4" fill="#F4C64A" opacity="0.85"/><circle cx="500" cy="580" r="13.6" fill="#F4C64A" opacity="0.85"/><circle cx="570" cy="620" r="14.4" fill="#F4C64A" opacity="0.85"/><circle cx="640" cy="590" r="12.8" fill="#F4C64A" opacity="0.85"/><circle cx="720" cy="500" r="12.8" fill="#F4C64A" opacity="0.85"/><circle cx="360" cy="470" r="12.8" fill="#F4C64A" opacity="0.85"/><circle cx="360" cy="570" r="12" fill="#F4C64A" opacity="0.85"/><circle cx="500" cy="680" r="12.8" fill="#F4C64A" opacity="0.85"/><circle cx="600" cy="680" r="12" fill="#F4C64A" opacity="0.85"/>
+    </g>
+    <g fill="#22262C" opacity="1"><path d="M 626 548 C 600 628 616 684 662 712 C 694 664 698 594 678 548 Z"/></g>
+    <path d="M 816 480 C 828 490 830 500 828 508" fill="none" stroke="#0B2F3E" stroke-width="10" stroke-linecap="round" opacity="0.55"/>
+    
+    <circle cx="760" cy="424" r="24" fill="#FFFFFF"/>
+    <circle cx="762.88" cy="424.96" r="13.919999999999998" fill="#0B2F3E"/>
+    <circle cx="771.04" cy="413.92" r="4.800000000000001" fill="#FFFFFF" opacity="0.95"/>
+  
+    <path d="M 300 470 C 340 460 372 470 388 492 C 348 486 320 490 300 502 Z" fill="#F4C64A" opacity="0.9"/>
+  </g>
+</svg>

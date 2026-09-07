@@ -1,0 +1,132 @@
+@import 'tailwindcss';
+
+/**
+ * Poseidon design tokens.
+ *
+ * The palette is inherited from the external visual prototype, which
+ * established the product's aquatic identity: a bright light-mode canvas, deep
+ * ocean teal type, a mid-blue primary action and coral as the interaction
+ * accent. The roles below are named for the product rather than for the hex
+ * values so screens read as intent.
+ */
+@theme {
+  --color-canvas: #f2fbfc; /* app background */
+  --color-tide: #d0ebef; /* frame outside the phone column on wide screens */
+  --color-surface: #ffffff; /* cards */
+  --color-foam: #f9fdfd; /* sub-surface inside a card */
+  --color-shallows: #e8f5f8; /* pale fills and hairlines */
+  --color-ocean: #084c61; /* primary ink */
+  --color-abyss: #05323f; /* strongest ink */
+  --color-marine: #118ab2; /* primary action */
+  --color-lagoon: #17c3b2; /* mint supporting accent */
+  --color-reef: #06d6a0; /* positive/confirmation */
+  --color-coral: #ff6b6b; /* interaction + selection accent */
+  --color-coral-soft: #fff0f0;
+  --color-sand: #f2b21e; /* highlight-creature accent */
+
+  --radius-card: 2rem;
+  --radius-field: 1.5rem;
+  --radius-tile: 1.75rem;
+
+  --font-sans:
+    ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+
+  --shadow-card: 0 1px 2px rgb(8 76 97 / 0.04), 0 8px 24px -16px rgb(8 76 97 / 0.28);
+  --shadow-float: 0 12px 32px -12px rgb(255 107 107 / 0.5);
+  --shadow-lift: 0 18px 40px -22px rgb(17 138 178 / 0.55);
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    margin: 0;
+    background: var(--color-tide);
+    color: var(--color-ocean);
+    font-family: var(--font-sans);
+    /* Logging happens on a boat; never bounce the whole document. */
+    overscroll-behavior-y: none;
+  }
+
+  /* Selection and focus must never be communicated by colour alone. */
+  :focus-visible {
+    outline: 3px solid var(--color-marine);
+    outline-offset: 2px;
+    border-radius: 0.75rem;
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    font: inherit;
+    color: inherit;
+  }
+}
+
+@layer utilities {
+  /* Horizontal rails: scrollable, but without a scrollbar eating the rhythm. */
+  .rail {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .rail::-webkit-scrollbar {
+    display: none;
+  }
+
+  .safe-bottom {
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+  }
+
+  .safe-top {
+    padding-top: max(1.25rem, env(safe-area-inset-top));
+  }
+}
+
+/*
+ * Motion is decoration here, never information. Everything the app animates
+ * also reads correctly with animation switched off.
+ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@keyframes poseidon-rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes poseidon-pop {
+  from {
+    transform: scale(0.6);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.animate-rise {
+  animation: poseidon-rise 380ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-pop {
+  animation: poseidon-pop 200ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}

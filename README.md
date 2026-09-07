@@ -37,9 +37,30 @@ Poseidon should learn heavily from **Liebestraum** (`BenWassa/liebestraum`) as a
 
 Poseidon should **not** simply reskin Liebestraum. Its own visual language should be light, aquatic, saturated and alive: rich ocean blues, greens, coral tones and colourful marine-life artwork.
 
-## Domain foundation
+## Repository shape
 
-The framework-independent domain and persistence layer lives in `src/` and implements the `PoseidonStore` boundary from `docs/UI_DATA_CONTRACT.md`.
+```text
+apps/web/            the mobile-first Poseidon application
+packages/domain/     framework-independent domain, persistence, derived history, export
+content/             sourced Mexican Caribbean creature/site content pack
+assets/creatures/    generated creature artwork variants and manifests
+tools/               content validation, asset pipeline, creature art, app icons
+docs/evidence/       rendered screenshots of the production build at phone size
+```
+
+### Application
+
+The application implements Home, Log Dive, Journal, Dive Detail, Collection,
+Creature Detail, Atlas/Places and a secondary Data & backup surface. It is
+light-mode aquatic, phone-first, works with no network, and depends on no remote
+imagery. See [`docs/APPLICATION.md`](docs/APPLICATION.md) for the architecture
+and the deliberate departures from the external visual prototype.
+
+### Domain foundation
+
+The framework-independent domain and persistence layer lives in
+`packages/domain/` and implements the `PoseidonStore` boundary from
+[`docs/UI_DATA_CONTRACT.md`](docs/UI_DATA_CONTRACT.md).
 
 - canonical dives + stable sightings;
 - user-created creatures;
@@ -47,16 +68,30 @@ The framework-independent domain and persistence layer lives in `src/` and imple
 - derived stats, collection/history, discoveries and place summaries;
 - deterministic creature suggestions;
 - structured JSON export;
-- synthetic dev fixtures isolated behind the `poseidon-domain/fixtures` subpath.
+- synthetic dev fixtures isolated behind the `@poseidon/domain/fixtures` subpath.
 
-See [`docs/DOMAIN_ARCHITECTURE.md`](docs/DOMAIN_ARCHITECTURE.md) for persistence and consistency decisions.
+See [`docs/DOMAIN_ARCHITECTURE.md`](docs/DOMAIN_ARCHITECTURE.md) for persistence
+and consistency decisions.
 
-Development gate:
+### Development
 
 ```bash
 npm install
-npm run typecheck
-npm test
+npm run dev     # the application
+npm run gate    # content + asset validation, typecheck, tests, production build
+```
+
+Regenerate creature artwork or app icons after changing their sources:
+
+```bash
+node tools/creature_art/build.mjs
+node tools/brand/build.mjs
+```
+
+Recapture the rendered evidence in `docs/evidence/`:
+
+```bash
+npm run build && npm run e2e --workspace @poseidon/web
 ```
 
 ## Read before building
@@ -65,4 +100,5 @@ npm test
 - [`docs/PRD.md`](docs/PRD.md) — MVP and ideal-state product requirements
 - [`docs/UI_DATA_CONTRACT.md`](docs/UI_DATA_CONTRACT.md) — application-facing domain/store seam
 - [`docs/CONTENT_AND_ASSETS.md`](docs/CONTENT_AND_ASSETS.md) — marine-life/content and artwork strategy
+- [`docs/APPLICATION.md`](docs/APPLICATION.md) — application architecture and prototype departures
 - [`AGENTS.md`](AGENTS.md) — implementation-agent operating context

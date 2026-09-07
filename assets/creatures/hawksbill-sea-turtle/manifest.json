@@ -1,0 +1,48 @@
+{
+  "artwork": {
+    "aspectRatio": 1.0,
+    "gallery": "gallery.webp",
+    "hero": "hero.webp",
+    "status": "curated",
+    "thumb": "thumb.webp",
+    "variants": {
+      "gallery": {
+        "aspectRatio": 1.0,
+        "bytes": 15222,
+        "height": 512,
+        "mediaType": "image/webp",
+        "path": "gallery.webp",
+        "sha256": "cbd3c2f38abb09558be648bfda44a746a8e5aaec729fc87240f90acc9b6e3cd5",
+        "width": 512
+      },
+      "hero": {
+        "aspectRatio": 1.0,
+        "bytes": 25534,
+        "height": 1024,
+        "mediaType": "image/webp",
+        "path": "hero.webp",
+        "sha256": "68c8f3d3ab2bfcc2ad13ed1f8b75e91d8052e72c0a25f633344e56ad3b0a924c",
+        "width": 1024
+      },
+      "thumb": {
+        "aspectRatio": 1.0,
+        "bytes": 4736,
+        "height": 192,
+        "mediaType": "image/webp",
+        "path": "thumb.webp",
+        "sha256": "0ec88d7ef82aaac448cb8bd1b8ac5f1615ea70e7c3b0134cc582e17e2c70469c",
+        "width": 192
+      }
+    }
+  },
+  "creatureId": "hawksbill-sea-turtle",
+  "source": {
+    "aspectRatio": 1.0,
+    "bytes": 81951,
+    "format": "png",
+    "height": 1024,
+    "sha256": "d059f932ff43d5cf747981afb9b1f2bb6bbbb641225139fa7af8a06f3f494346",
+    "width": 1024
+  },
+  "version": 1
+}

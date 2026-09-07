@@ -1,0 +1,48 @@
+{
+  "artwork": {
+    "aspectRatio": 1.0,
+    "gallery": "gallery.webp",
+    "hero": "hero.webp",
+    "status": "curated",
+    "thumb": "thumb.webp",
+    "variants": {
+      "gallery": {
+        "aspectRatio": 1.0,
+        "bytes": 30248,
+        "height": 512,
+        "mediaType": "image/webp",
+        "path": "gallery.webp",
+        "sha256": "f163c1dc2ea7d65dbc05898716a8d0709f24b225734dba2bc9509448de2cfbc8",
+        "width": 512
+      },
+      "hero": {
+        "aspectRatio": 1.0,
+        "bytes": 42292,
+        "height": 1024,
+        "mediaType": "image/webp",
+        "path": "hero.webp",
+        "sha256": "6eaa13385192c3ac7abcc4c79ebc11da65841c3ddb37d88ecc8bb87716b0b916",
+        "width": 1024
+      },
+      "thumb": {
+        "aspectRatio": 1.0,
+        "bytes": 9094,
+        "height": 192,
+        "mediaType": "image/webp",
+        "path": "thumb.webp",
+        "sha256": "3f867c3b758b0e0141d49807d6bc615db7d14b6049805c68208f16cd019ddc9d",
+        "width": 192
+      }
+    }
+  },
+  "creatureId": "lionfish",
+  "source": {
+    "aspectRatio": 1.0,
+    "bytes": 77683,
+    "format": "png",
+    "height": 1024,
+    "sha256": "f9b8fd743000b6ff8b5cdd6b24e28131e9767973169dcbbd77c50bb2a397c39c",
+    "width": 1024
+  },
+  "version": 1
+}

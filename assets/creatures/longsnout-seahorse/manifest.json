@@ -1,0 +1,48 @@
+{
+  "artwork": {
+    "aspectRatio": 1.0,
+    "gallery": "gallery.webp",
+    "hero": "hero.webp",
+    "status": "curated",
+    "thumb": "thumb.webp",
+    "variants": {
+      "gallery": {
+        "aspectRatio": 1.0,
+        "bytes": 14464,
+        "height": 512,
+        "mediaType": "image/webp",
+        "path": "gallery.webp",
+        "sha256": "1cf84237857d6bdf6247d7606f998b2f926d75b8d85789d5e2b4e650ce4a9dab",
+        "width": 512
+      },
+      "hero": {
+        "aspectRatio": 1.0,
+        "bytes": 22120,
+        "height": 1024,
+        "mediaType": "image/webp",
+        "path": "hero.webp",
+        "sha256": "3f62d20687c6044ba37ca3e809c0d408dbfae0cd4ede073596649cc8f44baf98",
+        "width": 1024
+      },
+      "thumb": {
+        "aspectRatio": 1.0,
+        "bytes": 4584,
+        "height": 192,
+        "mediaType": "image/webp",
+        "path": "thumb.webp",
+        "sha256": "eef2839f5bc675b9e83ef3ea5033db1991d897c9d5a927a2d2ff32fba435f495",
+        "width": 192
+      }
+    }
+  },
+  "creatureId": "longsnout-seahorse",
+  "source": {
+    "aspectRatio": 1.0,
+    "bytes": 48719,
+    "format": "png",
+    "height": 1024,
+    "sha256": "eace47ca79a6c4a3592209cf4870bb0d18042807c30cc48cbba283fb09af001d",
+    "width": 1024
+  },
+  "version": 1
+}

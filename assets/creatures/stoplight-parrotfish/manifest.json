@@ -1,0 +1,48 @@
+{
+  "artwork": {
+    "aspectRatio": 1.0,
+    "gallery": "gallery.webp",
+    "hero": "hero.webp",
+    "status": "curated",
+    "thumb": "thumb.webp",
+    "variants": {
+      "gallery": {
+        "aspectRatio": 1.0,
+        "bytes": 10638,
+        "height": 512,
+        "mediaType": "image/webp",
+        "path": "gallery.webp",
+        "sha256": "8ba20a6cf2d8e8489fcf6cdea761c943547983fd3782626e16df7845bcff545f",
+        "width": 512
+      },
+      "hero": {
+        "aspectRatio": 1.0,
+        "bytes": 17058,
+        "height": 1024,
+        "mediaType": "image/webp",
+        "path": "hero.webp",
+        "sha256": "79677b3dcdb4dd33316f75a4e66de4e7f8fab076d70690a4704fca412fc50ef3",
+        "width": 1024
+      },
+      "thumb": {
+        "aspectRatio": 1.0,
+        "bytes": 3450,
+        "height": 192,
+        "mediaType": "image/webp",
+        "path": "thumb.webp",
+        "sha256": "0be4ecbbad26cae18af31bd6a7704861f70df34c0d0b84bd133bcc1cad298049",
+        "width": 192
+      }
+    }
+  },
+  "creatureId": "stoplight-parrotfish",
+  "source": {
+    "aspectRatio": 1.0,
+    "bytes": 41531,
+    "format": "png",
+    "height": 1024,
+    "sha256": "7991594d6070c886314d1690b4d35b3647dead740caddaab67a9be0a34052140",
+    "width": 1024
+  },
+  "version": 1
+}

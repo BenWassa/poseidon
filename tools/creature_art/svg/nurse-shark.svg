@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024" role="img" aria-label="Nurse shark">
+  <title>Nurse shark</title>
+  <defs>
+    <linearGradient id="g-ns" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#C29A6C"/>
+      <stop offset="1" stop-color="#8A6742"/>
+    </linearGradient>
+    <clipPath id="clip-ns"><path d="M 176 476 C 250 434 388 412 566 418 C 704 424 806 448 872 490 C 894 504 894 520 872 534 C 806 578 704 602 566 608 C 388 614 250 592 176 550 Z"/></clipPath>
+  </defs>
+  <g>
+    <path d="M 206 512 C 154 468 100 396 74 314 C 82 414 100 468 118 512 C 100 556 84 604 78 668 C 116 606 160 556 206 512 Z" fill="#9B7449"/>
+    <path d="M 300 452 C 348 358 428 316 496 322 C 452 366 412 414 388 462 Z" fill="#9B7449"/>
+    <path d="M 214 470 C 246 402 296 372 344 376 C 314 406 288 438 272 476 Z" fill="#9B7449"/>
+    <path d="M 250 560 C 292 622 344 646 392 640 C 358 610 326 580 306 552 Z" fill="#9B7449"/>
+    <path d="M 176 476 C 250 434 388 412 566 418 C 704 424 806 448 872 490 C 894 504 894 520 872 534 C 806 578 704 602 566 608 C 388 614 250 592 176 550 Z" fill="url(#g-ns)"/>
+    <g clip-path="url(#clip-ns)">
+      <path d="M 176 552 C 320 600 700 606 890 540 C 700 640 320 640 176 600 Z" fill="#FFFFFF" opacity="0.4"/>
+    </g>
+    <path d="M 604 546 C 596 634 626 690 686 716 C 716 662 714 588 690 542 Z" fill="#B08858"/>
+    <path d="M 828 566 C 856 574 878 570 890 558" fill="none" stroke="#0B2F3E" stroke-width="12" stroke-linecap="round" opacity="0.55"/>
+    <path d="M 848 590 C 852 626 838 650 816 656" fill="none" stroke="#C7A377" stroke-width="12" stroke-linecap="round"/>
+    <path d="M 880 586 C 888 618 876 640 856 648" fill="none" stroke="#C7A377" stroke-width="12" stroke-linecap="round"/>
+    
+    <circle cx="806" cy="486" r="18" fill="#FFFFFF"/>
+    <circle cx="808.16" cy="486.72" r="10.44" fill="#0B2F3E"/>
+    <circle cx="814.28" cy="478.44" r="3.6" fill="#FFFFFF" opacity="0.95"/>
+  
+  </g>
+</svg>

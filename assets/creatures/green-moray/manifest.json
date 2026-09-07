@@ -1,0 +1,48 @@
+{
+  "artwork": {
+    "aspectRatio": 1.0,
+    "gallery": "gallery.webp",
+    "hero": "hero.webp",
+    "status": "curated",
+    "thumb": "thumb.webp",
+    "variants": {
+      "gallery": {
+        "aspectRatio": 1.0,
+        "bytes": 15306,
+        "height": 512,
+        "mediaType": "image/webp",
+        "path": "gallery.webp",
+        "sha256": "6fb2f5dc037e6fcab7a51ce06f0808eaed986b169eecb3c46e5b8914451f167b",
+        "width": 512
+      },
+      "hero": {
+        "aspectRatio": 1.0,
+        "bytes": 21634,
+        "height": 1024,
+        "mediaType": "image/webp",
+        "path": "hero.webp",
+        "sha256": "e561a64a6fd76d5d42d4625d47876ee6d6d023980394b25ef05c1383b4e32626",
+        "width": 1024
+      },
+      "thumb": {
+        "aspectRatio": 1.0,
+        "bytes": 4964,
+        "height": 192,
+        "mediaType": "image/webp",
+        "path": "thumb.webp",
+        "sha256": "a10396353534a544960f58e0f526dd61ae37ebb25139b1fb0bec28164f7652fc",
+        "width": 192
+      }
+    }
+  },
+  "creatureId": "green-moray",
+  "source": {
+    "aspectRatio": 1.0,
+    "bytes": 54790,
+    "format": "png",
+    "height": 1024,
+    "sha256": "5bbbda29999975ea2effa98f78abba8182ceb59e835ddfd092af2de839f7542d",
+    "width": 1024
+  },
+  "version": 1
+}

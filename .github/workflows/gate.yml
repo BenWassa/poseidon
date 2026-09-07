@@ -1,0 +1,26 @@
+name: Repository gate
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Typecheck domain and application
+        run: npm run typecheck
+      - name: Test domain and application
+        run: npm test
+      - name: Production build
+        run: npm run build

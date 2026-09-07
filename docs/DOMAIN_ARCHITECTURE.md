@@ -145,7 +145,7 @@ This separates canonical personal records from replaceable catalogue enrichment 
 
 ## Fixture isolation
 
-`src/fixtures.ts` is exported only through the explicit `poseidon-domain/fixtures` subpath. Its data is synthetic and exists for contract/dev testing only. It must not be treated as sourced production marine content.
+`packages/domain/src/fixtures.ts` is exported only through the explicit `@poseidon/domain/fixtures` subpath. Its data is synthetic and exists for contract/dev testing only. It must not be treated as sourced production marine content.
 
 Production content belongs to the dedicated content stream (#4).
 

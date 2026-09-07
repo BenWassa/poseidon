@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024" role="img" aria-label="Caribbean reef squid">
+  <title>Caribbean reef squid</title>
+  <defs>
+    <linearGradient id="g-crs" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#8FE3DA"/>
+      <stop offset="1" stop-color="#3FA5A8"/>
+    </linearGradient>
+    <linearGradient id="a-crs" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#7ED2CD"/>
+      <stop offset="1" stop-color="#3C9BA0"/>
+    </linearGradient>
+  </defs>
+  <g>
+    <path d="M 258 300 C 200 274 156 274 132 300 C 168 336 214 356 264 360 Z" fill="#A9EDE6" opacity="0.9"/>
+    <path d="M 258 452 C 200 478 156 478 132 452 C 168 416 214 396 264 392 Z" fill="#A9EDE6" opacity="0.9"/>
+    <path d="M 244 376 C 244 296 330 240 452 240 C 574 240 662 296 662 376 C 662 456 574 512 452 512 C 330 512 244 456 244 376 Z" fill="url(#g-crs)"/>
+    <path d="M 300 320 C 360 288 500 282 590 306 C 500 306 372 314 306 340 Z" fill="#FFFFFF" opacity="0.4"/>
+    <path d="M 618 342 C 700 336 748 372 748 420 C 748 470 698 502 632 496 C 586 492 556 456 560 414 C 564 374 584 346 618 342 Z" fill="url(#a-crs)"/>
+    <g stroke="url(#a-crs)" fill="none" stroke-linecap="round">
+      <path d="M 700 470 C 776 508 830 566 864 640" stroke-width="46"/>
+      <path d="M 706 448 C 792 466 858 506 908 562" stroke-width="42"/>
+      <path d="M 700 500 C 752 560 780 630 786 706" stroke-width="40"/>
+      <path d="M 674 508 C 696 580 694 650 668 718" stroke-width="38"/>
+      <path d="M 640 506 C 632 578 606 640 566 690" stroke-width="34"/>
+      <path d="M 706 424 C 794 420 868 442 924 480" stroke-width="32"/>
+    </g>
+    <path d="M 866 632 C 908 638 930 664 922 694 C 912 726 876 734 852 712 Z" fill="#5FBDBE"/>
+    <path d="M 904 554 C 946 554 966 580 958 610 C 948 640 914 648 892 628 Z" fill="#5FBDBE"/>
+    <circle cx="360" cy="350" r="14" fill="#F2A6B8" opacity="0.55"/><circle cx="430" cy="320" r="11.200000000000001" fill="#F2A6B8" opacity="0.55"/><circle cx="500" cy="356" r="12.6" fill="#F2A6B8" opacity="0.55"/><circle cx="560" cy="326" r="9.799999999999999" fill="#F2A6B8" opacity="0.55"/><circle cx="400" cy="420" r="11.200000000000001" fill="#F2A6B8" opacity="0.55"/><circle cx="520" cy="430" r="10.5" fill="#F2A6B8" opacity="0.55"/>
+    
+    <circle cx="650" cy="404" r="30" fill="#FFFFFF"/>
+    <circle cx="653.6" cy="405.2" r="17.4" fill="#0E3A44"/>
+    <circle cx="663.8" cy="391.4" r="6" fill="#FFFFFF" opacity="0.95"/>
+  
+  </g>
+</svg>

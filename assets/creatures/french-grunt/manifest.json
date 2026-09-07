@@ -1,0 +1,48 @@
+{
+  "artwork": {
+    "aspectRatio": 1.0,
+    "gallery": "gallery.webp",
+    "hero": "hero.webp",
+    "status": "curated",
+    "thumb": "thumb.webp",
+    "variants": {
+      "gallery": {
+        "aspectRatio": 1.0,
+        "bytes": 12108,
+        "height": 512,
+        "mediaType": "image/webp",
+        "path": "gallery.webp",
+        "sha256": "e669807d35d637381b410138afff35bb7a4b03522c065af29688c0e6336942f1",
+        "width": 512
+      },
+      "hero": {
+        "aspectRatio": 1.0,
+        "bytes": 19442,
+        "height": 1024,
+        "mediaType": "image/webp",
+        "path": "hero.webp",
+        "sha256": "61372b50fb82aded5f2b2222b484d1a367d0c813c4a28222e75e5382c4d7f657",
+        "width": 1024
+      },
+      "thumb": {
+        "aspectRatio": 1.0,
+        "bytes": 3950,
+        "height": 192,
+        "mediaType": "image/webp",
+        "path": "thumb.webp",
+        "sha256": "3b6d9a0898ec920bd63ba1f4fcfdf51138af297d00b4218e3b0ea90960c91633",
+        "width": 192
+      }
+    }
+  },
+  "creatureId": "french-grunt",
+  "source": {
+    "aspectRatio": 1.0,
+    "bytes": 34037,
+    "format": "png",
+    "height": 1024,
+    "sha256": "13b8d16f3a8881e280a2856200660849973d6fb88be6cdfc0fd1262744c27d6a",
+    "width": 1024
+  },
+  "version": 1
+}

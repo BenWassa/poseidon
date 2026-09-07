@@ -1,0 +1,48 @@
+{
+  "artwork": {
+    "aspectRatio": 1.0,
+    "gallery": "gallery.webp",
+    "hero": "hero.webp",
+    "status": "curated",
+    "thumb": "thumb.webp",
+    "variants": {
+      "gallery": {
+        "aspectRatio": 1.0,
+        "bytes": 11446,
+        "height": 512,
+        "mediaType": "image/webp",
+        "path": "gallery.webp",
+        "sha256": "0f5e5dff127224a0d5af4a68c00277600c5f1b3f57ee7ef68008fbd3004376aa",
+        "width": 512
+      },
+      "hero": {
+        "aspectRatio": 1.0,
+        "bytes": 19360,
+        "height": 1024,
+        "mediaType": "image/webp",
+        "path": "hero.webp",
+        "sha256": "b45d65688d1d05359b438b3bdd145e05daae1791ad0df04df84d81f52f0c3bab",
+        "width": 1024
+      },
+      "thumb": {
+        "aspectRatio": 1.0,
+        "bytes": 3718,
+        "height": 192,
+        "mediaType": "image/webp",
+        "path": "thumb.webp",
+        "sha256": "1812242357c8d4f249309f582255b11aaae5da09e427790ccd4c104189f359c0",
+        "width": 192
+      }
+    }
+  },
+  "creatureId": "blue-tang",
+  "source": {
+    "aspectRatio": 1.0,
+    "bytes": 43859,
+    "format": "png",
+    "height": 1024,
+    "sha256": "979c72af9d671d621f1f9ef34231ab447b09dfd79f45f9c12fbc8f65a257bdb7",
+    "width": 1024
+  },
+  "version": 1
+}

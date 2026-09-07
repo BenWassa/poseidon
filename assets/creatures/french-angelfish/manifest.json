@@ -1,0 +1,48 @@
+{
+  "artwork": {
+    "aspectRatio": 1.0,
+    "gallery": "gallery.webp",
+    "hero": "hero.webp",
+    "status": "curated",
+    "thumb": "thumb.webp",
+    "variants": {
+      "gallery": {
+        "aspectRatio": 1.0,
+        "bytes": 10004,
+        "height": 512,
+        "mediaType": "image/webp",
+        "path": "gallery.webp",
+        "sha256": "151efc8b8cb73aa5224fda73ac3f280d557f0284a8d7c5a07d9edc91978171c2",
+        "width": 512
+      },
+      "hero": {
+        "aspectRatio": 1.0,
+        "bytes": 16884,
+        "height": 1024,
+        "mediaType": "image/webp",
+        "path": "hero.webp",
+        "sha256": "c74d7898123bebd0697d58cf7f610f91e92914686e53e5e0e26358c537355a1f",
+        "width": 1024
+      },
+      "thumb": {
+        "aspectRatio": 1.0,
+        "bytes": 3358,
+        "height": 192,
+        "mediaType": "image/webp",
+        "path": "thumb.webp",
+        "sha256": "08873dfbfb18fa9f390174db0062f3ecf3e0f60fc529afae85e677e00e7ee319",
+        "width": 192
+      }
+    }
+  },
+  "creatureId": "french-angelfish",
+  "source": {
+    "aspectRatio": 1.0,
+    "bytes": 46600,
+    "format": "png",
+    "height": 1024,
+    "sha256": "9620a3932aa59b932a8be807879be5a76d5b414a9a2db432474015a7fb921dfe",
+    "width": 1024
+  },
+  "version": 1
+}

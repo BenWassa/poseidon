@@ -1,0 +1,48 @@
+{
+  "artwork": {
+    "aspectRatio": 1.0,
+    "gallery": "gallery.webp",
+    "hero": "hero.webp",
+    "status": "curated",
+    "thumb": "thumb.webp",
+    "variants": {
+      "gallery": {
+        "aspectRatio": 1.0,
+        "bytes": 21154,
+        "height": 512,
+        "mediaType": "image/webp",
+        "path": "gallery.webp",
+        "sha256": "fa3514d1fdb04ce52e1d45a455d5fa41ccb4bafef8b143118ca3b12d502cc021",
+        "width": 512
+      },
+      "hero": {
+        "aspectRatio": 1.0,
+        "bytes": 33960,
+        "height": 1024,
+        "mediaType": "image/webp",
+        "path": "hero.webp",
+        "sha256": "060bd67124408ad6b2fa433431066cfe5eb4dd78e450e77a8c21bdbb2a23cecd",
+        "width": 1024
+      },
+      "thumb": {
+        "aspectRatio": 1.0,
+        "bytes": 6516,
+        "height": 192,
+        "mediaType": "image/webp",
+        "path": "thumb.webp",
+        "sha256": "ad7b17f15b9371423041584f27487bafc41c14023b8b350a273b327399c80fb6",
+        "width": 192
+      }
+    }
+  },
+  "creatureId": "porcupinefish",
+  "source": {
+    "aspectRatio": 1.0,
+    "bytes": 73141,
+    "format": "png",
+    "height": 1024,
+    "sha256": "41598a6554bd8a852c1910f85100f4951dffeb7ca19931208908f8b6e613d7d0",
+    "width": 1024
+  },
+  "version": 1
+}

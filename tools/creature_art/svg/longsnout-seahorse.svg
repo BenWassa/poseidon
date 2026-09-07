@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024" role="img" aria-label="Longsnout seahorse">
+  <title>Longsnout seahorse</title>
+  <defs>
+    <linearGradient id="g-lsh" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#F0A048"/>
+      <stop offset="1" stop-color="#B85E1C"/>
+    </linearGradient>
+  </defs>
+  <g>
+    <path d="M 618 322 C 540 288 452 322 436 400 C 420 476 470 522 506 568 C 548 622 556 686 520 728 C 486 766 428 764 402 730 C 380 700 394 662 428 654"
+      fill="none" stroke="url(#g-lsh)" stroke-width="108" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M 560 300 C 640 268 706 276 736 316 C 762 352 748 400 706 416 C 660 434 606 416 584 380 C 566 352 570 318 560 300 Z" fill="url(#g-lsh)"/>
+    <path d="M 726 316 C 790 322 852 344 892 376 C 846 396 782 396 726 380 Z" fill="#E88F32"/>
+    <path d="M 884 366 C 908 366 922 378 920 392 C 918 408 900 414 878 406 Z" fill="#D97F26"/>
+    <path d="M 604 264 C 610 216 640 188 676 190 C 660 216 650 244 652 272 Z" fill="#D97F26"/>
+    <path d="M 664 236 C 700 216 736 220 754 244 C 722 244 692 254 672 270 Z" fill="#D97F26"/>
+    <path d="M 470 470 C 542 492 580 552 570 620 C 532 586 494 550 466 520 Z" fill="#F8C078" opacity="0.9"/>
+    <g fill="none" stroke="#B85E1C" stroke-width="13" stroke-linecap="round" opacity="0.35">
+      <path d="M 452 358 C 490 334 542 336 574 362"/>
+      <path d="M 442 448 C 480 432 516 440 540 466"/>
+      <path d="M 486 542 C 522 532 552 546 568 574"/>
+      <path d="M 522 646 C 556 644 580 662 590 690"/>
+      <path d="M 428 716 C 456 700 484 708 498 730"/>
+    </g>
+    <circle cx="492" cy="372" r="13" fill="#FBD9A8" opacity="0.7"/><circle cx="472" cy="452" r="10.4" fill="#FBD9A8" opacity="0.7"/><circle cx="520" cy="528" r="10.4" fill="#FBD9A8" opacity="0.7"/><circle cx="546" cy="634" r="9.75" fill="#FBD9A8" opacity="0.7"/><circle cx="452" cy="712" r="9.1" fill="#FBD9A8" opacity="0.7"/><circle cx="640" cy="348" r="9.1" fill="#FBD9A8" opacity="0.7"/>
+    
+    <circle cx="668" cy="340" r="23" fill="#FFFFFF"/>
+    <circle cx="670.76" cy="340.92" r="13.34" fill="#0B2F3E"/>
+    <circle cx="678.58" cy="330.34" r="4.6000000000000005" fill="#FFFFFF" opacity="0.95"/>
+  
+  </g>
+</svg>

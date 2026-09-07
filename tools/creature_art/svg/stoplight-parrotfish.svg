@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024" role="img" aria-label="Stoplight parrotfish">
+  <title>Stoplight parrotfish</title>
+  <defs>
+    <linearGradient id="g-spf" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2E9E93"/>
+      <stop offset="1" stop-color="#17635F"/>
+    </linearGradient>
+    <clipPath id="clip-spf"><path d="M 258 512 C 292 384 418 314 566 318 C 694 322 786 394 822 486 C 832 510 830 520 816 538 C 782 628 690 702 566 706 C 418 710 292 640 258 512 Z"/></clipPath>
+  </defs>
+  <g>
+    <g fill="#1E7F78" opacity="1"><path d="M 330 512 C 286 474 240 436 204 392 C 228 466 228 558 204 632 C 240 588 286 550 330 512 Z"/><path d="M 452 380 C 530 306 640 288 716 322 C 640 340 530 372 476 414 Z"/><path d="M 452 640 C 500 706 570 730 630 720 C 570 694 512 668 480 640 Z"/></g>
+    <path d="M 258 512 C 292 384 418 314 566 318 C 694 322 786 394 822 486 C 832 510 830 520 816 538 C 782 628 690 702 566 706 C 418 710 292 640 258 512 Z" fill="url(#g-spf)"/>
+    <g clip-path="url(#clip-spf)">
+      <path d="M 258 560 C 420 700 700 700 820 560 C 760 720 380 730 258 620 Z" fill="#0F4B48" opacity="0.45"/>
+        <path d="M 700 330 C 800 360 830 470 812 540 C 862 450 812 350 700 330 Z" fill="#E4665C" opacity="0.85"/>
+        <path d="M 660 620 C 740 640 790 610 816 566 C 806 640 730 690 650 674 Z" fill="#F0B23E" opacity="0.85"/>
+        <circle cx="420" cy="420" r="14" fill="#8FE0D0" opacity="0.4"/><circle cx="500" cy="392" r="12.6" fill="#8FE0D0" opacity="0.4"/><circle cx="580" cy="420" r="12.6" fill="#8FE0D0" opacity="0.4"/><circle cx="460" cy="500" r="11.9" fill="#8FE0D0" opacity="0.4"/><circle cx="540" cy="480" r="11.200000000000001" fill="#8FE0D0" opacity="0.4"/><circle cx="620" cy="500" r="11.200000000000001" fill="#8FE0D0" opacity="0.4"/>
+    </g>
+    <g fill="#3FB6A6" opacity="1"><path d="M 626 548 C 600 628 616 684 662 712 C 694 664 698 594 678 548 Z"/></g>
+    
+    
+    <circle cx="742" cy="434" r="24" fill="#FFFFFF"/>
+    <circle cx="744.88" cy="434.96" r="13.919999999999998" fill="#0B2F3E"/>
+    <circle cx="753.04" cy="423.92" r="4.800000000000001" fill="#FFFFFF" opacity="0.95"/>
+  
+    <path d="M 806 470 C 846 470 866 490 866 512 C 866 534 846 554 806 554 C 790 534 790 490 806 470 Z" fill="#EFE4C8"/>
+        <path d="M 812 512 C 838 512 856 512 866 512" fill="none" stroke="#0B2F3E" stroke-width="9" stroke-linecap="round" opacity="0.55"/>
+        <path d="M 690 350 C 736 336 776 350 790 380 C 750 366 716 366 690 380 Z" fill="#E4665C" opacity="0.6"/>
+  </g>
+</svg>

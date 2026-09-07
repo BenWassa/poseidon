@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024" role="img" aria-label="Caribbean spiny lobster">
+  <title>Caribbean spiny lobster</title>
+  <defs>
+    <linearGradient id="g-csl" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#B85A44"/>
+      <stop offset="1" stop-color="#7B3226"/>
+    </linearGradient>
+  </defs>
+  <g>
+    <g stroke="#8E4534" fill="none" stroke-linecap="round" stroke-width="20">
+      <path d="M 700 400 C 812 320 900 240 946 152"/>
+      <path d="M 706 460 C 830 428 926 392 986 344"/>
+    </g>
+    <g stroke="#93503C" fill="none" stroke-linecap="round" stroke-width="22">
+      <path d="M 560 560 C 546 646 500 704 430 730"/>
+      <path d="M 460 560 C 440 650 392 706 320 728"/>
+      <path d="M 640 552 C 640 640 604 700 540 736"/>
+      <path d="M 560 400 C 542 320 494 268 428 246"/>
+      <path d="M 460 402 C 434 322 386 274 318 254"/>
+    </g>
+    <path d="M 574 336 C 690 336 764 412 764 480 C 764 548 690 606 574 606 C 486 606 430 548 430 476 C 430 404 486 336 574 336 Z" fill="url(#g-csl)"/>
+    <g fill="url(#g-csl)">
+      <path d="M 380 356 C 452 356 470 420 470 476 C 470 532 452 592 380 592 C 330 592 306 534 306 474 C 306 414 330 356 380 356 Z"/>
+      <path d="M 276 368 C 344 368 360 424 360 476 C 360 528 344 580 276 580 C 230 580 208 530 208 474 C 208 418 230 368 276 368 Z"/>
+    </g>
+    <path d="M 214 380 C 150 330 106 300 60 288 C 92 350 96 420 82 470 C 96 522 92 594 60 660 C 108 646 152 616 214 566 Z" fill="#A34E3B"/>
+    <g fill="#F3D9A8" opacity="0.85">
+      <circle cx="640" cy="410" r="20"/>
+      <circle cx="700" cy="470" r="18"/>
+      <circle cx="640" cy="540" r="20"/>
+      <circle cx="560" cy="400" r="16"/>
+      <circle cx="560" cy="556" r="16"/>
+      <circle cx="380" cy="404" r="17"/>
+      <circle cx="380" cy="548" r="17"/>
+      <circle cx="272" cy="410" r="15"/>
+      <circle cx="272" cy="542" r="15"/>
+    </g>
+    <path d="M 470 350 C 580 330 700 366 754 434 C 680 388 560 366 470 380 Z" fill="#FFFFFF" opacity="0.25"/>
+    
+    <circle cx="716" cy="424" r="20" fill="#FFFFFF"/>
+    <circle cx="718.4" cy="424.8" r="11.6" fill="#0B2F3E"/>
+    <circle cx="725.2" cy="415.6" r="4" fill="#FFFFFF" opacity="0.95"/>
+  
+    
+    <circle cx="716" cy="530" r="20" fill="#FFFFFF"/>
+    <circle cx="718.4" cy="530.8" r="11.6" fill="#0B2F3E"/>
+    <circle cx="725.2" cy="521.6" r="4" fill="#FFFFFF" opacity="0.95"/>
+  
+  </g>
+</svg>

@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024" role="img" aria-label="French grunt">
+  <title>French grunt</title>
+  <defs>
+    <linearGradient id="g-fg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#F5D97A"/>
+      <stop offset="1" stop-color="#D9A83C"/>
+    </linearGradient>
+    <clipPath id="clip-fg"><path d="M 268 512 C 300 392 424 316 574 322 C 700 328 792 406 824 512 C 792 618 700 696 574 702 C 424 708 300 632 268 512 Z"/></clipPath>
+  </defs>
+  <g>
+    <g fill="#F0C955" opacity="1"><path d="M 300 512 C 246 470 186 424 138 372 C 176 430 200 470 208 512 C 200 554 176 594 138 652 C 186 600 246 554 300 512 Z"/><path d="M 452 380 C 530 306 640 288 716 322 C 640 340 530 372 476 414 Z"/><path d="M 452 640 C 500 706 570 730 630 720 C 570 694 512 668 480 640 Z"/></g>
+    <path d="M 268 512 C 300 392 424 316 574 322 C 700 328 792 406 824 512 C 792 618 700 696 574 702 C 424 708 300 632 268 512 Z" fill="url(#g-fg)"/>
+    <g clip-path="url(#clip-fg)">
+      <rect x="150" y="352" width="780" height="20" fill="#5FA8D8" opacity="0.75"/><rect x="150" y="404" width="780" height="20" fill="#5FA8D8" opacity="0.75"/><rect x="150" y="456" width="780" height="20" fill="#5FA8D8" opacity="0.75"/><rect x="150" y="508" width="780" height="20" fill="#5FA8D8" opacity="0.75"/><rect x="150" y="560" width="780" height="20" fill="#5FA8D8" opacity="0.75"/><rect x="150" y="612" width="780" height="20" fill="#5FA8D8" opacity="0.75"/>
+        <path d="M 268 340 C 420 300 700 310 824 400 C 700 356 420 350 268 400 Z" fill="#8FC7E8" opacity="0.45"/>
+    </g>
+    <g fill="#F0C955" opacity="1"><path d="M 626 548 C 600 628 616 684 662 712 C 694 664 698 594 678 548 Z"/></g>
+    <path d="M 812 522 C 826 528 832 536 830 544" fill="none" stroke="#0B2F3E" stroke-width="10" stroke-linecap="round" opacity="0.55"/>
+    
+    <circle cx="758" cy="462" r="22" fill="#FFFFFF"/>
+    <circle cx="760.64" cy="462.88" r="12.76" fill="#0B2F3E"/>
+    <circle cx="768.12" cy="452.76" r="4.4" fill="#FFFFFF" opacity="0.95"/>
+  
+    
+  </g>
+</svg>

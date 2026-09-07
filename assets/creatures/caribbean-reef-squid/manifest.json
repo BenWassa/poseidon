@@ -1,0 +1,48 @@
+{
+  "artwork": {
+    "aspectRatio": 1.0,
+    "gallery": "gallery.webp",
+    "hero": "hero.webp",
+    "status": "curated",
+    "thumb": "thumb.webp",
+    "variants": {
+      "gallery": {
+        "aspectRatio": 1.0,
+        "bytes": 20162,
+        "height": 512,
+        "mediaType": "image/webp",
+        "path": "gallery.webp",
+        "sha256": "2a7ee33c9655c36d48f2ecacb87f15da59580c5bfc59ad5b7ae7e51556304d0b",
+        "width": 512
+      },
+      "hero": {
+        "aspectRatio": 1.0,
+        "bytes": 29560,
+        "height": 1024,
+        "mediaType": "image/webp",
+        "path": "hero.webp",
+        "sha256": "0c89527f5cd92ddd15f08d5d2d1c313112e390d3aef72c4eff7a2fc7b099d7dc",
+        "width": 1024
+      },
+      "thumb": {
+        "aspectRatio": 1.0,
+        "bytes": 6456,
+        "height": 192,
+        "mediaType": "image/webp",
+        "path": "thumb.webp",
+        "sha256": "f301ecd91891bddf834e01f55fbbc07fd583e58cecb01decd348a2bca1c26f8b",
+        "width": 192
+      }
+    }
+  },
+  "creatureId": "caribbean-reef-squid",
+  "source": {
+    "aspectRatio": 1.0,
+    "bytes": 61660,
+    "format": "png",
+    "height": 1024,
+    "sha256": "af8a44340931803a442a61fe05d7e1ed6cc3922b72dd2611013b902699b4ba01",
+    "width": 1024
+  },
+  "version": 1
+}
