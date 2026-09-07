@@ -1,0 +1,186 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://poseidon.local/schema/marine-content.schema.json",
+  "title": "Poseidon marine content files",
+  "oneOf": [
+    { "$ref": "#/$defs/manifestFile" },
+    { "$ref": "#/$defs/sitesFile" },
+    { "$ref": "#/$defs/creaturesFile" }
+  ],
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "relativeJsonPath": {
+      "type": "string",
+      "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))[A-Za-z0-9._/-]+\\.json$"
+    },
+    "nonEmptyString": {
+      "type": "string",
+      "minLength": 1
+    },
+    "stringArray": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/nonEmptyString" },
+      "uniqueItems": true
+    },
+    "idArray": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/id" },
+      "uniqueItems": true
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "title", "publisher", "kind", "url", "accessedOn", "note"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "title": { "$ref": "#/$defs/nonEmptyString" },
+        "publisher": { "$ref": "#/$defs/nonEmptyString" },
+        "kind": {
+          "type": "string",
+          "enum": ["government", "citizen-science", "reference"]
+        },
+        "url": { "type": "string", "format": "uri", "pattern": "^https://" },
+        "accessedOn": { "type": "string", "format": "date" },
+        "note": { "$ref": "#/$defs/nonEmptyString" }
+      }
+    },
+    "region": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "name", "countryCode"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "name": { "$ref": "#/$defs/nonEmptyString" },
+        "countryCode": { "type": "string", "pattern": "^[A-Z]{2}$" },
+        "parentRegionId": { "$ref": "#/$defs/id" }
+      }
+    },
+    "site": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "name", "aliases", "regionId", "recordType", "sourceIds"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "name": { "$ref": "#/$defs/nonEmptyString" },
+        "aliases": { "$ref": "#/$defs/stringArray" },
+        "regionId": { "$ref": "#/$defs/id" },
+        "recordType": { "type": "string", "enum": ["site", "area"] },
+        "sourceIds": {
+          "allOf": [
+            { "$ref": "#/$defs/idArray" },
+            { "minItems": 1 }
+          ]
+        }
+      }
+    },
+    "creature": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "commonName",
+        "aliases",
+        "category",
+        "regionIds",
+        "sourceIds"
+      ],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "commonName": { "$ref": "#/$defs/nonEmptyString" },
+        "aliases": { "$ref": "#/$defs/stringArray" },
+        "scientificName": { "$ref": "#/$defs/nonEmptyString" },
+        "category": { "$ref": "#/$defs/id" },
+        "regionIds": {
+          "allOf": [
+            { "$ref": "#/$defs/idArray" },
+            { "minItems": 1 }
+          ]
+        },
+        "sourceIds": {
+          "allOf": [
+            { "$ref": "#/$defs/idArray" },
+            { "minItems": 1 }
+          ]
+        }
+      }
+    },
+    "manifestFile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "schemaVersion",
+        "packId",
+        "name",
+        "lastReviewed",
+        "description",
+        "sources",
+        "regions",
+        "siteFiles",
+        "creatureFiles"
+      ],
+      "properties": {
+        "kind": { "const": "manifest" },
+        "schemaVersion": { "type": "integer", "const": 1 },
+        "packId": { "$ref": "#/$defs/id" },
+        "name": { "$ref": "#/$defs/nonEmptyString" },
+        "lastReviewed": { "type": "string", "format": "date" },
+        "description": { "$ref": "#/$defs/nonEmptyString" },
+        "sources": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/source" }
+        },
+        "regions": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/region" }
+        },
+        "siteFiles": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/relativeJsonPath" },
+          "uniqueItems": true
+        },
+        "creatureFiles": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/relativeJsonPath" },
+          "uniqueItems": true
+        }
+      }
+    },
+    "sitesFile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "schemaVersion", "packId", "sites"],
+      "properties": {
+        "kind": { "const": "sites" },
+        "schemaVersion": { "type": "integer", "const": 1 },
+        "packId": { "$ref": "#/$defs/id" },
+        "sites": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/site" }
+        }
+      }
+    },
+    "creaturesFile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "schemaVersion", "packId", "creatures"],
+      "properties": {
+        "kind": { "const": "creatures" },
+        "schemaVersion": { "type": "integer", "const": 1 },
+        "packId": { "$ref": "#/$defs/id" },
+        "creatures": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/creature" }
+        }
+      }
+    }
+  }
+}

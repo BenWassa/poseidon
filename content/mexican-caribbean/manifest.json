@@ -1,0 +1,25 @@
+{
+  "kind": "manifest",
+  "schemaVersion": 1,
+  "packId": "mexican-caribbean-starter-v1",
+  "name": "Mexican Caribbean starter content pack",
+  "lastReviewed": "2026-09-06",
+  "description": "Curated recreational-diving starter content for Cozumel, Playa del Carmen and the wider Mexican Caribbean. It is intentionally not a complete biological catalogue.",
+  "sources": [
+    {"id":"conanp-cozumel-park","title":"Parque Nacional Arrecifes de Cozumel","publisher":"Comisión Nacional de Áreas Naturales Protegidas (CONANP)","kind":"government","url":"https://descubreanp.conanp.gob.mx/es/conanp/ANP?suri=4","accessedOn":"2026-09-06","note":"Official protected-area overview used for Cozumel marine-life plausibility and representative species. It is not used to infer encounter rarity."},
+    {"id":"conanp-cozumel-sites","title":"Estrategia de conservación para arrecifes saludables de Cozumel","publisher":"Comisión Nacional de Áreas Naturales Protegidas (CONANP)","kind":"government","url":"https://www.gob.mx/conanp/articulos/estrategia-de-conservacion-para-arrecifes-saludables-de-cozumel","accessedOn":"2026-09-06","note":"Used for recreational dive-site names and dive/snorkel classification. The 2019 article's temporary access restrictions are historical and are not represented as current operating status."},
+    {"id":"reef-cozumel","title":"REEF Geographic Zone Report — Isla Cozumel (zone 5402)","publisher":"Reef Environmental Education Foundation (REEF)","kind":"citizen-science","url":"https://www.reef.org/db/reports/geo?region_code=TWA&zones=5402","accessedOn":"2026-09-06","note":"Current regional survey report used for observed marine-life presence and recreational site naming. REEF sighting-frequency/density fields are deliberately not stored or translated into rarity."},
+    {"id":"reef-playa","title":"REEF Geographic Zone Report — Puerto Morelos south including Playa del Carmen (zone 5403)","publisher":"Reef Environmental Education Foundation (REEF)","kind":"citizen-science","url":"https://www.reef.org/db/reports/geo?region_code=TWA&zones=5403","accessedOn":"2026-09-06","note":"Current Riviera Maya/Playa regional survey report used for observed marine-life presence and recreational site naming. REEF sighting-frequency/density fields are deliberately not stored or translated into rarity."},
+    {"id":"cephalopod-reef-squid","title":"Sepioteuthis sepioidea — Caribbean Reef Squid","publisher":"The Cephalopod Page","kind":"reference","url":"https://thecephalopodpage.org/MarineInvertebrateZoology/Sepioteuthissepioidea.html","accessedOn":"2026-09-06","note":"Used for Caribbean reef squid canonicalization and Caribbean range, including Cozumel."},
+    {"id":"adw-spiny-lobster","title":"Panulirus argus — Caribbean spiny lobster","publisher":"Animal Diversity Web, University of Michigan Museum of Zoology","kind":"reference","url":"https://animaldiversity.org/accounts/Panulirus_argus/","accessedOn":"2026-09-06","note":"Used for canonicalization and broad Caribbean habitat/range plausibility."},
+    {"id":"adw-reef-octopus","title":"Octopus briareus — Caribbean reef octopus","publisher":"Animal Diversity Web, University of Michigan Museum of Zoology","kind":"reference","url":"https://animaldiversity.org/accounts/Octopus_briareus/","accessedOn":"2026-09-06","note":"Used for canonicalization and broad Caribbean reef habitat/range plausibility."},
+    {"id":"stri-longsnout-seahorse","title":"Hippocampus reidi — Longsnout seahorse","publisher":"Smithsonian Tropical Research Institute — Shorefishes of the Greater Caribbean","kind":"reference","url":"https://biogeodb.stri.si.edu/caribbean/en/thefishes/species/3388","accessedOn":"2026-09-06","note":"Used for canonicalization and Greater Caribbean range/habitat plausibility."}
+  ],
+  "regions": [
+    {"id":"mx-caribbean","name":"Mexican Caribbean","countryCode":"MX"},
+    {"id":"mx-caribbean-cozumel","name":"Cozumel","countryCode":"MX","parentRegionId":"mx-caribbean"},
+    {"id":"mx-caribbean-playa-del-carmen","name":"Playa del Carmen","countryCode":"MX","parentRegionId":"mx-caribbean"}
+  ],
+  "siteFiles": ["sites.json"],
+  "creatureFiles": ["creatures/01.json","creatures/02.json","creatures/03.json","creatures/04.json"]
+}

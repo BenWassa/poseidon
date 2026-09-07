@@ -1,0 +1,31 @@
+{
+  "kind": "sites",
+  "schemaVersion": 1,
+  "packId": "mexican-caribbean-starter-v1",
+  "sites": [
+    {"id":"cozumel-c53","name":"C-53 Felipe Xicoténcatl","aliases":["C-53 wreck","Pecio C-53","Felipe Xicotencatl"],"regionId":"mx-caribbean-cozumel","recordType":"site","sourceIds":["conanp-cozumel-sites","reef-cozumel"]},
+    {"id":"cozumel-colombia","name":"Colombia Reef","aliases":["Colombia Wall","Colombia Deep","Colombia Pinnacles"],"regionId":"mx-caribbean-cozumel","recordType":"area","sourceIds":["reef-cozumel"]},
+    {"id":"cozumel-dalila","name":"Dalila","aliases":[],"regionId":"mx-caribbean-cozumel","recordType":"site","sourceIds":["conanp-cozumel-sites"]},
+    {"id":"cozumel-la-francesa","name":"La Francesa","aliases":[],"regionId":"mx-caribbean-cozumel","recordType":"site","sourceIds":["conanp-cozumel-sites"]},
+    {"id":"cozumel-palancar-caves","name":"Palancar Caves","aliases":[],"regionId":"mx-caribbean-cozumel","recordType":"site","sourceIds":["reef-cozumel"]},
+    {"id":"cozumel-palancar-gardens","name":"Palancar Gardens","aliases":["Palancar Shallows","Palancar Shallows and Gardens"],"regionId":"mx-caribbean-cozumel","recordType":"area","sourceIds":["reef-cozumel"]},
+    {"id":"cozumel-palancar-horseshoe","name":"Palancar Horseshoe","aliases":[],"regionId":"mx-caribbean-cozumel","recordType":"site","sourceIds":["reef-cozumel"]},
+    {"id":"cozumel-paraiso","name":"Paraíso","aliases":["Paraiso","Paradise Reef"],"regionId":"mx-caribbean-cozumel","recordType":"site","sourceIds":["conanp-cozumel-sites","reef-cozumel"]},
+    {"id":"cozumel-paso-del-cedral","name":"Paso del Cedral","aliases":["Cedar Pass"],"regionId":"mx-caribbean-cozumel","recordType":"site","sourceIds":["conanp-cozumel-sites","reef-cozumel"]},
+    {"id":"cozumel-punta-tunich","name":"Punta Tunich","aliases":[],"regionId":"mx-caribbean-cozumel","recordType":"site","sourceIds":["conanp-cozumel-sites","reef-cozumel"]},
+    {"id":"cozumel-san-francisco","name":"San Francisco Wall","aliases":["San Francisco"],"regionId":"mx-caribbean-cozumel","recordType":"site","sourceIds":["conanp-cozumel-sites","reef-cozumel"]},
+    {"id":"cozumel-santa-rosa","name":"Santa Rosa Wall","aliases":["Santa Rosa"],"regionId":"mx-caribbean-cozumel","recordType":"site","sourceIds":["conanp-cozumel-sites","reef-cozumel"]},
+    {"id":"cozumel-tormentos","name":"Tormentos","aliases":[],"regionId":"mx-caribbean-cozumel","recordType":"site","sourceIds":["conanp-cozumel-sites","reef-cozumel"]},
+    {"id":"cozumel-yucab","name":"Yucab Reef","aliases":["Yucab"],"regionId":"mx-caribbean-cozumel","recordType":"site","sourceIds":["conanp-cozumel-sites","reef-cozumel"]},
+    {"id":"playa-barracuda-reef","name":"Barracuda Reef","aliases":[],"regionId":"mx-caribbean-playa-del-carmen","recordType":"site","sourceIds":["reef-playa"]},
+    {"id":"playa-cerebros","name":"Cerebros","aliases":[],"regionId":"mx-caribbean-playa-del-carmen","recordType":"site","sourceIds":["reef-playa"]},
+    {"id":"playa-chunzumblul","name":"Chunzumblul","aliases":[],"regionId":"mx-caribbean-playa-del-carmen","recordType":"site","sourceIds":["reef-playa"]},
+    {"id":"playa-mama-vina","name":"Mama Viña Wreck","aliases":["Mama Vina Wreck","Mama Viña"],"regionId":"mx-caribbean-playa-del-carmen","recordType":"site","sourceIds":["reef-playa"]},
+    {"id":"playa-moc-che","name":"Moc-Che","aliases":["Moc Che"],"regionId":"mx-caribbean-playa-del-carmen","recordType":"site","sourceIds":["reef-playa"]},
+    {"id":"playa-moc-che-deep","name":"Moc-Che Deep","aliases":["Profunda Moc-Che","Moc-Che Profunda"],"regionId":"mx-caribbean-playa-del-carmen","recordType":"site","sourceIds":["reef-playa"]},
+    {"id":"playa-paradise-deep","name":"Paradise Deep","aliases":[],"regionId":"mx-caribbean-playa-del-carmen","recordType":"site","sourceIds":["reef-playa"]},
+    {"id":"playa-pared-verde","name":"Pared Verde","aliases":["Green Wall"],"regionId":"mx-caribbean-playa-del-carmen","recordType":"site","sourceIds":["reef-playa"]},
+    {"id":"playa-sabalos","name":"Sabalos Reef","aliases":["Sábalos","Tarpon Reef","Arrecife Sabalos"],"regionId":"mx-caribbean-playa-del-carmen","recordType":"site","sourceIds":["reef-playa"]},
+    {"id":"playa-tortugas","name":"Tortugas","aliases":[],"regionId":"mx-caribbean-playa-del-carmen","recordType":"site","sourceIds":["reef-playa"]}
+  ]
+}

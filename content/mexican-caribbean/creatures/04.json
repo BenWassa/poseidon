@@ -1,0 +1,18 @@
+{
+  "kind": "creatures",
+  "schemaVersion": 1,
+  "packId": "mexican-caribbean-starter-v1",
+  "creatures": [
+    {"id":"southern-stingray","commonName":"Southern stingray","aliases":["Southern sting ray"],"scientificName":"Hypanus americanus","category":"ray","regionIds":["mx-caribbean","mx-caribbean-playa-del-carmen"],"sourceIds":["reef-playa"]},
+    {"id":"spanish-hogfish","commonName":"Spanish hogfish","aliases":[],"scientificName":"Bodianus rufus","category":"reef-fish","regionIds":["mx-caribbean","mx-caribbean-cozumel","mx-caribbean-playa-del-carmen"],"sourceIds":["reef-cozumel","reef-playa"]},
+    {"id":"splendid-toadfish","commonName":"Splendid toadfish","aliases":["Cozumel splendid toadfish","Pez sapo espléndido"],"scientificName":"Sanopus splendidus","category":"reef-fish","regionIds":["mx-caribbean","mx-caribbean-cozumel"],"sourceIds":["conanp-cozumel-park","reef-cozumel"]},
+    {"id":"spotted-eagle-ray","commonName":"Spotted eagle ray","aliases":["Eagle ray"],"scientificName":"Aetobatus narinari","category":"ray","regionIds":["mx-caribbean","mx-caribbean-cozumel","mx-caribbean-playa-del-carmen"],"sourceIds":["conanp-cozumel-park","reef-cozumel","reef-playa"]},
+    {"id":"spotted-moray","commonName":"Spotted moray","aliases":["Spotted moray eel"],"scientificName":"Gymnothorax moringa","category":"eel","regionIds":["mx-caribbean","mx-caribbean-cozumel","mx-caribbean-playa-del-carmen"],"sourceIds":["reef-cozumel","reef-playa"]},
+    {"id":"spotted-trunkfish","commonName":"Spotted trunkfish","aliases":[],"scientificName":"Lactophrys bicaudalis","category":"reef-fish","regionIds":["mx-caribbean","mx-caribbean-cozumel","mx-caribbean-playa-del-carmen"],"sourceIds":["reef-cozumel","reef-playa"]},
+    {"id":"stoplight-parrotfish","commonName":"Stoplight parrotfish","aliases":[],"scientificName":"Sparisoma viride","category":"reef-fish","regionIds":["mx-caribbean","mx-caribbean-cozumel","mx-caribbean-playa-del-carmen"],"sourceIds":["reef-cozumel","reef-playa"]},
+    {"id":"trumpetfish","commonName":"Trumpetfish","aliases":["Atlantic trumpetfish"],"scientificName":"Aulostomus maculatus","category":"reef-fish","regionIds":["mx-caribbean","mx-caribbean-playa-del-carmen"],"sourceIds":["reef-playa"]},
+    {"id":"yellowhead-wrasse","commonName":"Yellowhead wrasse","aliases":[],"scientificName":"Halichoeres garnoti","category":"reef-fish","regionIds":["mx-caribbean","mx-caribbean-cozumel","mx-caribbean-playa-del-carmen"],"sourceIds":["reef-cozumel","reef-playa"]},
+    {"id":"yellowtail-damselfish","commonName":"Yellowtail damselfish","aliases":[],"scientificName":"Microspathodon chrysurus","category":"reef-fish","regionIds":["mx-caribbean","mx-caribbean-cozumel","mx-caribbean-playa-del-carmen"],"sourceIds":["reef-cozumel","reef-playa"]},
+    {"id":"yellowtail-snapper","commonName":"Yellowtail snapper","aliases":[],"scientificName":"Ocyurus chrysurus","category":"reef-fish","regionIds":["mx-caribbean","mx-caribbean-cozumel","mx-caribbean-playa-del-carmen"],"sourceIds":["reef-cozumel","reef-playa"]}
+  ]
+}
