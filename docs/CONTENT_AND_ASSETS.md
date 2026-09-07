@@ -1,10 +1,10 @@
 # Poseidon — Marine Content and Asset Strategy
 
-## Purpose
+## Status
 
-Poseidon's marine-life system is a product feature, not merely decorative content.
+This is the durable strategy for creature content, regional relevance and artwork.
 
-This document defines how creature names, regional relevance and artwork should scale without requiring the team to build the entire ocean before the app is useful.
+Current implementation status is tracked in `docs/PROJECT_STATUS.md`. The Mexican Caribbean starter content pack is already implemented; the current artwork expansion programme is #11 / #12 / PR #13.
 
 ---
 
@@ -18,33 +18,22 @@ Curated content enriches the record. It does not authorize the record.
 
 ---
 
-# 2. User-facing naming philosophy
+# 2. Naming philosophy
 
-Poseidon should speak in recreational-diver language.
+Poseidon speaks in recreational-diver language.
 
-Primary labels should use recognizable common names such as:
+Primary labels use recognizable common names. Curated records may also carry:
 
-- Spotted eagle ray
-- Nurse shark
-- Barracuda
-- Moray eel
-- Pufferfish
-- Parrotfish
-- Seahorse
-
-Do not force genus/family/species terminology into the primary logging interaction.
-
-For curated records, deeper metadata may exist behind the scenes:
-
-- canonical identifier;
-- canonical common name;
+- stable canonical ID;
 - aliases;
 - optional scientific name;
 - category/group;
 - regional tags;
-- source/provenance;
-- asset status;
-- optional trustworthy encounter-frequency data.
+- provenance;
+- artwork metadata;
+- future trustworthy encounter-significance data only when evidence supports it.
+
+Scientific terminology stays secondary to the common-name interaction.
 
 ---
 
@@ -52,170 +41,212 @@ For curated records, deeper metadata may exist behind the scenes:
 
 ## Curated creature
 
-Has a stable Poseidon ID and may have:
+A curated creature has a stable Poseidon ID and may have:
 
-- polished artwork;
-- thumbnail variants;
+- reviewed artwork;
+- thumbnail/gallery/hero runtime variants;
 - aliases;
 - scientific metadata;
 - regional relevance;
 - source attribution;
-- later creature-detail content.
+- later Creature Detail content.
 
 ## User-created creature
 
-Created when the desired creature is missing.
+When the desired creature is missing, the user can create it immediately.
 
-Must immediately support:
+It must support:
 
 - display name;
 - inclusion on the dive;
-- appearance in the user's collection;
-- future normalization/merging to a curated record.
+- appearance in the personal collection;
+- deliberate missing-art treatment;
+- later normalization/merging without rewriting the historical meaning of the dive.
 
-The UI must not make an unillustrated creature feel like an error.
+The UI must never make an unillustrated creature feel like an error.
 
 ---
 
-# 4. Starter geography
+# 4. Starter geography and current pack
 
-Initial enrichment should focus on:
+Initial enrichment is intentionally concentrated on:
 
 - Cozumel;
 - Playa del Carmen;
-- Mexican Caribbean.
+- the wider Mexican Caribbean.
 
-The goal is not complete regional biology.
+The implemented starter pack contains sourced region/site/creature records with aliases and provenance. The aim is useful recreational coverage, not complete regional biology.
 
-The goal is a sufficiently rich local gallery that real dive logging feels delightful.
-
-Before finalizing the starter catalogue, a dedicated research/content pass should use credible regional and citizen-science sources to identify likely recreational encounters, common naming and aliases.
+New regions should primarily be a content operation rather than a new application implementation.
 
 ---
 
 # 5. Gallery ordering
 
-When location context exists, the logging gallery should prioritize:
+When location context exists, the logging gallery prioritizes:
 
-1. **likely local creatures**;
-2. **recent/familiar creatures from the user's own history**;
+1. **locally relevant curated creatures**;
+2. **recent/familiar creatures from personal history**;
 3. broader curated content;
 4. text search / add unlisted.
 
-This is a relevance order, not a claim that the first items were definitely present on the dive.
+This is relevance ordering, not a claim that a creature was definitely present or objectively rare/common on that dive.
 
 ---
 
-# 6. Artwork direction
+# 6. Artwork principles
 
 Creature artwork should be:
 
 - immediately recognizable;
+- biologically plausible enough to support visual identification;
 - consistent as a collection;
-- stylized and polished;
-- charming without becoming childish;
-- colourful enough to animate the otherwise light/blue product;
-- readable at gallery-thumbnail size;
-- suitable for transparent-background presentation;
-- useful both as a small gallery tile and a larger hero/highlight image.
+- polished and collectible;
+- colourful without becoming childish;
+- readable at gallery-thumbnail scale;
+- compositionally useful as both a tile and a larger memory/detail asset;
+- free of baked-in text/labels;
+- reviewed before production promotion.
 
-The current preferred medium is raster artwork with transparency rather than requiring SVG illustration for every species.
+Aesthetic quality never overrides wrong anatomy, markings or species identity.
 
-AI image generation may be used to create source artwork, but every accepted asset is curated product content rather than raw generation output.
+AI generation is an accepted source-art method, but raw generation output is never automatically production content.
 
 ---
 
-# 7. Asset pipeline contract
+# 7. Two source-art families
 
-Do not ship one full-resolution PNG into every gallery tile.
+Poseidon now needs to support two deliberate source treatments.
 
-Each accepted creature asset should eventually support at least:
+## Transparent/specimen source
 
-- thumbnail / low-resolution variant;
-- standard gallery variant;
-- larger hero/detail variant where useful;
-- transparent background where appropriate;
-- predictable aspect-ratio/crop rules;
-- stable filename/ID mapping;
-- compression appropriate to mobile use.
+The current #6 pipeline and first runtime art pack use transparent specimen-style source art.
+
+This mode is useful when the creature should float over Poseidon's own tile/hero material.
+
+## Opaque underwater-scene source
+
+The generated `poseidon-sunlit-square-v1` batch uses square underwater scene masters.
+
+This is a legitimate second art family when explicitly selected and curated. It must not be enabled by simply weakening transparency validation for every asset.
+
+Issue #11 owns explicit opaque-scene ingestion while preserving transparent-mode behavior.
+
+Do not casually mix unrelated wide photorealistic experiments, collages or new visual families into the square collection.
+
+---
+
+# 8. Editorial source vs runtime assets
+
+Keep generation/review material separate from application assets.
+
+Target architecture:
+
+```text
+assets/source/creatures/<source-id>/
+  candidate-vN.webp
+
+assets/creatures/<stable-creature-id>/
+  manifest.json
+  thumb.webp
+  gallery.webp
+  hero.webp
+```
+
+`assets/source` is editorial input and may contain candidates that are provisional, rejected or not yet mapped to production taxonomy.
+
+`assets/creatures` is canonical runtime output.
+
+Application components consume only runtime manifests/variants.
+
+---
+
+# 9. Editorial states
+
+Generated source candidates use internal production states such as:
+
+- `keep` — strong enough to retain and eligible for deliberate promotion once other gates pass;
+- `provisional` — useful candidate requiring focused biological/style QA;
+- `remake` — known weak/incorrect candidate; never promote.
+
+Quality scores and identity confidence are editorial metadata, not user-facing rarity or ecological confidence.
+
+The first generated batch currently tracks **30 unique square candidates: 17 keep, 6 provisional, 7 remake**. See #12 and PR #13 for the current review ledger.
+
+---
+
+# 10. Runtime asset contract
+
+Accepted production artwork uses deterministic fixed-square variants:
+
+| Variant | Canvas | Primary use |
+| --- | ---: | --- |
+| `thumb.webp` | 192×192 | dense gallery / small encounter indicators |
+| `gallery.webp` | 512×512 | normal creature tiles |
+| `hero.webp` | 1024×1024 | Creature Detail / dive highlight |
+
+Runtime manifests carry stable paths, dimensions, aspect ratio, hashes and source/provenance metadata as defined by the asset pipeline.
 
 The application should:
 
-- render a stable lightweight placeholder immediately;
-- lazy-load imagery outside the initial viewport;
-- prefer low-resolution assets in dense galleries;
-- avoid layout shifts when images resolve;
-- cache the active regional library for offline/repeat use where practical;
-- only load larger art for screens that justify it.
-
-The exact formats and responsive-loading implementation are engineering decisions.
+- reserve geometry before images load;
+- use the smallest appropriate variant;
+- lazy-load outside the initial viewport;
+- render a deliberate fallback when art is absent or fails;
+- cache core regional/runtime assets appropriately for offline use;
+- never load source candidates directly.
 
 ---
 
-# 8. Missing-art behavior
+# 11. Missing-art behavior
 
-A creature with no finished artwork still needs a deliberate visual treatment.
+No artwork is a first-class state.
 
-Possible first treatment:
+Current application behavior uses a designed `CreatureMark` / aquatic fallback rather than broken image chrome.
 
-- common name;
-- category/abstract aquatic mark;
-- colour/shape treatment consistent with the collection;
-- subtle `art pending` distinction only if useful to the owner.
+A creature without finished art must remain fully loggable, visible in the dive, and visible in the personal collection.
 
-Do not use broken-image icons or suppress the creature from the collection.
+Do not suppress creatures because production art is incomplete.
 
 ---
 
-# 9. Artwork production workflow
+# 12. Production workflow
 
-Recommended later workflow:
+For each new/replacement creature asset:
 
-1. define a small style reference pack;
-2. generate candidate artwork for a batch of creatures;
-3. curate for biological recognizability and stylistic consistency;
-4. reject weak/inconsistent generations aggressively;
-5. clean backgrounds/crops where needed;
-6. create size variants automatically;
-7. add metadata manifest entry;
-8. visually test the batch inside the real gallery;
-9. only then mark the asset `curated`.
+1. choose the target stable content ID or explicit source-only candidate ID;
+2. generate/prepare a source candidate in an approved style family;
+3. record generation/source provenance;
+4. review biological recognizability and diagnostic markings;
+5. review style consistency and card-scale readability;
+6. assign/update editorial state;
+7. block `provisional` / `remake` candidates from runtime promotion;
+8. ingest an approved source through the explicit source mode;
+9. generate deterministic `thumb` / `gallery` / `hero` variants;
+10. validate dimensions, hashes, media type and byte budgets;
+11. inspect the result inside the actual phone gallery/detail surfaces;
+12. only then treat the runtime asset as curated.
 
-Do not attempt hundreds of creatures before the in-app visual language has been proven with a small pack.
-
----
-
-# 10. Suggested content data shape
-
-Conceptual only; engineering may refine.
-
-```ts
-type Creature = {
-  id: string;
-  commonName: string;
-  aliases?: string[];
-  scientificName?: string;
-  category?: string;
-  regions?: string[];
-  asset?: {
-    status: 'curated' | 'placeholder' | 'missing';
-    thumb?: string;
-    gallery?: string;
-    hero?: string;
-  };
-  provenance?: Array<{
-    source: string;
-    url?: string;
-    note?: string;
-  }>;
-};
-```
-
-A user-created creature should not require this full structure.
+Do not regenerate hundreds of species without review just to improve a coverage number.
 
 ---
 
-# 11. Rarity / encounter significance
+# 13. Current artwork programme
+
+The merged application already has 18 canonical runtime illustrations plus deliberate fallback for the remaining starter-pack species.
+
+The next artwork work is split deliberately:
+
+- **#11** — source-library import, source-catalog validation and opaque-scene ingestion support;
+- **#12** — seven remakes, six provisional QA resolutions and continued reviewed coverage.
+
+The source library may temporarily run ahead of the 50-creature content pack, but source-only candidates must not silently create production taxonomy/content records.
+
+Expansion priority should favor useful Mexican-Caribbean coverage and locally distinctive gaps, not ocean-wide completeness.
+
+---
+
+# 14. Rarity / encounter significance
 
 Do not assign arbitrary percentage rarity.
 
@@ -223,38 +254,24 @@ If Poseidon later shows rarity/significance:
 
 - it should be region-specific where possible;
 - its source should be recorded;
-- wording should match the quality of the evidence;
-- user excitement must not be mistaken for ecological rarity;
-- the user remains free to choose any encounter as the highlight of a dive.
+- wording must match evidence quality;
+- user excitement must not be confused with ecological rarity;
+- the user remains free to choose any creature as the dive highlight.
 
-An initial build can omit rarity entirely without weakening the core product.
+Omitting rarity is preferable to weak evidence.
 
 ---
 
-# 12. Expansion model
+# 15. Expansion model
 
-New region support should primarily mean adding structured content:
+Adding a new region should primarily mean adding structured content:
 
 - region metadata;
-- local dive sites where curated;
+- sourced sites/places;
 - creature relevance mappings;
-- new/expanded artwork;
-- aliases/provenance.
+- aliases/provenance;
+- reviewed artwork where useful.
 
-It should not require new application logic for each region.
+Adding a new creature should primarily be a content/editorial operation once the asset system supports the chosen source family.
 
-Similarly, adding a new creature should primarily be a content operation rather than an engineering project.
-
----
-
-# 13. First asset milestone
-
-Before trying to create a global library:
-
-1. choose a small representative Mexican Caribbean starter set;
-2. prove the visual style with roughly 8–12 excellent creature assets;
-3. test them inside the real logging gallery at phone size;
-4. validate low-res/lazy-loading behavior;
-5. expand toward a useful regional pack only after the style survives real UI use.
-
-This prevents the art pipeline from becoming a prerequisite for building the rest of Poseidon.
+Coordinates/map work is separately gated by #16 so location content never fabricates geographic precision.
