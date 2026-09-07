@@ -2,9 +2,11 @@
 
 ## Status
 
-Initial product definition for the first personal-use build.
+This document is the durable product-requirements authority for Poseidon’s first personal-use product.
 
-This PRD is intentionally more specific about product behavior than technical implementation. The first implementation agent may propose stack choices, but it must preserve the experience contracts here and in `PRODUCT.md`.
+The first coherent implementation is already merged. Current implementation architecture belongs in `docs/APPLICATION.md`; current programme progress and remaining work belong in `docs/PROJECT_STATUS.md` and issue #5.
+
+Do not reinterpret this PRD as an invitation to restart stack selection or recreate the former external prototype. Product behavior here remains authoritative unless deliberately changed.
 
 ---
 
@@ -28,7 +30,7 @@ Initial primary user: the owner of the app and, potentially, a small number of c
 
 This is not initially optimized for public-market adoption.
 
-The initial user:
+The user:
 
 - is a recreational scuba diver;
 - may dive intensively on trips and then not dive for months;
@@ -62,33 +64,33 @@ Optional data:
 - buddies;
 - highlight creature.
 
-The form should not require technical diving fields such as gas mix, cylinder pressure, SAC/RMV, decompression information or equipment inventory.
+Do not require technical-diving fields such as gas mix, cylinder pressure, SAC/RMV, decompression information or equipment inventory.
 
 ## 3.2 Record creatures delightfully
 
 Creature logging is a visual interaction, not a database form.
 
-The default creature picker should present:
+The creature picker should prioritize:
 
-1. **likely creatures for the current location/region**;
-2. then creatures recently/frequently logged by the user;
-3. then broader browse/search.
+1. locally relevant creatures for the current region/location;
+2. recent/familiar creatures from personal history;
+3. broader browse/search.
 
 Each curated creature tile should show:
 
-- artwork;
+- artwork or deliberate fallback;
 - common name;
 - clear selected/unselected state.
 
-The user can tap creatures to add/remove them from the dive.
+The user can tap creatures to add/remove them.
 
 The user must always be able to add a creature by text even if Poseidon has no curated asset or metadata for it.
 
 ## 3.3 Revisit a dive
 
-A dive detail view should feel like a memory artifact rather than a raw row of data.
+Dive Detail should feel like a memory artifact rather than a raw database row.
 
-It should emphasize:
+It emphasizes:
 
 - site/location;
 - date;
@@ -96,26 +98,28 @@ It should emphasize:
 - other creatures seen;
 - max depth;
 - duration;
-- notes.
+- notes;
+- optional operator/buddies.
 
-The dive must remain editable.
+The dive remains editable and deletable behind an appropriate safeguard.
 
 ## 3.4 Browse lifetime dive history
 
-The user can browse all dives chronologically and reach any dive detail quickly.
+The user can browse all dives chronologically and reach any dive quickly.
 
-The journal should make accumulated history legible without becoming a dense analytics dashboard.
+History should make accumulated diving life legible without becoming a dense analytics dashboard.
 
 ## 3.5 Browse the marine collection
 
-The user can see the creatures they have personally encountered.
+The user can see the creatures personally encountered.
 
-Each creature should accumulate:
+Each creature can accumulate:
 
 - first-seen dive/date;
 - most recent sighting;
 - number of dives on which it was seen;
 - locations/regions where it was seen;
+- related dives;
 - artwork where curated.
 
 ## 3.6 See the shape of the diving life
@@ -126,35 +130,35 @@ Over time Poseidon should expose:
 - sites visited;
 - regions/countries visited;
 - creatures encountered;
-- a geographic atlas of dive locations.
+- geographic history of dive locations.
 
-The full map experience may follow the first usable logging build, but the data model must not prevent it.
+The current Atlas/Places baseline is valid without a map where trustworthy coordinates do not exist. A real map must follow sourced geodata rather than guessed pins.
 
 ---
 
 # 4. Product information architecture
 
-Long-term primary areas:
+Primary areas:
 
 1. **Home**
 2. **Journal**
-3. **Atlas**
-4. **Collection**
-5. **Log Dive**
+3. **Log Dive**
+4. **Atlas**
+5. **Collection**
 
 Do not turn navigation into a large settings/productivity shell.
 
 ## Home
 
-Home represents the user's underwater life as a whole.
+Home represents the user’s underwater life as a whole.
 
-Target composition:
+Target hierarchy:
 
 - latest dive / latest chapter as the visual hero;
-- compact lifetime shape: dives, sites, places, creatures;
+- compact lifetime shape;
 - recent/new creature discoveries;
-- clear paths to Journal, Atlas and Collection;
-- prominent route into Log Dive.
+- clear paths into history/places/collection;
+- prominent Log Dive action.
 
 Home is not an analytics dashboard.
 
@@ -162,25 +166,27 @@ Home is not an analytics dashboard.
 
 Chronological dive history.
 
-Each dive summary should prioritize:
+Dive summaries prioritize:
 
 - location/site;
 - date;
-- highlight creature artwork if available;
-- small supporting creature indicators;
+- highlight encounter/artwork where available;
+- supporting creatures;
 - depth/duration as concise secondary data.
+
+Trip grouping may refine this history, but the Dive remains canonical.
 
 ## Atlas
 
-Long-term geographic history.
+Geographic diving history.
 
-Initial implementation may begin as grouped places/regions and evolve into a map once enough location data exists.
+Grouped places/regions are valid even when coordinates are incomplete. A map is additive and evidence-gated.
 
 ## Collection
 
 Visual marine-life gallery built from actual encounters.
 
-Unseen content may be shown later for discovery, but the first collection view should make the user's seen history the main character.
+The user’s seen history remains the main character. Global catalogue completion is not the core framing.
 
 ## Log Dive
 
@@ -194,40 +200,37 @@ Fast, focused creation flow optimized for phone use.
 
 The flow should feel delightful and lightweight enough to use after every dive.
 
-Target normal completion: roughly under one minute once the user's common context is known.
+Target normal completion: roughly under one minute once common trip context is known.
 
-Do not sacrifice delight simply to minimize taps; the creature-selection step is intentionally rich.
+Do not sacrifice delight merely to minimize taps; creature selection is intentionally rich.
 
-## Recommended flow
+## Step 1 — Where and when
 
-### Step 1 — Where and when
-
-- date defaults to today;
+- date defaults sensibly;
 - location/area;
 - dive site;
-- location/site may use suggestions from prior dives and curated local content;
-- manual entry always works.
+- suggestions may use prior history and curated content;
+- manual entry always works;
+- same-day trip/location context should be easy to reuse.
 
-If the user has already logged a dive on the same date, prior trip/location context should be easy to reuse.
-
-### Step 2 — Dive basics
+## Step 2 — Dive basics
 
 - max depth;
 - duration;
 - optional operator;
 - optional buddies.
 
-Units should be configurable or inferred consistently. Do not require the user to choose units on every dive.
+Units should be remembered/inferred consistently rather than asked on every dive.
 
-### Step 3 — What did you see?
+## Step 3 — What did you see?
 
 This is the signature interaction.
 
-Show a visual creature gallery with artwork + common name.
+Show a visual creature gallery with artwork/fallback + common name.
 
 Ordering:
 
-1. likely local creatures;
+1. local relevance;
 2. recent/familiar creatures;
 3. broader curated library.
 
@@ -236,18 +239,18 @@ Controls:
 - tap to select/deselect;
 - search;
 - add an unlisted creature;
-- optional quantity after selection or on a lightweight detail affordance;
-- choose/confirm a highlight creature before saving or allow automatic suggestion that is always editable.
+- optional quantity;
+- choose/confirm a highlight creature.
 
-Quantity is optional in MVP. If implemented, use low-friction buckets rather than false precision unless the user explicitly enters a number.
+Quantity is optional. If used, low-friction buckets are preferred over false precision unless the user explicitly enters a number.
 
-### Step 4 — Memory
+## Step 4 — Memory
 
 - optional short note;
 - review highlight creature;
 - save dive.
 
-The final save state should feel satisfying but not theatrical enough to slow repeated logging.
+The final save state should feel satisfying without slowing repeated logging.
 
 ---
 
@@ -257,19 +260,19 @@ The final save state should feel satisfying but not theatrical enough to slow re
 
 Primary display uses diver-friendly common names.
 
-Internally a curated creature may later carry:
+Curated records may carry:
 
 - canonical ID;
-- display/common name;
+- common name;
 - aliases;
 - optional scientific name;
-- broader category;
+- category;
 - region tags;
 - asset references;
-- provenance/source metadata;
-- optional encounter-frequency/rarity data.
+- provenance;
+- optional encounter-significance metadata only when trustworthy.
 
-The main UI must not require scientific terminology.
+Scientific terminology remains secondary.
 
 ## 6.2 Unknown/unlisted creature
 
@@ -281,33 +284,29 @@ An uncurated entry must:
 - appear on the dive;
 - appear in the personal collection;
 - use a graceful generic/typographic representation;
-- be eligible for later normalization to a curated creature without rewriting historical dive meaning.
+- remain eligible for later normalization without rewriting historical meaning.
 
 ## 6.3 Creature highlight
 
 A dive may have one primary highlight creature.
 
-Default behavior:
-
-- if one creature is selected, it can become the highlight automatically;
-- if multiple are selected, Poseidon may suggest one;
+- one selected creature may become the highlight automatically;
+- with multiple creatures, Poseidon may suggest one;
 - the user can always change it;
-- no rarity algorithm may override the user's own memory of what was special.
+- no rarity algorithm overrides the user’s own memory.
 
 ## 6.4 Quantity
 
-Quantity is not essential to the first build.
+Quantity is not essential to the core product.
 
-If included, prefer one of:
+If included, prefer buckets such as:
 
 - `1`;
 - `a few`;
 - `several`;
-- `many`;
+- `many`.
 
-or a similarly low-friction model.
-
-Do not require exact counts.
+Exact counts are not required.
 
 ---
 
@@ -315,133 +314,137 @@ Do not require exact counts.
 
 ## 7.1 Product ancestor
 
-Liebestraum is the strongest product reference for information hierarchy and the treatment of accumulated personal history.
+Liebestraum remains the strongest reference for information hierarchy and accumulated personal history.
 
-Transfer:
+Transfer principles such as:
 
 - latest-memory hero;
 - quick creation;
 - history/timeline;
-- geographic view;
+- geographic history;
 - compact meaningful stats;
 - accumulated collection;
 - phone-first ergonomics;
 - restrained but personal delight.
 
-Do not clone Liebestraum's styling.
+Do not clone Liebestraum’s styling or backend assumptions.
 
 ## 7.2 Poseidon character
 
 - light mode first;
 - rich ocean blues;
 - aquatic greens;
-- coral and tropical accent colours;
+- coral/tropical accent colours;
 - generous breathing room;
-- fluid transitions;
 - tactile selection states;
 - polished creature artwork;
 - premium but playful;
 - alive rather than technical.
 
+The integrated application’s established visual language is documented in `docs/APPLICATION.md` and should not be casually replaced.
+
 ## 7.3 Creature gallery performance contract
 
-The gallery must remain visually rich without forcing full-resolution assets into the initial render.
+The gallery stays visually rich without forcing full-resolution assets into dense surfaces.
 
-The product requires an asset pipeline capable of:
+Runtime artwork requires:
 
-- low-resolution thumbnails/placeholders;
+- thumbnail variant;
+- normal gallery variant;
+- hero/detail variant where justified;
 - lazy loading;
-- responsive image sizes or equivalent variants;
-- higher-resolution art only where the screen justifies it;
-- graceful handling of uncached/missing art;
-- offline caching appropriate to the curated starter library.
+- fixed/reserved geometry;
+- graceful missing/broken-art fallback;
+- offline caching appropriate to the starter library.
 
-Exact implementation belongs to engineering, but the experience contract is fixed: **delightful imagery without sluggish gallery interaction**.
+The current canonical runtime contract is implemented under `assets/creatures` and documented in `docs/ASSET_PIPELINE.md`.
 
 ---
 
-# 8. MVP boundary
+# 8. MVP boundary and current status
 
 ## MVP-A — first genuinely usable personal log
 
-Must include:
+The following MVP-A product capabilities are implemented on current `main`:
 
 ### App shell
 - mobile-first responsive layout;
-- light aquatic visual foundation;
+- aquatic light-mode foundation;
 - reliable navigation;
-- local/offline-capable persistence.
+- local/offline persistence;
+- PWA shell.
 
 ### Dive logging
-- create dive;
+- create/edit/delete dive;
 - date;
-- location/area;
-- dive site;
+- area/site;
 - max depth;
 - duration;
-- optional note;
-- add/select creatures;
-- edit/delete dive.
-
-### Creature gallery
-- curated starter creatures with names and artwork/placeholder capability;
-- local-likelihood ordering where data exists;
-- search;
-- arbitrary creature entry;
-- selected-state interaction;
+- optional note/operator/buddies;
+- creature selection/manual entry;
 - highlight creature.
 
-### Journal
-- chronological list;
-- dive detail;
-- meaningful empty state;
-- recent/latest dive surfaced on Home.
+### Creature gallery
+- sourced starter catalogue;
+- artwork/fallback capability;
+- regional relevance ordering;
+- search;
+- arbitrary creature entry;
+- explicit selected-state interaction.
+
+### Journal / memory
+- chronological history;
+- Dive Detail;
+- empty/sparse states;
+- latest dive surfaced on Home.
 
 ### Collection
-- seen creatures;
+- encountered creatures;
 - first/most recent seen;
-- dives encountered on;
+- dive history;
 - artwork where available.
 
 ### Lifetime basics
 - total dives;
-- total distinct sites;
-- total distinct creatures.
+- bottom time;
+- distinct sites;
+- creatures;
+- countries where represented.
 
 ### Reliability
-- app works without network for core creation/browsing;
+- core app works without network after cache establishment;
 - persisted data survives restart;
-- missing creature artwork does not break flows;
-- all user-created data can be exported in at least a simple structured format before the app becomes the canonical long-term log.
+- missing artwork does not block flows;
+- versioned structured export exists.
 
-## MVP-B — completes the personal atlas proposition
+The main remaining MVP-A **field-readiness** gap is safe restore plus deployed/installable real-device validation, tracked in #14.
 
-Add after the core log is solid:
+## MVP-B / refinement
 
-- richer Home composition;
-- geographic Atlas/map;
-- country/region/site rollups;
-- trip grouping;
-- milestone system;
-- richer creature detail;
-- curated rarity/encounter-significance only if trustworthy source data is available;
-- refined region-aware creature recommendations;
-- import from earlier logs where practical.
+Remaining or partially implemented refinement includes:
+
+- trip grouping (#15);
+- restrained milestone system (#15);
+- richer curated Creature Detail (#15);
+- sourced coordinates and a real map (#16);
+- broader reviewed creature artwork (#11/#12);
+- safe restore from export (#14);
+- legacy/third-party log import where practical (optional);
+- rarity/encounter-significance only if trustworthy evidence eventually justifies it.
 
 ## Explicitly later / optional
 
-- photos;
-- GoPro ingestion;
+- photos / GoPro ingestion;
 - PADI integration;
 - dive-computer sync;
 - public accounts;
 - social feeds;
 - likes/comments/followers;
-- public leaderboards;
+- leaderboards;
 - shop/operator marketplace;
 - technical diving metrics;
 - AI photo recognition;
-- broad global creature art coverage.
+- broad global creature-art completeness.
 
 ---
 
@@ -451,38 +454,31 @@ Initial rich region:
 
 **Mexican Caribbean**, especially Cozumel and Playa del Carmen.
 
-The initial content pack should include:
+The implemented starter content pack contains region, site and creature records with aliases and provenance.
 
-- common dive areas/sites where practical;
-- a curated set of locally plausible marine-life common names;
-- aliases where useful;
-- region tags;
-- a first batch of polished creature art;
-- fallbacks for every creature without finished art.
-
-Aim for enough content that the gallery feels alive, not for biological completeness.
-
-The content system must support adding new creatures and regions without code changes wherever practical.
+The content system must continue to support adding regions/creatures without requiring bespoke application logic wherever practical.
 
 ---
 
 # 10. Stats and milestones
 
-Stats should describe the user's history, not judge performance.
+Stats describe history; they do not judge performance.
 
-Safe initial stats:
+Safe stats include:
 
 - total dives;
 - total logged bottom time;
 - sites;
-- locations/regions/countries;
+- places/regions/countries;
 - creatures encountered;
-- dives per year/trip;
+- dives per trip/year where useful;
 - first/most recent encounter dates.
 
 Do not frame maximum depth or duration as achievements.
 
-Milestones should be restrained and meaningful. No daily streak system is required; diving is episodic and travel-driven.
+Milestones are restrained, episodic and secondary to the Journal. No daily streak system is appropriate for diving.
+
+Milestone implementation is tracked in #15.
 
 ---
 
@@ -492,14 +488,17 @@ Poseidon is intended to become a long-lived personal archive.
 
 Requirements:
 
-- no network requirement for basic logging;
-- clear local persistence contract;
-- backup/sync may be added when appropriate;
-- an account should not be required merely to evaluate/use the first local build unless engineering shows a compelling reliability reason;
-- user data must not be trapped indefinitely;
-- export should be designed early enough that accumulated dives are recoverable.
+- no network requirement for core logging/browsing;
+- versioned local persistence;
+- clear migrations;
+- account not required for the first personal product;
+- structured export;
+- data must not be trapped indefinitely;
+- safe restore/recovery path before relying on Poseidon as the only canonical copy.
 
-Potential later formats include JSON, CSV and UDDF, but MVP export may begin with a well-structured JSON/CSV representation.
+Current persistence/export architecture is documented in `docs/DOMAIN_ARCHITECTURE.md`. Restore/deployment field readiness is tracked in #14.
+
+Potential later formats include JSON, CSV and UDDF; the current canonical export is versioned JSON.
 
 ---
 
@@ -513,44 +512,48 @@ From the first build:
 - selection meaning not dependent on colour alone;
 - visible keyboard focus where applicable;
 - reduced-motion-friendly behavior;
-- readable common names beneath/alongside creature artwork;
-- performant enough that image loading does not make controls unstable.
+- readable common names with creature artwork;
+- stable layouts while images load;
+- safe-area-aware mobile composition.
+
+These are ongoing contracts, not one-time acceptance items.
 
 ---
 
 # 13. Key quality bar
 
-The first build should not be judged only by whether data saves.
+Poseidon is not judged only by whether data saves.
 
-It should answer yes to these questions:
+It should answer yes to:
 
 1. Can I log a real dive quickly on my phone?
 2. Is selecting creatures enjoyable enough to be the memorable part of logging?
-3. Can I log something even when the curated content library is incomplete?
-4. Does a saved dive feel like a memory rather than a database record?
-5. Does seeing the collection make accumulated dives feel more valuable?
-6. Does it work when the network is bad or absent?
-7. Can I trust it not to lose the record?
+3. Can I log something even when curated content is incomplete?
+4. Does a saved dive feel like a memory rather than a database row?
+5. Does the collection make accumulated dives feel more valuable?
+6. Does core use work when the network is absent?
+7. Can I trust the record to persist and recover?
 
 ---
 
-# 14. First-build acceptance scenario
+# 14. Representative acceptance scenario
 
-A representative test should be possible entirely on a phone:
+The automated application suite covers the representative flow:
 
-1. Open Poseidon with weak/no network.
-2. Log a dive at a Cozumel site.
+1. Open Poseidon.
+2. Log a Cozumel/Playa-region dive.
 3. Enter max depth and duration.
-4. Browse a visually rich local creature gallery.
+4. Browse the local creature gallery.
 5. Select several creatures.
 6. Add one unlisted creature manually.
 7. Choose a highlight creature.
-8. Add a short note.
+8. Add a note.
 9. Save.
-10. See the dive immediately reflected on Home and Journal.
-11. Open the dive and see the highlight/encounters clearly.
-12. Open Collection and see the newly encountered creatures.
-13. Close/reopen the app and confirm the dive remains.
-14. Edit the dive without corrupting collection/history state.
+10. Verify Home and Journal.
+11. Open Dive Detail and verify encounters.
+12. Open Collection / Creature Detail.
+13. Restart and confirm persistence.
+14. Edit without corrupting derived collection/history.
+15. Delete behind a safeguard and confirm derived consistency.
 
-If this flow is not excellent, broader Atlas/gamification work should not distract from fixing it.
+Automated success is necessary but not sufficient for owner-level v0 closeout. Issue #14 adds deployed/standalone Android, offline cold-start, restore and real-device/field validation.
