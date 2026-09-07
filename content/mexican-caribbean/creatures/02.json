@@ -1,0 +1,20 @@
+{
+  "kind": "creatures",
+  "schemaVersion": 1,
+  "packId": "mexican-caribbean-starter-v1",
+  "creatures": [
+    {"id":"foureye-butterflyfish","commonName":"Foureye butterflyfish","aliases":["Four-eye butterflyfish"],"scientificName":"Chaetodon capistratus","category":"reef-fish","regionIds":["mx-caribbean","mx-caribbean-cozumel","mx-caribbean-playa-del-carmen"],"sourceIds":["reef-cozumel","reef-playa"]},
+    {"id":"french-angelfish","commonName":"French angelfish","aliases":[],"scientificName":"Pomacanthus paru","category":"reef-fish","regionIds":["mx-caribbean","mx-caribbean-cozumel","mx-caribbean-playa-del-carmen"],"sourceIds":["reef-cozumel","reef-playa"]},
+    {"id":"french-grunt","commonName":"French grunt","aliases":[],"scientificName":"Haemulon flavolineatum","category":"reef-fish","regionIds":["mx-caribbean","mx-caribbean-cozumel","mx-caribbean-playa-del-carmen"],"sourceIds":["reef-cozumel","reef-playa"]},
+    {"id":"great-barracuda","commonName":"Great barracuda","aliases":["Barracuda"],"scientificName":"Sphyraena barracuda","category":"reef-fish","regionIds":["mx-caribbean","mx-caribbean-cozumel","mx-caribbean-playa-del-carmen"],"sourceIds":["reef-cozumel","reef-playa"]},
+    {"id":"green-moray","commonName":"Green moray","aliases":["Green moray eel"],"scientificName":"Gymnothorax funebris","category":"eel","regionIds":["mx-caribbean","mx-caribbean-cozumel","mx-caribbean-playa-del-carmen"],"sourceIds":["reef-cozumel","reef-playa"]},
+    {"id":"green-sea-turtle","commonName":"Green sea turtle","aliases":["Green turtle"],"scientificName":"Chelonia mydas","category":"sea-turtle","regionIds":["mx-caribbean","mx-caribbean-cozumel","mx-caribbean-playa-del-carmen"],"sourceIds":["conanp-cozumel-park","reef-cozumel","reef-playa"]},
+    {"id":"hawksbill-sea-turtle","commonName":"Hawksbill sea turtle","aliases":["Hawksbill turtle"],"scientificName":"Eretmochelys imbricata","category":"sea-turtle","regionIds":["mx-caribbean","mx-caribbean-cozumel","mx-caribbean-playa-del-carmen"],"sourceIds":["conanp-cozumel-park","reef-cozumel","reef-playa"]},
+    {"id":"hogfish","commonName":"Hogfish","aliases":[],"scientificName":"Lachnolaimus maximus","category":"reef-fish","regionIds":["mx-caribbean","mx-caribbean-playa-del-carmen"],"sourceIds":["reef-playa"]},
+    {"id":"honeycomb-cowfish","commonName":"Honeycomb cowfish","aliases":[],"scientificName":"Acanthostracion polygonius","category":"reef-fish","regionIds":["mx-caribbean","mx-caribbean-cozumel","mx-caribbean-playa-del-carmen"],"sourceIds":["reef-cozumel","reef-playa"]},
+    {"id":"lionfish","commonName":"Lionfish","aliases":["Red lionfish"],"scientificName":"Pterois volitans","category":"reef-fish","regionIds":["mx-caribbean","mx-caribbean-cozumel","mx-caribbean-playa-del-carmen"],"sourceIds":["reef-cozumel","reef-playa"]},
+    {"id":"loggerhead-sea-turtle","commonName":"Loggerhead sea turtle","aliases":["Loggerhead turtle"],"scientificName":"Caretta caretta","category":"sea-turtle","regionIds":["mx-caribbean","mx-caribbean-cozumel","mx-caribbean-playa-del-carmen"],"sourceIds":["conanp-cozumel-park","reef-cozumel","reef-playa"]},
+    {"id":"longsnout-seahorse","commonName":"Longsnout seahorse","aliases":["Slender seahorse","Long-snouted seahorse"],"scientificName":"Hippocampus reidi","category":"seahorse","regionIds":["mx-caribbean"],"sourceIds":["stri-longsnout-seahorse"]},
+    {"id":"mutton-snapper","commonName":"Mutton snapper","aliases":[],"scientificName":"Lutjanus analis","category":"reef-fish","regionIds":["mx-caribbean","mx-caribbean-cozumel","mx-caribbean-playa-del-carmen"],"sourceIds":["reef-cozumel","reef-playa"]}
+  ]
+}

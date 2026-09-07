@@ -1,0 +1,20 @@
+{
+  "kind": "creatures",
+  "schemaVersion": 1,
+  "packId": "mexican-caribbean-starter-v1",
+  "creatures": [
+    {"id":"nassau-grouper","commonName":"Nassau grouper","aliases":[],"scientificName":"Epinephelus striatus","category":"reef-fish","regionIds":["mx-caribbean","mx-caribbean-playa-del-carmen"],"sourceIds":["reef-playa"]},
+    {"id":"nurse-shark","commonName":"Nurse shark","aliases":[],"scientificName":"Ginglymostoma cirratum","category":"shark","regionIds":["mx-caribbean","mx-caribbean-playa-del-carmen"],"sourceIds":["reef-playa"]},
+    {"id":"ocean-surgeonfish","commonName":"Ocean surgeonfish","aliases":["Ocean surgeon"],"scientificName":"Acanthurus tractus","category":"reef-fish","regionIds":["mx-caribbean","mx-caribbean-cozumel","mx-caribbean-playa-del-carmen"],"sourceIds":["reef-cozumel","reef-playa"]},
+    {"id":"porcupinefish","commonName":"Porcupinefish","aliases":["Spot-fin porcupinefish"],"scientificName":"Diodon hystrix","category":"reef-fish","regionIds":["mx-caribbean","mx-caribbean-cozumel"],"sourceIds":["reef-cozumel"]},
+    {"id":"porkfish","commonName":"Porkfish","aliases":[],"scientificName":"Anisotremus virginicus","category":"reef-fish","regionIds":["mx-caribbean","mx-caribbean-cozumel","mx-caribbean-playa-del-carmen"],"sourceIds":["reef-cozumel","reef-playa"]},
+    {"id":"princess-parrotfish","commonName":"Princess parrotfish","aliases":[],"scientificName":"Scarus taeniopterus","category":"reef-fish","regionIds":["mx-caribbean","mx-caribbean-cozumel","mx-caribbean-playa-del-carmen"],"sourceIds":["reef-cozumel","reef-playa"]},
+    {"id":"queen-angelfish","commonName":"Queen angelfish","aliases":[],"scientificName":"Holacanthus ciliaris","category":"reef-fish","regionIds":["mx-caribbean","mx-caribbean-cozumel","mx-caribbean-playa-del-carmen"],"sourceIds":["reef-cozumel","reef-playa"]},
+    {"id":"queen-parrotfish","commonName":"Queen parrotfish","aliases":[],"scientificName":"Scarus vetula","category":"reef-fish","regionIds":["mx-caribbean","mx-caribbean-cozumel","mx-caribbean-playa-del-carmen"],"sourceIds":["reef-cozumel","reef-playa"]},
+    {"id":"redband-parrotfish","commonName":"Redband parrotfish","aliases":["Red-band parrotfish"],"scientificName":"Sparisoma aurofrenatum","category":"reef-fish","regionIds":["mx-caribbean","mx-caribbean-cozumel","mx-caribbean-playa-del-carmen"],"sourceIds":["reef-cozumel","reef-playa"]},
+    {"id":"rock-beauty","commonName":"Rock beauty","aliases":["Rock beauty angelfish"],"scientificName":"Holacanthus tricolor","category":"reef-fish","regionIds":["mx-caribbean","mx-caribbean-cozumel","mx-caribbean-playa-del-carmen"],"sourceIds":["reef-cozumel","reef-playa"]},
+    {"id":"schoolmaster-snapper","commonName":"Schoolmaster snapper","aliases":["Schoolmaster"],"scientificName":"Lutjanus apodus","category":"reef-fish","regionIds":["mx-caribbean","mx-caribbean-cozumel","mx-caribbean-playa-del-carmen"],"sourceIds":["reef-cozumel","reef-playa"]},
+    {"id":"sergeant-major","commonName":"Sergeant major","aliases":["Sergeant major damselfish"],"scientificName":"Abudefduf saxatilis","category":"reef-fish","regionIds":["mx-caribbean","mx-caribbean-cozumel","mx-caribbean-playa-del-carmen"],"sourceIds":["reef-cozumel","reef-playa"]},
+    {"id":"sharpnose-puffer","commonName":"Sharpnose puffer","aliases":["Caribbean sharpnose puffer","Sharpnose pufferfish"],"scientificName":"Canthigaster rostrata","category":"reef-fish","regionIds":["mx-caribbean","mx-caribbean-cozumel","mx-caribbean-playa-del-carmen"],"sourceIds":["reef-cozumel","reef-playa"]}
+  ]
+}
