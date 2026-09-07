@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024" role="img" aria-label="Lionfish">
+  <title>Lionfish</title>
+  <defs>
+    <linearGradient id="g-lf" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#C0503F"/>
+      <stop offset="1" stop-color="#8A2B22"/>
+    </linearGradient>
+    <clipPath id="clip-lf"><path d="M 268 512 C 300 392 424 316 574 322 C 700 328 792 406 824 512 C 792 618 700 696 574 702 C 424 708 300 632 268 512 Z"/></clipPath>
+  </defs>
+  <g>
+    <g opacity="0.95"><path d="M 509 362 L 429 83" stroke="#F2E4CE" stroke-width="20" stroke-linecap="round"/><path d="M 516 360 L 488 72" stroke="#F2E4CE" stroke-width="20" stroke-linecap="round"/><path d="M 523 360 L 549 71" stroke="#F2E4CE" stroke-width="20" stroke-linecap="round"/><path d="M 531 361 L 608 82" stroke="#F2E4CE" stroke-width="20" stroke-linecap="round"/><path d="M 538 364 L 665 103" stroke="#F2E4CE" stroke-width="20" stroke-linecap="round"/><path d="M 544 368 L 716 135" stroke="#F2E4CE" stroke-width="20" stroke-linecap="round"/><path d="M 549 373 L 761 175" stroke="#F2E4CE" stroke-width="20" stroke-linecap="round"/><path d="M 535 639 L 763 764" stroke="#F2E4CE" stroke-width="18" stroke-linecap="round"/><path d="M 529 647 L 720 824" stroke="#F2E4CE" stroke-width="18" stroke-linecap="round"/><path d="M 522 654 L 662 872" stroke="#F2E4CE" stroke-width="18" stroke-linecap="round"/><path d="M 513 658 L 595 905" stroke="#F2E4CE" stroke-width="18" stroke-linecap="round"/><path d="M 503 660 L 521 919" stroke="#F2E4CE" stroke-width="18" stroke-linecap="round"/></g>
+    <path d="M 306 512 C 254 470 200 424 158 372 C 186 448 186 578 158 654 C 200 602 254 556 306 512 Z" fill="#D8C3A6"/>
+    <path d="M 268 512 C 300 392 424 316 574 322 C 700 328 792 406 824 512 C 792 618 700 696 574 702 C 424 708 300 632 268 512 Z" fill="url(#g-lf)"/>
+    <g clip-path="url(#clip-lf)">
+      <rect x="320" y="180" width="40" height="664" fill="#F6EBD8" opacity="0.9"/><rect x="420" y="180" width="40" height="664" fill="#F6EBD8" opacity="0.9"/><rect x="520" y="180" width="40" height="664" fill="#F6EBD8" opacity="0.9"/><rect x="620" y="180" width="40" height="664" fill="#F6EBD8" opacity="0.9"/><rect x="720" y="180" width="40" height="664" fill="#F6EBD8" opacity="0.9"/>
+    </g>
+    <path d="M 626 548 C 596 630 616 690 668 716 C 700 664 704 594 682 548 Z" fill="#EBD8BC" opacity="0.9"/>
+    <path d="M 812 552 C 828 560 834 566 832 574" fill="none" stroke="#0B2F3E" stroke-width="12" stroke-linecap="round" opacity="0.55"/>
+    
+    <circle cx="760" cy="466" r="24" fill="#FFFFFF"/>
+    <circle cx="762.88" cy="466.96" r="13.919999999999998" fill="#0B2F3E"/>
+    <circle cx="771.04" cy="455.92" r="4.800000000000001" fill="#FFFFFF" opacity="0.95"/>
+  
+    <path d="M 786 424 C 812 400 840 398 856 412 C 830 418 806 430 792 444 Z" fill="#F0DFC4"/>
+  </g>
+</svg>

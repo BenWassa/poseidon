@@ -1,0 +1,48 @@
+{
+  "artwork": {
+    "aspectRatio": 1.0,
+    "gallery": "gallery.webp",
+    "hero": "hero.webp",
+    "status": "curated",
+    "thumb": "thumb.webp",
+    "variants": {
+      "gallery": {
+        "aspectRatio": 1.0,
+        "bytes": 11254,
+        "height": 512,
+        "mediaType": "image/webp",
+        "path": "gallery.webp",
+        "sha256": "5febea9c5794a03928a41837e4e08baa82dd7410d92bae20e114834c946bd8d4",
+        "width": 512
+      },
+      "hero": {
+        "aspectRatio": 1.0,
+        "bytes": 17652,
+        "height": 1024,
+        "mediaType": "image/webp",
+        "path": "hero.webp",
+        "sha256": "26162684a0ba634d7566dc16d5c6a08bd02598ece5588369179a927c13b4cc2b",
+        "width": 1024
+      },
+      "thumb": {
+        "aspectRatio": 1.0,
+        "bytes": 3628,
+        "height": 192,
+        "mediaType": "image/webp",
+        "path": "thumb.webp",
+        "sha256": "1663e19637bcebb64c109b5810b20dca5ad56bab133e505eb18a74d466ec0d4c",
+        "width": 192
+      }
+    }
+  },
+  "creatureId": "southern-stingray",
+  "source": {
+    "aspectRatio": 1.0,
+    "bytes": 88764,
+    "format": "png",
+    "height": 1024,
+    "sha256": "3bc70349efbbc16f3606851da0087e2eaae863ca7870dd2e5b8142473c9d7232",
+    "width": 1024
+  },
+  "version": 1
+}

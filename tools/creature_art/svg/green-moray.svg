@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024" role="img" aria-label="Green moray">
+  <title>Green moray</title>
+  <defs>
+    <linearGradient id="g-gm" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#6E9A4E"/>
+      <stop offset="1" stop-color="#3C6238"/>
+    </linearGradient>
+  </defs>
+  <g>
+    <path d="M 118 800 C 268 792 322 668 292 566 C 258 452 330 342 470 314 C 592 290 690 320 782 372"
+      fill="none" stroke="url(#g-gm)" stroke-width="104" stroke-linecap="round"/>
+    <path d="M 292 566 C 258 452 330 342 470 314 C 592 290 690 320 782 372" fill="none" stroke="#84B25E" stroke-width="134" stroke-linecap="round" opacity="0.3"/>
+    <path d="M 104 812 C 194 802 248 764 278 712 C 246 800 182 846 100 844 Z" fill="#4E7A40"/>
+    <path d="M 118 800 C 200 796 250 758 276 706" fill="none" stroke="#4E7A40" stroke-width="52" stroke-linecap="round"/>
+    <path d="M 300 560 C 268 452 340 352 470 326 C 590 304 686 334 776 386"
+      fill="none" stroke="#FFFFFF" stroke-width="16" stroke-linecap="round" opacity="0.22"/>
+    <path d="M 742 320 C 828 314 902 356 918 412 C 930 456 900 490 848 496 C 792 502 736 476 712 434 C 694 402 700 350 742 320 Z" fill="url(#g-gm)"/>
+    <path d="M 796 460 C 846 476 890 470 918 444 C 912 486 872 508 826 504 C 792 500 772 484 762 464 Z" fill="#20361F"/>
+    <g fill="#F2F5E6">
+      <path d="M 812 462 L 824 486 L 836 462 Z"/>
+      <path d="M 852 462 L 864 484 L 876 462 Z"/>
+      <path d="M 890 456 L 900 474 L 908 452 Z"/>
+    </g>
+    
+    <circle cx="796" cy="388" r="19" fill="#FFFFFF"/>
+    <circle cx="798.28" cy="388.76" r="11.02" fill="#0B2F3E"/>
+    <circle cx="804.74" cy="380.02" r="3.8000000000000003" fill="#FFFFFF" opacity="0.95"/>
+  
+  </g>
+</svg>

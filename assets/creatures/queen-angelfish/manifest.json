@@ -1,0 +1,48 @@
+{
+  "artwork": {
+    "aspectRatio": 1.0,
+    "gallery": "gallery.webp",
+    "hero": "hero.webp",
+    "status": "curated",
+    "thumb": "thumb.webp",
+    "variants": {
+      "gallery": {
+        "aspectRatio": 1.0,
+        "bytes": 11422,
+        "height": 512,
+        "mediaType": "image/webp",
+        "path": "gallery.webp",
+        "sha256": "e1a5697a6cf36cf2c755c525bc3e35342f4613cb9cdaa3139646eac8b2c33442",
+        "width": 512
+      },
+      "hero": {
+        "aspectRatio": 1.0,
+        "bytes": 19130,
+        "height": 1024,
+        "mediaType": "image/webp",
+        "path": "hero.webp",
+        "sha256": "a29a81ea2917897001cc1693d95e346e3f9c53da1c8e90eef0f1d12450c4231c",
+        "width": 1024
+      },
+      "thumb": {
+        "aspectRatio": 1.0,
+        "bytes": 3834,
+        "height": 192,
+        "mediaType": "image/webp",
+        "path": "thumb.webp",
+        "sha256": "759c9dc5149b6d1d94f7f2b0ac093eaec5752ce5d3f5df9c2c7ac45e63faae0d",
+        "width": 192
+      }
+    }
+  },
+  "creatureId": "queen-angelfish",
+  "source": {
+    "aspectRatio": 1.0,
+    "bytes": 47874,
+    "format": "png",
+    "height": 1024,
+    "sha256": "6e2fd2b6d5f64087e9f90088bcdd7b10e99f8b8b06cc45bb58897d340b8723a7",
+    "width": 1024
+  },
+  "version": 1
+}

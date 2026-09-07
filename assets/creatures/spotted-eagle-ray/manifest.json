@@ -1,0 +1,48 @@
+{
+  "artwork": {
+    "aspectRatio": 1.0,
+    "gallery": "gallery.webp",
+    "hero": "hero.webp",
+    "status": "curated",
+    "thumb": "thumb.webp",
+    "variants": {
+      "gallery": {
+        "aspectRatio": 1.0,
+        "bytes": 11240,
+        "height": 512,
+        "mediaType": "image/webp",
+        "path": "gallery.webp",
+        "sha256": "9af1aa14dbd9cfde8199d25cf19d1c0b2554f3a82a31c2f0cac9651ebc85416c",
+        "width": 512
+      },
+      "hero": {
+        "aspectRatio": 1.0,
+        "bytes": 17890,
+        "height": 1024,
+        "mediaType": "image/webp",
+        "path": "hero.webp",
+        "sha256": "eab4c3d77e20b93b6fbc31b98fd445855662862dbeaa676b9605b80e2bfbd70f",
+        "width": 1024
+      },
+      "thumb": {
+        "aspectRatio": 1.0,
+        "bytes": 3724,
+        "height": 192,
+        "mediaType": "image/webp",
+        "path": "thumb.webp",
+        "sha256": "aaf9489a49a7743f65b9e3d6070fbb37e51a69efde46875e07e336007334b9ca",
+        "width": 192
+      }
+    }
+  },
+  "creatureId": "spotted-eagle-ray",
+  "source": {
+    "aspectRatio": 1.0,
+    "bytes": 92674,
+    "format": "png",
+    "height": 1024,
+    "sha256": "6cbffbab9e82274c547c5212d611f47f4c6f27a1f3ab5ca936935031ca2ed94b",
+    "width": 1024
+  },
+  "version": 1
+}

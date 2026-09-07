@@ -1,0 +1,48 @@
+{
+  "artwork": {
+    "aspectRatio": 1.0,
+    "gallery": "gallery.webp",
+    "hero": "hero.webp",
+    "status": "curated",
+    "thumb": "thumb.webp",
+    "variants": {
+      "gallery": {
+        "aspectRatio": 1.0,
+        "bytes": 14230,
+        "height": 512,
+        "mediaType": "image/webp",
+        "path": "gallery.webp",
+        "sha256": "9e5dd175f5de82860a152a06e110b2a2f235c8dc43538aefebf6ec7e8c107ff6",
+        "width": 512
+      },
+      "hero": {
+        "aspectRatio": 1.0,
+        "bytes": 22576,
+        "height": 1024,
+        "mediaType": "image/webp",
+        "path": "hero.webp",
+        "sha256": "59740b994165ea03a4543c6a0c61f7a202fdbe6b1e7ecd443c8429b74e285cf2",
+        "width": 1024
+      },
+      "thumb": {
+        "aspectRatio": 1.0,
+        "bytes": 4524,
+        "height": 192,
+        "mediaType": "image/webp",
+        "path": "thumb.webp",
+        "sha256": "67c93bdd5cde66138c1a20fecaf1df71a07e40a0ca4fa299e3f6cb8db06893e8",
+        "width": 192
+      }
+    }
+  },
+  "creatureId": "green-sea-turtle",
+  "source": {
+    "aspectRatio": 1.0,
+    "bytes": 81983,
+    "format": "png",
+    "height": 1024,
+    "sha256": "0b1525522766ad462e0db28876d773a38a4c7db8fa88c963b73f20e023541119",
+    "width": 1024
+  },
+  "version": 1
+}

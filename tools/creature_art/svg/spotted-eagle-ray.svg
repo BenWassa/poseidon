@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024" role="img" aria-label="Spotted eagle ray">
+  <title>Spotted eagle ray</title>
+  <defs>
+    <linearGradient id="g-ser" x1="0" y1="0" x2="0.2" y2="1">
+      <stop offset="0" stop-color="#2C4E77"/>
+      <stop offset="1" stop-color="#132B47"/>
+    </linearGradient>
+    <clipPath id="clip-ser"><path d="M 512 236 C 566 236 606 268 618 320 C 726 342 856 424 946 552 C 858 596 720 594 620 570 C 606 618 566 646 512 646 C 458 646 418 618 404 570 C 304 594 166 596 78 552 C 168 424 298 342 406 320 C 418 268 458 236 512 236 Z"/></clipPath>
+  </defs>
+  <g>
+    <path d="M 486 600 C 480 706 486 828 512 944 C 538 828 544 706 538 600 Z" fill="#132B47"/>
+    <path d="M 512 236 C 566 236 606 268 618 320 C 726 342 856 424 946 552 C 858 596 720 594 620 570 C 606 618 566 646 512 646 C 458 646 418 618 404 570 C 304 594 166 596 78 552 C 168 424 298 342 406 320 C 418 268 458 236 512 236 Z" fill="url(#g-ser)"/>
+    <g clip-path="url(#clip-ser)">
+      <circle cx="300" cy="452" r="17" fill="#EAF4F8" opacity="0.92"/><circle cx="372" cy="500" r="13.600000000000001" fill="#EAF4F8" opacity="0.92"/><circle cx="246" cy="512" r="11.899999999999999" fill="#EAF4F8" opacity="0.92"/><circle cx="430" cy="430" r="15.3" fill="#EAF4F8" opacity="0.92"/><circle cx="470" cy="512" r="13.600000000000001" fill="#EAF4F8" opacity="0.92"/><circle cx="724" cy="452" r="17" fill="#EAF4F8" opacity="0.92"/><circle cx="652" cy="500" r="13.600000000000001" fill="#EAF4F8" opacity="0.92"/><circle cx="778" cy="512" r="11.899999999999999" fill="#EAF4F8" opacity="0.92"/><circle cx="594" cy="430" r="15.3" fill="#EAF4F8" opacity="0.92"/><circle cx="554" cy="512" r="13.600000000000001" fill="#EAF4F8" opacity="0.92"/><circle cx="352" cy="546" r="10.2" fill="#EAF4F8" opacity="0.92"/><circle cx="672" cy="546" r="10.2" fill="#EAF4F8" opacity="0.92"/><circle cx="512" cy="470" r="11.899999999999999" fill="#EAF4F8" opacity="0.92"/><circle cx="512" cy="560" r="10.2" fill="#EAF4F8" opacity="0.92"/><circle cx="206" cy="470" r="9.350000000000001" fill="#EAF4F8" opacity="0.92"/><circle cx="818" cy="470" r="9.350000000000001" fill="#EAF4F8" opacity="0.92"/>
+      <path d="M 120 512 C 300 470 720 470 904 512 C 720 500 300 500 120 512 Z" fill="#0B2F3E" opacity="0.05"/>
+    </g>
+    <path d="M 470 252 C 470 226 554 226 554 252 C 554 268 470 268 470 252 Z" fill="#E8EEF3"/>
+    
+    <circle cx="452" cy="316" r="17" fill="#FFFFFF"/>
+    <circle cx="454.04" cy="316.68" r="9.86" fill="#0B2F3E"/>
+    <circle cx="459.82" cy="308.86" r="3.4000000000000004" fill="#FFFFFF" opacity="0.95"/>
+  
+    
+    <circle cx="574" cy="316" r="17" fill="#FFFFFF"/>
+    <circle cx="576.04" cy="316.68" r="9.86" fill="#0B2F3E"/>
+    <circle cx="581.82" cy="308.86" r="3.4000000000000004" fill="#FFFFFF" opacity="0.95"/>
+  
+  </g>
+</svg>

@@ -1,26 +1,24 @@
 {
-  "name": "poseidon-domain",
+  "name": "poseidon",
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "Framework-independent Poseidon domain, local persistence, derived history and export.",
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
-    },
-    "./fixtures": {
-      "types": "./dist/fixtures.d.ts",
-      "import": "./dist/fixtures.js"
-    }
-  },
+  "description": "Poseidon — a beautiful personal atlas of your underwater life.",
+  "workspaces": [
+    "packages/domain",
+    "apps/web"
+  ],
   "scripts": {
-    "build": "tsc -p tsconfig.json",
-    "typecheck": "tsc -p tsconfig.json --noEmit",
-    "test": "npm run build && node --test test/*.test.mjs"
-  },
-  "devDependencies": {
-    "typescript": "5.8.3"
+    "build": "npm run build --workspace @poseidon/domain && npm run build --workspace @poseidon/web",
+    "typecheck": "npm run typecheck --workspace @poseidon/domain && npm run typecheck --workspace @poseidon/web",
+    "test": "npm run test --workspace @poseidon/domain && npm run test --workspace @poseidon/web",
+    "dev": "npm run dev --workspace @poseidon/web",
+    "preview": "npm run preview --workspace @poseidon/web",
+    "assets:sync": "node apps/web/scripts/sync-assets.mjs",
+    "assets:art": "node tools/creature_art/build.mjs",
+    "validate:content": "python3 tools/validate_content.py",
+    "validate:assets": "python3 -m tools.creature_assets validate --root assets/creatures",
+    "gate": "npm run validate:content && npm run validate:assets && npm run typecheck && npm run test && npm run build"
   },
   "engines": {
     "node": ">=22"

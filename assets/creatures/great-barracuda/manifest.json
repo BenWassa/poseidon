@@ -1,0 +1,48 @@
+{
+  "artwork": {
+    "aspectRatio": 1.0,
+    "gallery": "gallery.webp",
+    "hero": "hero.webp",
+    "status": "curated",
+    "thumb": "thumb.webp",
+    "variants": {
+      "gallery": {
+        "aspectRatio": 1.0,
+        "bytes": 10740,
+        "height": 512,
+        "mediaType": "image/webp",
+        "path": "gallery.webp",
+        "sha256": "8163ac7e0edb800cd042bb53a3f8dc1564891f4633b4ca8062e01e8d4c905ebd",
+        "width": 512
+      },
+      "hero": {
+        "aspectRatio": 1.0,
+        "bytes": 15856,
+        "height": 1024,
+        "mediaType": "image/webp",
+        "path": "hero.webp",
+        "sha256": "688e4ca587f5a4e6c83530485fad9082601a96233c5ddf9b2776a6e4c1e51dce",
+        "width": 1024
+      },
+      "thumb": {
+        "aspectRatio": 1.0,
+        "bytes": 3368,
+        "height": 192,
+        "mediaType": "image/webp",
+        "path": "thumb.webp",
+        "sha256": "a6b857f29ae0ed0ede9d683ab906d1f2a7c04e8cdbfe5dd83ebc9bd506f718b8",
+        "width": 192
+      }
+    }
+  },
+  "creatureId": "great-barracuda",
+  "source": {
+    "aspectRatio": 1.0,
+    "bytes": 36748,
+    "format": "png",
+    "height": 1024,
+    "sha256": "aa80a429f49112806aeaa6417d4b420464446d39f0ac6ba2fe9657605c2e1668",
+    "width": 1024
+  },
+  "version": 1
+}

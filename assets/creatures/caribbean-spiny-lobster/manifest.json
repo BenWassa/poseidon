@@ -1,0 +1,48 @@
+{
+  "artwork": {
+    "aspectRatio": 1.0,
+    "gallery": "gallery.webp",
+    "hero": "hero.webp",
+    "status": "curated",
+    "thumb": "thumb.webp",
+    "variants": {
+      "gallery": {
+        "aspectRatio": 1.0,
+        "bytes": 22928,
+        "height": 512,
+        "mediaType": "image/webp",
+        "path": "gallery.webp",
+        "sha256": "c7c62aea3e3782ad402a2ea8e0fc91d6efd9e1e4519b1d33b34944588b149205",
+        "width": 512
+      },
+      "hero": {
+        "aspectRatio": 1.0,
+        "bytes": 35020,
+        "height": 1024,
+        "mediaType": "image/webp",
+        "path": "hero.webp",
+        "sha256": "5ee503f39be8aaa0b11b2718d33d060d797ae1da46472201488e88e898dce86d",
+        "width": 1024
+      },
+      "thumb": {
+        "aspectRatio": 1.0,
+        "bytes": 7212,
+        "height": 192,
+        "mediaType": "image/webp",
+        "path": "thumb.webp",
+        "sha256": "95b28c0e788697f30934ca1e5fb2a36cd04950fb281e18bf80c754b44b8add5b",
+        "width": 192
+      }
+    }
+  },
+  "creatureId": "caribbean-spiny-lobster",
+  "source": {
+    "aspectRatio": 1.0,
+    "bytes": 68894,
+    "format": "png",
+    "height": 1024,
+    "sha256": "081a03756d86ff1600fa1b61d9ec2f21d621ee7db6caab0f7769b18787feb691",
+    "width": 1024
+  },
+  "version": 1
+}

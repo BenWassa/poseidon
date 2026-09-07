@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024" role="img" aria-label="Great barracuda">
+  <title>Great barracuda</title>
+  <defs>
+    <linearGradient id="g-gbc" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#C3D2DC"/>
+      <stop offset="1" stop-color="#6E8496"/>
+    </linearGradient>
+    <clipPath id="clip-gbc"><path d="M 232 512 C 284 460 424 430 622 440 C 762 448 858 476 902 512 C 858 548 762 576 622 584 C 424 594 284 564 232 512 Z"/></clipPath>
+  </defs>
+  <g>
+    <g fill="#5C7385" opacity="1"><path d="M 300 512 C 246 470 186 424 138 372 C 176 430 200 470 208 512 C 200 554 176 594 138 652 C 186 600 246 554 300 512 Z"/></g>
+    <path d="M 232 512 C 284 460 424 430 622 440 C 762 448 858 476 902 512 C 858 548 762 576 622 584 C 424 594 284 564 232 512 Z" fill="url(#g-gbc)"/>
+    <g clip-path="url(#clip-gbc)">
+      <path d="M 232 512 C 380 452 700 424 902 470 C 700 460 380 470 232 512 Z" fill="#2E4657" opacity="0.55"/>
+        <circle cx="360" cy="540" r="16" fill="#4C6376" opacity="0.55"/><circle cx="440" cy="552" r="16" fill="#4C6376" opacity="0.55"/><circle cx="520" cy="556" r="16" fill="#4C6376" opacity="0.55"/><circle cx="600" cy="552" r="16" fill="#4C6376" opacity="0.55"/><circle cx="680" cy="544" r="14.4" fill="#4C6376" opacity="0.55"/>
+    </g>
+    <g fill="#5C7385" opacity="1"></g>
+    <path d="M 872 528 C 890 534 900 532 906 524" fill="none" stroke="#0B2F3E" stroke-width="10" stroke-linecap="round" opacity="0.55"/>
+    
+    <circle cx="832" cy="496" r="20" fill="#FFFFFF"/>
+    <circle cx="834.4" cy="496.8" r="11.6" fill="#0B2F3E"/>
+    <circle cx="841.2" cy="487.6" r="4" fill="#FFFFFF" opacity="0.95"/>
+  
+    <g fill="#5C7385">
+          <path d="M 470 462 C 512 400 566 380 610 390 C 562 410 514 440 492 470 Z"/>
+          <path d="M 318 486 C 350 440 392 426 422 434 C 388 452 354 472 336 494 Z"/>
+          <path d="M 400 548 C 434 604 480 622 514 614 C 478 596 442 572 422 550 Z"/>
+          <path d="M 560 556 C 582 606 616 626 646 622 C 618 604 590 580 576 558 Z"/>
+        </g>
+        <path d="M 862 520 C 890 522 906 518 914 512 C 902 534 878 544 858 540 Z" fill="#8FA3B2"/>
+  </g>
+</svg>

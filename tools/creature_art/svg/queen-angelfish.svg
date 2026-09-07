@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024" role="img" aria-label="Queen angelfish">
+  <title>Queen angelfish</title>
+  <defs>
+    <linearGradient id="g-qaf" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2E86C8"/>
+      <stop offset="1" stop-color="#14538F"/>
+    </linearGradient>
+    <clipPath id="clip-qaf"><path d="M 296 512 C 296 356 412 250 566 250 C 716 250 826 356 826 512 C 826 668 716 776 566 776 C 412 776 296 668 296 512 Z"/></clipPath>
+  </defs>
+  <g>
+    <g fill="#F2B21E" opacity="1"><path d="M 330 512 C 286 474 240 436 204 392 C 228 466 228 558 204 632 C 240 588 286 550 330 512 Z"/><path d="M 420 404 C 498 288 630 256 730 306 C 638 332 512 374 452 438 Z"/><path d="M 428 618 C 468 708 546 744 618 728 C 552 698 490 658 456 620 Z"/></g>
+    <path d="M 296 512 C 296 356 412 250 566 250 C 716 250 826 356 826 512 C 826 668 716 776 566 776 C 412 776 296 668 296 512 Z" fill="url(#g-qaf)"/>
+    <g clip-path="url(#clip-qaf)">
+      <path d="M 296 512 C 400 700 700 760 830 700 C 760 800 380 790 296 640 Z" fill="#0E3E70" opacity="0.5"/>
+        <path d="M 704 250 C 806 302 846 422 830 548 C 886 420 834 282 704 250 Z" fill="#F2B21E" opacity="0.95"/>
+        <path d="M 300 468 C 344 446 396 450 424 478 C 386 474 340 486 306 512 Z" fill="#F2B21E" opacity="0.9"/>
+        <circle cx="430" cy="430" r="15" fill="#7FD8E8" opacity="0.5"/><circle cx="500" cy="380" r="13.5" fill="#7FD8E8" opacity="0.5"/><circle cx="560" cy="440" r="15" fill="#7FD8E8" opacity="0.5"/><circle cx="470" cy="520" r="13.5" fill="#7FD8E8" opacity="0.5"/><circle cx="620" cy="500" r="12" fill="#7FD8E8" opacity="0.5"/><circle cx="540" cy="570" r="12.75" fill="#7FD8E8" opacity="0.5"/><circle cx="400" cy="560" r="12" fill="#7FD8E8" opacity="0.5"/><circle cx="660" cy="400" r="11.25" fill="#7FD8E8" opacity="0.5"/>
+    </g>
+    <g fill="#F2B21E" opacity="1"></g>
+    <path d="M 812 486 C 824 494 828 502 826 510" fill="none" stroke="#0B2F3E" stroke-width="10" stroke-linecap="round" opacity="0.55"/>
+    
+    <circle cx="756" cy="430" r="24" fill="#FFFFFF"/>
+    <circle cx="758.88" cy="430.96" r="13.919999999999998" fill="#0B2F3E"/>
+    <circle cx="767.04" cy="419.92" r="4.800000000000001" fill="#FFFFFF" opacity="0.95"/>
+  
+    <path d="M 626 552 C 604 634 622 690 668 716 C 700 664 704 596 682 552 Z" fill="#7FD0EC" opacity="0.75"/>
+        <path d="M 690 316 C 736 300 776 316 786 350 C 748 336 714 336 690 348 Z" fill="#3FA9D6" opacity="0.7"/>
+  </g>
+</svg>

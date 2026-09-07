@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024" role="img" aria-label="Green sea turtle">
+  <title>Green sea turtle</title>
+  <defs>
+    <linearGradient id="g-gst" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#6FA46A"/>
+      <stop offset="1" stop-color="#3F6E4A"/>
+    </linearGradient>
+    <linearGradient id="s-gst" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#8FB177"/>
+      <stop offset="1" stop-color="#5C7F55"/>
+    </linearGradient>
+    <clipPath id="clip-gst"><path d="M 300 520 C 300 384 410 288 550 288 C 698 288 776 384 776 520 C 776 656 692 748 550 748 C 410 748 300 656 300 520 Z"/></clipPath>
+  </defs>
+  <g>
+    <!-- rear flipper -->
+    <path d="M 372 664 C 330 726 336 786 386 812 C 424 780 440 720 428 668 Z" fill="url(#s-gst)"/>
+    <!-- upper front flipper, behind the shell -->
+    <path d="M 664 400 C 762 344 838 262 850 186 C 772 200 690 268 640 366 Z" fill="url(#s-gst)"/>
+    <!-- neck and head -->
+    <path d="M 700 430 C 762 396 826 392 872 414 C 918 436 924 486 890 512 C 852 542 780 538 718 508 Z" fill="url(#s-gst)"/>
+    <path d="M 884 424 C 916 420 936 434 936 452 C 936 470 916 482 886 478 Z" fill="#D9DEC2"/>
+    <path d="M 300 520 C 300 384 410 288 550 288 C 698 288 776 384 776 520 C 776 656 692 748 550 748 C 410 748 300 656 300 520 Z" fill="url(#g-gst)"/>
+    <g clip-path="url(#clip-gst)" fill="none" stroke="#2F5A3E" stroke-width="12" opacity="0.55" stroke-linejoin="round">
+      <path d="M 538 300 L 620 360 L 604 470 L 470 470 L 456 360 Z"/>
+      <path d="M 470 470 L 604 470 L 620 590 L 538 650 L 456 590 Z"/>
+      <path d="M 620 360 L 742 330 L 786 460 L 604 470 Z"/>
+      <path d="M 456 360 L 330 336 L 292 464 L 470 470 Z"/>
+      <path d="M 604 470 L 786 460 L 744 630 L 620 590 Z"/>
+      <path d="M 470 470 L 292 464 L 336 630 L 456 590 Z"/>
+    </g>
+    <path d="M 300 520 C 300 384 410 288 550 288 C 698 288 776 384 776 520 C 776 656 692 748 550 748 C 410 748 300 656 300 520 Z" fill="none" stroke="#3F6E4A" stroke-width="14" opacity="0.5"/>
+    <!-- lower front flipper -->
+    <path d="M 662 606 C 758 636 830 706 852 800 C 776 812 686 772 634 690 Z" fill="url(#s-gst)"/>
+    <path d="M 380 380 C 440 320 540 296 620 306 C 528 330 442 366 392 414 Z" fill="#FFFFFF" opacity="0.22"/>
+    
+    <circle cx="862" cy="446" r="20" fill="#FFFFFF"/>
+    <circle cx="864.4" cy="446.8" r="11.6" fill="#0B2F3E"/>
+    <circle cx="871.2" cy="437.6" r="4" fill="#FFFFFF" opacity="0.95"/>
+  
+  </g>
+</svg>

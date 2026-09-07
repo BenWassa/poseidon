@@ -1,0 +1,48 @@
+{
+  "artwork": {
+    "aspectRatio": 1.0,
+    "gallery": "gallery.webp",
+    "hero": "hero.webp",
+    "status": "curated",
+    "thumb": "thumb.webp",
+    "variants": {
+      "gallery": {
+        "aspectRatio": 1.0,
+        "bytes": 12240,
+        "height": 512,
+        "mediaType": "image/webp",
+        "path": "gallery.webp",
+        "sha256": "df97d2329840be7a514322b409bb6f787ee4414d9fa39f0e6492f1560c03dc85",
+        "width": 512
+      },
+      "hero": {
+        "aspectRatio": 1.0,
+        "bytes": 19726,
+        "height": 1024,
+        "mediaType": "image/webp",
+        "path": "hero.webp",
+        "sha256": "3e095126e9dc3f4cda2e077179da39eb4b1b778e5d9605f7a777da13b6147b0d",
+        "width": 1024
+      },
+      "thumb": {
+        "aspectRatio": 1.0,
+        "bytes": 3992,
+        "height": 192,
+        "mediaType": "image/webp",
+        "path": "thumb.webp",
+        "sha256": "5a00c37a6158c2c66ffaf710c44ad8466ef40602aec8c7f679efe7beb7080ddb",
+        "width": 192
+      }
+    }
+  },
+  "creatureId": "sergeant-major",
+  "source": {
+    "aspectRatio": 1.0,
+    "bytes": 44750,
+    "format": "png",
+    "height": 1024,
+    "sha256": "4b6bfc91978fec03f15b36686b56a46ca508ffffa44a6531a850344f09980143",
+    "width": 1024
+  },
+  "version": 1
+}

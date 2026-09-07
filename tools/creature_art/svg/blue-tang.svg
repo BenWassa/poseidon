@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024" role="img" aria-label="Blue tang">
+  <title>Blue tang</title>
+  <defs>
+    <linearGradient id="g-bt" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3F8BE8"/>
+      <stop offset="1" stop-color="#12489C"/>
+    </linearGradient>
+    <clipPath id="clip-bt"><path d="M 292 512 C 292 372 408 276 556 276 C 700 276 806 366 826 484 C 830 504 830 520 826 540 C 806 658 700 748 556 748 C 408 748 292 652 292 512 Z"/></clipPath>
+  </defs>
+  <g>
+    <path d="M 320 512 C 268 468 214 424 176 372 C 200 448 200 576 176 652 C 214 600 268 556 320 512 Z" fill="#F2C33C"/>
+    <path d="M 336 512 C 300 480 262 446 232 410 C 250 468 250 556 232 614 C 262 578 300 544 336 512 Z" fill="#0E3C86"/>
+    <path d="M 380 350 C 470 268 640 250 754 306 C 640 314 476 346 412 400 Z" fill="#0E3C86"/>
+    <path d="M 386 676 C 470 754 636 772 748 720 C 636 712 478 680 416 628 Z" fill="#0E3C86"/>
+    <path d="M 292 512 C 292 372 408 276 556 276 C 700 276 806 366 826 484 C 830 504 830 520 826 540 C 806 658 700 748 556 748 C 408 748 292 652 292 512 Z" fill="url(#g-bt)"/>
+    <g clip-path="url(#clip-bt)">
+      <path d="M 300 380 C 420 300 640 288 760 336 C 620 336 420 366 320 430 Z" fill="#FFFFFF" opacity="0.22"/>
+      <circle cx="430" cy="420" r="14" fill="#93C6F7" opacity="0.35"/><circle cx="510" cy="382" r="11.200000000000001" fill="#93C6F7" opacity="0.35"/><circle cx="590" cy="420" r="12.6" fill="#93C6F7" opacity="0.35"/><circle cx="470" cy="500" r="11.200000000000001" fill="#93C6F7" opacity="0.35"/><circle cx="556" cy="470" r="9.799999999999999" fill="#93C6F7" opacity="0.35"/><circle cx="640" cy="500" r="8.4" fill="#93C6F7" opacity="0.35"/>
+    </g>
+    <path d="M 638 548 C 612 626 630 686 676 712 C 706 662 710 592 690 548 Z" fill="#78B4F0" opacity="0.85"/>
+    <path d="M 812 500 C 826 508 830 516 828 526" fill="none" stroke="#0B2F3E" stroke-width="12" stroke-linecap="round" opacity="0.55"/>
+    
+    <circle cx="752" cy="432" r="25" fill="#FFFFFF"/>
+    <circle cx="755" cy="433" r="14.499999999999998" fill="#0B2F3E"/>
+    <circle cx="763.5" cy="421.5" r="5" fill="#FFFFFF" opacity="0.95"/>
+  
+  </g>
+</svg>
