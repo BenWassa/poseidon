@@ -13,6 +13,9 @@ import type {
   PoseidonStore,
   RecentDiscovery,
   Region,
+  RestoreMode,
+  RestorePreview,
+  RestoreResult,
   Sighting,
   SightingInput,
   UpdateDiveInput,
@@ -24,6 +27,11 @@ import {
   type PersistenceAdapter,
   migratePersistedState,
 } from './persistence.js';
+import {
+  applyPreparedRestore,
+  buildRestorePreview,
+  preparePoseidonRestore,
+} from './restore.js';
 import {
   buildCreatureCollection,
   getLifetimeStats,
@@ -335,6 +343,22 @@ class DefaultPoseidonStore implements PoseidonStore {
         places: deepClone(places),
       },
     };
+  }
+
+  async previewRestore(data: unknown): Promise<RestorePreview> {
+    const prepared = preparePoseidonRestore(data, this.now(), this.curatedCreatures);
+    return buildRestorePreview(await this.snapshot(), prepared);
+  }
+
+  async restoreData(data: unknown, mode: RestoreMode): Promise<RestoreResult> {
+    const prepared = preparePoseidonRestore(data, this.now(), this.curatedCreatures);
+    return this.enqueueMutation((state) => {
+      const applied = applyPreparedRestore(state, prepared, mode);
+      state.schemaVersion = applied.state.schemaVersion;
+      state.dives = applied.state.dives;
+      state.userCreatures = applied.state.userCreatures;
+      return applied.result;
+    });
   }
 
   private newSighting(input: SightingInput): Sighting {
