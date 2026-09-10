@@ -67,11 +67,12 @@ export function DataAndBackup() {
   const restore = async (mode: RestoreMode) => {
     if (restorePayload === null || restorePreview === null || restorePending) return;
     if (mode === 'replace') {
-      const discard = restorePreview.replaceWouldDiscardDives;
-      const warning =
-        discard > 0
-          ? `Replace the current record with this backup? ${pluralize(discard, 'current dive')} will be discarded because it is not identical in the backup. This cannot be undone unless you exported the current record first.`
-          : 'Replace the current record with this backup? The backup will become the complete local record.';
+      const discardDives = restorePreview.replaceWouldDiscardDives;
+      const discardCreatures = restorePreview.replaceWouldDiscardUserCreatures;
+      const hasDiscard = discardDives > 0 || discardCreatures > 0;
+      const warning = hasDiscard
+        ? `Replace the current record with this backup? ${pluralize(discardDives, 'current dive')} and ${pluralize(discardCreatures, 'custom creature')} will be discarded because they are not identical in the backup. This cannot be undone unless you exported the current record first.`
+        : 'Replace the current record with this backup? The backup will become the complete local record.';
       if (!window.confirm(warning)) return;
     }
 
@@ -82,8 +83,8 @@ export function DataAndBackup() {
       const result = await client.mutate((store) => store.restoreData(restorePayload, mode));
       setRestoreStatus(
         mode === 'merge'
-          ? `Merged safely: ${pluralize(result.addedDives, 'dive')} added; current history kept.`
-          : `Restored backup: ${pluralize(result.totalDives, 'dive')} now on this device.`,
+          ? `Merged safely: ${pluralize(result.addedDives, 'dive')} and ${pluralize(result.addedUserCreatures, 'custom creature')} added; current history kept.`
+          : `Restored backup: ${pluralize(result.totalDives, 'dive')} and ${pluralize(result.totalUserCreatures, 'custom creature')} now on this device.`,
       );
       setRestorePreview(await client.store.previewRestore(restorePayload));
     } catch (error) {
@@ -151,12 +152,18 @@ export function DataAndBackup() {
           </div>
 
           {restoreError ? (
-            <p role="alert" className="mt-3 rounded-field bg-coral-soft px-4 py-3 text-sm font-bold leading-relaxed text-coral">
+            <p
+              role="alert"
+              className="mt-3 rounded-field bg-coral-soft px-4 py-3 text-sm font-bold leading-relaxed text-coral"
+            >
               Restore refused: {restoreError}
             </p>
           ) : null}
           {restoreStatus ? (
-            <p role="status" className="mt-3 flex items-start gap-2 rounded-field bg-lagoon/10 px-4 py-3 text-sm font-bold leading-relaxed text-reef">
+            <p
+              role="status"
+              className="mt-3 flex items-start gap-2 rounded-field bg-lagoon/10 px-4 py-3 text-sm font-bold leading-relaxed text-reef"
+            >
               <Check size={16} className="mt-0.5 shrink-0" aria-hidden="true" />
               {restoreStatus}
             </p>
@@ -169,20 +176,25 @@ export function DataAndBackup() {
                 {pluralize(restorePreview.backupUserCreatures, 'custom creature')}.
               </p>
               <p className="mt-1 text-xs font-medium leading-relaxed text-ocean/55">
-                Exported {new Date(restorePreview.exportedAt).toLocaleString()} · export v{restorePreview.exportVersion} · data schema v{restorePreview.schemaVersion}
+                Exported {new Date(restorePreview.exportedAt).toLocaleString()} · export v
+                {restorePreview.exportVersion} · data schema v{restorePreview.schemaVersion}
               </p>
 
               <div className="mt-4 grid gap-3">
                 <div className="rounded-field border border-shallows bg-shallows/35 p-4">
                   <p className="text-sm font-black text-ocean">Merge — keep current history</p>
                   <p className="mt-1 text-xs font-medium leading-relaxed text-ocean/60">
-                    Adds {pluralize(restorePreview.mergeAddsDives, 'new dive')} and never deletes current dives.
-                    Identical records are skipped.
+                    Adds {pluralize(restorePreview.mergeAddsDives, 'new dive')} and{' '}
+                    {pluralize(restorePreview.mergeAddsUserCreatures, 'new custom creature')}. Current records are
+                    never deleted; identical records are skipped.
                   </p>
                   {restorePreview.mergeConflicts.length > 0 ? (
                     <p className="mt-2 text-xs font-bold leading-relaxed text-coral">
                       Merge unavailable: {restorePreview.mergeConflicts[0]}
-                      {restorePreview.mergeConflicts.length > 1 ? ` (+${restorePreview.mergeConflicts.length - 1} more)` : ''}.
+                      {restorePreview.mergeConflicts.length > 1
+                        ? ` (+${restorePreview.mergeConflicts.length - 1} more)`
+                        : ''}
+                      .
                     </p>
                   ) : null}
                   <QuietAction
@@ -198,7 +210,10 @@ export function DataAndBackup() {
                 <div className="rounded-field border border-coral/20 bg-coral-soft/35 p-4">
                   <p className="text-sm font-black text-ocean">Replace — use backup exactly</p>
                   <p className="mt-1 text-xs font-medium leading-relaxed text-ocean/60">
-                    Replaces the complete local record. {pluralize(restorePreview.replaceWouldDiscardDives, 'current dive')} would be discarded because it is not identical in the backup. You will be asked to confirm.
+                    Replaces the complete local record.{' '}
+                    {pluralize(restorePreview.replaceWouldDiscardDives, 'current dive')} and{' '}
+                    {pluralize(restorePreview.replaceWouldDiscardUserCreatures, 'custom creature')} would be
+                    discarded because they are not identical in the backup. You will be asked to confirm.
                   </p>
                   <QuietAction
                     type="button"
