@@ -115,20 +115,22 @@ async function logDive(page) {
 }
 
 async function verifyCoherence(page) {
-  await page.getByRole('link', { name: /Home/ }).click();
+  const nav = page.getByRole('navigation', { name: 'Main' });
+
+  await nav.getByRole('link', { name: 'Home' }).click();
   await page.getByText(/1 dive · 2 creatures/).waitFor();
   await assertNoHorizontalOverflow(page, 'Home');
 
-  await page.getByRole('link', { name: /Journal/ }).click();
+  await nav.getByRole('link', { name: 'Journal' }).click();
   await page.getByRole('heading', { name: 'Field Reef' }).waitFor();
   await assertNoHorizontalOverflow(page, 'Journal');
 
-  await page.getByRole('link', { name: /Collection/ }).click();
+  await nav.getByRole('link', { name: 'Collection' }).click();
   await page.getByText('2 creatures').waitFor();
   await page.getByText('Spotted eagle ray').first().waitFor();
   await assertNoHorizontalOverflow(page, 'Collection');
 
-  await page.getByRole('link', { name: /Atlas/ }).click();
+  await nav.getByRole('link', { name: 'Atlas' }).click();
   await page.getByText('1 place').waitFor();
   await page.getByText('Cozumel').first().waitFor();
   await assertNoHorizontalOverflow(page, 'Atlas');
