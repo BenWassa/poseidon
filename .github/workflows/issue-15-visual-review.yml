@@ -5,10 +5,11 @@ on:
     branches: [issue-15-personal-history]
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   pixel-review:
+    if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -26,13 +27,13 @@ jobs:
           sed -i 's/deviceScaleFactor: 2/deviceScaleFactor: 1/' apps/web/scripts/capture-screens.mjs
           sed -i 's/quality: 82/quality: 45/' apps/web/scripts/capture-screens.mjs
           POSEIDON_SHOTS=/tmp/poseidon-shots npm run e2e --workspace @poseidon/web
-      - name: Emit review images
+      - name: Expose review frames on branch
         run: |
-          echo 'POSEIDON_JOURNAL_BASE64_BEGIN'
-          base64 -w0 /tmp/poseidon-shots/02-journal.jpg
-          echo
-          echo 'POSEIDON_JOURNAL_BASE64_END'
-          echo 'POSEIDON_CREATURE_BASE64_BEGIN'
-          base64 -w0 /tmp/poseidon-shots/07-creature-detail.jpg
-          echo
-          echo 'POSEIDON_CREATURE_BASE64_END'
+          mkdir -p docs/evidence/issue-15-temp
+          cp /tmp/poseidon-shots/02-journal.jpg docs/evidence/issue-15-temp/journal.jpg
+          cp /tmp/poseidon-shots/07-creature-detail.jpg docs/evidence/issue-15-temp/creature-detail.jpg
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/evidence/issue-15-temp
+          git commit -m 'chore: expose issue 15 visual evidence'
+          git push
