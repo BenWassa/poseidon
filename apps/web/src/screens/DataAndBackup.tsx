@@ -2,14 +2,16 @@
  * Durability, kept secondary.
  *
  * Poseidon is meant to become a long-lived personal archive, so the record has
- * to be recoverable before it is trusted. Export is here — reachable, not
- * prominent — alongside the unit preference and what the app knows offline.
+ * to be recoverable before it is trusted. Export and restore live here —
+ * reachable, not prominent — alongside the unit preference and offline notes.
  */
-import { useState } from 'react';
-import { Check, Database, Download, Ruler, WifiOff } from 'lucide-react';
+import { useState, type ChangeEvent } from 'react';
+import { Check, Database, Download, Ruler, ShieldCheck, Upload, WifiOff } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
-import { Card, Chip, QuietAction, SectionHeader, TopBar } from '../components/ui';
+import type { RestoreMode, RestorePreview } from '@poseidon/domain';
+
+import { ACTION_QUIET, Card, Chip, QuietAction, SectionHeader, TopBar } from '../components/ui';
 import { contentMeta } from '../data/content';
 import { useLifetimeStats } from '../data/hooks';
 import { usePoseidon } from '../data/provider';
@@ -22,6 +24,11 @@ export function DataAndBackup() {
   const { data: stats } = useLifetimeStats();
   const [preferences, setPreferences] = usePreferences();
   const [exported, setExported] = useState<string | null>(null);
+  const [restorePayload, setRestorePayload] = useState<unknown | null>(null);
+  const [restorePreview, setRestorePreview] = useState<RestorePreview | null>(null);
+  const [restoreError, setRestoreError] = useState<string | null>(null);
+  const [restoreStatus, setRestoreStatus] = useState<string | null>(null);
+  const [restorePending, setRestorePending] = useState(false);
 
   const exportData = async () => {
     const payload = await client.store.exportData();
@@ -36,6 +43,54 @@ export function DataAndBackup() {
     anchor.remove();
     URL.revokeObjectURL(url);
     setExported(`${payload.personal.dives.length} dives exported`);
+  };
+
+  const selectBackup = async (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.currentTarget.files?.[0];
+    event.currentTarget.value = '';
+    if (!file) return;
+
+    setRestoreError(null);
+    setRestoreStatus(null);
+    setRestorePayload(null);
+    setRestorePreview(null);
+    try {
+      const parsed = JSON.parse(await file.text()) as unknown;
+      const preview = await client.store.previewRestore(parsed);
+      setRestorePayload(parsed);
+      setRestorePreview(preview);
+    } catch (error) {
+      setRestoreError(error instanceof Error ? error.message : 'Poseidon could not read this backup.');
+    }
+  };
+
+  const restore = async (mode: RestoreMode) => {
+    if (restorePayload === null || restorePreview === null || restorePending) return;
+    if (mode === 'replace') {
+      const discard = restorePreview.replaceWouldDiscardDives;
+      const warning =
+        discard > 0
+          ? `Replace the current record with this backup? ${pluralize(discard, 'current dive')} will be discarded because it is not identical in the backup. This cannot be undone unless you exported the current record first.`
+          : 'Replace the current record with this backup? The backup will become the complete local record.';
+      if (!window.confirm(warning)) return;
+    }
+
+    setRestorePending(true);
+    setRestoreError(null);
+    setRestoreStatus(null);
+    try {
+      const result = await client.mutate((store) => store.restoreData(restorePayload, mode));
+      setRestoreStatus(
+        mode === 'merge'
+          ? `Merged safely: ${pluralize(result.addedDives, 'dive')} added; current history kept.`
+          : `Restored backup: ${pluralize(result.totalDives, 'dive')} now on this device.`,
+      );
+      setRestorePreview(await client.store.previewRestore(restorePayload));
+    } catch (error) {
+      setRestoreError(error instanceof Error ? error.message : 'Poseidon refused this restore.');
+    } finally {
+      setRestorePending(false);
+    }
   };
 
   return (
@@ -61,6 +116,101 @@ export function DataAndBackup() {
               <Check size={16} aria-hidden="true" />
               {exported}
             </p>
+          ) : null}
+        </Card>
+      </section>
+
+      <section className="mt-7 px-5">
+        <SectionHeader title="Restore a backup" />
+        <Card className="p-5">
+          <div className="flex items-start gap-3">
+            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-lagoon/12 text-lagoon">
+              <ShieldCheck size={20} aria-hidden="true" />
+            </span>
+            <div className="min-w-0 flex-1">
+              <p className="text-sm font-bold text-ocean">Validated before anything changes</p>
+              <p className="mt-1 text-sm font-medium leading-relaxed text-ocean/65">
+                Choose a Poseidon JSON export. The file, schema version and every personal record are checked
+                before restore actions become available.
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-4">
+            <input
+              id="poseidon-restore-file"
+              type="file"
+              accept="application/json,.json"
+              className="sr-only"
+              onChange={selectBackup}
+            />
+            <label htmlFor="poseidon-restore-file" className={`${ACTION_QUIET} cursor-pointer`}>
+              <Upload size={18} aria-hidden="true" />
+              Choose Poseidon backup
+            </label>
+          </div>
+
+          {restoreError ? (
+            <p role="alert" className="mt-3 rounded-field bg-coral-soft px-4 py-3 text-sm font-bold leading-relaxed text-coral">
+              Restore refused: {restoreError}
+            </p>
+          ) : null}
+          {restoreStatus ? (
+            <p role="status" className="mt-3 flex items-start gap-2 rounded-field bg-lagoon/10 px-4 py-3 text-sm font-bold leading-relaxed text-reef">
+              <Check size={16} className="mt-0.5 shrink-0" aria-hidden="true" />
+              {restoreStatus}
+            </p>
+          ) : null}
+
+          {restorePreview ? (
+            <div className="mt-5 border-t border-shallows pt-4">
+              <p className="text-sm font-bold text-ocean">
+                Backup contains {pluralize(restorePreview.backupDives, 'dive')} and{' '}
+                {pluralize(restorePreview.backupUserCreatures, 'custom creature')}.
+              </p>
+              <p className="mt-1 text-xs font-medium leading-relaxed text-ocean/55">
+                Exported {new Date(restorePreview.exportedAt).toLocaleString()} · export v{restorePreview.exportVersion} · data schema v{restorePreview.schemaVersion}
+              </p>
+
+              <div className="mt-4 grid gap-3">
+                <div className="rounded-field border border-shallows bg-shallows/35 p-4">
+                  <p className="text-sm font-black text-ocean">Merge — keep current history</p>
+                  <p className="mt-1 text-xs font-medium leading-relaxed text-ocean/60">
+                    Adds {pluralize(restorePreview.mergeAddsDives, 'new dive')} and never deletes current dives.
+                    Identical records are skipped.
+                  </p>
+                  {restorePreview.mergeConflicts.length > 0 ? (
+                    <p className="mt-2 text-xs font-bold leading-relaxed text-coral">
+                      Merge unavailable: {restorePreview.mergeConflicts[0]}
+                      {restorePreview.mergeConflicts.length > 1 ? ` (+${restorePreview.mergeConflicts.length - 1} more)` : ''}.
+                    </p>
+                  ) : null}
+                  <QuietAction
+                    type="button"
+                    className="mt-3"
+                    disabled={restorePending || restorePreview.mergeConflicts.length > 0}
+                    onClick={() => restore('merge')}
+                  >
+                    Merge backup safely
+                  </QuietAction>
+                </div>
+
+                <div className="rounded-field border border-coral/20 bg-coral-soft/35 p-4">
+                  <p className="text-sm font-black text-ocean">Replace — use backup exactly</p>
+                  <p className="mt-1 text-xs font-medium leading-relaxed text-ocean/60">
+                    Replaces the complete local record. {pluralize(restorePreview.replaceWouldDiscardDives, 'current dive')} would be discarded because it is not identical in the backup. You will be asked to confirm.
+                  </p>
+                  <QuietAction
+                    type="button"
+                    className="mt-3 border-coral/25 text-coral"
+                    disabled={restorePending}
+                    onClick={() => restore('replace')}
+                  >
+                    Replace current record
+                  </QuietAction>
+                </div>
+              </div>
+            </div>
           ) : null}
         </Card>
       </section>
