@@ -1,0 +1,38 @@
+name: Issue 15 visual review
+
+on:
+  push:
+    branches: [issue-15-personal-history]
+
+permissions:
+  contents: read
+
+jobs:
+  pixel-review:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Build production app
+        run: npm run build
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium >/dev/null
+      - name: Capture compact Pixel evidence
+        run: |
+          sed -i 's/deviceScaleFactor: 2/deviceScaleFactor: 1/' apps/web/scripts/capture-screens.mjs
+          sed -i 's/quality: 82/quality: 45/' apps/web/scripts/capture-screens.mjs
+          POSEIDON_SHOTS=/tmp/poseidon-shots npm run e2e --workspace @poseidon/web
+      - name: Emit review images
+        run: |
+          echo 'POSEIDON_JOURNAL_BASE64_BEGIN'
+          base64 -w0 /tmp/poseidon-shots/02-journal.jpg
+          echo
+          echo 'POSEIDON_JOURNAL_BASE64_END'
+          echo 'POSEIDON_CREATURE_BASE64_BEGIN'
+          base64 -w0 /tmp/poseidon-shots/07-creature-detail.jpg
+          echo
+          echo 'POSEIDON_CREATURE_BASE64_END'
