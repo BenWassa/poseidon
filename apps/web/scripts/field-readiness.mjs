@@ -174,7 +174,7 @@ async function restoreIntoCleanState(page, backup) {
   await clean.getByText(/Backup contains 1 dive/).waitFor();
   clean.once('dialog', (dialog) => dialog.accept());
   await clean.getByRole('button', { name: 'Replace current record' }).click();
-  await clean.getByText(/Restored backup: 1 dive now on this device/).waitFor();
+  await clean.getByText(/Restored backup: 1 dive and 0 custom creatures now on this device/).waitFor();
 
   const roundTrip = await downloadJson(clean);
   assert.deepEqual(roundTrip.personal, backup.personal, 'export → clean state → restore changed personal history');
@@ -194,7 +194,10 @@ try {
   assert.equal(manifest.display, 'standalone', 'manifest must request standalone display');
   assert.equal(manifest.start_url, `${basePath}#/`, 'manifest start_url must preserve the deployment base and hash router');
   assert.equal(manifest.scope, basePath, 'manifest scope must match deployment base');
-  assert.ok(Array.isArray(manifest.icons) && manifest.icons.some((icon) => icon.sizes === '512x512'), 'manifest needs a 512px install icon');
+  assert.ok(
+    Array.isArray(manifest.icons) && manifest.icons.some((icon) => icon.sizes === '512x512'),
+    'manifest needs a 512px install icon',
+  );
 
   await page.waitForFunction(async () => {
     if (!('serviceWorker' in navigator)) return false;
