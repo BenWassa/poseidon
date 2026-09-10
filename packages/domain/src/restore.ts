@@ -166,12 +166,13 @@ function assertExportEnvelope(raw: unknown): PoseidonExportV1 {
     const value = printable(raw.exportVersion);
     throw new PoseidonValidationError(`Backup export version ${value} is unsupported; this app supports version 1.`);
   }
-  if (!Number.isInteger(raw.schemaVersion) || (raw.schemaVersion as number) < 1) {
+  const schemaVersion = raw.schemaVersion;
+  if (typeof schemaVersion !== 'number' || !Number.isInteger(schemaVersion) || schemaVersion < 1) {
     throw new PoseidonValidationError('Backup has no supported personal-data schema version.');
   }
-  if ((raw.schemaVersion as number) > CURRENT_SCHEMA_VERSION) {
+  if (schemaVersion > CURRENT_SCHEMA_VERSION) {
     throw new PoseidonValidationError(
-      `Backup schema version ${raw.schemaVersion as number} is newer than this app supports (${CURRENT_SCHEMA_VERSION}). Update Poseidon before restoring it.`,
+      `Backup schema version ${schemaVersion} is newer than this app supports (${CURRENT_SCHEMA_VERSION}). Update Poseidon before restoring it.`,
     );
   }
   assertIsoTimestamp(raw.exportedAt, 'Backup export timestamp');
@@ -247,24 +248,38 @@ function validateDive(dive: Dive, availableCreatureIds: Set<string>): void {
       throw new PoseidonValidationError(`Dive ${String(record.id)} countryCode is malformed.`);
     }
   }
-  if (!isRecord(record.maxDepth) || !Number.isFinite(record.maxDepth.value) || (record.maxDepth.value as number) <= 0) {
+
+  if (!isRecord(record.maxDepth)) {
+    throw new PoseidonValidationError(`Dive ${String(record.id)} maxDepth is malformed.`);
+  }
+  const depthValue = record.maxDepth.value;
+  if (typeof depthValue !== 'number' || !Number.isFinite(depthValue) || depthValue <= 0) {
     throw new PoseidonValidationError(`Dive ${String(record.id)} maxDepth is malformed.`);
   }
   if (record.maxDepth.unit !== 'm' && record.maxDepth.unit !== 'ft') {
     throw new PoseidonValidationError(`Dive ${String(record.id)} depth unit is unsupported.`);
   }
-  if (!Number.isInteger(record.durationMinutes) || (record.durationMinutes as number) <= 0) {
+
+  const durationMinutes = record.durationMinutes;
+  if (typeof durationMinutes !== 'number' || !Number.isInteger(durationMinutes) || durationMinutes <= 0) {
     throw new PoseidonValidationError(`Dive ${String(record.id)} durationMinutes is malformed.`);
   }
+
   if (record.coordinates !== undefined) {
+    if (!isRecord(record.coordinates)) {
+      throw new PoseidonValidationError(`Dive ${String(record.id)} coordinates are malformed.`);
+    }
+    const lat = record.coordinates.lat;
+    const lng = record.coordinates.lng;
     if (
-      !isRecord(record.coordinates) ||
-      !Number.isFinite(record.coordinates.lat) ||
-      (record.coordinates.lat as number) < -90 ||
-      (record.coordinates.lat as number) > 90 ||
-      !Number.isFinite(record.coordinates.lng) ||
-      (record.coordinates.lng as number) < -180 ||
-      (record.coordinates.lng as number) > 180
+      typeof lat !== 'number' ||
+      !Number.isFinite(lat) ||
+      lat < -90 ||
+      lat > 90 ||
+      typeof lng !== 'number' ||
+      !Number.isFinite(lng) ||
+      lng < -180 ||
+      lng > 180
     ) {
       throw new PoseidonValidationError(`Dive ${String(record.id)} coordinates are malformed.`);
     }
@@ -363,7 +378,7 @@ function stableJson(value: unknown): string {
       .map((key) => `${JSON.stringify(key)}:${stableJson(value[key])}`)
       .join(',')}}`;
   }
-  return JSON.stringify(value);
+  return JSON.stringify(value) ?? 'null';
 }
 
 function assertUniqueIds(records: Array<{ id: string }>, label: string): void {
