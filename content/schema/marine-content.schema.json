@@ -58,6 +58,26 @@
         "parentRegionId": { "$ref": "#/$defs/id" }
       }
     },
+    "coordinates": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["lat", "lng", "precision", "sourceIds", "note"],
+      "properties": {
+        "lat": { "type": "number", "minimum": -90, "maximum": 90 },
+        "lng": { "type": "number", "minimum": -180, "maximum": 180 },
+        "precision": {
+          "type": "string",
+          "enum": ["exact-site", "approximate-site", "reef-area"]
+        },
+        "sourceIds": {
+          "allOf": [
+            { "$ref": "#/$defs/idArray" },
+            { "minItems": 1 }
+          ]
+        },
+        "note": { "$ref": "#/$defs/nonEmptyString" }
+      }
+    },
     "site": {
       "type": "object",
       "additionalProperties": false,
@@ -73,7 +93,8 @@
             { "$ref": "#/$defs/idArray" },
             { "minItems": 1 }
           ]
-        }
+        },
+        "coordinates": { "$ref": "#/$defs/coordinates" }
       }
     },
     "creature": {

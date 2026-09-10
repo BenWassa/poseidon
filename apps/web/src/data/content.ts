@@ -18,12 +18,23 @@ interface PackRegion {
   parentRegionId?: string;
 }
 
+export type CoordinatePrecision = 'exact-site' | 'approximate-site' | 'reef-area';
+
+export interface CuratedCoordinates {
+  lat: number;
+  lng: number;
+  precision: CoordinatePrecision;
+  sourceIds: string[];
+  note: string;
+}
+
 interface PackSite {
   id: string;
   name: string;
   aliases: string[];
   regionId: string;
   recordType: 'site' | 'area';
+  coordinates?: CuratedCoordinates;
 }
 
 interface PackCreature {
@@ -120,11 +131,12 @@ export const places: Place[] = packSites.map((site) => {
     kind: site.recordType,
     ...(region?.countryCode ? { countryCode: region.countryCode } : {}),
     regionId: site.regionId,
+    ...(site.coordinates ? { coordinates: { lat: site.coordinates.lat, lng: site.coordinates.lng } } : {}),
     curated: true,
   };
 });
 
-/** Curated dive sites keyed for the Log Dive site suggestions. */
+/** Curated dive sites keyed for the Log Dive site suggestions and Atlas map. */
 export interface CuratedSite {
   id: string;
   name: string;
@@ -132,6 +144,7 @@ export interface CuratedSite {
   regionId: string;
   areaName: string;
   countryCode: string | undefined;
+  coordinates: CuratedCoordinates | undefined;
 }
 
 export const curatedSites: CuratedSite[] = packSites.map((site) => ({
@@ -141,6 +154,7 @@ export const curatedSites: CuratedSite[] = packSites.map((site) => ({
   regionId: site.regionId,
   areaName: regionById.get(site.regionId)?.name ?? '',
   countryCode: regionById.get(site.regionId)?.countryCode,
+  coordinates: site.coordinates,
 }));
 
 /** Curated areas a diver can pick as `areaName` — the leaf regions of the pack. */
@@ -162,5 +176,6 @@ export const contentMeta = {
   creatureCount: creatures.length,
   curatedArtworkCount: creatures.filter((creature) => creature.artwork?.status === 'curated').length,
   siteCount: packSites.length,
+  geolocatedSiteCount: packSites.filter((site) => site.coordinates !== undefined).length,
   sourceCount: (manifestJson.sources as unknown[]).length,
 };
