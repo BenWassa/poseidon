@@ -17,7 +17,14 @@ jobs:
         with:
           node-version: 22
           cache: npm
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: tools/creature_assets/requirements.txt
       - run: npm ci
+      - name: Install creature asset validator dependencies
+        run: python -m pip install -r tools/creature_assets/requirements.txt
       - name: Validate marine content
         run: npm run validate:content
       - name: Validate creature assets
