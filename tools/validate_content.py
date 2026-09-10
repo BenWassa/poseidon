@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Validate Poseidon's framework-independent marine content pack."""
 from __future__ import annotations
-import json, re, sys
+import json, math, re, sys
 from datetime import date
 from pathlib import Path
 from urllib.parse import urlparse
@@ -11,7 +11,8 @@ PACK=ROOT/'content/mexican-caribbean'; MANIFEST=PACK/'manifest.json'; SCHEMA=ROO
 ID=re.compile(r'^[a-z0-9]+(?:-[a-z0-9]+)*$'); DAY=re.compile(r'^\d{4}-\d{2}-\d{2}$'); CC=re.compile(r'^[A-Z]{2}$')
 BANNED={'rarity','raritypercent','encounterprobability','sightingfrequency','frequency','density','densityscore'}
 SOURCE={'id','title','publisher','kind','url','accessedOn','note'}; REGION={'id','name','countryCode','parentRegionId'}
-SITE={'id','name','aliases','regionId','recordType','sourceIds'}
+SITE_REQUIRED={'id','name','aliases','regionId','recordType','sourceIds'}; SITE=SITE_REQUIRED|{'coordinates'}
+COORD={'lat','lng','precision','sourceIds','note'}
 CREATURE_REQUIRED={'id','commonName','aliases','category','regionIds','sourceIds'}; CREATURE=CREATURE_REQUIRED|{'scientificName'}
 MANIFEST_KEYS={'kind','schemaVersion','packId','name','lastReviewed','description','sources','regions','siteFiles','creatureFiles'}
 
@@ -20,8 +21,7 @@ def load(path,e):
     except (OSError,json.JSONDecodeError) as x:e.append(f'{path.relative_to(ROOT)}: unreadable JSON: {x}'); return None
 
 def keys(o,req,allow,w,e):
-    missing=req-o.keys()
-    extra=o.keys()-allow
+    missing=req-o.keys(); extra=o.keys()-allow
     if missing:e.append(f'{w}: missing keys {sorted(missing)}')
     if extra:e.append(f'{w}: unsupported keys {sorted(extra)}')
 
@@ -83,8 +83,23 @@ def shard(rel,kind,listkey,packid,e):
     if not isinstance(records,list):e.append(f'{path.relative_to(ROOT)}.{listkey}: expected array'); return []
     return records
 
+def validate_coordinate(value,w,sourceids,record_type,e):
+    if not isinstance(value,dict):e.append(f'{w}: expected object'); return
+    keys(value,COORD,COORD,w,e)
+    for field,minimum,maximum in (('lat',-90,90),('lng',-180,180)):
+        number=value.get(field)
+        if isinstance(number,bool) or not isinstance(number,(int,float)) or not math.isfinite(number):
+            e.append(f'{w}.{field}: expected finite number')
+        elif not minimum<=number<=maximum:e.append(f'{w}.{field}: out of bounds [{minimum}, {maximum}]')
+    precision=value.get('precision')
+    if precision not in {'exact-site','approximate-site','reef-area'}:e.append(f'{w}.precision: unsupported coordinate precision')
+    if record_type=='area' and precision=='exact-site':e.append(f'{w}.precision: area records cannot claim exact-site precision')
+    for r in strings(value.get('sourceIds'),f'{w}.sourceIds',e,True):
+        if r not in sourceids:e.append(f'{w}.sourceIds: unknown source {r!r}')
+    text(value.get('note'),f'{w}.note',e)
+
 def validate():
-    e=[]; counts={'regions':0,'sites':0,'creatures':0,'sources':0}
+    e=[]; counts={'regions':0,'sites':0,'creatures':0,'sources':0,'geolocatedSites':0}
     schema=load(SCHEMA,e)
     if not isinstance(schema,dict) or schema.get('$schema')!='https://json-schema.org/draft/2020-12/schema':e.append('schema: expected Draft 2020-12 declaration')
     m=load(MANIFEST,e)
@@ -137,11 +152,15 @@ def validate():
     terms={}
     for i,o in enumerate(sites):
         if not isinstance(o,dict):continue
-        w=f'sites[{i}]'; keys(o,SITE,SITE,w,e); name=o.get('name'); text(name,f'{w}.name',e); aliases=strings(o.get('aliases'),f'{w}.aliases',e); rid=o.get('regionId')
+        w=f'sites[{i}]'; keys(o,SITE_REQUIRED,SITE,w,e); name=o.get('name'); text(name,f'{w}.name',e); aliases=strings(o.get('aliases'),f'{w}.aliases',e); rid=o.get('regionId')
         if not sid(rid,f'{w}.regionId',e) or rid not in regionids:e.append(f'{w}.regionId: unknown region {rid!r}')
-        if o.get('recordType') not in {'site','area'}:e.append(f'{w}.recordType: expected site or area')
+        record_type=o.get('recordType')
+        if record_type not in {'site','area'}:e.append(f'{w}.recordType: expected site or area')
         for r in strings(o.get('sourceIds'),f'{w}.sourceIds',e,True):
             if r not in sourceids:e.append(f'{w}.sourceIds: unknown source {r!r}')
+        if 'coordinates' in o:
+            counts['geolocatedSites']+=1
+            validate_coordinate(o.get('coordinates'),f'{w}.coordinates',sourceids,record_type,e)
         if isinstance(name,str) and name.casefold() in {a.casefold() for a in aliases}:e.append(f'{w}.aliases: duplicates primary name')
         if isinstance(rid,str):
             for t in [name,*aliases]:
@@ -180,6 +199,6 @@ def main():
         print(f'Content validation failed with {len(e)} error(s):',file=sys.stderr)
         for x in e:print(f'- {x}',file=sys.stderr)
         return 1
-    print(f"Content validation passed: {c['regions']} regions, {c['sites']} sites/areas, {c['creatures']} creatures, {c['sources']} sources.")
+    print(f"Content validation passed: {c['regions']} regions, {c['sites']} sites/areas ({c['geolocatedSites']} geolocated), {c['creatures']} creatures, {c['sources']} sources.")
     return 0
 if __name__=='__main__':raise SystemExit(main())

@@ -61,9 +61,11 @@ describe('the representative dive-logging scenario', () => {
     expect(await screen.findByText(/1 dive · 3 creatures/)).toBeInTheDocument();
     expect(screen.getByText('Latest dive')).toBeInTheDocument();
 
-    // Journal lists it chronologically.
+    // Journal derives a trip and restrained history marker from canonical dives.
     await user.click(screen.getByRole('link', { name: /Journal/ }));
     expect(await screen.findByRole('heading', { name: 'Palancar Gardens' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /Cozumel —/ })).toBeInTheDocument();
+    expect(screen.getByText('First dive in this journal')).toBeInTheDocument();
 
     // Collection is built from the actual sightings, unlisted creature included.
     await user.click(screen.getByRole('link', { name: /Collection/ }));
@@ -71,13 +73,25 @@ describe('the representative dive-logging scenario', () => {
     expect(screen.getByText('Green sea turtle')).toBeInTheDocument();
     expect(screen.getByText('Goliath grouper')).toBeInTheDocument();
 
-    // Creature detail is grounded in personal encounter history.
+    // Creature detail is grounded in personal encounter history, with sourced
+    // catalogue context following rather than displacing that personal record.
     await user.click(screen.getByRole('link', { name: /Spotted eagle ray/ }));
     expect(await screen.findByRole('heading', { name: 'Spotted eagle ray' })).toBeInTheDocument();
     expect(screen.getByText('Aetobatus narinari')).toBeInTheDocument();
     expect(screen.getByText('1 dive')).toBeInTheDocument();
     // The site appears both as a place chip and in the related-dive list.
     expect(screen.getAllByText('Palancar Gardens').length).toBeGreaterThan(1);
+    expect(screen.getByRole('heading', { name: 'Curated context' })).toBeInTheDocument();
+    expect(screen.getByText('Regional relevance')).toBeInTheDocument();
+    expect(screen.getAllByText(/REEF Geographic Zone Report/).length).toBeGreaterThan(0);
+
+    // A creature typed by the diver still gets a complete personal history,
+    // but never receives invented catalogue/source metadata.
+    await user.click(screen.getByRole('button', { name: 'Back to collection' }));
+    await user.click(await screen.findByRole('link', { name: /Goliath grouper/ }));
+    expect(await screen.findByRole('heading', { name: 'Goliath grouper' })).toBeInTheDocument();
+    expect(screen.getByText('1 dive')).toBeInTheDocument();
+    expect(screen.queryByRole('heading', { name: 'Curated context' })).not.toBeInTheDocument();
 
     // A cold start rebuilds everything from persisted data.
     reload('/journal');

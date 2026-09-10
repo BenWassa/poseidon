@@ -3,13 +3,14 @@
  *
  * Common name leads; the scientific name is quiet metadata underneath. What
  * the page is really about is where and when this animal has appeared in the
- * owner's diving life.
+ * owner's diving life. Curated regional/source context stays secondary.
  */
-import { ArrowRight, CalendarDays, Fish, MapPin, Waves } from 'lucide-react';
+import { ArrowRight, CalendarDays, ExternalLink, Fish, MapPin, Waves } from 'lucide-react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 
 import { CreatureImage } from '../components/CreatureImage';
 import { Card, EmptyState, SectionHeader, TopBar } from '../components/ui';
+import { regions } from '../data/content';
 import { useCreatureHistory, useCreatureIndex, useDives } from '../data/hooks';
 import { formatCategory, formatDate, formatDepth, formatDuration, pluralize } from '../lib/format';
 
@@ -48,6 +49,13 @@ export function CreatureDetail() {
   if (!creature) return <TopBar title="Creature" onBack={() => navigate('/collection')} />;
 
   const relatedDives = (dives ?? []).filter((dive) => history?.relatedDiveIds.includes(dive.id));
+  const regionNames = [...new Set(
+    (creature.regionIds ?? [])
+      .map((regionId) => regions.find((region) => region.id === regionId)?.name)
+      .filter((name): name is string => Boolean(name)),
+  )];
+  const provenance = creature.provenance ?? [];
+  const hasCuratedContext = regionNames.length > 0 || provenance.length > 0;
 
   return (
     <div className="animate-rise pb-10">
@@ -161,6 +169,62 @@ export function CreatureDetail() {
           </Card>
         </div>
       )}
+
+      {hasCuratedContext ? (
+        <section className="mt-8 px-5" aria-label="Curated creature context">
+          <SectionHeader title="Curated context" />
+          <Card className="p-4">
+            {regionNames.length > 0 ? (
+              <div>
+                <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-ocean/45">Regional relevance</p>
+                <div className="mt-2 flex flex-wrap gap-2">
+                  {regionNames.map((name) => (
+                    <span
+                      key={name}
+                      className="rounded-full border border-shallows bg-foam px-3 py-1.5 text-xs font-bold text-ocean/70"
+                    >
+                      {name}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ) : null}
+
+            {provenance.length > 0 ? (
+              <div className={regionNames.length > 0 ? 'mt-4 border-t border-shallows pt-4' : ''}>
+                <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-ocean/45">Sources</p>
+                <ul className="mt-2 space-y-2">
+                  {provenance.map((entry) => (
+                    <li key={`${entry.source}:${entry.url ?? ''}`}>
+                      {entry.url ? (
+                        <a
+                          href={entry.url}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="flex min-h-11 items-center gap-3 rounded-2xl bg-foam px-3 py-2 text-left"
+                        >
+                          <span className="min-w-0 flex-1">
+                            <span className="block text-sm font-bold leading-snug text-ocean">{entry.source}</span>
+                            {entry.note ? (
+                              <span className="mt-0.5 block text-xs font-medium text-ocean/50">{entry.note}</span>
+                            ) : null}
+                          </span>
+                          <ExternalLink size={16} className="shrink-0 text-marine" aria-hidden="true" />
+                        </a>
+                      ) : (
+                        <div className="rounded-2xl bg-foam px-3 py-2">
+                          <p className="text-sm font-bold leading-snug text-ocean">{entry.source}</p>
+                          {entry.note ? <p className="mt-0.5 text-xs font-medium text-ocean/50">{entry.note}</p> : null}
+                        </div>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ) : null}
+          </Card>
+        </section>
+      ) : null}
     </div>
   );
 }
