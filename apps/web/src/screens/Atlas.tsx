@@ -81,7 +81,7 @@ export function Atlas() {
               </p>
               {mapModel.unmappedHistoryDiveCount > 0 ? (
                 <p className="mt-1 px-1 text-xs font-medium leading-relaxed text-ocean/45">
-                  {pluralize(mapModel.unmappedHistoryDiveCount, 'logged dive')} without a sourced position stays in the history below.
+                  {pluralize(mapModel.unmappedHistoryDiveCount, 'logged dive')} without a sourced position remain in the history below.
                 </p>
               ) : null}
             </section>
@@ -131,7 +131,7 @@ export function Atlas() {
           </section>
 
           <p className="px-8 pb-8 text-center text-xs font-medium leading-relaxed text-ocean/45">
-            Poseidon only maps positions backed by recorded sources. Sites without trustworthy coordinates remain fully usable in logging and history.
+            Poseidon does not plot dive sites it cannot source. Sites without trustworthy coordinates remain fully usable in logging and history.
           </p>
         </>
       ) : null}
