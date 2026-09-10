@@ -1,17 +1,14 @@
-/**
- * The first truthful geographic surface.
- *
- * The content pack deliberately carries no coordinates, so Poseidon does not
- * draw a pin map it cannot back up. What it can show honestly is the shape of
- * where the diving has actually happened: places, the sites within them and
- * the life met there. A map arrives when real coordinates do.
- */
+/** Personal geography: sourced site positions complement the existing offline history. */
+import { useMemo } from 'react';
 import { ArrowRight, Compass, Map as MapIcon } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
+import { AtlasMap } from '../components/AtlasMap';
 import { AtlasMotif } from '../components/AtlasMotif';
 import { ACTION_PRIMARY, Card, EmptyState, SectionHeader, TopBar } from '../components/ui';
+import { curatedSites } from '../data/content';
 import { useDives, useLifetimeStats, usePlaceSummaries } from '../data/hooks';
+import { buildAtlasMapModel } from '../lib/atlas';
 import { formatDate, pluralize } from '../lib/format';
 import { normalizePlaceName } from '../lib/suggestions';
 
@@ -21,6 +18,7 @@ export function Atlas() {
   const { data: dives } = useDives();
 
   const entries = places ?? [];
+  const mapModel = useMemo(() => buildAtlasMapModel(dives ?? [], curatedSites), [dives]);
   const lastDiveAt = (label: string): string | null => {
     const target = normalizePlaceName(label);
     const match = (dives ?? []).find((dive) => normalizePlaceName(dive.areaName) === target);
@@ -60,6 +58,34 @@ export function Atlas() {
               </div>
             </Card>
           </div>
+
+          {mapModel.sites.length > 0 ? (
+            <section className="px-5 pb-8" aria-labelledby="atlas-map-heading">
+              <SectionHeader title="Mapped sites" />
+              <h2 id="atlas-map-heading" className="sr-only">
+                Sourced dive-site map
+              </h2>
+              <AtlasMap sites={mapModel.sites} />
+              <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 px-1 text-[11px] font-bold text-ocean/55">
+                <span className="inline-flex items-center gap-1.5">
+                  <span className="h-2.5 w-2.5 rounded-full bg-ocean" aria-hidden="true" />
+                  In your history
+                </span>
+                <span className="inline-flex items-center gap-1.5">
+                  <span className="h-2.5 w-2.5 rounded-full border-2 border-ocean bg-white" aria-hidden="true" />
+                  Sourced site
+                </span>
+              </div>
+              <p className="mt-2 px-1 text-xs font-medium leading-relaxed text-ocean/50">
+                {pluralize(mapModel.sites.length, 'site')} with published positions. Approximate reef and site anchors are labelled as such; no drop point or mooring is implied.
+              </p>
+              {mapModel.unmappedHistoryDiveCount > 0 ? (
+                <p className="mt-1 px-1 text-xs font-medium leading-relaxed text-ocean/45">
+                  {pluralize(mapModel.unmappedHistoryDiveCount, 'logged dive')} without a sourced position stays in the history below.
+                </p>
+              ) : null}
+            </section>
+          ) : null}
 
           <section className="px-5 pb-8" aria-labelledby="atlas-places">
             <SectionHeader title="Places" />
@@ -105,8 +131,7 @@ export function Atlas() {
           </section>
 
           <p className="px-8 pb-8 text-center text-xs font-medium leading-relaxed text-ocean/45">
-            Poseidon does not plot dive sites it cannot source. When trustworthy coordinates exist for a site,
-            the atlas will grow a map around this history.
+            Poseidon only maps positions backed by recorded sources. Sites without trustworthy coordinates remain fully usable in logging and history.
           </p>
         </>
       ) : null}
