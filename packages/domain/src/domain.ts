@@ -187,6 +187,33 @@ export interface PoseidonExportV1 {
   };
 }
 
+export type RestoreMode = 'merge' | 'replace';
+
+export interface RestorePreview {
+  exportedAt: string;
+  exportVersion: 1;
+  schemaVersion: number;
+  backupDives: number;
+  backupUserCreatures: number;
+  currentDives: number;
+  currentUserCreatures: number;
+  mergeAddsDives: number;
+  mergeAddsUserCreatures: number;
+  mergeUnchangedDives: number;
+  mergeUnchangedUserCreatures: number;
+  mergeConflicts: string[];
+  replaceWouldDiscardDives: number;
+  replaceWouldDiscardUserCreatures: number;
+}
+
+export interface RestoreResult {
+  mode: RestoreMode;
+  totalDives: number;
+  totalUserCreatures: number;
+  addedDives: number;
+  addedUserCreatures: number;
+}
+
 export interface PoseidonStore {
   listDives(): Promise<Dive[]>;
   getDive(id: Id): Promise<Dive | null>;
@@ -206,4 +233,6 @@ export interface PoseidonStore {
   listPlaceSummaries(): Promise<PlaceSummary[]>;
 
   exportData(): Promise<PoseidonExportV1>;
+  previewRestore(data: unknown): Promise<RestorePreview>;
+  restoreData(data: unknown, mode: RestoreMode): Promise<RestoreResult>;
 }

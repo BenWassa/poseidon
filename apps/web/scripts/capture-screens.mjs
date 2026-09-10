@@ -57,6 +57,7 @@ const server = createServer((request, response) => {
 await new Promise((done) => server.listen(0, '127.0.0.1', done));
 const { port } = server.address();
 const origin = `http://127.0.0.1:${port}`;
+const route = (path) => `${origin}/#${path}`;
 
 const SCREENS = [
   { file: '01-home.jpg', path: '/' },
@@ -128,7 +129,7 @@ async function capture(page, file) {
 try {
   for (const screen of SCREENS) {
     const { context, page } = await openPage({ width: 412, height: 915 });
-    await page.goto(`${origin}${screen.path}`, { waitUntil: 'networkidle' });
+    await page.goto(route(screen.path), { waitUntil: 'networkidle' });
     if (screen.prepare) await advanceLogFlow(page, screen.prepare);
     await capture(page, screen.file);
     await context.close();
@@ -137,9 +138,9 @@ try {
   // Empty profile: the state a real first run starts from.
   {
     const { context, page } = await openPage({ width: 412, height: 915, seeded: false });
-    await page.goto(`${origin}/`, { waitUntil: 'networkidle' });
+    await page.goto(route('/'), { waitUntil: 'networkidle' });
     await capture(page, '11-home-empty.jpg');
-    await page.goto(`${origin}/collection`, { waitUntil: 'networkidle' });
+    await page.goto(route('/collection'), { waitUntil: 'networkidle' });
     await capture(page, '12-collection-empty.jpg');
     await context.close();
   }
@@ -147,13 +148,13 @@ try {
   // Short landscape and a wide screen, which must stay a phone column.
   {
     const { context, page } = await openPage({ width: 915, height: 412 });
-    await page.goto(`${origin}/`, { waitUntil: 'networkidle' });
+    await page.goto(route('/'), { waitUntil: 'networkidle' });
     await capture(page, '13-landscape.jpg');
     await context.close();
   }
   {
     const { context, page } = await openPage({ width: 1280, height: 800 });
-    await page.goto(`${origin}/journal`, { waitUntil: 'networkidle' });
+    await page.goto(route('/journal'), { waitUntil: 'networkidle' });
     await capture(page, '14-wide.jpg');
     await context.close();
   }
