@@ -23,4 +23,12 @@ jobs:
       - name: Test domain and application
         run: npm test
       - name: Production build
+        env:
+          POSEIDON_BASE_PATH: /poseidon/
         run: npm run build
+      - name: Install Chromium for production acceptance
+        run: npx playwright install --with-deps chromium
+      - name: Verify production PWA field readiness
+        env:
+          POSEIDON_BASE_PATH: /poseidon/
+        run: npm run verify:field --workspace @poseidon/web
