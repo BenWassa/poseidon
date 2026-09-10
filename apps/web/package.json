@@ -14,7 +14,8 @@
     "pretest": "node scripts/sync-assets.mjs",
     "test": "vitest run",
     "test:watch": "vitest",
-    "e2e": "node scripts/capture-screens.mjs"
+    "e2e": "node scripts/capture-screens.mjs",
+    "verify:field": "node scripts/field-readiness.mjs"
   },
   "dependencies": {
     "@poseidon/domain": "*",

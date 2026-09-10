@@ -1,15 +1,24 @@
-name: Repository gate
+name: Deploy Poseidon PWA
 
 on:
-  pull_request:
   push:
     branches: [main]
+  workflow_dispatch:
 
 permissions:
   contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
 
 jobs:
-  gate:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -22,6 +31,7 @@ jobs:
           python-version: '3.12'
           cache: pip
           cache-dependency-path: tools/creature_assets/requirements.txt
+      - uses: actions/configure-pages@v5
       - run: npm ci
       - name: Install creature asset validator dependencies
         run: python -m pip install -r tools/creature_assets/requirements.txt
@@ -33,13 +43,19 @@ jobs:
         run: npm run typecheck
       - name: Test domain and application
         run: npm test
-      - name: Production build
-        env:
-          POSEIDON_BASE_PATH: /poseidon/
-        run: npm run build
       - name: Install Chromium for production acceptance
         run: npx playwright install --with-deps chromium
-      - name: Verify production PWA field readiness
+      - name: Build production PWA for project Pages
         env:
-          POSEIDON_BASE_PATH: /poseidon/
+          POSEIDON_BASE_PATH: /${{ github.event.repository.name }}/
+        run: npm run build
+      - name: Verify production PWA at deployment base path
+        env:
+          POSEIDON_BASE_PATH: /${{ github.event.repository.name }}/
         run: npm run verify:field --workspace @poseidon/web
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: apps/web/dist
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

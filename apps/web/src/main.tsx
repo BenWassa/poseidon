@@ -1,6 +1,6 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 
 import { App } from './App';
 import { PoseidonProvider } from './data/provider';
@@ -11,10 +11,10 @@ if (!container) throw new Error('Poseidon could not find its root element.');
 
 createRoot(container).render(
   <StrictMode>
-    <BrowserRouter>
+    <HashRouter>
       <PoseidonProvider>
         <App />
       </PoseidonProvider>
-    </BrowserRouter>
+    </HashRouter>
   </StrictMode>,
 );
