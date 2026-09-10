@@ -48,7 +48,7 @@ function loadLeaflet(): Promise<LeafletApi> {
   if (window.L) return Promise.resolve(window.L);
   if (leafletPromise) return leafletPromise;
 
-  leafletPromise = new Promise((resolve, reject) => {
+  const promise = new Promise<LeafletApi>((resolve, reject) => {
     if (!document.getElementById('poseidon-leaflet-css')) {
       const link = document.createElement('link');
       link.id = 'poseidon-leaflet-css';
@@ -71,13 +71,14 @@ function loadLeaflet(): Promise<LeafletApi> {
     script.addEventListener('load', () => (window.L ? resolve(window.L) : reject(new Error('Leaflet unavailable'))), { once: true });
     script.addEventListener('error', () => reject(new Error('Leaflet failed to load')), { once: true });
     document.head.append(script);
-  }).catch((error) => {
+  }).catch((error: unknown) => {
     document.getElementById('poseidon-leaflet-js')?.remove();
     leafletPromise = null;
     throw error;
   });
 
-  return leafletPromise;
+  leafletPromise = promise;
+  return promise;
 }
 
 function escapeHtml(value: string): string {
@@ -153,7 +154,9 @@ export function AtlasMap({ sites }: { sites: AtlasSiteMarker[] }) {
         }
 
         const points = sites.map((site) => [site.lat, site.lng] as [number, number]);
-        if (points.length === 1) map.setView(points[0], 13);
+        const firstPoint = points[0];
+        if (!firstPoint) return;
+        if (points.length === 1) map.setView(firstPoint, 13);
         else map.fitBounds(L.latLngBounds(points), { padding: [24, 24], maxZoom: 12 });
         setInteraction(map, false);
         if (!cancelled) setStatus('ready');
