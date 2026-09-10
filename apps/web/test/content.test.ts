@@ -1,9 +1,6 @@
 /**
  * Integrity of the seam between the repository's marine content pack, the
  * creature asset pipeline and the application.
- *
- * These are the assertions that catch a content or asset change silently
- * breaking the product without anyone opening the app.
  */
 import { describe, expect, it } from 'vitest';
 
@@ -28,6 +25,30 @@ describe('the Mexican Caribbean content pack', () => {
     for (const site of curatedSites) {
       expect(site.areaName).not.toBe('');
       expect(regions.some((region) => region.id === site.regionId)).toBe(true);
+    }
+  });
+
+  it('keeps site coordinates optional, bounded and explicitly sourced with honest precision', () => {
+    const geolocated = curatedSites.filter((site) => site.coordinates);
+    const unsourced = curatedSites.filter((site) => !site.coordinates);
+    expect(geolocated).toHaveLength(contentMeta.geolocatedSiteCount);
+    expect(geolocated.length).toBeGreaterThanOrEqual(7);
+    expect(unsourced.length).toBeGreaterThan(0);
+    expect(new Set(geolocated.map((site) => site.areaName))).toEqual(new Set(['Cozumel', 'Playa del Carmen']));
+
+    for (const site of geolocated) {
+      const coordinates = site.coordinates!;
+      expect(coordinates.lat).toBeGreaterThanOrEqual(-90);
+      expect(coordinates.lat).toBeLessThanOrEqual(90);
+      expect(coordinates.lng).toBeGreaterThanOrEqual(-180);
+      expect(coordinates.lng).toBeLessThanOrEqual(180);
+      expect(['exact-site', 'approximate-site', 'reef-area']).toContain(coordinates.precision);
+      expect(coordinates.sourceIds.length).toBeGreaterThan(0);
+      expect(coordinates.note.trim()).not.toBe('');
+      expect(places.find((place) => place.id === site.id)?.coordinates).toEqual({
+        lat: coordinates.lat,
+        lng: coordinates.lng,
+      });
     }
   });
 
@@ -62,7 +83,6 @@ describe('the Mexican Caribbean content pack', () => {
       expect(artwork?.thumb).toBe(`/assets/creatures/${creature.id}/thumb.webp`);
       expect(artwork?.gallery).toBe(`/assets/creatures/${creature.id}/gallery.webp`);
       expect(artwork?.hero).toBe(`/assets/creatures/${creature.id}/hero.webp`);
-      // Fixed square geometry lets the UI reserve space before loading.
       expect(artwork?.aspectRatio).toBe(1);
     }
   });
