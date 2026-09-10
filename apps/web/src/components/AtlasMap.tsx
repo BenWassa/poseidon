@@ -59,12 +59,8 @@ function loadLeaflet(): Promise<LeafletApi> {
       document.head.append(link);
     }
 
-    const existing = document.getElementById('poseidon-leaflet-js') as HTMLScriptElement | null;
-    if (existing) {
-      existing.addEventListener('load', () => (window.L ? resolve(window.L) : reject(new Error('Leaflet unavailable'))), { once: true });
-      existing.addEventListener('error', () => reject(new Error('Leaflet failed to load')), { once: true });
-      return;
-    }
+    const staleScript = document.getElementById('poseidon-leaflet-js');
+    if (staleScript && !window.L) staleScript.remove();
 
     const script = document.createElement('script');
     script.id = 'poseidon-leaflet-js';
@@ -76,6 +72,7 @@ function loadLeaflet(): Promise<LeafletApi> {
     script.addEventListener('error', () => reject(new Error('Leaflet failed to load')), { once: true });
     document.head.append(script);
   }).catch((error) => {
+    document.getElementById('poseidon-leaflet-js')?.remove();
     leafletPromise = null;
     throw error;
   });
@@ -182,6 +179,7 @@ export function AtlasMap({ sites }: { sites: AtlasSiteMarker[] }) {
     <div className="relative overflow-hidden rounded-[28px] border border-ocean/10 bg-shallows shadow-sm">
       <div
         ref={containerRef}
+        role="region"
         aria-label="Map of sourced Mexican Caribbean dive sites"
         className="h-[310px] w-full bg-gradient-to-br from-shallows to-surface"
         style={{ touchAction: interactive ? 'none' : 'pan-y' }}
