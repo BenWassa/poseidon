@@ -6,7 +6,14 @@
  * `content/`, run the asset pipeline if there is artwork, and it appears here
  * with no application change.
  */
-import type { Creature, CreatureArtwork, Place, PoseidonContent, Region } from '@poseidon/domain';
+import type {
+  Creature,
+  CreatureArtwork,
+  Place,
+  PoseidonContent,
+  ProvenanceEntry,
+  Region,
+} from '@poseidon/domain';
 
 import manifestJson from '../../../../content/mexican-caribbean/manifest.json';
 import sitesJson from '../../../../content/mexican-caribbean/sites.json';
@@ -33,6 +40,15 @@ interface PackCreature {
   scientificName?: string;
   category?: string;
   regionIds: string[];
+  sourceIds?: string[];
+}
+
+interface PackSource {
+  id: string;
+  title: string;
+  publisher: string;
+  url?: string;
+  accessedOn: string;
 }
 
 interface AssetManifest {
@@ -84,6 +100,22 @@ function buildArtworkIndex(): Map<string, CreatureArtwork> {
 }
 
 const artworkById = buildArtworkIndex();
+const packSources = (manifestJson.sources as PackSource[]) ?? [];
+const sourceById = new Map(packSources.map((source) => [source.id, source]));
+
+function buildProvenance(sourceIds: string[] | undefined): ProvenanceEntry[] {
+  return (sourceIds ?? []).flatMap((sourceId) => {
+    const source = sourceById.get(sourceId);
+    if (!source) return [];
+    return [
+      {
+        source: source.title,
+        ...(source.url ? { url: source.url } : {}),
+        note: `${source.publisher} · accessed ${source.accessedOn}`,
+      },
+    ];
+  });
+}
 
 const packRegions = (manifestJson.regions as PackRegion[]) ?? [];
 
@@ -99,16 +131,20 @@ const regionById = new Map(regions.map((region) => [region.id, region]));
 export const creatures: Creature[] = Object.keys(creatureFiles)
   .sort()
   .flatMap((key) => creatureFiles[key]?.creatures ?? [])
-  .map((entry) => ({
-    id: entry.id,
-    commonName: entry.commonName,
-    ...(entry.aliases.length > 0 ? { aliases: entry.aliases } : {}),
-    ...(entry.scientificName ? { scientificName: entry.scientificName } : {}),
-    ...(entry.category ? { category: entry.category } : {}),
-    ...(entry.regionIds.length > 0 ? { regionIds: entry.regionIds } : {}),
-    curated: true,
-    artwork: artworkById.get(entry.id) ?? { status: 'missing', aspectRatio: 1 },
-  }));
+  .map((entry) => {
+    const provenance = buildProvenance(entry.sourceIds);
+    return {
+      id: entry.id,
+      commonName: entry.commonName,
+      ...(entry.aliases.length > 0 ? { aliases: entry.aliases } : {}),
+      ...(entry.scientificName ? { scientificName: entry.scientificName } : {}),
+      ...(entry.category ? { category: entry.category } : {}),
+      ...(entry.regionIds.length > 0 ? { regionIds: entry.regionIds } : {}),
+      curated: true,
+      artwork: artworkById.get(entry.id) ?? { status: 'missing', aspectRatio: 1 },
+      ...(provenance.length > 0 ? { provenance } : {}),
+    };
+  });
 
 const packSites = (sitesJson.sites as PackSite[]) ?? [];
 
@@ -162,5 +198,5 @@ export const contentMeta = {
   creatureCount: creatures.length,
   curatedArtworkCount: creatures.filter((creature) => creature.artwork?.status === 'curated').length,
   siteCount: packSites.length,
-  sourceCount: (manifestJson.sources as unknown[]).length,
+  sourceCount: packSources.length,
 };

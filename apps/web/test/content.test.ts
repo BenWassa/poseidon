@@ -40,6 +40,18 @@ describe('the Mexican Caribbean content pack', () => {
     expect(playa.length).toBeGreaterThan(10);
   });
 
+  it('carries researched creature provenance into runtime content', () => {
+    const eagleRay = creatures.find((creature) => creature.id === 'spotted-eagle-ray');
+    expect(eagleRay?.provenance?.length).toBeGreaterThan(0);
+    expect(eagleRay?.provenance?.some((entry) => entry.source.includes('REEF'))).toBe(true);
+
+    for (const entry of eagleRay?.provenance ?? []) {
+      expect(entry.source.trim()).not.toBe('');
+      expect(entry.note).toMatch(/accessed \d{4}-\d{2}-\d{2}/);
+      if (entry.url) expect(entry.url).toMatch(/^https:\/\//);
+    }
+  });
+
   it('wires asset-pipeline variants onto the creatures that have artwork', () => {
     const illustrated = creatures.filter((creature) => creature.artwork?.status === 'curated');
     expect(illustrated.length).toBe(contentMeta.curatedArtworkCount);

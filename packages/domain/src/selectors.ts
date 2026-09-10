@@ -10,6 +10,213 @@ import type {
 } from './domain.js';
 import { compareCreatureName, compareDiveNewestFirst, normalizeText, uniqueStable } from './utils.js';
 
+/**
+ * A derived travel episode. Dives remain canonical; a trip is rebuilt from
+ * history every time it is requested and is never persisted independently.
+ */
+export interface DiveTrip {
+  id: string;
+  areaName: string;
+  countryCode?: string;
+  regionId?: string;
+  firstDate: string;
+  lastDate: string;
+  dives: Dive[];
+}
+
+export type HistoryMilestoneKind =
+  | 'first-dive'
+  | 'dive-count'
+  | 'new-country'
+  | 'new-region'
+  | 'creature-group';
+
+/** A safe, factual history marker derived from canonical dives. */
+export interface HistoryMilestone {
+  id: string;
+  kind: HistoryMilestoneKind;
+  diveId: string;
+  date: string;
+  count?: 10 | 25 | 50;
+  countryCode?: string;
+  areaName?: string;
+  category?: string;
+}
+
+/**
+ * Seven calendar days is deliberately simple enough to explain: consecutive
+ * dives in the same region/area belong to one trip while the gap is at most a
+ * week. A location change always starts a new episode, even when dates overlap.
+ */
+export const TRIP_MAX_GAP_DAYS = 7;
+
+const DAY_MS = 24 * 60 * 60 * 1000;
+const DIVE_COUNT_MILESTONES = new Set<number>([10, 25, 50]);
+const MAJOR_CREATURE_GROUPS = ['sea-turtle', 'shark', 'ray', 'cephalopod'] as const;
+
+type MajorCreatureGroup = (typeof MAJOR_CREATURE_GROUPS)[number];
+
+function compareDiveOldestFirst(a: Dive, b: Dive): number {
+  return compareDiveNewestFirst(b, a);
+}
+
+function calendarDay(iso: string): number {
+  return Date.parse(`${iso}T00:00:00Z`) / DAY_MS;
+}
+
+function sameTripLocation(a: Dive, b: Dive): boolean {
+  if (a.regionId && b.regionId) return a.regionId === b.regionId;
+
+  const aCountry = a.countryCode?.toUpperCase() ?? '';
+  const bCountry = b.countryCode?.toUpperCase() ?? '';
+  return aCountry === bCountry && normalizeText(a.areaName) === normalizeText(b.areaName);
+}
+
+function canContinueTrip(previous: Dive, next: Dive): boolean {
+  if (!sameTripLocation(previous, next)) return false;
+  const gapDays = calendarDay(next.date) - calendarDay(previous.date);
+  return Number.isFinite(gapDays) && gapDays >= 0 && gapDays <= TRIP_MAX_GAP_DAYS;
+}
+
+/**
+ * Groups chronological, contiguous dives into travel episodes, then returns
+ * the episodes newest-first for Journal rendering. Exact region IDs win when
+ * both dives have them; otherwise the normalized area/country pair is used.
+ */
+export function groupDivesIntoTrips(dives: Dive[]): DiveTrip[] {
+  const chronological = [...dives].sort(compareDiveOldestFirst);
+  const trips: DiveTrip[] = [];
+
+  for (const dive of chronological) {
+    const current = trips.at(-1);
+    const previous = current?.dives.at(-1);
+    if (!current || !previous || !canContinueTrip(previous, dive)) {
+      trips.push({
+        id: `trip:${dive.id}`,
+        areaName: dive.areaName,
+        ...(dive.countryCode ? { countryCode: dive.countryCode.toUpperCase() } : {}),
+        ...(dive.regionId ? { regionId: dive.regionId } : {}),
+        firstDate: dive.date,
+        lastDate: dive.date,
+        dives: [dive],
+      });
+      continue;
+    }
+
+    current.lastDate = dive.date;
+    current.dives.push(dive);
+  }
+
+  return trips
+    .map((trip) => ({ ...trip, dives: [...trip.dives].sort(compareDiveNewestFirst) }))
+    .sort(
+      (a, b) =>
+        b.lastDate.localeCompare(a.lastDate) ||
+        b.firstDate.localeCompare(a.firstDate) ||
+        b.id.localeCompare(a.id),
+    );
+}
+
+function regionMilestoneKey(dive: Dive): string {
+  if (dive.regionId) return `region:${dive.regionId}`;
+  return `area:${dive.countryCode?.toUpperCase() ?? '--'}:${normalizeText(dive.areaName)}`;
+}
+
+function majorGroupsOnDive(dive: Dive, creatureById: Map<string, Creature>): MajorCreatureGroup[] {
+  const present = new Set(
+    dive.sightings
+      .map((sighting) => creatureById.get(sighting.creatureId)?.category)
+      .filter((category): category is string => Boolean(category)),
+  );
+  return MAJOR_CREATURE_GROUPS.filter((category) => present.has(category));
+}
+
+/**
+ * Builds a small set of safe history markers. Nothing here rewards depth,
+ * duration, decompression exposure, streaks or wildlife interaction. The set is
+ * intentionally finite: first journalled dive, 10/25/50 dives, first later
+ * country/region, and first encounter with four broad creature groups.
+ */
+export function deriveHistoryMilestones(
+  dives: Dive[],
+  creatureById: Map<string, Creature>,
+): HistoryMilestone[] {
+  const chronological = [...dives].sort(compareDiveOldestFirst);
+  const milestones: HistoryMilestone[] = [];
+  const seenCountries = new Set<string>();
+  const seenRegions = new Set<string>();
+  const seenCreatureGroups = new Set<MajorCreatureGroup>();
+
+  chronological.forEach((dive, index) => {
+    const ordinal = index + 1;
+
+    if (ordinal === 1) {
+      milestones.push({
+        id: `first-dive:${dive.id}`,
+        kind: 'first-dive',
+        diveId: dive.id,
+        date: dive.date,
+      });
+    }
+
+    if (DIVE_COUNT_MILESTONES.has(ordinal)) {
+      const count = ordinal as 10 | 25 | 50;
+      milestones.push({
+        id: `dive-count:${count}:${dive.id}`,
+        kind: 'dive-count',
+        diveId: dive.id,
+        date: dive.date,
+        count,
+      });
+    }
+
+    const countryCode = dive.countryCode?.toUpperCase();
+    const regionKey = regionMilestoneKey(dive);
+    const newCountry = Boolean(countryCode && !seenCountries.has(countryCode));
+    const newRegion = !seenRegions.has(regionKey);
+
+    // The first dive already has a history marker. Later location changes get
+    // at most one marker: country takes precedence over its first child region.
+    if (index > 0) {
+      if (newCountry && countryCode) {
+        milestones.push({
+          id: `new-country:${countryCode}:${dive.id}`,
+          kind: 'new-country',
+          diveId: dive.id,
+          date: dive.date,
+          countryCode,
+          areaName: dive.areaName,
+        });
+      } else if (newRegion) {
+        milestones.push({
+          id: `new-region:${regionKey}:${dive.id}`,
+          kind: 'new-region',
+          diveId: dive.id,
+          date: dive.date,
+          areaName: dive.areaName,
+        });
+      }
+    }
+
+    if (countryCode) seenCountries.add(countryCode);
+    seenRegions.add(regionKey);
+
+    for (const category of majorGroupsOnDive(dive, creatureById)) {
+      if (seenCreatureGroups.has(category)) continue;
+      seenCreatureGroups.add(category);
+      milestones.push({
+        id: `creature-group:${category}:${dive.id}`,
+        kind: 'creature-group',
+        diveId: dive.id,
+        date: dive.date,
+        category,
+      });
+    }
+  });
+
+  return milestones;
+}
+
 export function getLifetimeStats(dives: Dive[]): LifetimeStats {
   const siteKeys = new Set<string>();
   const creatureIds = new Set<string>();
