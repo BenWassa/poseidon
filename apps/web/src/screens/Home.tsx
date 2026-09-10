@@ -113,7 +113,7 @@ export function Home() {
               <h2 id="home-discoveries" className="sr-only">
                 Recently discovered creatures
               </h2>
-              <ul className="rail flex gap-4 overflow-x-auto px-6 pb-2">
+              <ul className="rail flex gap-3 overflow-x-auto px-5 pb-2">
                 {discoveries.map((discovery) => (
                   <li key={discovery.creature.id} className="w-36 shrink-0">
                     <CreatureTile
