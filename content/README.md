@@ -5,7 +5,7 @@ This directory contains implementation-neutral curated content for Poseidon. The
 ## Files
 
 - `mexican-caribbean/manifest.json` — pack metadata, stable regions, provenance registry and shard references.
-- `mexican-caribbean/sites.json` — curated recreational dive sites/areas.
+- `mexican-caribbean/sites.json` — curated recreational dive sites/areas, with optional sourced coordinates.
 - `mexican-caribbean/creatures/*.json` — small reviewable creature-catalogue shards.
 - `schema/marine-content.schema.json` — JSON Schema (Draft 2020-12) for manifest, site and creature files.
 - `../tools/validate_content.py` — dependency-free repository validation, including cross-reference checks that JSON Schema cannot express by itself.
@@ -42,9 +42,19 @@ The validator rejects rarity/frequency-style fields so unsupported scoring canno
 
 `category` is a product grouping for browsing and placeholder treatment (for example `sea-turtle`, `ray`, `reef-fish`). It is editorial metadata, not a formal taxonomic rank or scientific claim.
 
-### Sites and areas
+### Sites, areas and coordinates
 
-Site records are practical recreational-diving names. `recordType: "area"` is used where the source groups several commonly named variants under one useful content record. Coordinates are intentionally omitted from the starter pack because the research pass did not establish a single authoritative coordinate source precise enough to justify them.
+Site records are practical recreational-diving names. `recordType: "area"` is used where the source groups several commonly named variants under one useful content record.
+
+Coordinates are optional. A site with no defensible published position remains a complete, valid content record and must stay usable for logging, suggestions and history. Consumers must not geocode the name, infer a point from a neighbouring reef or otherwise invent a coordinate to fill a gap.
+
+When coordinates are present, the record carries field-level provenance in `coordinates.sourceIds` and an explicit precision classification:
+
+- `exact-site` — reserved for a published position that genuinely identifies a fixed site at that precision; it must not be inferred from extra decimal places in a map pin;
+- `approximate-site` — a representative position for the named site, suitable for orientation but not claimed as a mooring, entry point or surveyed location;
+- `reef-area` — a representative anchor for a larger reef, wall or drift area where a single point would otherwise imply false precision.
+
+The first geodata pass intentionally uses only `approximate-site` and `reef-area`. Conflicting or weakly specific published positions are left coordinate-less until better evidence exists.
 
 The 2019 CONANP article is used only as evidence for established Cozumel recreational site names and dive/snorkel classification. Its historical temporary access restrictions are not represented as current operating status.
 
@@ -54,9 +64,10 @@ Every site and creature references one or more records in the manifest's `source
 
 - CONANP for official Cozumel protected-area and site information;
 - REEF Environmental Education Foundation regional survey reports for diver-observed marine life and site naming;
-- specialist/reference sources for a small set of invertebrates and seahorse records not well represented by the main regional reports.
+- specialist/reference sources for creature canonicalization;
+- PADI, local dive operators and independent dive-site references for coordinate corroboration, with precision limitations recorded rather than hidden.
 
-A source reference supports curation of the record; it is not a claim that every field came verbatim from that source. Common-name presentation, aliases and categories remain editorial product choices where appropriate.
+A site's top-level `sourceIds` support the existence/naming of the recreational site. `coordinates.sourceIds` specifically support the mapped position and may therefore differ. A source reference supports curation of the record; it is not a claim that every field came verbatim from that source.
 
 ## Validation
 
@@ -66,6 +77,6 @@ Run:
 python tools/validate_content.py
 ```
 
-The validator checks JSON/schema readability, manifest/shard integrity, required fields, stable ID format, uniqueness, region-parent integrity, source/region cross-references, ambiguous aliases/names, scientific-name uniqueness, HTTPS provenance URLs, review dates, starter-catalogue minimum size, deterministic ordering, orphan shards and absence of unsupported rarity/frequency fields.
+The validator checks JSON/schema readability, manifest/shard integrity, required fields, stable ID format, uniqueness, region-parent integrity, source/region cross-references, ambiguous aliases/names, scientific-name uniqueness, HTTPS provenance URLs, review dates, starter-catalogue minimum size, deterministic ordering, orphan shards and absence of unsupported rarity/frequency fields. Optional coordinates additionally require finite latitude/longitude inside geographic bounds, a supported precision class, non-empty coordinate provenance and a precision note; area records cannot claim `exact-site` precision.
 
 Adding a creature, site or region should normally require only content changes plus this validation; no application framework is assumed here.
