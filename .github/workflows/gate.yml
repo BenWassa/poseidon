@@ -18,6 +18,10 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      - name: Validate marine content
+        run: npm run validate:content
+      - name: Validate creature assets
+        run: npm run validate:assets
       - name: Typecheck domain and application
         run: npm run typecheck
       - name: Test domain and application
