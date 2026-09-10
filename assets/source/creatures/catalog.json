@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "libraryId": "poseidon-creature-source-art",
+  "styleFamily": "poseidon-sunlit-square-v1",
+  "updatedOn": "2026-09-09",
+  "binaryImportStatus": "pending",
+  "summary": {
+    "total": 30,
+    "keep": 17,
+    "provisional": 6,
+    "remake": 7
+  },
+  "provenance": {
+    "generator": "ChatGPT image generation",
+    "generatedOn": "2026-09-07",
+    "batch": "poseidon-creature-source-library-2026-09-07"
+  },
+  "policy": {
+    "runtimeRoot": "assets/creatures",
+    "sourceRoot": "assets/source/creatures",
+    "runtimeMayImportSource": false,
+    "candidateFormat": "1024x1024 WebP",
+    "candidateMode": "opaque-scene",
+    "note": "Editorial candidates only. Promotion is explicit and gated; application code consumes canonical runtime assets only."
+  },
+  "assets": [
+    {"id":"queen-angelfish","creatureId":"queen-angelfish","name":"Queen angelfish","path":"assets/source/creatures/queen-angelfish/candidate-v1.webp","score":8.5,"status":"keep","identity":"high","ingestMode":"opaque-scene","qaNote":"Strong silhouette and palette; markings slightly stylized but recognizable.","bytes":null,"sha256":null},
+    {"id":"hawksbill-sea-turtle","creatureId":"hawksbill-sea-turtle","name":"Hawksbill sea turtle","path":"assets/source/creatures/hawksbill-sea-turtle/candidate-v1.webp","score":9.0,"status":"keep","identity":"high","ingestMode":"opaque-scene","qaNote":"Excellent hooked beak, shell character and proportions.","bytes":null,"sha256":null},
+    {"id":"spotted-eagle-ray","creatureId":"spotted-eagle-ray","name":"Spotted eagle ray","path":"assets/source/creatures/spotted-eagle-ray/candidate-v1.webp","score":6.5,"status":"remake","identity":"medium","ingestMode":"opaque-scene","qaNote":"Head/snout and ray morphology drift too generic.","bytes":null,"sha256":null},
+    {"id":"nurse-shark","creatureId":"nurse-shark","name":"Nurse shark","path":"assets/source/creatures/nurse-shark/candidate-v1.webp","score":7.7,"status":"provisional","identity":"medium","ingestMode":"opaque-scene","qaNote":"Recognizable from barbels/body; caudal and dorsal proportions need QA.","bytes":null,"sha256":null},
+    {"id":"green-moray","creatureId":"green-moray","name":"Green moray","path":"assets/source/creatures/green-moray/candidate-v1.webp","score":8.3,"status":"keep","identity":"high","ingestMode":"opaque-scene","qaNote":"Strong recognizable form, colour and head shape.","bytes":null,"sha256":null},
+    {"id":"great-barracuda","creatureId":"great-barracuda","name":"Great barracuda","path":"assets/source/creatures/great-barracuda/candidate-v1.webp","score":8.4,"status":"keep","identity":"high","ingestMode":"opaque-scene","qaNote":"Very recognizable; teeth slightly exaggerated.","bytes":null,"sha256":null},
+    {"id":"stoplight-parrotfish","creatureId":"stoplight-parrotfish","name":"Stoplight parrotfish","path":"assets/source/creatures/stoplight-parrotfish/candidate-v1.webp","score":7.6,"status":"provisional","identity":"medium","ingestMode":"opaque-scene","qaNote":"Good beak/body; coloration is more stylized than field-realistic.","bytes":null,"sha256":null},
+    {"id":"caribbean-reef-squid","creatureId":"caribbean-reef-squid","name":"Caribbean reef squid","path":"assets/source/creatures/caribbean-reef-squid/candidate-v1.webp","score":7.4,"status":"provisional","identity":"medium","ingestMode":"opaque-scene","qaNote":"Recognizable, but large eyes and three-animal composition are less ideal for ID.","bytes":null,"sha256":null},
+    {"id":"caribbean-spiny-lobster","creatureId":"caribbean-spiny-lobster","name":"Caribbean spiny lobster","path":"assets/source/creatures/caribbean-spiny-lobster/candidate-v1.webp","score":9.0,"status":"keep","identity":"high","ingestMode":"opaque-scene","qaNote":"Excellent antennae, armored body and coloration.","bytes":null,"sha256":null},
+    {"id":"caribbean-reef-octopus","creatureId":"caribbean-reef-octopus","name":"Caribbean reef octopus","path":"assets/source/creatures/caribbean-reef-octopus/candidate-v1.webp","score":7.1,"status":"provisional","identity":"medium","ingestMode":"opaque-scene","qaNote":"Visually excellent; eye and arm/sucker anatomy are somewhat stylized.","bytes":null,"sha256":null},
+    {"id":"french-angelfish","creatureId":"french-angelfish","name":"French angelfish","path":"assets/source/creatures/french-angelfish/candidate-v1.webp","score":9.0,"status":"keep","identity":"high","ingestMode":"opaque-scene","qaNote":"Strong species-specific coloration and silhouette.","bytes":null,"sha256":null},
+    {"id":"spotted-trunkfish","creatureId":"spotted-trunkfish","name":"Spotted trunkfish","path":"assets/source/creatures/spotted-trunkfish/candidate-v1.webp","score":3.0,"status":"remake","identity":"low","ingestMode":"opaque-scene","qaNote":"Reads as a yellow Indo-Pacific boxfish rather than Caribbean spotted trunkfish.","bytes":null,"sha256":null},
+    {"id":"queen-triggerfish","creatureId":null,"name":"Queen triggerfish","path":"assets/source/creatures/queen-triggerfish/candidate-v1.webp","score":8.6,"status":"keep","identity":"high","ingestMode":"opaque-scene","qaNote":"Strong tail, body and facial coloration; outside current starter pack.","bytes":null,"sha256":null},
+    {"id":"nassau-grouper","creatureId":"nassau-grouper","name":"Nassau grouper","path":"assets/source/creatures/nassau-grouper/candidate-v1.webp","score":8.2,"status":"keep","identity":"high","ingestMode":"opaque-scene","qaNote":"Broad bars, grouper form and head pattern work well.","bytes":null,"sha256":null},
+    {"id":"blue-tang","creatureId":"blue-tang","name":"Blue tang","path":"assets/source/creatures/blue-tang/candidate-v1.webp","score":4.0,"status":"remake","identity":"low","ingestMode":"opaque-scene","qaNote":"Yellow-tail morphology is unreliable for Atlantic blue tang.","bytes":null,"sha256":null},
+    {"id":"southern-stingray","creatureId":"southern-stingray","name":"Southern stingray","path":"assets/source/creatures/southern-stingray/candidate-v1.webp","score":8.2,"status":"keep","identity":"high","ingestMode":"opaque-scene","qaNote":"Convincing silhouette and dorsal view.","bytes":null,"sha256":null},
+    {"id":"trumpetfish","creatureId":"trumpetfish","name":"Trumpetfish","path":"assets/source/creatures/trumpetfish/candidate-v1.webp","score":7.2,"status":"provisional","identity":"medium","ingestMode":"opaque-scene","qaNote":"Recognizable body/snout; fin configuration and proportions need checking.","bytes":null,"sha256":null},
+    {"id":"longsnout-seahorse","creatureId":"longsnout-seahorse","name":"Longsnout seahorse","path":"assets/source/creatures/longsnout-seahorse/candidate-v1.webp","score":6.8,"status":"provisional","identity":"medium","ingestMode":"opaque-scene","qaNote":"Beautiful but somewhat generic and over-spined.","bytes":null,"sha256":null},
+    {"id":"yellowtail-snapper","creatureId":"yellowtail-snapper","name":"Yellowtail snapper","path":"assets/source/creatures/yellowtail-snapper/candidate-v1.webp","score":9.0,"status":"keep","identity":"high","ingestMode":"opaque-scene","qaNote":"Excellent profile, stripe/tail and silver-blue body.","bytes":null,"sha256":null},
+    {"id":"porcupinefish","creatureId":"porcupinefish","name":"Porcupinefish","path":"assets/source/creatures/porcupinefish/candidate-v1.webp","score":8.0,"status":"keep","identity":"medium","ingestMode":"opaque-scene","qaNote":"Strong Diodon-type asset; canonical label must match.","bytes":null,"sha256":null},
+    {"id":"longspine-sea-urchin","creatureId":null,"name":"Longspine sea urchin","path":"assets/source/creatures/longspine-sea-urchin/candidate-v1.webp","score":9.2,"status":"keep","identity":"high","ingestMode":"opaque-scene","qaNote":"Excellent and highly recognizable; outside current starter pack.","bytes":null,"sha256":null},
+    {"id":"banded-coral-shrimp","creatureId":null,"name":"Banded coral shrimp","path":"assets/source/creatures/banded-coral-shrimp/candidate-v1.webp","score":8.8,"status":"keep","identity":"high","ingestMode":"opaque-scene","qaNote":"Strong red/white banding, antennae and claw profile; outside current pack.","bytes":null,"sha256":null},
+    {"id":"schoolmaster-snapper","creatureId":"schoolmaster-snapper","name":"Schoolmaster snapper","path":"assets/source/creatures/schoolmaster-snapper/candidate-v1.webp","score":8.7,"status":"keep","identity":"high","ingestMode":"opaque-scene","qaNote":"Good yellow fins/stripes and snapper silhouette.","bytes":null,"sha256":null},
+    {"id":"spanish-hogfish","creatureId":"spanish-hogfish","name":"Spanish hogfish","path":"assets/source/creatures/spanish-hogfish/candidate-v1.webp","score":2.5,"status":"remake","identity":"low","ingestMode":"opaque-scene","qaNote":"Wrong pattern/coloration for intended species.","bytes":null,"sha256":null},
+    {"id":"caribbean-cushion-sea-star","creatureId":null,"name":"Caribbean cushion sea star","path":"assets/source/creatures/caribbean-cushion-sea-star/candidate-v1.webp","score":4.0,"status":"remake","identity":"low","ingestMode":"opaque-scene","qaNote":"Thin-armed star shape rather than heavy cushion-like form.","bytes":null,"sha256":null},
+    {"id":"sergeant-major","creatureId":"sergeant-major","name":"Sergeant major","path":"assets/source/creatures/sergeant-major/candidate-v1.webp","score":8.6,"status":"keep","identity":"high","ingestMode":"opaque-scene","qaNote":"Strong five-bar appearance and Caribbean reef-fish form.","bytes":null,"sha256":null},
+    {"id":"porkfish","creatureId":"porkfish","name":"Porkfish","path":"assets/source/creatures/porkfish/candidate-v1.webp","score":4.5,"status":"remake","identity":"low","ingestMode":"opaque-scene","qaNote":"Attractive grunt-like form but unreliable porkfish markings.","bytes":null,"sha256":null},
+    {"id":"queen-conch","creatureId":null,"name":"Queen conch","path":"assets/source/creatures/queen-conch/candidate-v1.webp","score":5.8,"status":"remake","identity":"medium","ingestMode":"opaque-scene","qaNote":"Shell is attractive; animal anatomy and midwater pose are unreliable.","bytes":null,"sha256":null},
+    {"id":"juvenile-spotted-drum","creatureId":null,"name":"Juvenile spotted drum","path":"assets/source/creatures/juvenile-spotted-drum/candidate-v1.webp","score":8.1,"status":"keep","identity":"high","ingestMode":"opaque-scene","qaNote":"Strong juvenile black/white profile with trailing fins; outside current pack.","bytes":null,"sha256":null},
+    {"id":"green-sea-turtle","creatureId":"green-sea-turtle","name":"Green sea turtle","path":"assets/source/creatures/green-sea-turtle/candidate-v1.webp","score":8.6,"status":"keep","identity":"high","ingestMode":"opaque-scene","qaNote":"Good rounded head and smoother shell distinguish it from hawksbill.","bytes":null,"sha256":null}
+  ]
+}

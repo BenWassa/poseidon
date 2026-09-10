@@ -1,10 +1,8 @@
 # Poseidon creature asset pipeline
 
-This tooling implements the repository-side asset contract from issue #6. It is intentionally independent of the eventual application framework.
+This tooling owns canonical runtime creature artwork under `assets/creatures`. Editorial/generated masters live separately under `assets/source/creatures` and are never application inputs.
 
-## Canonical layout
-
-Each stable curated creature ID owns one directory:
+## Canonical runtime layout
 
 ```text
 assets/creatures/<creature-id>/
@@ -14,13 +12,11 @@ assets/creatures/<creature-id>/
   hero.webp
 ```
 
-Creature IDs are lower-case, path-safe stable IDs. The pipeline does not create taxonomy/content records; those belong to the marine-content stream.
-
-Variant references in `manifest.json` are relative to that creature asset directory. Application code may mount/copy `assets/creatures` wherever its final stack expects static assets.
+Creature IDs are lower-case, path-safe stable IDs. The pipeline never creates taxonomy/content records. Application code may mount/copy `assets/creatures` where its framework expects static files; the current React/Vite app does exactly that through `apps/web/scripts/sync-assets.mjs`.
 
 ## Output contract
 
-Approved PNG or WebP source artwork is converted to transparent WebP on a fixed square canvas. The source composition is contained and centred; it is not cropped into a new art direction.
+Both supported source modes produce the same deterministic runtime sizes and byte budgets:
 
 | Variant | Canvas | Purpose | Maximum file size |
 | --- | ---: | --- | ---: |
@@ -28,94 +24,105 @@ Approved PNG or WebP source artwork is converted to transparent WebP on a fixed 
 | `gallery.webp` | 512×512 | normal gallery | 220 KiB |
 | `hero.webp` | 1024×1024 | creature detail / dive highlight | 700 KiB |
 
-The manifest exposes the UI-facing `artwork.status`, `thumb`, `gallery`, `hero`, and `aspectRatio` concepts from `docs/UI_DATA_CONTRACT.md`, plus generated dimensions, byte sizes, SHA-256 hashes, and source metadata for validation/provenance.
-A machine-readable JSON Schema lives at `tools/creature_assets/manifest.schema.json`; the Python validator additionally verifies referenced files, hashes, dimensions, transparency, and size budgets.
+Fixed encoder settings and the pinned Pillow toolchain make output deterministic for a given input and mode. Runtime manifests carry source hashes plus the explicit source mode for newly generated art. Existing v1 manifests without `source.mode` remain valid and are interpreted as the legacy transparent/specimen contract.
 
-The fixed `aspectRatio: 1.0` contract lets a future UI reserve image space before loading, avoiding layout shift. Dense surfaces can request `thumb` without touching the source or hero asset.
+## Explicit source modes
 
-## Install the isolated tool
+### `transparent-specimen`
 
-From the repository root:
-
-```bash
-python -m pip install -r tools/creature_assets/requirements.txt
-```
-
-The pinned Pillow version is part of the deterministic toolchain.
-
-## Add one approved creature asset
-
-Given an already reviewed transparent source image:
+This is the original/default mode. It requires an alpha channel, retains the contain-and-centre transparent canvas behavior, and keeps existing transparent artwork backward compatible.
 
 ```bash
 python -m tools.creature_assets ingest \
   --id spotted-eagle-ray \
-  --source /path/to/approved-source.png
+  --source /path/to/approved-source.png \
+  --mode transparent-specimen
 ```
 
-The command refuses to overwrite an existing creature directory. Review the generated variants and manifest, then run:
+Omitting `--mode` is equivalent to `transparent-specimen` so existing commands keep their meaning.
 
-```bash
-python -m tools.creature_assets validate
-```
+### `opaque-scene`
 
-Do not treat successful processing as art approval. Biological recognizability and style curation remain a separate editorial step.
-
-## Replace approved art
-
-Use the same stable creature ID and opt in to replacement:
+This mode is for reviewed square scene masters such as the generated sunlit-Caribbean source library. It requires a fully opaque square PNG/WebP, preserves the full composition, and generates opaque 192/512/1024 WebP variants. It does **not** weaken alpha validation for transparent/specimen inputs.
 
 ```bash
 python -m tools.creature_assets ingest \
-  --id spotted-eagle-ray \
-  --source /path/to/replacement.png \
-  --force
+  --id queen-angelfish \
+  --source /path/to/approved-scene.webp \
+  --mode opaque-scene
 ```
 
-Replacement is staged before the existing directory is removed, so a failed conversion does not leave a half-written asset directory.
+## Editorial source library
+
+Source masters are cataloged separately:
+
+```text
+assets/source/creatures/
+  catalog.json
+  <candidate-id>/candidate-vN.webp
+```
+
+Validate the complete source library with:
+
+```bash
+python -m tools.creature_assets validate-source \
+  --catalog assets/source/creatures/catalog.json
+```
+
+The normal command is strict: `binaryImportStatus: pending` fails. `--allow-pending` exists only to validate metadata during a staged handoff and is not used by the repository gate.
+
+The prepared bundle can be imported reproducibly when present:
+
+```bash
+python -m tools.creature_assets import-source-bundle \
+  --bundle /path/to/poseidon-creature-source-library-2026-09-07.zip
+```
+
+The importer expects the cataloged repo-relative paths inside the ZIP, validates every candidate before writing, records byte sizes/SHA-256 values, refuses mutation of an existing source revision, and changes `binaryImportStatus` to `complete` only after strict validation succeeds.
+
+## Promotion safeguards
+
+Processing is not approval. Canonical promotion from `assets/source` is always deliberate:
+
+```bash
+python -m tools.creature_assets promote-source \
+  --candidate queen-angelfish
+```
+
+Promotion requires all of the following:
+
+- the source catalog is complete and strict-valid;
+- editorial `status` is exactly `keep`;
+- `creatureId` maps to an existing repository content record;
+- the candidate file/hash/mode validate;
+- an existing runtime directory is not replaced unless `--force` is explicitly supplied.
+
+`provisional` and `remake` candidates are blocked even with `--force`. Source-only candidates with `creatureId: null` are also blocked so artwork cannot silently create taxonomy. Existing runtime art therefore remains authoritative until a specific reviewed replacement is deliberately promoted.
 
 ## Missing art and placeholders
 
-No artwork is a first-class state, not a broken image. Create component-neutral metadata without inventing a final placeholder visual:
+No artwork is a first-class state:
 
 ```bash
 python -m tools.creature_assets fallback --id unillustrated-creature --status placeholder
-```
-
-or, when there is intentionally no placeholder art:
-
-```bash
 python -m tools.creature_assets fallback --id unillustrated-creature --status missing
 ```
 
-These manifests keep `aspectRatio: 1.0`, expose null image references, and let the eventual UI choose a consistent fallback treatment without coupling this tooling to a component library.
+These manifests keep `aspectRatio: 1.0`, expose null image references and let the UI choose its designed fallback.
 
-## Validation
+## Runtime validation
 
 ```bash
 python -m tools.creature_assets validate --root assets/creatures
 ```
 
-Validation fails with explicit messages for:
+Validation catches missing/duplicate manifests, unsupported IDs/versions/modes, broken references, incorrect dimensions/media types, hash/byte drift, oversize variants and transparency-mode violations.
 
-- top-level creature directories with no manifest;
-- duplicate creature IDs, including stray copied manifests;
-- unsupported manifest versions or invalid IDs;
-- broken/missing variant references;
-- incorrect dimensions/aspect ratio/media type;
-- unreadable generated imagery;
-- lost transparency;
-- file-size or SHA-256 metadata drift;
-- variant file-size budget overruns.
-
-Ingestion separately rejects unreadable inputs, unsupported formats, opaque images without an alpha channel, source files over 20 MiB, and source dimensions above 4096 px on either axis.
-
-## Tests
-
-Tests create temporary synthetic RGBA fixtures; no production creature illustration is included.
+## Tests and repository gate
 
 ```bash
 python -m unittest discover -s tools/creature_assets/tests -v
+npm run gate
 ```
 
-The suite proves deterministic output under the pinned toolchain, stable dimensions/transparency, explicit fallback states, smaller gallery payloads, replacement safety, and validation failures for broken, missing, duplicate, unsupported, or oversized assets.
+The asset tests cover both modes, deterministic output, legacy manifests, fallback states, source-catalog integrity, exact ZIP import, content mapping, immutable source history and promotion gates. The full repository gate requires both canonical runtime validation and a **complete** source library; a catalog deliberately marked `pending` cannot be merged accidentally.

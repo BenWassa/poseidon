@@ -18,7 +18,9 @@
     "assets:art": "node tools/creature_art/build.mjs",
     "validate:content": "python3 tools/validate_content.py",
     "validate:assets": "python3 -m tools.creature_assets validate --root assets/creatures",
-    "gate": "npm run validate:content && npm run validate:assets && npm run typecheck && npm run test && npm run build"
+    "validate:source-assets": "python3 -m tools.creature_assets validate-source --catalog assets/source/creatures/catalog.json",
+    "test:asset-tools": "python3 -m unittest discover -s tools/creature_assets/tests -v",
+    "gate": "npm run validate:content && npm run validate:assets && npm run validate:source-assets && npm run test:asset-tools && npm run typecheck && npm run test && npm run build"
   },
   "engines": {
     "node": ">=22"
