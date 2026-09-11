@@ -2,7 +2,12 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 
 import { createPoseidonStore } from '../dist/index.js';
-import { fixtureContent, fixtureCreatures, fixtureDiveInputs, MemoryPersistence } from '../dist/fixtures.js';
+import {
+  fixtureContent,
+  fixtureCreatures,
+  fixtureDiveInputs,
+  MemoryPersistence,
+} from '../dist/fixtures.js';
 
 function makeStore(persistence, prefix) {
   let counter = 0;
@@ -71,12 +76,18 @@ test('malformed and future backups are refused without mutating current history'
 
   const future = structuredClone(valid);
   future.exportVersion = 2;
-  await assert.rejects(() => store.restoreData(future, 'replace'), /export version 2 is unsupported/i);
+  await assert.rejects(
+    () => store.restoreData(future, 'replace'),
+    /export version 2 is unsupported/i,
+  );
   assert.deepEqual(persistence.inspect(), before);
 
   const malformed = structuredClone(valid);
   malformed.personal.dives[0].sightings[0].creatureId = 'not-in-this-build';
-  await assert.rejects(() => store.restoreData(malformed, 'replace'), /not available in this Poseidon build/i);
+  await assert.rejects(
+    () => store.restoreData(malformed, 'replace'),
+    /not available in this Poseidon build/i,
+  );
   assert.deepEqual(persistence.inspect(), before);
 });
 
@@ -96,6 +107,9 @@ test('merge conflicts are previewed and refused without overwriting either versi
   assert.equal(preview.mergeConflicts.length, 1);
   assert.equal(preview.replaceWouldDiscardDives, 1);
 
-  await assert.rejects(() => target.restoreData(changed, 'merge'), /Merge refused/i);
+  await assert.rejects(
+    () => target.restoreData(changed, 'merge'),
+    /Merge refused/i,
+  );
   assert.deepEqual(targetPersistence.inspect(), before);
 });

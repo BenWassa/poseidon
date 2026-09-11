@@ -20,7 +20,7 @@ export default defineConfig({
     react(),
     tailwindcss(),
     VitePWA({
-      registerType: 'autoUpdate',
+      registerType: 'prompt',
       // Core logging and browsing must survive a cold start with no network,
       // so the shell, the content pack and the creature variants are precached.
       workbox: {
@@ -29,6 +29,7 @@ export default defineConfig({
         cleanupOutdatedCaches: true,
       },
       manifest: {
+        id: '/',
         name: 'Poseidon',
         short_name: 'Poseidon',
         description: 'A beautiful personal atlas of your underwater life.',
@@ -38,27 +39,35 @@ export default defineConfig({
         background_color: '#F2FBFC',
         theme_color: '#F2FBFC',
         icons: [
-          { src: `${base}icons/icon-192.png`, sizes: '192x192', type: 'image/png' },
-          { src: `${base}icons/icon-512.png`, sizes: '512x512', type: 'image/png' },
-          { src: `${base}icons/icon-maskable-512.png`, sizes: '512x512', type: 'image/png', purpose: 'maskable' },
+          {
+            src: `${base}icons/icon-192.png`,
+            sizes: '192x192',
+            type: 'image/png',
+          },
+          {
+            src: `${base}icons/icon-512.png`,
+            sizes: '512x512',
+            type: 'image/png',
+          },
+          {
+            src: `${base}icons/icon-maskable-512.png`,
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'maskable',
+          },
         ],
       },
     }),
   ],
   resolve: {
     alias: {
-      '@poseidon/domain': fileURLToPath(new URL('../../packages/domain/src/index.ts', import.meta.url)),
+      '@poseidon/domain': fileURLToPath(
+        new URL('../../packages/domain/src/index.ts', import.meta.url),
+      ),
       '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
   server: {
     fs: { allow: [workspaceRoot] },
-  },
-  test: {
-    environment: 'jsdom',
-    globals: true,
-    setupFiles: ['./vitest.setup.ts'],
-    include: ['test/**/*.test.{ts,tsx}'],
-    restoreMocks: true,
   },
 });

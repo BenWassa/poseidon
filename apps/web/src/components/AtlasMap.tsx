@@ -4,8 +4,10 @@ import type { AtlasSiteMarker } from '../lib/atlas';
 
 const LEAFLET_CSS = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
 const LEAFLET_JS = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
-const LEAFLET_CSS_INTEGRITY = 'sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=';
-const LEAFLET_JS_INTEGRITY = 'sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=';
+const LEAFLET_CSS_INTEGRITY =
+  'sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=';
+const LEAFLET_JS_INTEGRITY =
+  'sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=';
 
 interface LeafletHandler {
   enable(): void;
@@ -19,7 +21,10 @@ interface LeafletMapInstance {
   doubleClickZoom: LeafletHandler;
   boxZoom: LeafletHandler;
   keyboard: LeafletHandler;
-  fitBounds(bounds: unknown, options: { padding: [number, number]; maxZoom: number }): LeafletMapInstance;
+  fitBounds(
+    bounds: unknown,
+    options: { padding: [number, number]; maxZoom: number },
+  ): LeafletMapInstance;
   setView(center: [number, number], zoom: number): LeafletMapInstance;
   remove(): void;
 }
@@ -30,9 +35,15 @@ interface LeafletLayer {
 }
 
 interface LeafletApi {
-  map(element: HTMLElement, options: Record<string, unknown>): LeafletMapInstance;
+  map(
+    element: HTMLElement,
+    options: Record<string, unknown>,
+  ): LeafletMapInstance;
   tileLayer(url: string, options: Record<string, unknown>): LeafletLayer;
-  circleMarker(position: [number, number], options: Record<string, unknown>): LeafletLayer;
+  circleMarker(
+    position: [number, number],
+    options: Record<string, unknown>,
+  ): LeafletLayer;
   latLngBounds(points: Array<[number, number]>): unknown;
 }
 
@@ -68,8 +79,17 @@ function loadLeaflet(): Promise<LeafletApi> {
     script.integrity = LEAFLET_JS_INTEGRITY;
     script.crossOrigin = '';
     script.async = true;
-    script.addEventListener('load', () => (window.L ? resolve(window.L) : reject(new Error('Leaflet unavailable'))), { once: true });
-    script.addEventListener('error', () => reject(new Error('Leaflet failed to load')), { once: true });
+    script.addEventListener(
+      'load',
+      () =>
+        window.L ? resolve(window.L) : reject(new Error('Leaflet unavailable')),
+      { once: true },
+    );
+    script.addEventListener(
+      'error',
+      () => reject(new Error('Leaflet failed to load')),
+      { once: true },
+    );
     document.head.append(script);
   }).catch((error: unknown) => {
     document.getElementById('poseidon-leaflet-js')?.remove();
@@ -82,9 +102,17 @@ function loadLeaflet(): Promise<LeafletApi> {
 }
 
 function escapeHtml(value: string): string {
-  return value.replace(/[&<>'"]/g, (character) => ({
-    '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;',
-  })[character] ?? character);
+  return value.replace(
+    /[&<>'"]/g,
+    (character) =>
+      ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        "'": '&#39;',
+        '"': '&quot;',
+      })[character] ?? character,
+  );
 }
 
 function precisionLabel(site: AtlasSiteMarker): string {
@@ -94,7 +122,14 @@ function precisionLabel(site: AtlasSiteMarker): string {
 }
 
 function setInteraction(map: LeafletMapInstance, enabled: boolean) {
-  for (const handler of [map.dragging, map.touchZoom, map.scrollWheelZoom, map.doubleClickZoom, map.boxZoom, map.keyboard]) {
+  for (const handler of [
+    map.dragging,
+    map.touchZoom,
+    map.scrollWheelZoom,
+    map.doubleClickZoom,
+    map.boxZoom,
+    map.keyboard,
+  ]) {
     if (enabled) handler.enable();
     else handler.disable();
   }
@@ -103,7 +138,9 @@ function setInteraction(map: LeafletMapInstance, enabled: boolean) {
 export function AtlasMap({ sites }: { sites: AtlasSiteMarker[] }) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<LeafletMapInstance | null>(null);
-  const [status, setStatus] = useState<'loading' | 'ready' | 'unavailable'>('loading');
+  const [status, setStatus] = useState<'loading' | 'ready' | 'unavailable'>(
+    'loading',
+  );
   const [interactive, setInteractive] = useState(false);
 
   useEffect(() => {
@@ -134,7 +171,8 @@ export function AtlasMap({ sites }: { sites: AtlasSiteMarker[] }) {
 
         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
           maxZoom: 19,
-          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+          attribution:
+            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
         }).addTo(map);
 
         for (const site of sites) {
@@ -149,15 +187,23 @@ export function AtlasMap({ sites }: { sites: AtlasSiteMarker[] }) {
           marker.bindPopup?.(
             `<strong>${escapeHtml(site.name)}</strong><br>${escapeHtml(site.areaName)}<br>` +
               `${escapeHtml(precisionLabel(site))}` +
-              (visited ? `<br><strong>${site.diveCount} ${site.diveCount === 1 ? 'dive' : 'dives'} in your history</strong>` : ''),
+              (visited
+                ? `<br><strong>${site.diveCount} ${site.diveCount === 1 ? 'dive' : 'dives'} in your history</strong>`
+                : ''),
           );
         }
 
-        const points = sites.map((site) => [site.lat, site.lng] as [number, number]);
+        const points = sites.map(
+          (site) => [site.lat, site.lng] as [number, number],
+        );
         const firstPoint = points[0];
         if (!firstPoint) return;
         if (points.length === 1) map.setView(firstPoint, 13);
-        else map.fitBounds(L.latLngBounds(points), { padding: [24, 24], maxZoom: 12 });
+        else
+          map.fitBounds(L.latLngBounds(points), {
+            padding: [24, 24],
+            maxZoom: 12,
+          });
         setInteraction(map, false);
         if (!cancelled) setStatus('ready');
       })
@@ -196,8 +242,9 @@ export function AtlasMap({ sites }: { sites: AtlasSiteMarker[] }) {
 
       {status === 'unavailable' ? (
         <div className="absolute inset-0 flex items-center justify-center bg-shallows px-8 text-center">
-          <p className="max-w-xs text-sm font-semibold leading-relaxed text-ocean/65">
-            The basemap needs a connection. Your dive history and place pages remain available offline.
+          <p className="max-w-xs text-sm leading-relaxed font-semibold text-ocean/65">
+            The basemap needs a connection. Your dive history and place pages
+            remain available offline.
           </p>
         </div>
       ) : null}
@@ -206,7 +253,7 @@ export function AtlasMap({ sites }: { sites: AtlasSiteMarker[] }) {
         <button
           type="button"
           onClick={() => setInteractive((value) => !value)}
-          className="absolute left-3 top-3 min-h-11 rounded-full bg-white/95 px-4 text-xs font-black text-ocean shadow-md active:scale-[0.98]"
+          className="absolute top-3 left-3 min-h-11 rounded-full bg-white/95 px-4 text-xs font-black text-ocean shadow-md active:scale-[0.98]"
           aria-pressed={interactive}
         >
           {interactive ? 'Done' : 'Explore map'}

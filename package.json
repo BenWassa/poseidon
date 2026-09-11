@@ -10,17 +10,36 @@
   ],
   "scripts": {
     "build": "npm run build --workspace @poseidon/domain && npm run build --workspace @poseidon/web",
+    "check": "npm run lint && npm run format:check && npm run typecheck && npm run test",
+    "check:assets": "npm run validate:content && npm run validate:assets && npm run test:assets",
+    "lint": "eslint . --max-warnings=0",
+    "format": "prettier --write \"{apps,packages}/**/*.{ts,tsx,js,mjs,json,css}\" \"*.{js,json}\"",
+    "format:check": "prettier --check \"{apps,packages}/**/*.{ts,tsx,js,mjs,json,css}\" \"*.{js,json}\"",
     "typecheck": "npm run typecheck --workspace @poseidon/domain && npm run typecheck --workspace @poseidon/web",
     "test": "npm run test --workspace @poseidon/domain && npm run test --workspace @poseidon/web",
+    "test:assets": "python3 -m unittest discover -s tools/creature_assets/tests -v",
+    "test:pwa": "npm run test:pwa --workspace @poseidon/web",
     "dev": "npm run dev --workspace @poseidon/web",
     "preview": "npm run preview --workspace @poseidon/web",
+    "screenshots": "npm run screenshots --workspace @poseidon/web",
     "assets:sync": "node apps/web/scripts/sync-assets.mjs",
     "assets:art": "node tools/creature_art/build.mjs",
     "validate:content": "python3 tools/validate_content.py",
     "validate:assets": "python3 -m tools.creature_assets validate --root assets/creatures",
-    "gate": "npm run validate:content && npm run validate:assets && npm run typecheck && npm run test && npm run build"
+    "gate": "npm run check:assets && npm run check && npm run build && npm run test:pwa && npm run verify:field --workspace @poseidon/web"
   },
   "engines": {
-    "node": ">=22"
+    "node": ">=22.12"
+  },
+  "packageManager": "npm@11.12.1",
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.10.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.6",
+    "globals": "^17.12.0",
+    "prettier": "^3.9.6",
+    "prettier-plugin-tailwindcss": "^0.8.1",
+    "typescript-eslint": "^8.70.0"
   }
 }

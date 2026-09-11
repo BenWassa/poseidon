@@ -24,7 +24,10 @@ docs/evidence/       rendered screenshots of the production build at phone size
 One gate covers all of it:
 
 ```bash
-npm install
+npm ci
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r tools/creature_assets/requirements.txt
 npm run gate      # content + asset validation, typecheck, tests, production build
 npm run dev       # the application
 ```

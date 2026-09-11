@@ -10,6 +10,8 @@ import type { ReactNode } from 'react';
 import { BookOpen, Fish, Home, Map, Plus } from 'lucide-react';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 
+import { PwaNotice } from './PwaNotice';
+
 interface Tab {
   to: string;
   label: string;
@@ -87,6 +89,7 @@ export function AppShell({ children }: { children: ReactNode }) {
   return (
     <div className="flex h-[100dvh] w-full justify-center bg-tide">
       <div className="relative flex h-full w-full max-w-md flex-col overflow-hidden bg-canvas sm:shadow-2xl">
+        <PwaNotice />
         <main
           id="main"
           className={`rail h-full flex-1 overflow-y-auto ${immersive ? '' : 'pb-28'}`}

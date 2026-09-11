@@ -45,16 +45,24 @@ const userCreated: Creature = {
 
 describe('creature artwork', () => {
   it('requests the variant the surface asked for and reserves its geometry', () => {
-    const { container, rerender } = render(<CreatureImage creature={curated} variant="thumb" />);
+    const { container, rerender } = render(
+      <CreatureImage creature={curated} variant="thumb" />,
+    );
     const thumb = screen.getByTestId('creature-artwork');
-    expect(thumb).toHaveAttribute('src', '/assets/creatures/spotted-eagle-ray/thumb.webp');
+    expect(thumb).toHaveAttribute(
+      'src',
+      '/assets/creatures/spotted-eagle-ray/thumb.webp',
+    );
     expect(thumb).toHaveAttribute('width', '192');
     expect(thumb).toHaveAttribute('loading', 'lazy');
     expect(container.firstElementChild).toHaveStyle({ aspectRatio: '1' });
 
     rerender(<CreatureImage creature={curated} variant="hero" priority />);
     const hero = screen.getByTestId('creature-artwork');
-    expect(hero).toHaveAttribute('src', '/assets/creatures/spotted-eagle-ray/hero.webp');
+    expect(hero).toHaveAttribute(
+      'src',
+      '/assets/creatures/spotted-eagle-ray/hero.webp',
+    );
     expect(hero).toHaveAttribute('width', '1024');
     // Above-the-fold artwork must not wait for lazy loading.
     expect(hero).toHaveAttribute('loading', 'eager');
@@ -72,13 +80,17 @@ describe('creature artwork', () => {
   });
 
   it('falls back to the mark if a variant fails to load', async () => {
-    render(<CreatureImage creature={curated} variant="gallery" plate={false} />);
+    render(
+      <CreatureImage creature={curated} variant="gallery" plate={false} />,
+    );
     const image = screen.getByTestId('creature-artwork');
     expect(screen.queryByTestId('creature-mark')).not.toBeInTheDocument();
 
     fireEvent.error(image);
 
-    await waitFor(() => expect(screen.getByTestId('creature-mark')).toBeInTheDocument());
+    await waitFor(() =>
+      expect(screen.getByTestId('creature-mark')).toBeInTheDocument(),
+    );
     expect(screen.queryByTestId('creature-artwork')).not.toBeInTheDocument();
   });
 });
@@ -90,28 +102,42 @@ describe('sparse and empty history', () => {
 
   it('invites a first dive rather than showing empty statistics', async () => {
     renderPoseidon('/');
-    expect(await screen.findByRole('heading', { name: 'Your atlas starts here' })).toBeInTheDocument();
-    expect(screen.getByText('A record worth keeping for years')).toBeInTheDocument();
+    expect(
+      await screen.findByRole('heading', { name: 'Your atlas starts here' }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText('A record worth keeping for years'),
+    ).toBeInTheDocument();
     // No fabricated totals anywhere on an empty profile.
     expect(screen.queryByText(/dives ·/)).not.toBeInTheDocument();
   });
 
   it('gives every empty surface a way back into logging', async () => {
     const { user } = renderPoseidon('/journal');
-    expect(await screen.findByRole('heading', { name: 'No dives yet' })).toBeInTheDocument();
+    expect(
+      await screen.findByRole('heading', { name: 'No dives yet' }),
+    ).toBeInTheDocument();
 
     await user.click(screen.getByRole('link', { name: /Atlas/ }));
-    expect(await screen.findByRole('heading', { name: 'No places yet' })).toBeInTheDocument();
+    expect(
+      await screen.findByRole('heading', { name: 'No places yet' }),
+    ).toBeInTheDocument();
 
     await user.click(screen.getByRole('link', { name: /Collection/ }));
-    expect(await screen.findByRole('heading', { name: 'Nothing collected yet' })).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: 'Log a dive' })).toBeInTheDocument();
+    expect(
+      await screen.findByRole('heading', { name: 'Nothing collected yet' }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('link', { name: 'Log a dive' }),
+    ).toBeInTheDocument();
   });
 
   it('records a dive with no creatures at all, because every dive belongs', async () => {
     const { user } = renderPoseidon('/log');
 
-    await user.click(await screen.findByRole('button', { name: 'Playa del Carmen' }));
+    await user.click(
+      await screen.findByRole('button', { name: 'Playa del Carmen' }),
+    );
     await user.type(screen.getByLabelText('Dive site'), 'Shore entry');
     await user.click(screen.getByRole('button', { name: /Continue/ }));
     await user.type(await screen.findByLabelText('Max depth'), '9');
@@ -119,13 +145,21 @@ describe('sparse and empty history', () => {
     await user.click(screen.getByRole('button', { name: /Choose creatures/ }));
     await user.click(await screen.findByRole('button', { name: /Continue/ }));
 
-    expect(await screen.findByText('No creatures selected')).toBeInTheDocument();
-    expect(screen.getByText(/the dive still belongs in your record/)).toBeInTheDocument();
+    expect(
+      await screen.findByText('No creatures selected'),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(/the dive still belongs in your record/),
+    ).toBeInTheDocument();
 
     await user.click(screen.getByRole('button', { name: /Save this memory/ }));
 
-    expect(await screen.findByRole('heading', { name: 'Shore entry' })).toBeInTheDocument();
-    expect(screen.getByText(/No creatures were logged on this dive/)).toBeInTheDocument();
+    expect(
+      await screen.findByRole('heading', { name: 'Shore entry' }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(/No creatures were logged on this dive/),
+    ).toBeInTheDocument();
   });
 });
 
@@ -148,14 +182,21 @@ describe('depth units', () => {
     await user.click(await screen.findByRole('button', { name: /Continue/ }));
     await user.click(screen.getByRole('button', { name: /Save this memory/ }));
 
-    expect(await screen.findByRole('heading', { name: 'Paraíso' })).toBeInTheDocument();
+    expect(
+      await screen.findByRole('heading', { name: 'Paraíso' }),
+    ).toBeInTheDocument();
     expect(screen.getAllByText('60 ft').length).toBeGreaterThan(0);
 
     reload('/log');
     await user.click(await screen.findByRole('button', { name: 'Cozumel' }));
     await user.type(screen.getByLabelText('Dive site'), 'Yucab Reef');
     await user.click(screen.getByRole('button', { name: /Continue/ }));
-    await waitFor(() => expect(screen.getByRole('button', { name: 'ft' })).toHaveAttribute('aria-pressed', 'true'));
+    await waitFor(() =>
+      expect(screen.getByRole('button', { name: 'ft' })).toHaveAttribute(
+        'aria-pressed',
+        'true',
+      ),
+    );
   });
 });
 
@@ -166,12 +207,22 @@ describe('the phone shell', () => {
 
   it('hides the bottom navigation while the full-screen logging flow is open', async () => {
     const { user } = renderPoseidon('/');
-    expect(await screen.findByRole('navigation', { name: 'Main' })).toBeInTheDocument();
+    expect(
+      await screen.findByRole('navigation', { name: 'Main' }),
+    ).toBeInTheDocument();
 
     await user.click(screen.getByRole('button', { name: 'Log a dive' }));
-    await waitFor(() => expect(screen.queryByRole('navigation', { name: 'Main' })).not.toBeInTheDocument());
+    await waitFor(() =>
+      expect(
+        screen.queryByRole('navigation', { name: 'Main' }),
+      ).not.toBeInTheDocument(),
+    );
 
-    await user.click(screen.getByRole('button', { name: 'Close without saving' }));
-    expect(await screen.findByRole('navigation', { name: 'Main' })).toBeInTheDocument();
+    await user.click(
+      screen.getByRole('button', { name: 'Close without saving' }),
+    );
+    expect(
+      await screen.findByRole('navigation', { name: 'Main' }),
+    ).toBeInTheDocument();
   });
 });

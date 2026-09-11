@@ -8,7 +8,12 @@ import type {
   RecentDiscovery,
   Region,
 } from './domain.js';
-import { compareCreatureName, compareDiveNewestFirst, normalizeText, uniqueStable } from './utils.js';
+import {
+  compareCreatureName,
+  compareDiveNewestFirst,
+  normalizeText,
+  uniqueStable,
+} from './utils.js';
 
 /**
  * A derived travel episode. Dives remain canonical; a trip is rebuilt from
@@ -25,11 +30,7 @@ export interface DiveTrip {
 }
 
 export type HistoryMilestoneKind =
-  | 'first-dive'
-  | 'dive-count'
-  | 'new-country'
-  | 'new-region'
-  | 'creature-group';
+  'first-dive' | 'dive-count' | 'new-country' | 'new-region' | 'creature-group';
 
 /** A safe, factual history marker derived from canonical dives. */
 export interface HistoryMilestone {
@@ -52,7 +53,12 @@ export const TRIP_MAX_GAP_DAYS = 7;
 
 const DAY_MS = 24 * 60 * 60 * 1000;
 const DIVE_COUNT_MILESTONES = new Set<number>([10, 25, 50]);
-const MAJOR_CREATURE_GROUPS = ['sea-turtle', 'shark', 'ray', 'cephalopod'] as const;
+const MAJOR_CREATURE_GROUPS = [
+  'sea-turtle',
+  'shark',
+  'ray',
+  'cephalopod',
+] as const;
 
 type MajorCreatureGroup = (typeof MAJOR_CREATURE_GROUPS)[number];
 
@@ -69,13 +75,18 @@ function sameTripLocation(a: Dive, b: Dive): boolean {
 
   const aCountry = a.countryCode?.toUpperCase() ?? '';
   const bCountry = b.countryCode?.toUpperCase() ?? '';
-  return aCountry === bCountry && normalizeText(a.areaName) === normalizeText(b.areaName);
+  return (
+    aCountry === bCountry &&
+    normalizeText(a.areaName) === normalizeText(b.areaName)
+  );
 }
 
 function canContinueTrip(previous: Dive, next: Dive): boolean {
   if (!sameTripLocation(previous, next)) return false;
   const gapDays = calendarDay(next.date) - calendarDay(previous.date);
-  return Number.isFinite(gapDays) && gapDays >= 0 && gapDays <= TRIP_MAX_GAP_DAYS;
+  return (
+    Number.isFinite(gapDays) && gapDays >= 0 && gapDays <= TRIP_MAX_GAP_DAYS
+  );
 }
 
 /**
@@ -94,7 +105,9 @@ export function groupDivesIntoTrips(dives: Dive[]): DiveTrip[] {
       trips.push({
         id: `trip:${dive.id}`,
         areaName: dive.areaName,
-        ...(dive.countryCode ? { countryCode: dive.countryCode.toUpperCase() } : {}),
+        ...(dive.countryCode
+          ? { countryCode: dive.countryCode.toUpperCase() }
+          : {}),
         ...(dive.regionId ? { regionId: dive.regionId } : {}),
         firstDate: dive.date,
         lastDate: dive.date,
@@ -108,7 +121,10 @@ export function groupDivesIntoTrips(dives: Dive[]): DiveTrip[] {
   }
 
   return trips
-    .map((trip) => ({ ...trip, dives: [...trip.dives].sort(compareDiveNewestFirst) }))
+    .map((trip) => ({
+      ...trip,
+      dives: [...trip.dives].sort(compareDiveNewestFirst),
+    }))
     .sort(
       (a, b) =>
         b.lastDate.localeCompare(a.lastDate) ||
@@ -122,7 +138,10 @@ function regionMilestoneKey(dive: Dive): string {
   return `area:${dive.countryCode?.toUpperCase() ?? '--'}:${normalizeText(dive.areaName)}`;
 }
 
-function majorGroupsOnDive(dive: Dive, creatureById: Map<string, Creature>): MajorCreatureGroup[] {
+function majorGroupsOnDive(
+  dive: Dive,
+  creatureById: Map<string, Creature>,
+): MajorCreatureGroup[] {
   const present = new Set(
     dive.sightings
       .map((sighting) => creatureById.get(sighting.creatureId)?.category)
@@ -225,7 +244,9 @@ export function getLifetimeStats(dives: Dive[]): LifetimeStats {
 
   for (const dive of dives) {
     totalBottomTimeMinutes += dive.durationMinutes;
-    siteKeys.add(`${normalizeText(dive.areaName)}\u0000${normalizeText(dive.siteName)}`);
+    siteKeys.add(
+      `${normalizeText(dive.areaName)}\u0000${normalizeText(dive.siteName)}`,
+    );
     for (const sighting of dive.sightings) creatureIds.add(sighting.creatureId);
     if (dive.countryCode) countries.add(dive.countryCode.toUpperCase());
   }
@@ -248,7 +269,10 @@ function unresolvedCreature(id: string): Creature {
   };
 }
 
-export function buildCreatureCollection(dives: Dive[], creatureById: Map<string, Creature>): CreatureHistory[] {
+export function buildCreatureCollection(
+  dives: Dive[],
+  creatureById: Map<string, Creature>,
+): CreatureHistory[] {
   const aggregate = new Map<
     string,
     {
@@ -261,7 +285,10 @@ export function buildCreatureCollection(dives: Dive[], creatureById: Map<string,
   >();
 
   const chronological = [...dives].sort(
-    (a, b) => a.date.localeCompare(b.date) || a.createdAt.localeCompare(b.createdAt) || a.id.localeCompare(b.id),
+    (a, b) =>
+      a.date.localeCompare(b.date) ||
+      a.createdAt.localeCompare(b.createdAt) ||
+      a.id.localeCompare(b.id),
   );
 
   for (const dive of chronological) {
@@ -300,7 +327,9 @@ export function buildCreatureCollection(dives: Dive[], creatureById: Map<string,
     .sort(
       (a, b) =>
         b.mostRecentSeenDate.localeCompare(a.mostRecentSeenDate) ||
-        a.creature.commonName.localeCompare(b.creature.commonName, undefined, { sensitivity: 'base' }),
+        a.creature.commonName.localeCompare(b.creature.commonName, undefined, {
+          sensitivity: 'base',
+        }),
     );
 }
 
@@ -310,7 +339,10 @@ export function listRecentDiscoveries(
   limit: number,
 ): RecentDiscovery[] {
   const oldestFirst = [...dives].sort(
-    (a, b) => a.date.localeCompare(b.date) || a.createdAt.localeCompare(b.createdAt) || a.id.localeCompare(b.id),
+    (a, b) =>
+      a.date.localeCompare(b.date) ||
+      a.createdAt.localeCompare(b.createdAt) ||
+      a.id.localeCompare(b.id),
   );
   const first = new Map<string, RecentDiscovery>();
 
@@ -318,7 +350,9 @@ export function listRecentDiscoveries(
     for (const sighting of dive.sightings) {
       if (!first.has(sighting.creatureId)) {
         first.set(sighting.creatureId, {
-          creature: creatureById.get(sighting.creatureId) ?? unresolvedCreature(sighting.creatureId),
+          creature:
+            creatureById.get(sighting.creatureId) ??
+            unresolvedCreature(sighting.creatureId),
           firstSeenDate: dive.date,
           diveId: dive.id,
           siteName: dive.siteName,
@@ -333,7 +367,9 @@ export function listRecentDiscoveries(
       (a, b) =>
         b.firstSeenDate.localeCompare(a.firstSeenDate) ||
         b.diveId.localeCompare(a.diveId) ||
-        a.creature.commonName.localeCompare(b.creature.commonName, undefined, { sensitivity: 'base' }),
+        a.creature.commonName.localeCompare(b.creature.commonName, undefined, {
+          sensitivity: 'base',
+        }),
     )
     .slice(0, limit);
 }
@@ -369,7 +405,8 @@ export function listPlaceSummaries(dives: Dive[]): PlaceSummary[] {
     current.diveCount += 1;
     if (dive.date > current.latestDate) current.latestDate = dive.date;
     current.sites.add(normalizeText(dive.siteName));
-    for (const sighting of dive.sightings) current.creatures.add(sighting.creatureId);
+    for (const sighting of dive.sightings)
+      current.creatures.add(sighting.creatureId);
   }
 
   return [...aggregates.entries()]
@@ -382,7 +419,11 @@ export function listPlaceSummaries(dives: Dive[]): PlaceSummary[] {
       siteCount: value.sites.size,
       latestDate: value.latestDate,
     }))
-    .sort((a, b) => b.latestDate.localeCompare(a.latestDate) || a.label.localeCompare(b.label))
+    .sort(
+      (a, b) =>
+        b.latestDate.localeCompare(a.latestDate) ||
+        a.label.localeCompare(b.label),
+    )
     .map(({ latestDate: _latestDate, ...summary }) => summary);
 }
 
@@ -394,7 +435,10 @@ export function rankSuggestedCreatures(
 ): Creature[] {
   const contextRegionIds = resolveContextRegionIds(regions, context);
 
-  const familiarity = new Map<string, { mostRecentDate: string; diveCount: number }>();
+  const familiarity = new Map<
+    string,
+    { mostRecentDate: string; diveCount: number }
+  >();
   for (const dive of [...dives].sort(compareDiveNewestFirst)) {
     const seenOnDive = new Set<string>();
     for (const sighting of dive.sightings) {
@@ -402,7 +446,10 @@ export function rankSuggestedCreatures(
       seenOnDive.add(sighting.creatureId);
       const current = familiarity.get(sighting.creatureId);
       if (!current) {
-        familiarity.set(sighting.creatureId, { mostRecentDate: dive.date, diveCount: 1 });
+        familiarity.set(sighting.creatureId, {
+          mostRecentDate: dive.date,
+          diveCount: 1,
+        });
       } else {
         current.diveCount += 1;
       }
@@ -410,7 +457,9 @@ export function rankSuggestedCreatures(
   }
 
   const isLocal = (creature: Creature): boolean =>
-    (creature.regionIds ?? []).some((regionId) => contextRegionIds.has(regionId));
+    (creature.regionIds ?? []).some((regionId) =>
+      contextRegionIds.has(regionId),
+    );
 
   return [...creatures].sort((a, b) => {
     const aLocal = isLocal(a) ? 1 : 0;
@@ -423,14 +472,18 @@ export function rankSuggestedCreatures(
     if (aSeen && bSeen) {
       const recent = bSeen.mostRecentDate.localeCompare(aSeen.mostRecentDate);
       if (recent !== 0) return recent;
-      if (aSeen.diveCount !== bSeen.diveCount) return bSeen.diveCount - aSeen.diveCount;
+      if (aSeen.diveCount !== bSeen.diveCount)
+        return bSeen.diveCount - aSeen.diveCount;
     }
 
     return compareCreatureName(a, b);
   });
 }
 
-function resolveContextRegionIds(regions: Region[], context: CreatureSuggestionContext): Set<string> {
+function resolveContextRegionIds(
+  regions: Region[],
+  context: CreatureSuggestionContext,
+): Set<string> {
   const byId = new Map(regions.map((region) => [region.id, region]));
   const children = new Map<string, string[]>();
   for (const region of regions) {
@@ -444,7 +497,9 @@ function resolveContextRegionIds(regions: Region[], context: CreatureSuggestionC
   if (context.regionId) {
     seeds.add(context.regionId);
   } else {
-    const normalizedArea = context.areaName ? normalizeText(context.areaName) : null;
+    const normalizedArea = context.areaName
+      ? normalizeText(context.areaName)
+      : null;
     if (normalizedArea) {
       for (const region of regions) {
         if (normalizeText(region.name) === normalizedArea) seeds.add(region.id);

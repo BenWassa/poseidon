@@ -5,7 +5,13 @@ import { Link } from 'react-router-dom';
 
 import { AtlasMap } from '../components/AtlasMap';
 import { AtlasMotif } from '../components/AtlasMotif';
-import { ACTION_PRIMARY, Card, EmptyState, SectionHeader, TopBar } from '../components/ui';
+import {
+  ACTION_PRIMARY,
+  Card,
+  EmptyState,
+  SectionHeader,
+  TopBar,
+} from '../components/ui';
 import { curatedSites } from '../data/content';
 import { useDives, useLifetimeStats, usePlaceSummaries } from '../data/hooks';
 import { buildAtlasMapModel } from '../lib/atlas';
@@ -18,10 +24,15 @@ export function Atlas() {
   const { data: dives } = useDives();
 
   const entries = places ?? [];
-  const mapModel = useMemo(() => buildAtlasMapModel(dives ?? [], curatedSites), [dives]);
+  const mapModel = useMemo(
+    () => buildAtlasMapModel(dives ?? [], curatedSites),
+    [dives],
+  );
   const lastDiveAt = (label: string): string | null => {
     const target = normalizePlaceName(label);
-    const match = (dives ?? []).find((dive) => normalizePlaceName(dive.areaName) === target);
+    const match = (dives ?? []).find(
+      (dive) => normalizePlaceName(dive.areaName) === target,
+    );
     return match ? match.date : null;
   };
 
@@ -48,12 +59,20 @@ export function Atlas() {
             <Card className="relative overflow-hidden bg-gradient-to-br from-ocean to-abyss p-6 text-white shadow-lift">
               <AtlasMotif className="text-white" seed={entries.length} />
               <div className="relative">
-                <p className="text-[11px] font-black uppercase tracking-[0.16em] text-white/70">Explored</p>
-                <p className="mt-1 text-3xl font-black leading-tight">{pluralize(entries.length, 'place')}</p>
+                <p className="text-[11px] font-black tracking-[0.16em] text-white/70 uppercase">
+                  Explored
+                </p>
+                <p className="mt-1 text-3xl leading-tight font-black">
+                  {pluralize(entries.length, 'place')}
+                </p>
                 <p className="mt-1 text-sm font-medium text-white/75">
                   {pluralize(stats?.distinctSites ?? 0, 'site')} ·{' '}
-                  {pluralize(stats?.distinctCountries ?? 0, 'country', 'countries')} ·{' '}
-                  {pluralize(stats?.totalDives ?? 0, 'dive')}
+                  {pluralize(
+                    stats?.distinctCountries ?? 0,
+                    'country',
+                    'countries',
+                  )}{' '}
+                  · {pluralize(stats?.totalDives ?? 0, 'dive')}
                 </p>
               </div>
             </Card>
@@ -68,20 +87,29 @@ export function Atlas() {
               <AtlasMap sites={mapModel.sites} />
               <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 px-1 text-[11px] font-bold text-ocean/55">
                 <span className="inline-flex items-center gap-1.5">
-                  <span className="h-2.5 w-2.5 rounded-full bg-ocean" aria-hidden="true" />
+                  <span
+                    className="h-2.5 w-2.5 rounded-full bg-ocean"
+                    aria-hidden="true"
+                  />
                   In your history
                 </span>
                 <span className="inline-flex items-center gap-1.5">
-                  <span className="h-2.5 w-2.5 rounded-full border-2 border-ocean bg-white" aria-hidden="true" />
+                  <span
+                    className="h-2.5 w-2.5 rounded-full border-2 border-ocean bg-white"
+                    aria-hidden="true"
+                  />
                   Sourced site
                 </span>
               </div>
-              <p className="mt-2 px-1 text-xs font-medium leading-relaxed text-ocean/50">
-                {pluralize(mapModel.sites.length, 'site')} with published positions. Approximate reef and site anchors are labelled as such; no drop point or mooring is implied.
+              <p className="mt-2 px-1 text-xs leading-relaxed font-medium text-ocean/50">
+                {pluralize(mapModel.sites.length, 'site')} with published
+                positions. Approximate reef and site anchors are labelled as
+                such; no drop point or mooring is implied.
               </p>
               {mapModel.unmappedHistoryDiveCount > 0 ? (
-                <p className="mt-1 px-1 text-xs font-medium leading-relaxed text-ocean/45">
-                  {pluralize(mapModel.unmappedHistoryDiveCount, 'logged dive')} without a sourced position remain in the history below.
+                <p className="mt-1 px-1 text-xs leading-relaxed font-medium text-ocean/45">
+                  {pluralize(mapModel.unmappedHistoryDiveCount, 'logged dive')}{' '}
+                  without a sourced position remain in the history below.
                 </p>
               ) : null}
             </section>
@@ -104,7 +132,9 @@ export function Atlas() {
                         </span>
                         <span className="min-w-0 flex-1">
                           <span className="flex items-baseline gap-2">
-                            <span className="truncate text-base font-bold text-ocean">{place.label}</span>
+                            <span className="truncate text-base font-bold text-ocean">
+                              {place.label}
+                            </span>
                             {place.countryCode ? (
                               <span className="shrink-0 rounded-full bg-shallows px-2 py-0.5 text-[10px] font-black tracking-widest text-marine">
                                 {place.countryCode}
@@ -112,7 +142,8 @@ export function Atlas() {
                             ) : null}
                           </span>
                           <span className="mt-0.5 block text-xs font-medium text-ocean/55">
-                            {pluralize(place.diveCount, 'dive')} · {pluralize(place.siteCount, 'site')} ·{' '}
+                            {pluralize(place.diveCount, 'dive')} ·{' '}
+                            {pluralize(place.siteCount, 'site')} ·{' '}
                             {pluralize(place.creatureCount, 'creature')}
                           </span>
                           {last ? (
@@ -121,7 +152,11 @@ export function Atlas() {
                             </span>
                           ) : null}
                         </span>
-                        <ArrowRight size={18} className="shrink-0 text-ocean/35" aria-hidden="true" />
+                        <ArrowRight
+                          size={18}
+                          className="shrink-0 text-ocean/35"
+                          aria-hidden="true"
+                        />
                       </Card>
                     </Link>
                   </li>
@@ -130,8 +165,9 @@ export function Atlas() {
             </ul>
           </section>
 
-          <p className="px-8 pb-8 text-center text-xs font-medium leading-relaxed text-ocean/45">
-            Poseidon does not plot dive sites it cannot source. Sites without trustworthy coordinates remain fully usable in logging and history.
+          <p className="px-8 pb-8 text-center text-xs leading-relaxed font-medium text-ocean/45">
+            Poseidon does not plot dive sites it cannot source. Sites without
+            trustworthy coordinates remain fully usable in logging and history.
           </p>
         </>
       ) : null}

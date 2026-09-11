@@ -10,7 +10,12 @@ import { Clock, Gauge, MapPin } from 'lucide-react';
 
 import type { Creature, Dive } from '@poseidon/domain';
 
-import { formatDate, formatDepth, formatDuration, pluralize } from '../lib/format';
+import {
+  formatDate,
+  formatDepth,
+  formatDuration,
+  pluralize,
+} from '../lib/format';
 import { AtlasMotif } from './AtlasMotif';
 import { CreatureImage } from './CreatureImage';
 
@@ -19,7 +24,10 @@ import { CreatureImage } from './CreatureImage';
  * only then a fallback so the card is never blank. Poseidon never overrules a
  * chosen highlight.
  */
-export function heroCreature(dive: Dive, index: Map<string, Creature>): Creature | null {
+export function heroCreature(
+  dive: Dive,
+  index: Map<string, Creature>,
+): Creature | null {
   if (dive.highlightCreatureId) {
     const chosen = index.get(dive.highlightCreatureId);
     if (chosen) return chosen;
@@ -34,11 +42,18 @@ export function heroCreature(dive: Dive, index: Map<string, Creature>): Creature
 
 function seedFrom(value: string): number {
   let hash = 0;
-  for (let index = 0; index < value.length; index += 1) hash = (hash * 31 + value.charCodeAt(index)) >>> 0;
+  for (let index = 0; index < value.length; index += 1)
+    hash = (hash * 31 + value.charCodeAt(index)) >>> 0;
   return hash;
 }
 
-function Metric({ icon, children }: { icon: React.ReactNode; children: React.ReactNode }) {
+function Metric({
+  icon,
+  children,
+}: {
+  icon: React.ReactNode;
+  children: React.ReactNode;
+}) {
   return (
     <span className="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1.5 text-xs font-bold text-white backdrop-blur-sm">
       {icon}
@@ -75,7 +90,9 @@ export function DiveHero({
       {art ? (
         <div
           className={`pointer-events-none absolute ${
-            size === 'lg' ? '-bottom-4 -right-3 w-44' : '-bottom-3 -right-2 w-28'
+            size === 'lg'
+              ? '-right-3 -bottom-4 w-44'
+              : '-right-2 -bottom-3 w-28'
           }`}
         >
           <CreatureImage
@@ -88,24 +105,38 @@ export function DiveHero({
         </div>
       ) : null}
 
-      <div className={`relative ${art ? (size === 'lg' ? 'pr-32' : 'pr-24') : ''}`}>
+      <div
+        className={`relative ${art ? (size === 'lg' ? 'pr-32' : 'pr-24') : ''}`}
+      >
         {eyebrow ? (
-          <span className="mb-3 inline-block rounded-full bg-coral px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.16em] text-white">
+          <span className="mb-3 inline-block rounded-full bg-coral px-3 py-1.5 text-[10px] font-black tracking-[0.16em] text-white uppercase">
             {eyebrow}
           </span>
         ) : null}
-        <h2 className={`font-black leading-tight ${size === 'lg' ? 'text-3xl' : 'text-xl'}`}>{dive.siteName}</h2>
+        <h2
+          className={`leading-tight font-black ${size === 'lg' ? 'text-3xl' : 'text-xl'}`}
+        >
+          {dive.siteName}
+        </h2>
         <p className="mt-1 flex items-center gap-1.5 text-sm font-semibold text-white/80">
           <MapPin size={15} aria-hidden="true" />
           <span className="truncate">{dive.areaName}</span>
         </p>
-        <p className="mt-0.5 text-sm font-medium text-white/65">{formatDate(dive.date)}</p>
+        <p className="mt-0.5 text-sm font-medium text-white/65">
+          {formatDate(dive.date)}
+        </p>
 
         <div className="mt-4 flex flex-wrap gap-2">
-          <Metric icon={<Gauge size={13} aria-hidden="true" />}>{formatDepth(dive.maxDepth)}</Metric>
-          <Metric icon={<Clock size={13} aria-hidden="true" />}>{formatDuration(dive.durationMinutes)}</Metric>
+          <Metric icon={<Gauge size={13} aria-hidden="true" />}>
+            {formatDepth(dive.maxDepth)}
+          </Metric>
+          <Metric icon={<Clock size={13} aria-hidden="true" />}>
+            {formatDuration(dive.durationMinutes)}
+          </Metric>
           {dive.sightings.length > 0 ? (
-            <Metric icon={null}>{pluralize(dive.sightings.length, 'creature')}</Metric>
+            <Metric icon={null}>
+              {pluralize(dive.sightings.length, 'creature')}
+            </Metric>
           ) : null}
         </div>
       </div>

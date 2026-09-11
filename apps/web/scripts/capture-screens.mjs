@@ -5,7 +5,7 @@
  * representative history into localStorage, and captures every screen at
  * Pixel-class portrait plus a short-landscape and a wide-screen check.
  *
- *   npm run build && npm run e2e --workspace @poseidon/web
+ *   npm run build && npm run screenshots
  */
 import { createServer } from 'node:http';
 import { createReadStream } from 'node:fs';
@@ -36,7 +36,10 @@ const MIME = {
 };
 
 async function resolveFile(pathname) {
-  const candidate = join(distDir, pathname === '/' ? 'index.html' : decodeURIComponent(pathname));
+  const candidate = join(
+    distDir,
+    pathname === '/' ? 'index.html' : decodeURIComponent(pathname),
+  );
   try {
     const info = await stat(candidate);
     if (info.isFile()) return candidate;
@@ -49,7 +52,9 @@ async function resolveFile(pathname) {
 const server = createServer((request, response) => {
   const url = new URL(request.url ?? '/', 'http://localhost');
   void resolveFile(url.pathname).then((file) => {
-    response.writeHead(200, { 'content-type': MIME[extname(file)] ?? 'application/octet-stream' });
+    response.writeHead(200, {
+      'content-type': MIME[extname(file)] ?? 'application/octet-stream',
+    });
     createReadStream(file).pipe(response);
   });
 });
@@ -106,13 +111,25 @@ async function advanceLogFlow(page, upTo) {
   await page.getByRole('button', { name: 'Choose creatures' }).click();
   await page.waitForTimeout(350);
   if (upTo === 'creatures') {
-    await page.getByRole('button', { name: /Spotted eagle ray/ }).first().click();
-    await page.getByRole('button', { name: /Green sea turtle/ }).first().click();
+    await page
+      .getByRole('button', { name: /Spotted eagle ray/ })
+      .first()
+      .click();
+    await page
+      .getByRole('button', { name: /Green sea turtle/ })
+      .first()
+      .click();
     await page.waitForTimeout(200);
     return;
   }
-  await page.getByRole('button', { name: /Spotted eagle ray/ }).first().click();
-  await page.getByRole('button', { name: /Nurse shark/ }).first().click();
+  await page
+    .getByRole('button', { name: /Spotted eagle ray/ })
+    .first()
+    .click();
+  await page
+    .getByRole('button', { name: /Nurse shark/ })
+    .first()
+    .click();
   await page.getByRole('button', { name: 'Continue' }).click();
   await page.waitForTimeout(250);
 }
@@ -122,7 +139,12 @@ async function capture(page, file) {
   await page.waitForTimeout(450);
   // Retina capture, JPEG encoded: crisp enough to review, small enough to keep
   // in the repository as durable evidence.
-  await page.screenshot({ path: join(outputDir, file), fullPage: false, quality: 82, type: 'jpeg' });
+  await page.screenshot({
+    path: join(outputDir, file),
+    fullPage: false,
+    quality: 82,
+    type: 'jpeg',
+  });
   console.log(`[shots] ${file}`);
 }
 
@@ -137,7 +159,11 @@ try {
 
   // Empty profile: the state a real first run starts from.
   {
-    const { context, page } = await openPage({ width: 412, height: 915, seeded: false });
+    const { context, page } = await openPage({
+      width: 412,
+      height: 915,
+      seeded: false,
+    });
     await page.goto(route('/'), { waitUntil: 'networkidle' });
     await capture(page, '11-home-empty.jpg');
     await page.goto(route('/collection'), { waitUntil: 'networkidle' });

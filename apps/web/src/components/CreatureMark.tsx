@@ -7,7 +7,15 @@
  * washes as the rest of the collection so an unillustrated encounter still
  * belongs on the shelf.
  */
-import { Fish, FishSymbol, Shell, Shrimp, Snail, Turtle, Waves } from 'lucide-react';
+import {
+  Fish,
+  FishSymbol,
+  Shell,
+  Shrimp,
+  Snail,
+  Turtle,
+  Waves,
+} from 'lucide-react';
 import type { Creature } from '@poseidon/domain';
 
 const WASHES: Array<[string, string]> = [
@@ -33,7 +41,8 @@ const CATEGORY_ICON = {
 /** Stable per-creature wash so the same species always looks the same. */
 function washFor(id: string): [string, string] {
   let hash = 0;
-  for (let index = 0; index < id.length; index += 1) hash = (hash * 31 + id.charCodeAt(index)) >>> 0;
+  for (let index = 0; index < id.length; index += 1)
+    hash = (hash * 31 + id.charCodeAt(index)) >>> 0;
   return WASHES[hash % WASHES.length] as [string, string];
 }
 
@@ -51,7 +60,11 @@ export interface CreatureMarkProps {
   className?: string;
 }
 
-export function CreatureMark({ creature, size = 'md', className = '' }: CreatureMarkProps) {
+export function CreatureMark({
+  creature,
+  size = 'md',
+  className = '',
+}: CreatureMarkProps) {
   const [from, to] = washFor(creature.id);
   const Icon = creature.category
     ? (CATEGORY_ICON[creature.category as keyof typeof CATEGORY_ICON] ?? Fish)
@@ -81,7 +94,10 @@ export function CreatureMark({ creature, size = 'md', className = '' }: Creature
         preserveAspectRatio="none"
         className="pointer-events-none absolute inset-x-0 bottom-0 h-1/4 w-full text-white/25"
       >
-        <path d="M0 16 C 18 4, 34 4, 50 12 C 66 20, 82 20, 100 10 L 100 24 L 0 24 Z" fill="currentColor" />
+        <path
+          d="M0 16 C 18 4, 34 4, 50 12 C 66 20, 82 20, 100 10 L 100 24 L 0 24 Z"
+          fill="currentColor"
+        />
       </svg>
     </div>
   );

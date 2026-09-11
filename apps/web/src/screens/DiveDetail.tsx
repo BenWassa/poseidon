@@ -22,13 +22,29 @@ import {
 } from '../components/ui';
 import { useCreatureIndex, useDive } from '../data/hooks';
 import { useMutation } from '../data/provider';
-import { formatDate, formatDepth, formatDuration, formatQuantity, pluralize } from '../lib/format';
+import {
+  formatDate,
+  formatDepth,
+  formatDuration,
+  formatQuantity,
+  pluralize,
+} from '../lib/format';
 
-function Metric({ icon, label, value }: { icon: React.ReactNode; label: string; value: string }) {
+function Metric({
+  icon,
+  label,
+  value,
+}: {
+  icon: React.ReactNode;
+  label: string;
+  value: string;
+}) {
   return (
     <Card className="flex flex-1 flex-col items-center gap-1 px-2 py-4">
       <span className="text-marine">{icon}</span>
-      <span className="text-[10px] font-bold uppercase tracking-[0.12em] text-ocean/55">{label}</span>
+      <span className="text-[10px] font-bold tracking-[0.12em] text-ocean/55 uppercase">
+        {label}
+      </span>
       <span className="text-lg font-black text-ocean">{value}</span>
     </Card>
   );
@@ -59,8 +75,13 @@ export function DiveDetail() {
 
   const sightings = dive.sightings
     .map((sighting) => ({ sighting, creature: index.get(sighting.creatureId) }))
-    .filter((entry): entry is { sighting: typeof entry.sighting; creature: NonNullable<typeof entry.creature> } =>
-      Boolean(entry.creature),
+    .filter(
+      (
+        entry,
+      ): entry is {
+        sighting: typeof entry.sighting;
+        creature: NonNullable<typeof entry.creature>;
+      } => Boolean(entry.creature),
     );
 
   const remove = async () => {
@@ -81,7 +102,11 @@ export function DiveDetail() {
       </div>
 
       <div className="mt-5 flex gap-3 px-5">
-        <Metric icon={<Gauge size={22} aria-hidden="true" />} label="Max depth" value={formatDepth(dive.maxDepth)} />
+        <Metric
+          icon={<Gauge size={22} aria-hidden="true" />}
+          label="Max depth"
+          value={formatDepth(dive.maxDepth)}
+        />
         <Metric
           icon={<Clock size={22} aria-hidden="true" />}
           label="Duration"
@@ -93,23 +118,35 @@ export function DiveDetail() {
         <div className="mt-3 flex gap-3 px-5">
           {dive.operator ? (
             <Card className="flex flex-1 items-center gap-3 p-4">
-              <Ship size={20} className="shrink-0 text-marine" aria-hidden="true" />
+              <Ship
+                size={20}
+                className="shrink-0 text-marine"
+                aria-hidden="true"
+              />
               <span className="min-w-0">
-                <span className="block text-[10px] font-bold uppercase tracking-[0.12em] text-ocean/55">
+                <span className="block text-[10px] font-bold tracking-[0.12em] text-ocean/55 uppercase">
                   Operator
                 </span>
-                <span className="block truncate text-sm font-bold text-ocean">{dive.operator}</span>
+                <span className="block truncate text-sm font-bold text-ocean">
+                  {dive.operator}
+                </span>
               </span>
             </Card>
           ) : null}
           {dive.buddies?.length ? (
             <Card className="flex flex-1 items-center gap-3 p-4">
-              <Users size={20} className="shrink-0 text-marine" aria-hidden="true" />
+              <Users
+                size={20}
+                className="shrink-0 text-marine"
+                aria-hidden="true"
+              />
               <span className="min-w-0">
-                <span className="block text-[10px] font-bold uppercase tracking-[0.12em] text-ocean/55">
+                <span className="block text-[10px] font-bold tracking-[0.12em] text-ocean/55 uppercase">
                   Buddies
                 </span>
-                <span className="block truncate text-sm font-bold text-ocean">{dive.buddies.join(', ')}</span>
+                <span className="block truncate text-sm font-bold text-ocean">
+                  {dive.buddies.join(', ')}
+                </span>
               </span>
             </Card>
           ) : null}
@@ -120,7 +157,9 @@ export function DiveDetail() {
         <section className="mt-7 px-5">
           <SectionHeader title="Memory" />
           <Card className="bg-foam p-5">
-            <p className="text-[15px] font-medium leading-relaxed text-ocean/85">{dive.note}</p>
+            <p className="text-[15px] leading-relaxed font-medium text-ocean/85">
+              {dive.note}
+            </p>
           </Card>
         </section>
       ) : null}
@@ -140,7 +179,8 @@ export function DiveDetail() {
         {sightings.length === 0 ? (
           <Card className="p-6 text-center">
             <p className="text-sm font-medium text-ocean/60">
-              No creatures were logged on this dive. That is a complete record too.
+              No creatures were logged on this dive. That is a complete record
+              too.
             </p>
           </Card>
         ) : (
@@ -170,13 +210,19 @@ export function DiveDetail() {
 
         {confirmingDelete ? (
           <Card className="border-coral/40 bg-coral-soft p-5">
-            <p className="mb-1 text-base font-black text-ocean">Delete this dive?</p>
+            <p className="mb-1 text-base font-black text-ocean">
+              Delete this dive?
+            </p>
             <p className="mb-4 text-sm font-medium text-ocean/70">
-              {dive.siteName} on {formatDate(dive.date)} and its {pluralize(dive.sightings.length, 'sighting')}{' '}
-              will be removed from your history. This cannot be undone.
+              {dive.siteName} on {formatDate(dive.date)} and its{' '}
+              {pluralize(dive.sightings.length, 'sighting')} will be removed
+              from your history. This cannot be undone.
             </p>
             <div className="flex gap-3">
-              <QuietAction type="button" onClick={() => setConfirmingDelete(false)}>
+              <QuietAction
+                type="button"
+                onClick={() => setConfirmingDelete(false)}
+              >
                 Keep it
               </QuietAction>
               <CoralAction type="button" onClick={remove} disabled={pending}>

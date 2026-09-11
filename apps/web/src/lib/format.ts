@@ -4,10 +4,33 @@
  */
 import type { Depth, SightingQuantity } from '@poseidon/domain';
 
-const MONTHS_SHORT = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const MONTHS_SHORT = [
+  'Jan',
+  'Feb',
+  'Mar',
+  'Apr',
+  'May',
+  'Jun',
+  'Jul',
+  'Aug',
+  'Sep',
+  'Oct',
+  'Nov',
+  'Dec',
+];
 const MONTHS_LONG = [
-  'January', 'February', 'March', 'April', 'May', 'June',
-  'July', 'August', 'September', 'October', 'November', 'December',
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
 ];
 
 interface DateParts {
@@ -19,7 +42,11 @@ interface DateParts {
 export function parseIsoDate(iso: string): DateParts | null {
   const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso);
   if (!match) return null;
-  return { year: Number(match[1]), month: Number(match[2]), day: Number(match[3]) };
+  return {
+    year: Number(match[1]),
+    month: Number(match[2]),
+    day: Number(match[3]),
+  };
 }
 
 /** `12 Oct 2026` */
@@ -96,7 +123,9 @@ const QUANTITY_LABELS: Record<SightingQuantity, string> = {
 
 export const QUANTITIES: SightingQuantity[] = ['one', 'few', 'several', 'many'];
 
-export function formatQuantity(quantity: SightingQuantity | undefined): string | null {
+export function formatQuantity(
+  quantity: SightingQuantity | undefined,
+): string | null {
   return quantity ? QUANTITY_LABELS[quantity] : null;
 }
 
@@ -113,10 +142,17 @@ const CATEGORY_LABELS: Record<string, string> = {
 
 export function formatCategory(category: string | undefined): string {
   if (!category) return 'Unlisted';
-  return CATEGORY_LABELS[category] ?? category.replace(/-/g, ' ').replace(/^./, (c) => c.toUpperCase());
+  return (
+    CATEGORY_LABELS[category] ??
+    category.replace(/-/g, ' ').replace(/^./, (c) => c.toUpperCase())
+  );
 }
 
-export function pluralize(count: number, singular: string, plural = `${singular}s`): string {
+export function pluralize(
+  count: number,
+  singular: string,
+  plural = `${singular}s`,
+): string {
   return `${count} ${count === 1 ? singular : plural}`;
 }
 

@@ -1,0 +1,45 @@
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { afterEach, describe, expect, it, vi } from 'vitest';
+
+import { PwaNotice } from '../src/components/PwaNotice';
+import {
+  announceOfflineReady,
+  announceUpdateAvailable,
+  resetPwaStatus,
+} from '../src/pwa-status';
+
+describe('PWA notices', () => {
+  afterEach(resetPwaStatus);
+
+  it('announces when the application is ready offline', async () => {
+    render(<PwaNotice />);
+    announceOfflineReady();
+
+    expect(await screen.findByText('Ready offline')).toBeInTheDocument();
+    await userEvent
+      .setup()
+      .click(
+        screen.getByRole('button', { name: 'Dismiss offline-ready message' }),
+      );
+    expect(screen.queryByText('Ready offline')).not.toBeInTheDocument();
+  });
+
+  it('waits for explicit consent before applying an update', async () => {
+    const update = vi.fn<() => Promise<void>>().mockResolvedValue(undefined);
+    const user = userEvent.setup();
+    render(<PwaNotice />);
+
+    announceUpdateAvailable(update);
+    expect(await screen.findByText('Update available')).toBeInTheDocument();
+    expect(update).not.toHaveBeenCalled();
+
+    await user.click(screen.getByRole('button', { name: 'Later' }));
+    expect(update).not.toHaveBeenCalled();
+    expect(screen.queryByText('Update available')).not.toBeInTheDocument();
+
+    announceUpdateAvailable(update);
+    await user.click(await screen.findByRole('button', { name: 'Update' }));
+    expect(update).toHaveBeenCalledWith(true);
+  });
+});

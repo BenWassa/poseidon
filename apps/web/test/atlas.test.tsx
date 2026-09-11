@@ -7,7 +7,11 @@ import { AtlasMap } from '../src/components/AtlasMap';
 import type { CuratedSite } from '../src/data/content';
 import { buildAtlasMapModel, type AtlasSiteMarker } from '../src/lib/atlas';
 
-function dive(siteName: string, areaName = 'Cozumel', date = '2026-09-01'): Dive {
+function dive(
+  siteName: string,
+  areaName = 'Cozumel',
+  date = '2026-09-01',
+): Dive {
   return {
     id: `${areaName}-${siteName}-${date}`,
     date,
@@ -49,7 +53,10 @@ const unsourced: CuratedSite = {
 
 afterEach(() => {
   Reflect.deleteProperty(window, 'L');
-  Object.defineProperty(window.navigator, 'onLine', { configurable: true, value: true });
+  Object.defineProperty(window.navigator, 'onLine', {
+    configurable: true,
+    value: true,
+  });
 });
 
 describe('Atlas map model', () => {
@@ -64,7 +71,11 @@ describe('Atlas map model', () => {
     );
 
     expect(model.sites).toHaveLength(1);
-    expect(model.sites[0]).toMatchObject({ id: sourced.id, diveCount: 1, lastDivedOn: '2026-09-02' });
+    expect(model.sites[0]).toMatchObject({
+      id: sourced.id,
+      diveCount: 1,
+      lastDivedOn: '2026-09-02',
+    });
     expect(model.mappedHistoryDiveCount).toBe(1);
     expect(model.unmappedHistoryDiveCount).toBe(2);
   });
@@ -129,7 +140,10 @@ describe('AtlasMap', () => {
       circleMarker: vi.fn(() => markerLayer),
       latLngBounds: vi.fn(() => ({ bounds: true })),
     };
-    Object.defineProperty(window.navigator, 'onLine', { configurable: true, value: true });
+    Object.defineProperty(window.navigator, 'onLine', {
+      configurable: true,
+      value: true,
+    });
     Reflect.set(window, 'L', leaflet);
 
     const user = userEvent.setup();
@@ -143,16 +157,28 @@ describe('AtlasMap', () => {
 
     await user.click(screen.getByRole('button', { name: 'Explore map' }));
     expect(dragging.enable).toHaveBeenCalled();
-    expect(screen.getByRole('button', { name: 'Done' })).toHaveAttribute('aria-pressed', 'true');
+    expect(screen.getByRole('button', { name: 'Done' })).toHaveAttribute(
+      'aria-pressed',
+      'true',
+    );
 
     await user.click(screen.getByRole('button', { name: 'Done' }));
     expect(dragging.disable).toHaveBeenCalledTimes(2);
   });
 
   it('falls back without touching the map loader when offline', async () => {
-    Object.defineProperty(window.navigator, 'onLine', { configurable: true, value: false });
+    Object.defineProperty(window.navigator, 'onLine', {
+      configurable: true,
+      value: false,
+    });
     render(<AtlasMap sites={markers} />);
-    expect(await screen.findByText(/basemap needs a connection/i)).toBeInTheDocument();
-    await waitFor(() => expect(screen.queryByRole('button', { name: 'Explore map' })).not.toBeInTheDocument());
+    expect(
+      await screen.findByText(/basemap needs a connection/i),
+    ).toBeInTheDocument();
+    await waitFor(() =>
+      expect(
+        screen.queryByRole('button', { name: 'Explore map' }),
+      ).not.toBeInTheDocument(),
+    );
   });
 });

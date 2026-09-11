@@ -4,7 +4,8 @@ import { PoseidonValidationError } from './errors.js';
 export const ISO_LOCAL_DATE = /^\d{4}-\d{2}-\d{2}$/;
 
 export function deepClone<T>(value: T): T {
-  if (value === undefined || value === null || typeof value !== 'object') return value;
+  if (value === undefined || value === null || typeof value !== 'object')
+    return value;
   return JSON.parse(JSON.stringify(value)) as T;
 }
 
@@ -26,21 +27,31 @@ export function compareDiveNewestFirst(a: Dive, b: Dive): number {
 }
 
 export function compareCreatureName(a: Creature, b: Creature): number {
-  return a.commonName.localeCompare(b.commonName, undefined, { sensitivity: 'base' }) || a.id.localeCompare(b.id);
+  return (
+    a.commonName.localeCompare(b.commonName, undefined, {
+      sensitivity: 'base',
+    }) || a.id.localeCompare(b.id)
+  );
 }
 
 export function requireNonBlank(value: string, field: string): string {
   const trimmed = value.trim();
-  if (!trimmed) throw new PoseidonValidationError(`${field} must not be blank.`);
+  if (!trimmed)
+    throw new PoseidonValidationError(`${field} must not be blank.`);
   return trimmed;
 }
 
 export function assertValidIsoDate(value: string): void {
   if (!ISO_LOCAL_DATE.test(value)) {
-    throw new PoseidonValidationError('date must be an ISO local date in YYYY-MM-DD format.');
+    throw new PoseidonValidationError(
+      'date must be an ISO local date in YYYY-MM-DD format.',
+    );
   }
   const parsed = new Date(`${value}T00:00:00Z`);
-  if (Number.isNaN(parsed.getTime()) || parsed.toISOString().slice(0, 10) !== value) {
+  if (
+    Number.isNaN(parsed.getTime()) ||
+    parsed.toISOString().slice(0, 10) !== value
+  ) {
     throw new PoseidonValidationError('date is not a valid calendar date.');
   }
 }

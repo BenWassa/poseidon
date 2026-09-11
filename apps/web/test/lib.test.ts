@@ -16,9 +16,17 @@ import {
   formatRelativeDate,
   pluralize,
 } from '../src/lib/format';
-import { mostRecentDive, sameDayContext, suggestAreas, suggestSites } from '../src/lib/suggestions';
+import {
+  mostRecentDive,
+  sameDayContext,
+  suggestAreas,
+  suggestSites,
+} from '../src/lib/suggestions';
 
-function dive(overrides: Partial<Dive> & Pick<Dive, 'id' | 'date' | 'siteName' | 'areaName'>): Dive {
+function dive(
+  overrides: Partial<Dive> &
+    Pick<Dive, 'id' | 'date' | 'siteName' | 'areaName'>,
+): Dive {
   return {
     countryCode: 'MX',
     maxDepth: { value: 18, unit: 'm' },
@@ -69,9 +77,24 @@ describe('formatting', () => {
 
 describe('place suggestions', () => {
   const history = [
-    dive({ id: 'a', date: '2026-02-14', siteName: 'Palancar Gardens', areaName: 'Cozumel' }),
-    dive({ id: 'b', date: '2026-02-17', siteName: 'Palancar Gardens', areaName: 'Cozumel' }),
-    dive({ id: 'c', date: '2026-06-02', siteName: 'Mama Viña Wreck', areaName: 'Playa del Carmen' }),
+    dive({
+      id: 'a',
+      date: '2026-02-14',
+      siteName: 'Palancar Gardens',
+      areaName: 'Cozumel',
+    }),
+    dive({
+      id: 'b',
+      date: '2026-02-17',
+      siteName: 'Palancar Gardens',
+      areaName: 'Cozumel',
+    }),
+    dive({
+      id: 'c',
+      date: '2026-06-02',
+      siteName: 'Mama Viña Wreck',
+      areaName: 'Playa del Carmen',
+    }),
   ];
 
   it('offers places the diver actually dives before curated content', () => {
@@ -81,7 +104,8 @@ describe('place suggestions', () => {
     // Any curated area the diver has not visited still appears, behind history.
     const firstUnvisited = areas.findIndex((area) => !area.fromHistory);
     const lastVisited = areas.map((area) => area.fromHistory).lastIndexOf(true);
-    if (firstUnvisited !== -1) expect(firstUnvisited).toBeGreaterThan(lastVisited);
+    if (firstUnvisited !== -1)
+      expect(firstUnvisited).toBeGreaterThan(lastVisited);
   });
 
   it('brings unvisited curated areas in when there is no history at all', () => {
@@ -99,7 +123,9 @@ describe('place suggestions', () => {
     expect(sites[0]?.diveCount).toBe(2);
 
     const cozumelBlock = sites.slice(0, 8);
-    expect(cozumelBlock.every((site) => site.areaName === 'Cozumel')).toBe(true);
+    expect(cozumelBlock.every((site) => site.areaName === 'Cozumel')).toBe(
+      true,
+    );
   });
 
   it('matches curated sites through their aliases', () => {
@@ -111,7 +137,9 @@ describe('place suggestions', () => {
   });
 
   it('finds the trip context to reuse for a second dive the same day', () => {
-    expect(sameDayContext(history, '2026-02-14')?.siteName).toBe('Palancar Gardens');
+    expect(sameDayContext(history, '2026-02-14')?.siteName).toBe(
+      'Palancar Gardens',
+    );
     expect(sameDayContext(history, '2026-03-01')).toBeNull();
     expect(mostRecentDive(history)?.id).toBe('c');
     expect(mostRecentDive([])).toBeNull();

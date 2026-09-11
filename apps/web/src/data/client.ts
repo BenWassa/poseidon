@@ -63,7 +63,9 @@ export interface CreateClientOptions {
   content?: PoseidonContent;
 }
 
-export function createPoseidonClient(options: CreateClientOptions = {}): PoseidonClient {
+export function createPoseidonClient(
+  options: CreateClientOptions = {},
+): PoseidonClient {
   return new PoseidonClient(
     createPoseidonStore({
       persistence: options.persistence ?? browserPersistence(),

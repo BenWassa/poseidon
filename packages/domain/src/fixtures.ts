@@ -1,5 +1,13 @@
-import type { CreateDiveInput, Creature, PoseidonContent, Region } from './domain.js';
-import type { PersistedPersonalStateV2, PersistenceAdapter } from './persistence.js';
+import type {
+  CreateDiveInput,
+  Creature,
+  PoseidonContent,
+  Region,
+} from './domain.js';
+import type {
+  PersistedPersonalStateV2,
+  PersistenceAdapter,
+} from './persistence.js';
 import { deepClone } from './utils.js';
 
 /**
@@ -8,8 +16,18 @@ import { deepClone } from './utils.js';
  */
 export const fixtureRegions: Region[] = [
   { id: 'region-mx-caribbean', name: 'Mexican Caribbean', countryCode: 'MX' },
-  { id: 'region-cozumel', name: 'Cozumel', countryCode: 'MX', parentRegionId: 'region-mx-caribbean' },
-  { id: 'region-playa', name: 'Playa del Carmen', countryCode: 'MX', parentRegionId: 'region-mx-caribbean' },
+  {
+    id: 'region-cozumel',
+    name: 'Cozumel',
+    countryCode: 'MX',
+    parentRegionId: 'region-mx-caribbean',
+  },
+  {
+    id: 'region-playa',
+    name: 'Playa del Carmen',
+    countryCode: 'MX',
+    parentRegionId: 'region-mx-caribbean',
+  },
 ];
 
 export const fixtureCreatures: Creature[] = [
@@ -33,7 +51,10 @@ export const fixtureCreatures: Creature[] = [
   id: `fixture-creature-${index + 1}`,
   commonName,
   curated: true,
-  regionIds: index < 12 ? ['region-cozumel', 'region-mx-caribbean'] : ['region-mx-caribbean'],
+  regionIds:
+    index < 12
+      ? ['region-cozumel', 'region-mx-caribbean']
+      : ['region-mx-caribbean'],
   artwork: { status: index % 3 === 0 ? 'placeholder' : 'missing' },
 }));
 
@@ -62,7 +83,9 @@ export const fixtureDiveInputs: CreateDiveInput[] = [
     regionId,
     maxDepth: { value: depth as number, unit: 'm' },
     durationMinutes: duration as number,
-    sightings: (creatureIndexes as number[]).map((index) => ({ creatureId: fixtureCreatures[index]!.id })),
+    sightings: (creatureIndexes as number[]).map((index) => ({
+      creatureId: fixtureCreatures[index]!.id,
+    })),
   } satisfies CreateDiveInput;
 });
 
