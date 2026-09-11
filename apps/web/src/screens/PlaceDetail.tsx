@@ -9,8 +9,18 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { AtlasMotif } from '../components/AtlasMotif';
 import { CreatureTile } from '../components/CreatureTile';
 import { Card, EmptyState, SectionHeader, TopBar } from '../components/ui';
-import { useCollection, useCreatureIndex, useDives, usePlaceSummaries } from '../data/hooks';
-import { formatDate, formatDepth, formatDuration, pluralize } from '../lib/format';
+import {
+  useCollection,
+  useCreatureIndex,
+  useDives,
+  usePlaceSummaries,
+} from '../data/hooks';
+import {
+  formatDate,
+  formatDepth,
+  formatDuration,
+  pluralize,
+} from '../lib/format';
 import { normalizePlaceName } from '../lib/suggestions';
 
 export function PlaceDetail() {
@@ -27,27 +37,41 @@ export function PlaceDetail() {
   const placeDives = useMemo(() => {
     if (!place) return [];
     const target = normalizePlaceName(place.label);
-    return (dives ?? []).filter((dive) => normalizePlaceName(dive.areaName) === target);
+    return (dives ?? []).filter(
+      (dive) => normalizePlaceName(dive.areaName) === target,
+    );
   }, [dives, place]);
 
   const creatures = useMemo(() => {
     if (!place) return [];
     const diveIds = new Set(placeDives.map((dive) => dive.id));
-    return (collection ?? []).filter((entry) => entry.relatedDiveIds.some((id) => diveIds.has(id)));
+    return (collection ?? []).filter((entry) =>
+      entry.relatedDiveIds.some((id) => diveIds.has(id)),
+    );
   }, [collection, place, placeDives]);
 
   const sites = useMemo(() => {
-    const seen = new Map<string, { name: string; diveCount: number; lastDate: string }>();
+    const seen = new Map<
+      string,
+      { name: string; diveCount: number; lastDate: string }
+    >();
     for (const dive of placeDives) {
       const existing = seen.get(dive.siteName);
       if (existing) {
         existing.diveCount += 1;
         if (dive.date > existing.lastDate) existing.lastDate = dive.date;
       } else {
-        seen.set(dive.siteName, { name: dive.siteName, diveCount: 1, lastDate: dive.date });
+        seen.set(dive.siteName, {
+          name: dive.siteName,
+          diveCount: 1,
+          lastDate: dive.date,
+        });
       }
     }
-    return [...seen.values()].sort((a, b) => b.lastDate.localeCompare(a.lastDate) || a.name.localeCompare(b.name));
+    return [...seen.values()].sort(
+      (a, b) =>
+        b.lastDate.localeCompare(a.lastDate) || a.name.localeCompare(b.name),
+    );
   }, [placeDives]);
 
   if (!loading && !place) {
@@ -67,19 +91,27 @@ export function PlaceDetail() {
 
   return (
     <div className="animate-rise pb-10">
-      <TopBar title={place.label} onBack={() => navigate(-1)} backLabel="Back to atlas" asHeading={false} />
+      <TopBar
+        title={place.label}
+        onBack={() => navigate(-1)}
+        backLabel="Back to atlas"
+        asHeading={false}
+      />
 
       <div className="px-5">
         <Card className="relative overflow-hidden bg-gradient-to-br from-marine to-abyss p-6 text-white shadow-lift">
           <AtlasMotif className="text-white" seed={place.label.length} />
           <div className="relative">
-            <p className="flex items-center gap-1.5 text-[11px] font-black uppercase tracking-[0.16em] text-white/70">
+            <p className="flex items-center gap-1.5 text-[11px] font-black tracking-[0.16em] text-white/70 uppercase">
               <MapPin size={13} aria-hidden="true" />
               {place.countryCode ?? 'Place'}
             </p>
-            <h1 className="mt-1.5 text-3xl font-black leading-tight">{place.label}</h1>
+            <h1 className="mt-1.5 text-3xl leading-tight font-black">
+              {place.label}
+            </h1>
             <p className="mt-1 text-sm font-medium text-white/75">
-              {pluralize(place.diveCount, 'dive')} · {pluralize(place.siteCount, 'site')} ·{' '}
+              {pluralize(place.diveCount, 'dive')} ·{' '}
+              {pluralize(place.siteCount, 'site')} ·{' '}
               {pluralize(place.creatureCount, 'creature')}
             </p>
           </div>
@@ -94,9 +126,12 @@ export function PlaceDetail() {
               <li key={site.name}>
                 <Card className="flex items-center justify-between gap-3 px-4 py-3">
                   <span className="min-w-0">
-                    <span className="block truncate text-sm font-bold text-ocean">{site.name}</span>
+                    <span className="block truncate text-sm font-bold text-ocean">
+                      {site.name}
+                    </span>
                     <span className="block text-xs font-medium text-ocean/50">
-                      {pluralize(site.diveCount, 'dive')} · last {formatDate(site.lastDate)}
+                      {pluralize(site.diveCount, 'dive')} · last{' '}
+                      {formatDate(site.lastDate)}
                     </span>
                   </span>
                 </Card>
@@ -138,13 +173,19 @@ export function PlaceDetail() {
                 <Link to={`/journal/${dive.id}`}>
                   <Card className="flex items-center gap-3 p-4 active:scale-[0.99]">
                     <span className="min-w-0 flex-1">
-                      <span className="block truncate text-base font-bold text-ocean">{dive.siteName}</span>
+                      <span className="block truncate text-base font-bold text-ocean">
+                        {dive.siteName}
+                      </span>
                       <span className="block text-xs font-medium text-ocean/55">
                         {formatDate(dive.date)} · {formatDepth(dive.maxDepth)} ·{' '}
                         {formatDuration(dive.durationMinutes)}
                       </span>
                     </span>
-                    <ArrowRight size={18} className="shrink-0 text-ocean/35" aria-hidden="true" />
+                    <ArrowRight
+                      size={18}
+                      className="shrink-0 text-ocean/35"
+                      aria-hidden="true"
+                    />
                   </Card>
                 </Link>
               </li>

@@ -8,15 +8,30 @@
 import { ArrowRight, Compass, Fish, Map, Sparkles, Waves } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
-import { useCreatureIndex, useDives, useLifetimeStats, usePlaceSummaries, useRecentDiscoveries } from '../data/hooks';
+import {
+  useCreatureIndex,
+  useDives,
+  useLifetimeStats,
+  usePlaceSummaries,
+  useRecentDiscoveries,
+} from '../data/hooks';
 import { formatBottomTime, formatDate, pluralize } from '../lib/format';
 import { CreatureTile } from '../components/CreatureTile';
 import { DiveHero } from '../components/DiveHero';
-import { ACTION_PRIMARY, Card, Eyebrow, SectionHeader, StatTile } from '../components/ui';
+import {
+  ACTION_PRIMARY,
+  Card,
+  Eyebrow,
+  SectionHeader,
+  StatTile,
+} from '../components/ui';
 
 function SeeAll({ to, children }: { to: string; children: string }) {
   return (
-    <Link to={to} className="inline-flex items-center gap-1 text-sm font-bold text-lagoon">
+    <Link
+      to={to}
+      className="inline-flex items-center gap-1 text-sm font-bold text-lagoon"
+    >
       {children}
       <ArrowRight size={15} aria-hidden="true" />
     </Link>
@@ -30,10 +45,12 @@ function FirstDiveInvitation() {
         <span className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-shallows text-marine">
           <Waves size={36} aria-hidden="true" />
         </span>
-        <h2 className="mb-2 text-2xl font-black text-ocean">Your atlas starts here</h2>
-        <p className="mb-6 text-sm font-medium leading-relaxed text-ocean/60">
-          Log your first dive and Poseidon begins keeping the record: where you went, how long you stayed and
-          every creature you met.
+        <h2 className="mb-2 text-2xl font-black text-ocean">
+          Your atlas starts here
+        </h2>
+        <p className="mb-6 text-sm leading-relaxed font-medium text-ocean/60">
+          Log your first dive and Poseidon begins keeping the record: where you
+          went, how long you stayed and every creature you met.
         </p>
         <Link to="/log" className={ACTION_PRIMARY}>
           Log your first dive
@@ -57,16 +74,19 @@ export function Home() {
     <div className="animate-rise">
       <header className="safe-top px-5 pb-5">
         <Eyebrow>Poseidon</Eyebrow>
-        <h1 className="mt-1 text-[2.1rem] font-black leading-tight tracking-tight text-ocean">
+        <h1 className="mt-1 text-[2.1rem] leading-tight font-black tracking-tight text-ocean">
           Your underwater life
         </h1>
         {stats && stats.totalDives > 0 ? (
           <p className="mt-1 text-base font-semibold text-lagoon">
-            {pluralize(stats.totalDives, 'dive')} · {pluralize(stats.distinctCreatures, 'creature')} ·{' '}
+            {pluralize(stats.totalDives, 'dive')} ·{' '}
+            {pluralize(stats.distinctCreatures, 'creature')} ·{' '}
             {formatBottomTime(stats.totalBottomTimeMinutes)} under
           </p>
         ) : (
-          <p className="mt-1 text-base font-semibold text-lagoon">A record worth keeping for years</p>
+          <p className="mt-1 text-base font-semibold text-lagoon">
+            A record worth keeping for years
+          </p>
         )}
       </header>
 
@@ -75,8 +95,15 @@ export function Home() {
       {latest ? (
         <>
           <section className="px-5 pb-8">
-            <Link to={`/journal/${latest.id}`} className="block active:scale-[0.99]">
-              <DiveHero dive={latest} creatureIndex={index} eyebrow="Latest dive" />
+            <Link
+              to={`/journal/${latest.id}`}
+              className="block active:scale-[0.99]"
+            >
+              <DiveHero
+                dive={latest}
+                creatureIndex={index}
+                eyebrow="Latest dive"
+              />
             </Link>
           </section>
 
@@ -141,14 +168,20 @@ export function Home() {
 
           {recent.length > 0 ? (
             <section className="px-5 pb-8" aria-labelledby="home-recent">
-              <SectionHeader title="Before that" action={<SeeAll to="/journal">Journal</SeeAll>} />
+              <SectionHeader
+                title="Before that"
+                action={<SeeAll to="/journal">Journal</SeeAll>}
+              />
               <h2 id="home-recent" className="sr-only">
                 Recent dives
               </h2>
               <ul className="space-y-3">
                 {recent.map((dive) => (
                   <li key={dive.id}>
-                    <Link to={`/journal/${dive.id}`} className="block active:scale-[0.99]">
+                    <Link
+                      to={`/journal/${dive.id}`}
+                      className="block active:scale-[0.99]"
+                    >
                       <DiveHero dive={dive} creatureIndex={index} size="sm" />
                     </Link>
                   </li>
@@ -159,7 +192,10 @@ export function Home() {
 
           {places && places.length > 0 ? (
             <section className="px-5 pb-10" aria-labelledby="home-places">
-              <SectionHeader title="Where you have been" action={<SeeAll to="/atlas">Atlas</SeeAll>} />
+              <SectionHeader
+                title="Where you have been"
+                action={<SeeAll to="/atlas">Atlas</SeeAll>}
+              />
               <h2 id="home-places" className="sr-only">
                 Places
               </h2>
@@ -172,13 +208,20 @@ export function Home() {
                           <Map size={22} aria-hidden="true" />
                         </span>
                         <span className="min-w-0 flex-1">
-                          <span className="block truncate text-base font-bold text-ocean">{place.label}</span>
+                          <span className="block truncate text-base font-bold text-ocean">
+                            {place.label}
+                          </span>
                           <span className="block text-xs font-medium text-ocean/55">
-                            {pluralize(place.diveCount, 'dive')} · {pluralize(place.siteCount, 'site')} ·{' '}
+                            {pluralize(place.diveCount, 'dive')} ·{' '}
+                            {pluralize(place.siteCount, 'site')} ·{' '}
                             {pluralize(place.creatureCount, 'creature')}
                           </span>
                         </span>
-                        <ArrowRight size={18} className="shrink-0 text-ocean/35" aria-hidden="true" />
+                        <ArrowRight
+                          size={18}
+                          className="shrink-0 text-ocean/35"
+                          aria-hidden="true"
+                        />
                       </Card>
                     </Link>
                   </li>

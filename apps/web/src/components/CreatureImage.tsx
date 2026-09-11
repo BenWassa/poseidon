@@ -54,7 +54,8 @@ export function CreatureImage({
   const [failed, setFailed] = useState(false);
   const artwork = creature.artwork;
   const source = artwork?.status === 'curated' ? artwork[variant] : undefined;
-  const aspectRatio = artwork?.aspectRatio && artwork.aspectRatio > 0 ? artwork.aspectRatio : 1;
+  const aspectRatio =
+    artwork?.aspectRatio && artwork.aspectRatio > 0 ? artwork.aspectRatio : 1;
   const edge = VARIANT_PIXELS[variant];
 
   const showArtwork = Boolean(source) && !failed;

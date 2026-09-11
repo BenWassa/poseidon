@@ -12,7 +12,14 @@ import { Fish, Search, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 import { CreatureTile } from '../components/CreatureTile';
-import { ACTION_PRIMARY, Card, Chip, EmptyState, TextInput, TopBar } from '../components/ui';
+import {
+  ACTION_PRIMARY,
+  Card,
+  Chip,
+  EmptyState,
+  TextInput,
+  TopBar,
+} from '../components/ui';
 import { useCollection } from '../data/hooks';
 import { formatCategory, formatDate, pluralize } from '../lib/format';
 
@@ -23,7 +30,7 @@ export function Collection() {
   const [query, setQuery] = useState('');
   const [category, setCategory] = useState(ALL);
 
-  const entries = collection ?? [];
+  const entries = useMemo(() => collection ?? [], [collection]);
 
   const categories = useMemo(() => {
     const seen = new Map<string, number>();
@@ -31,17 +38,27 @@ export function Collection() {
       const key = entry.creature.category ?? 'unlisted';
       seen.set(key, (seen.get(key) ?? 0) + 1);
     }
-    return [...seen.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+    return [...seen.entries()].sort(
+      (a, b) => b[1] - a[1] || a[0].localeCompare(b[0]),
+    );
   }, [entries]);
 
   const visible = useMemo(() => {
     const needle = query.trim().toLocaleLowerCase('en');
     return entries.filter((entry) => {
-      const inCategory = category === ALL || (entry.creature.category ?? 'unlisted') === category;
+      const inCategory =
+        category === ALL ||
+        (entry.creature.category ?? 'unlisted') === category;
       if (!inCategory) return false;
       if (!needle) return true;
-      const haystack = [entry.creature.commonName, ...(entry.creature.aliases ?? []), entry.creature.scientificName ?? ''];
-      return haystack.some((value) => value.toLocaleLowerCase('en').includes(needle));
+      const haystack = [
+        entry.creature.commonName,
+        ...(entry.creature.aliases ?? []),
+        entry.creature.scientificName ?? '',
+      ];
+      return haystack.some((value) =>
+        value.toLocaleLowerCase('en').includes(needle),
+      );
     });
   }, [entries, query, category]);
 
@@ -66,13 +83,24 @@ export function Collection() {
         <>
           <div className="px-5 pb-4">
             <Card className="overflow-hidden bg-gradient-to-br from-marine to-abyss p-6 text-white shadow-lift">
-              <p className="text-[11px] font-black uppercase tracking-[0.16em] text-white/70">Encountered</p>
-              <p className="mt-1 text-3xl font-black leading-tight">
+              <p className="text-[11px] font-black tracking-[0.16em] text-white/70 uppercase">
+                Encountered
+              </p>
+              <p className="mt-1 text-3xl leading-tight font-black">
                 {pluralize(entries.length, 'creature')}
               </p>
               <p className="mt-1 text-sm font-medium text-white/75">
-                across {pluralize(new Set(entries.flatMap((entry) => entry.areas)).size, 'place')} and{' '}
-                {pluralize(new Set(entries.flatMap((entry) => entry.relatedDiveIds)).size, 'dive')}
+                across{' '}
+                {pluralize(
+                  new Set(entries.flatMap((entry) => entry.areas)).size,
+                  'place',
+                )}{' '}
+                and{' '}
+                {pluralize(
+                  new Set(entries.flatMap((entry) => entry.relatedDiveIds))
+                    .size,
+                  'dive',
+                )}
               </p>
             </Card>
           </div>
@@ -81,7 +109,7 @@ export function Collection() {
             <div className="relative">
               <Search
                 size={18}
-                className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-ocean/40"
+                className="pointer-events-none absolute top-1/2 left-4 -translate-y-1/2 text-ocean/40"
                 aria-hidden="true"
               />
               <TextInput
@@ -97,7 +125,7 @@ export function Collection() {
                   type="button"
                   onClick={() => setQuery('')}
                   aria-label="Clear search"
-                  className="absolute right-3 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full text-ocean/45"
+                  className="absolute top-1/2 right-3 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full text-ocean/45"
                 >
                   <X size={18} aria-hidden="true" />
                 </button>
@@ -110,7 +138,11 @@ export function Collection() {
               All {entries.length}
             </Chip>
             {categories.map(([key, count]) => (
-              <Chip key={key} selected={category === key} onClick={() => setCategory(key)}>
+              <Chip
+                key={key}
+                selected={category === key}
+                onClick={() => setCategory(key)}
+              >
                 {formatCategory(key === 'unlisted' ? undefined : key)} {count}
               </Chip>
             ))}

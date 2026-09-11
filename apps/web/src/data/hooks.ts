@@ -13,7 +13,9 @@ export function useDives() {
 }
 
 export function useDive(id: Id | undefined) {
-  return useStoreQuery(`dive:${id ?? ''}`, (store) => (id ? store.getDive(id) : Promise.resolve(null)));
+  return useStoreQuery(`dive:${id ?? ''}`, (store) =>
+    id ? store.getDive(id) : Promise.resolve(null),
+  );
 }
 
 export function useCreatures() {
@@ -21,9 +23,15 @@ export function useCreatures() {
 }
 
 /** Creature lookup for resolving the IDs stored on a dive's sightings. */
-export function useCreatureIndex(): { index: Map<Id, Creature>; loading: boolean } {
+export function useCreatureIndex(): {
+  index: Map<Id, Creature>;
+  loading: boolean;
+} {
   const { data, loading } = useCreatures();
-  const index = useMemo(() => new Map((data ?? []).map((creature) => [creature.id, creature])), [data]);
+  const index = useMemo(
+    () => new Map((data ?? []).map((creature) => [creature.id, creature])),
+    [data],
+  );
   return { index, loading };
 }
 
@@ -36,7 +44,9 @@ export function useCollection() {
 }
 
 export function useRecentDiscoveries(limit = 8) {
-  return useStoreQuery(`discoveries:${limit}`, (store) => store.listRecentDiscoveries(limit));
+  return useStoreQuery(`discoveries:${limit}`, (store) =>
+    store.listRecentDiscoveries(limit),
+  );
 }
 
 export function usePlaceSummaries() {

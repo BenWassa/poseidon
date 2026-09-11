@@ -5,7 +5,12 @@
  * come from the external visual prototype; the semantics — real buttons, real
  * labels, 44px targets, focus that is visible — are the product's own.
  */
-import type { ButtonHTMLAttributes, InputHTMLAttributes, ReactNode, TextareaHTMLAttributes } from 'react';
+import type {
+  ButtonHTMLAttributes,
+  InputHTMLAttributes,
+  ReactNode,
+  TextareaHTMLAttributes,
+} from 'react';
 import { ChevronLeft } from 'lucide-react';
 
 export function Card({
@@ -18,13 +23,27 @@ export function Card({
   as?: 'div' | 'section' | 'article' | 'li';
 }) {
   return (
-    <As className={`rounded-card border border-shallows bg-surface shadow-card ${className}`}>{children}</As>
+    <As
+      className={`rounded-card border border-shallows bg-surface shadow-card ${className}`}
+    >
+      {children}
+    </As>
   );
 }
 
-export function Eyebrow({ children, className = '' }: { children: ReactNode; className?: string }) {
+export function Eyebrow({
+  children,
+  className = '',
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
   return (
-    <p className={`text-[11px] font-bold uppercase tracking-[0.14em] text-lagoon ${className}`}>{children}</p>
+    <p
+      className={`text-[11px] font-bold tracking-[0.14em] text-lagoon uppercase ${className}`}
+    >
+      {children}
+    </p>
   );
 }
 
@@ -63,12 +82,18 @@ export function StatTile({
   } as const;
   return (
     <Card className="flex min-w-0 flex-1 items-center gap-3 p-3.5">
-      <span className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full ${tones[tone]}`}>
+      <span
+        className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full ${tones[tone]}`}
+      >
         {icon}
       </span>
       <span className="min-w-0">
-        <span className="block text-[10px] font-bold uppercase tracking-[0.12em] text-ocean/55">{label}</span>
-        <span className="block truncate text-xl font-black text-ocean">{value}</span>
+        <span className="block text-[10px] font-bold tracking-[0.12em] text-ocean/55 uppercase">
+          {label}
+        </span>
+        <span className="block truncate text-xl font-black text-ocean">
+          {value}
+        </span>
       </span>
     </Card>
   );
@@ -93,12 +118,7 @@ export function CoralAction({ className = '', ...props }: ButtonProps) {
 }
 
 export function QuietAction({ className = '', ...props }: ButtonProps) {
-  return (
-    <button
-      {...props}
-      className={`${ACTION_QUIET} ${className}`}
-    />
-  );
+  return <button {...props} className={`${ACTION_QUIET} ${className}`} />;
 }
 
 export function IconButton({
@@ -133,8 +153,10 @@ export function Chip({
     <button
       {...props}
       aria-pressed={selected}
-      className={`min-h-[2.5rem] whitespace-nowrap rounded-full px-4 text-sm font-bold transition-colors ${
-        selected ? 'bg-ocean text-white' : 'border border-shallows bg-surface text-ocean/65'
+      className={`min-h-[2.5rem] rounded-full px-4 text-sm font-bold whitespace-nowrap transition-colors ${
+        selected
+          ? 'bg-ocean text-white'
+          : 'border border-shallows bg-surface text-ocean/65'
       } ${className}`}
     />
   );
@@ -155,11 +177,16 @@ export function Field({
 }) {
   return (
     <div className={className}>
-      <label className="mb-1.5 block text-[11px] font-bold uppercase tracking-[0.14em] text-lagoon" htmlFor={htmlFor}>
+      <label
+        className="mb-1.5 block text-[11px] font-bold tracking-[0.14em] text-lagoon uppercase"
+        htmlFor={htmlFor}
+      >
         {label}
       </label>
       {children}
-      {hint ? <p className="mt-1.5 text-xs font-medium text-ocean/55">{hint}</p> : null}
+      {hint ? (
+        <p className="mt-1.5 text-xs font-medium text-ocean/55">{hint}</p>
+      ) : null}
     </div>
   );
 }
@@ -167,12 +194,23 @@ export function Field({
 const CONTROL =
   'w-full rounded-field border border-shallows bg-surface px-5 py-3.5 text-base font-bold text-ocean shadow-card outline-none placeholder:font-medium placeholder:text-ocean/35 focus-visible:border-marine';
 
-export function TextInput({ className = '', ...props }: InputHTMLAttributes<HTMLInputElement>) {
+export function TextInput({
+  className = '',
+  ...props
+}: InputHTMLAttributes<HTMLInputElement>) {
   return <input {...props} className={`${CONTROL} ${className}`} />;
 }
 
-export function TextArea({ className = '', ...props }: TextareaHTMLAttributes<HTMLTextAreaElement>) {
-  return <textarea {...props} className={`${CONTROL} resize-none font-medium ${className}`} />;
+export function TextArea({
+  className = '',
+  ...props
+}: TextareaHTMLAttributes<HTMLTextAreaElement>) {
+  return (
+    <textarea
+      {...props}
+      className={`${CONTROL} resize-none font-medium ${className}`}
+    />
+  );
 }
 
 export function TopBar({
@@ -199,7 +237,9 @@ export function TopBar({
           </IconButton>
         ) : null}
       </div>
-      <Title className="min-w-0 truncate text-lg font-bold text-ocean">{title}</Title>
+      <Title className="min-w-0 truncate text-lg font-bold text-ocean">
+        {title}
+      </Title>
       <div className="flex w-11 justify-end">{action}</div>
     </header>
   );
@@ -222,7 +262,9 @@ export function EmptyState({
         {icon}
       </span>
       <h2 className="mb-2 text-xl font-black text-ocean">{title}</h2>
-      <p className="mb-6 max-w-xs text-sm font-medium leading-relaxed text-ocean/60">{body}</p>
+      <p className="mb-6 max-w-xs text-sm leading-relaxed font-medium text-ocean/60">
+        {body}
+      </p>
       {action}
     </div>
   );

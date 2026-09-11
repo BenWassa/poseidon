@@ -6,7 +6,13 @@
  * motif — depth lines of an imagined seabed. It is decorative, deterministic
  * and entirely local, so a dive looks finished with no photograph at all.
  */
-export function AtlasMotif({ className = '', seed = 0 }: { className?: string; seed?: number }) {
+export function AtlasMotif({
+  className = '',
+  seed = 0,
+}: {
+  className?: string;
+  seed?: number;
+}) {
   const offset = (seed % 5) * 14;
   return (
     <svg

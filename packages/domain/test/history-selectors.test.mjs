@@ -8,10 +8,42 @@ import {
 } from '../dist/index.js';
 
 const creatureById = new Map([
-  ['turtle', { id: 'turtle', commonName: 'Green sea turtle', category: 'sea-turtle', curated: true }],
-  ['ray', { id: 'ray', commonName: 'Spotted eagle ray', category: 'ray', curated: true }],
-  ['shark', { id: 'shark', commonName: 'Nurse shark', category: 'shark', curated: true }],
-  ['squid', { id: 'squid', commonName: 'Caribbean reef squid', category: 'cephalopod', curated: true }],
+  [
+    'turtle',
+    {
+      id: 'turtle',
+      commonName: 'Green sea turtle',
+      category: 'sea-turtle',
+      curated: true,
+    },
+  ],
+  [
+    'ray',
+    {
+      id: 'ray',
+      commonName: 'Spotted eagle ray',
+      category: 'ray',
+      curated: true,
+    },
+  ],
+  [
+    'shark',
+    {
+      id: 'shark',
+      commonName: 'Nurse shark',
+      category: 'shark',
+      curated: true,
+    },
+  ],
+  [
+    'squid',
+    {
+      id: 'squid',
+      commonName: 'Caribbean reef squid',
+      category: 'cephalopod',
+      curated: true,
+    },
+  ],
 ]);
 
 function dive({
@@ -45,7 +77,12 @@ test('trip grouping has a deterministic seven-day inclusive boundary and never j
   assert.equal(TRIP_MAX_GAP_DAYS, 7);
   const dives = [
     dive({ id: 'c4', date: '2026-02-18' }),
-    dive({ id: 'p1', date: '2026-02-17', areaName: 'Playa del Carmen', regionId: 'playa' }),
+    dive({
+      id: 'p1',
+      date: '2026-02-17',
+      areaName: 'Playa del Carmen',
+      regionId: 'playa',
+    }),
     dive({ id: 'c3', date: '2026-02-16' }),
     dive({ id: 'c2', date: '2026-02-08' }),
     dive({ id: 'c1', date: '2026-02-01' }),
@@ -55,8 +92,14 @@ test('trip grouping has a deterministic seven-day inclusive boundary and never j
   const second = groupDivesIntoTrips(dives);
 
   assert.deepEqual(second, first);
-  assert.deepEqual(first.map((trip) => trip.id), ['trip:c4', 'trip:p1', 'trip:c3', 'trip:c1']);
-  assert.deepEqual(first.at(-1).dives.map((entry) => entry.id), ['c2', 'c1']);
+  assert.deepEqual(
+    first.map((trip) => trip.id),
+    ['trip:c4', 'trip:p1', 'trip:c3', 'trip:c1'],
+  );
+  assert.deepEqual(
+    first.at(-1).dives.map((entry) => entry.id),
+    ['c2', 'c1'],
+  );
   assert.equal(first.at(-1).firstDate, '2026-02-01');
   assert.equal(first.at(-1).lastDate, '2026-02-08');
 });
@@ -69,11 +112,24 @@ test('explicit region identity wins over a coincidentally matching area label an
   assert.equal(soloTrips.length, 1);
   assert.equal(soloTrips[0].firstDate, '2026-03-01');
   assert.equal(soloTrips[0].lastDate, '2026-03-01');
-  assert.deepEqual(soloTrips[0].dives.map((entry) => entry.id), ['solo']);
+  assert.deepEqual(
+    soloTrips[0].dives.map((entry) => entry.id),
+    ['solo'],
+  );
 
   const regionMismatch = groupDivesIntoTrips([
-    dive({ id: 'a', date: '2026-03-01', areaName: 'Cozumel', regionId: 'cozumel' }),
-    dive({ id: 'b', date: '2026-03-02', areaName: 'Cozumel', regionId: 'other-region' }),
+    dive({
+      id: 'a',
+      date: '2026-03-01',
+      areaName: 'Cozumel',
+      regionId: 'cozumel',
+    }),
+    dive({
+      id: 'b',
+      date: '2026-03-02',
+      areaName: 'Cozumel',
+      regionId: 'other-region',
+    }),
   ]);
   assert.equal(regionMismatch.length, 2);
 });
@@ -82,8 +138,21 @@ test('milestones are finite, factual and idempotent', () => {
   const dives = [
     dive({ id: 'd1', date: '2026-01-01', creatures: ['turtle', 'ray'] }),
     dive({ id: 'd2', date: '2026-01-02' }),
-    dive({ id: 'd3', date: '2026-01-03', areaName: 'Playa del Carmen', regionId: 'playa', creatures: ['shark'] }),
-    dive({ id: 'd4', date: '2026-01-04', areaName: 'Ambergris Caye', countryCode: 'BZ', regionId: 'belize', creatures: ['squid'] }),
+    dive({
+      id: 'd3',
+      date: '2026-01-03',
+      areaName: 'Playa del Carmen',
+      regionId: 'playa',
+      creatures: ['shark'],
+    }),
+    dive({
+      id: 'd4',
+      date: '2026-01-04',
+      areaName: 'Ambergris Caye',
+      countryCode: 'BZ',
+      regionId: 'belize',
+      creatures: ['squid'],
+    }),
     ...Array.from({ length: 6 }, (_, index) =>
       dive({
         id: `d${index + 5}`,
@@ -114,7 +183,12 @@ test('milestones are finite, factual and idempotent', () => {
       { kind: 'creature-group', diveId: 'd1', category: 'ray' },
       { kind: 'new-region', diveId: 'd3', areaName: 'Playa del Carmen' },
       { kind: 'creature-group', diveId: 'd3', category: 'shark' },
-      { kind: 'new-country', diveId: 'd4', countryCode: 'BZ', areaName: 'Ambergris Caye' },
+      {
+        kind: 'new-country',
+        diveId: 'd4',
+        countryCode: 'BZ',
+        areaName: 'Ambergris Caye',
+      },
       { kind: 'creature-group', diveId: 'd4', category: 'cephalopod' },
       { kind: 'dive-count', diveId: 'd10', count: 10 },
     ],
@@ -130,20 +204,40 @@ test('milestones are finite, factual and idempotent', () => {
 test('derived trips and milestones recompute after edits and deletes without stale state', () => {
   const d1 = dive({ id: 'd1', date: '2026-04-01' });
   const d2 = dive({ id: 'd2', date: '2026-04-02' });
-  const d3 = dive({ id: 'd3', date: '2026-04-03', areaName: 'Playa del Carmen', regionId: 'playa' });
+  const d3 = dive({
+    id: 'd3',
+    date: '2026-04-03',
+    areaName: 'Playa del Carmen',
+    regionId: 'playa',
+  });
 
-  assert.deepEqual(groupDivesIntoTrips([d1, d2, d3]).map((trip) => trip.dives.map((entry) => entry.id)), [
-    ['d3'],
-    ['d2', 'd1'],
-  ]);
+  assert.deepEqual(
+    groupDivesIntoTrips([d1, d2, d3]).map((trip) =>
+      trip.dives.map((entry) => entry.id),
+    ),
+    [['d3'], ['d2', 'd1']],
+  );
 
-  const editedD2 = { ...d2, areaName: 'Playa del Carmen', regionId: 'playa', updatedAt: '2026-04-04T12:00:00.000Z' };
-  assert.deepEqual(groupDivesIntoTrips([d1, editedD2, d3]).map((trip) => trip.dives.map((entry) => entry.id)), [
-    ['d3', 'd2'],
-    ['d1'],
-  ]);
+  const editedD2 = {
+    ...d2,
+    areaName: 'Playa del Carmen',
+    regionId: 'playa',
+    updatedAt: '2026-04-04T12:00:00.000Z',
+  };
+  assert.deepEqual(
+    groupDivesIntoTrips([d1, editedD2, d3]).map((trip) =>
+      trip.dives.map((entry) => entry.id),
+    ),
+    [['d3', 'd2'], ['d1']],
+  );
 
   const afterDelete = deriveHistoryMilestones([editedD2, d3], creatureById);
-  assert.equal(afterDelete.find((entry) => entry.kind === 'first-dive')?.diveId, 'd2');
-  assert.equal(afterDelete.some((entry) => entry.kind === 'new-region'), false);
+  assert.equal(
+    afterDelete.find((entry) => entry.kind === 'first-dive')?.diveId,
+    'd2',
+  );
+  assert.equal(
+    afterDelete.some((entry) => entry.kind === 'new-region'),
+    false,
+  );
 });

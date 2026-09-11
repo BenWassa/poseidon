@@ -35,8 +35,13 @@ function writePreferences(preferences: Preferences): void {
 
 const listeners = new Set<(preferences: Preferences) => void>();
 
-export function usePreferences(): [Preferences, (next: Partial<Preferences>) => void] {
-  const [preferences, setPreferences] = useState<Preferences>(() => readPreferences());
+export function usePreferences(): [
+  Preferences,
+  (next: Partial<Preferences>) => void,
+] {
+  const [preferences, setPreferences] = useState<Preferences>(() =>
+    readPreferences(),
+  );
 
   useEffect(() => {
     const listener = (next: Preferences) => setPreferences(next);

@@ -1,4 +1,12 @@
-import { createContext, useCallback, useContext, useEffect, useRef, useState, type ReactNode } from 'react';
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+  type ReactNode,
+} from 'react';
 
 import type { PoseidonStore } from '@poseidon/domain';
 
@@ -6,14 +14,25 @@ import { PoseidonClient, createPoseidonClient } from './client';
 
 const ClientContext = createContext<PoseidonClient | null>(null);
 
-export function PoseidonProvider({ client, children }: { client?: PoseidonClient; children: ReactNode }) {
+export function PoseidonProvider({
+  client,
+  children,
+}: {
+  client?: PoseidonClient;
+  children: ReactNode;
+}) {
   const [fallback] = useState(() => client ?? createPoseidonClient());
-  return <ClientContext.Provider value={client ?? fallback}>{children}</ClientContext.Provider>;
+  return (
+    <ClientContext.Provider value={client ?? fallback}>
+      {children}
+    </ClientContext.Provider>
+  );
 }
 
 export function usePoseidon(): PoseidonClient {
   const client = useContext(ClientContext);
-  if (!client) throw new Error('usePoseidon must be used inside a PoseidonProvider.');
+  if (!client)
+    throw new Error('usePoseidon must be used inside a PoseidonProvider.');
   return client;
 }
 
@@ -27,14 +46,24 @@ export interface QueryState<T> {
  * Reads derived state from the store and reloads whenever a mutation commits.
  * `key` identifies the query's inputs; changing it re-runs the loader.
  */
-export function useStoreQuery<T>(key: string, loader: (store: PoseidonStore) => Promise<T>): QueryState<T> {
+export function useStoreQuery<T>(
+  key: string,
+  loader: (store: PoseidonStore) => Promise<T>,
+): QueryState<T> {
   const client = usePoseidon();
-  const [state, setState] = useState<QueryState<T>>({ data: undefined, loading: true, error: null });
+  const [state, setState] = useState<QueryState<T>>({
+    data: undefined,
+    loading: true,
+    error: null,
+  });
   const loaderRef = useRef(loader);
   loaderRef.current = loader;
   const [revision, setRevision] = useState(() => client.revision);
 
-  useEffect(() => client.subscribe(() => setRevision(client.revision)), [client]);
+  useEffect(
+    () => client.subscribe(() => setRevision(client.revision)),
+    [client],
+  );
 
   useEffect(() => {
     let cancelled = false;
@@ -46,7 +75,11 @@ export function useStoreQuery<T>(key: string, loader: (store: PoseidonStore) => 
       })
       .catch((error: unknown) => {
         if (!cancelled) {
-          setState({ data: undefined, loading: false, error: error instanceof Error ? error : new Error(String(error)) });
+          setState({
+            data: undefined,
+            loading: false,
+            error: error instanceof Error ? error : new Error(String(error)),
+          });
         }
       });
     return () => {
@@ -64,7 +97,9 @@ export function useMutation() {
   const [error, setError] = useState<Error | null>(null);
 
   const run = useCallback(
-    async <T,>(operation: (store: PoseidonStore) => Promise<T>): Promise<T | undefined> => {
+    async <T,>(
+      operation: (store: PoseidonStore) => Promise<T>,
+    ): Promise<T | undefined> => {
       setPending(true);
       setError(null);
       try {

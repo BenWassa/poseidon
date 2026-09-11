@@ -92,22 +92,30 @@ See [`docs/DOMAIN_ARCHITECTURE.md`](docs/DOMAIN_ARCHITECTURE.md) for persistence
 ### Development
 
 ```bash
-npm install
-npm run dev     # application
-npm run gate    # content + asset validation, typecheck, tests, production build
+npm ci
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r tools/creature_assets/requirements.txt
+npm run dev     # the application
+npm run check   # lint, format check, typecheck, JavaScript tests
+npm run gate    # full content, asset, test, build and production-PWA gate
 ```
 
-Regenerate existing hand-authored creature artwork or app icons after changing their sources:
+Poseidon requires Node 22.12 or newer. Run all npm commands from the repository
+root; npm workspaces route them to the domain and web packages.
+
+Regenerate creature artwork or app icons after changing their sources:
 
 ```bash
 node tools/creature_art/build.mjs
 node tools/brand/build.mjs
 ```
 
-Recapture rendered evidence:
+Exercise the built service worker and recapture rendered evidence:
 
 ```bash
-npm run build && npm run e2e --workspace @poseidon/web
+npm run build && npm run test:pwa
+npm run screenshots
 ```
 
 ## Read before building

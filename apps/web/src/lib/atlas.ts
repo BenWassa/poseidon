@@ -30,13 +30,20 @@ function siteKey(areaName: string, siteName: string): string {
  * A history dive is associated with curated geodata only when its normalized
  * area and exact canonical/alias site name match a curated record.
  */
-export function buildAtlasMapModel(dives: Dive[], sites: CuratedSite[]): AtlasMapModel {
+export function buildAtlasMapModel(
+  dives: Dive[],
+  sites: CuratedSite[],
+): AtlasMapModel {
   const byTerm = new Map<string, CuratedSite>();
   for (const site of sites) {
-    for (const term of [site.name, ...site.aliases]) byTerm.set(siteKey(site.areaName, term), site);
+    for (const term of [site.name, ...site.aliases])
+      byTerm.set(siteKey(site.areaName, term), site);
   }
 
-  const visits = new Map<string, { diveCount: number; lastDivedOn: string | null }>();
+  const visits = new Map<
+    string,
+    { diveCount: number; lastDivedOn: string | null }
+  >();
   let mappedHistoryDiveCount = 0;
   let unmappedHistoryDiveCount = 0;
 
@@ -49,12 +56,19 @@ export function buildAtlasMapModel(dives: Dive[], sites: CuratedSite[]): AtlasMa
     mappedHistoryDiveCount += 1;
     const current = visits.get(site.id) ?? { diveCount: 0, lastDivedOn: null };
     current.diveCount += 1;
-    if (!current.lastDivedOn || dive.date > current.lastDivedOn) current.lastDivedOn = dive.date;
+    if (!current.lastDivedOn || dive.date > current.lastDivedOn)
+      current.lastDivedOn = dive.date;
     visits.set(site.id, current);
   }
 
   const mappedSites = sites
-    .filter((site): site is CuratedSite & { coordinates: NonNullable<CuratedSite['coordinates']> } => Boolean(site.coordinates))
+    .filter(
+      (
+        site,
+      ): site is CuratedSite & {
+        coordinates: NonNullable<CuratedSite['coordinates']>;
+      } => Boolean(site.coordinates),
+    )
     .map((site) => {
       const visit = visits.get(site.id) ?? { diveCount: 0, lastDivedOn: null };
       return {
@@ -69,7 +83,14 @@ export function buildAtlasMapModel(dives: Dive[], sites: CuratedSite[]): AtlasMa
         lastDivedOn: visit.lastDivedOn,
       };
     })
-    .sort((a, b) => a.areaName.localeCompare(b.areaName) || a.name.localeCompare(b.name));
+    .sort(
+      (a, b) =>
+        a.areaName.localeCompare(b.areaName) || a.name.localeCompare(b.name),
+    );
 
-  return { sites: mappedSites, mappedHistoryDiveCount, unmappedHistoryDiveCount };
+  return {
+    sites: mappedSites,
+    mappedHistoryDiveCount,
+    unmappedHistoryDiveCount,
+  };
 }

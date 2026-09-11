@@ -20,20 +20,29 @@ async function logCozumelDive(user: ReturnType<typeof renderPoseidon>['user']) {
 
   // Step 3 — the visual gallery, with real local content.
   expect(await screen.findByText('Likely here')).toBeInTheDocument();
-  await user.click(await screen.findByRole('button', { name: /Green sea turtle/ }));
+  await user.click(
+    await screen.findByRole('button', { name: /Green sea turtle/ }),
+  );
   await user.click(screen.getByRole('button', { name: /Spotted eagle ray/ }));
 
   // An unlisted creature must always be possible.
   await user.type(screen.getByLabelText('Search creatures'), 'Goliath grouper');
-  await user.click(await screen.findByRole('button', { name: /Add “Goliath grouper”/ }));
+  await user.click(
+    await screen.findByRole('button', { name: /Add “Goliath grouper”/ }),
+  );
 
   await user.click(screen.getByRole('button', { name: /Continue/ }));
 
   // Step 4 — highlight and memory.
   await user.click(
-    await screen.findByRole('button', { name: 'Make Spotted eagle ray the highlight of this dive' }),
+    await screen.findByRole('button', {
+      name: 'Make Spotted eagle ray the highlight of this dive',
+    }),
   );
-  await user.type(screen.getByLabelText('Note'), 'An eagle ray came out of the blue.');
+  await user.type(
+    screen.getByLabelText('Note'),
+    'An eagle ray came out of the blue.',
+  );
   await user.click(screen.getByRole('button', { name: /Save this memory/ }));
 }
 
@@ -48,12 +57,18 @@ describe('the representative dive-logging scenario', () => {
     await logCozumelDive(user);
 
     // Saving lands on the new dive, rendered as a memory.
-    expect(await screen.findByRole('heading', { name: 'Palancar Gardens' })).toBeInTheDocument();
+    expect(
+      await screen.findByRole('heading', { name: 'Palancar Gardens' }),
+    ).toBeInTheDocument();
     expect(screen.getAllByText('Cozumel').length).toBeGreaterThan(0);
     expect(screen.getAllByText('21 m').length).toBeGreaterThan(0);
     expect(screen.getAllByText('48 min').length).toBeGreaterThan(0);
-    expect(screen.getByText('An eagle ray came out of the blue.')).toBeInTheDocument();
-    expect(screen.getByRole('heading', { name: 'Creatures met' })).toBeInTheDocument();
+    expect(
+      screen.getByText('An eagle ray came out of the blue.'),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('heading', { name: 'Creatures met' }),
+    ).toBeInTheDocument();
     expect(screen.getByText('Goliath grouper')).toBeInTheDocument();
 
     // Home reflects the dive and the derived lifetime shape immediately.
@@ -63,8 +78,12 @@ describe('the representative dive-logging scenario', () => {
 
     // Journal derives a trip and restrained history marker from canonical dives.
     await user.click(screen.getByRole('link', { name: /Journal/ }));
-    expect(await screen.findByRole('heading', { name: 'Palancar Gardens' })).toBeInTheDocument();
-    expect(screen.getByRole('heading', { name: /Cozumel —/ })).toBeInTheDocument();
+    expect(
+      await screen.findByRole('heading', { name: 'Palancar Gardens' }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('heading', { name: /Cozumel —/ }),
+    ).toBeInTheDocument();
     expect(screen.getByText('First dive in this journal')).toBeInTheDocument();
 
     // Collection is built from the actual sightings, unlisted creature included.
@@ -76,26 +95,42 @@ describe('the representative dive-logging scenario', () => {
     // Creature detail is grounded in personal encounter history, with sourced
     // catalogue context following rather than displacing that personal record.
     await user.click(screen.getByRole('link', { name: /Spotted eagle ray/ }));
-    expect(await screen.findByRole('heading', { name: 'Spotted eagle ray' })).toBeInTheDocument();
+    expect(
+      await screen.findByRole('heading', { name: 'Spotted eagle ray' }),
+    ).toBeInTheDocument();
     expect(screen.getByText('Aetobatus narinari')).toBeInTheDocument();
     expect(screen.getByText('1 dive')).toBeInTheDocument();
     // The site appears both as a place chip and in the related-dive list.
     expect(screen.getAllByText('Palancar Gardens').length).toBeGreaterThan(1);
-    expect(screen.getByRole('heading', { name: 'Curated context' })).toBeInTheDocument();
+    expect(
+      screen.getByRole('heading', { name: 'Curated context' }),
+    ).toBeInTheDocument();
     expect(screen.getByText('Regional relevance')).toBeInTheDocument();
-    expect(screen.getAllByText(/REEF Geographic Zone Report/).length).toBeGreaterThan(0);
+    expect(
+      screen.getAllByText(/REEF Geographic Zone Report/).length,
+    ).toBeGreaterThan(0);
 
     // A creature typed by the diver still gets a complete personal history,
     // but never receives invented catalogue/source metadata.
-    await user.click(screen.getByRole('button', { name: 'Back to collection' }));
-    await user.click(await screen.findByRole('link', { name: /Goliath grouper/ }));
-    expect(await screen.findByRole('heading', { name: 'Goliath grouper' })).toBeInTheDocument();
+    await user.click(
+      screen.getByRole('button', { name: 'Back to collection' }),
+    );
+    await user.click(
+      await screen.findByRole('link', { name: /Goliath grouper/ }),
+    );
+    expect(
+      await screen.findByRole('heading', { name: 'Goliath grouper' }),
+    ).toBeInTheDocument();
     expect(screen.getByText('1 dive')).toBeInTheDocument();
-    expect(screen.queryByRole('heading', { name: 'Curated context' })).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole('heading', { name: 'Curated context' }),
+    ).not.toBeInTheDocument();
 
     // A cold start rebuilds everything from persisted data.
     reload('/journal');
-    expect(await screen.findByRole('heading', { name: 'Palancar Gardens' })).toBeInTheDocument();
+    expect(
+      await screen.findByRole('heading', { name: 'Palancar Gardens' }),
+    ).toBeInTheDocument();
   });
 
   it('edits a dive without corrupting the derived collection or history', async () => {
@@ -117,11 +152,15 @@ describe('the representative dive-logging scenario', () => {
     await user.click(screen.getByRole('button', { name: /Choose creatures/ }));
 
     // Drop one creature; the highlight must survive because it is still sighted.
-    await user.click(await screen.findByRole('button', { name: /Green sea turtle/ }));
+    await user.click(
+      await screen.findByRole('button', { name: /Green sea turtle/ }),
+    );
     await user.click(screen.getByRole('button', { name: /Continue/ }));
     await user.click(screen.getByRole('button', { name: /Save changes/ }));
 
-    expect(await screen.findByRole('heading', { name: 'Palancar Caves' })).toBeInTheDocument();
+    expect(
+      await screen.findByRole('heading', { name: 'Palancar Caves' }),
+    ).toBeInTheDocument();
     expect(screen.getAllByText('24 m').length).toBeGreaterThan(0);
 
     // The collection now reflects two creatures, not three.
@@ -149,13 +188,19 @@ describe('the representative dive-logging scenario', () => {
     await user.click(screen.getByRole('button', { name: 'Delete dive' }));
     await user.click(await screen.findByRole('button', { name: /^Delete$/ }));
 
-    expect(await screen.findByRole('heading', { name: 'No dives yet' })).toBeInTheDocument();
+    expect(
+      await screen.findByRole('heading', { name: 'No dives yet' }),
+    ).toBeInTheDocument();
 
     await user.click(screen.getByRole('link', { name: /Collection/ }));
-    expect(await screen.findByRole('heading', { name: 'Nothing collected yet' })).toBeInTheDocument();
+    expect(
+      await screen.findByRole('heading', { name: 'Nothing collected yet' }),
+    ).toBeInTheDocument();
 
     reload('/');
-    expect(await screen.findByRole('heading', { name: 'Your atlas starts here' })).toBeInTheDocument();
+    expect(
+      await screen.findByRole('heading', { name: 'Your atlas starts here' }),
+    ).toBeInTheDocument();
   });
 
   it('reuses same-day trip context for a second dive', async () => {
@@ -166,10 +211,14 @@ describe('the representative dive-logging scenario', () => {
     await user.click(screen.getByRole('button', { name: 'Log a dive' }));
 
     const reuse = await screen.findByRole('button', { name: 'Same trip' });
-    expect(screen.getByText(/You already logged Palancar Gardens/)).toBeInTheDocument();
+    expect(
+      screen.getByText(/You already logged Palancar Gardens/),
+    ).toBeInTheDocument();
     await user.click(reuse);
 
-    await waitFor(() => expect(screen.getByLabelText('Area')).toHaveValue('Cozumel'));
+    await waitFor(() =>
+      expect(screen.getByLabelText('Area')).toHaveValue('Cozumel'),
+    );
   });
 
   it('surfaces places in the atlas without inventing coordinates', async () => {
@@ -179,11 +228,15 @@ describe('the representative dive-logging scenario', () => {
 
     await user.click(screen.getByRole('link', { name: /Atlas/ }));
     expect(await screen.findByText('1 place')).toBeInTheDocument();
-    expect(screen.getByText(/does not plot dive sites it cannot source/)).toBeInTheDocument();
+    expect(
+      screen.getByText(/does not plot dive sites it cannot source/),
+    ).toBeInTheDocument();
 
     await user.click(screen.getByRole('link', { name: /Cozumel/ }));
     const heading = await screen.findByRole('heading', { name: 'Cozumel' });
     expect(heading).toBeInTheDocument();
-    expect(within(document.body).getByRole('heading', { name: 'Sites' })).toBeInTheDocument();
+    expect(
+      within(document.body).getByRole('heading', { name: 'Sites' }),
+    ).toBeInTheDocument();
   });
 });

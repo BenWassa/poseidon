@@ -4,12 +4,22 @@
  */
 import { describe, expect, it } from 'vitest';
 
-import { contentMeta, contentPack, creatures, curatedAreas, curatedSites, places, regions } from '../src/data/content';
+import {
+  contentMeta,
+  contentPack,
+  creatures,
+  curatedAreas,
+  curatedSites,
+  places,
+  regions,
+} from '../src/data/content';
 
 describe('the Mexican Caribbean content pack', () => {
   it('loads every creature with a stable unique id', () => {
     expect(creatures.length).toBeGreaterThanOrEqual(50);
-    expect(new Set(creatures.map((creature) => creature.id)).size).toBe(creatures.length);
+    expect(new Set(creatures.map((creature) => creature.id)).size).toBe(
+      creatures.length,
+    );
     for (const creature of creatures) {
       expect(creature.commonName.trim()).not.toBe('');
       expect(creature.curated).toBe(true);
@@ -34,7 +44,9 @@ describe('the Mexican Caribbean content pack', () => {
     expect(geolocated).toHaveLength(contentMeta.geolocatedSiteCount);
     expect(geolocated.length).toBeGreaterThanOrEqual(7);
     expect(unsourced.length).toBeGreaterThan(0);
-    expect(new Set(geolocated.map((site) => site.areaName))).toEqual(new Set(['Cozumel', 'Playa del Carmen']));
+    expect(new Set(geolocated.map((site) => site.areaName))).toEqual(
+      new Set(['Cozumel', 'Playa del Carmen']),
+    );
 
     for (const site of geolocated) {
       const coordinates = site.coordinates!;
@@ -42,18 +54,24 @@ describe('the Mexican Caribbean content pack', () => {
       expect(coordinates.lat).toBeLessThanOrEqual(90);
       expect(coordinates.lng).toBeGreaterThanOrEqual(-180);
       expect(coordinates.lng).toBeLessThanOrEqual(180);
-      expect(['exact-site', 'approximate-site', 'reef-area']).toContain(coordinates.precision);
+      expect(['exact-site', 'approximate-site', 'reef-area']).toContain(
+        coordinates.precision,
+      );
       expect(coordinates.sourceIds.length).toBeGreaterThan(0);
       expect(coordinates.note.trim()).not.toBe('');
-      expect(places.find((place) => place.id === site.id)?.coordinates).toEqual({
-        lat: coordinates.lat,
-        lng: coordinates.lng,
-      });
+      expect(places.find((place) => place.id === site.id)?.coordinates).toEqual(
+        {
+          lat: coordinates.lat,
+          lng: coordinates.lng,
+        },
+      );
     }
   });
 
   it('gives Cozumel and Playa del Carmen their own local creature sets', () => {
-    const cozumel = creatures.filter((creature) => creature.regionIds?.includes('mx-caribbean-cozumel'));
+    const cozumel = creatures.filter((creature) =>
+      creature.regionIds?.includes('mx-caribbean-cozumel'),
+    );
     const playa = creatures.filter((creature) =>
       creature.regionIds?.includes('mx-caribbean-playa-del-carmen'),
     );
@@ -62,9 +80,13 @@ describe('the Mexican Caribbean content pack', () => {
   });
 
   it('carries researched creature provenance into runtime content', () => {
-    const eagleRay = creatures.find((creature) => creature.id === 'spotted-eagle-ray');
+    const eagleRay = creatures.find(
+      (creature) => creature.id === 'spotted-eagle-ray',
+    );
     expect(eagleRay?.provenance?.length).toBeGreaterThan(0);
-    expect(eagleRay?.provenance?.some((entry) => entry.source.includes('REEF'))).toBe(true);
+    expect(
+      eagleRay?.provenance?.some((entry) => entry.source.includes('REEF')),
+    ).toBe(true);
 
     for (const entry of eagleRay?.provenance ?? []) {
       expect(entry.source.trim()).not.toBe('');
@@ -74,21 +96,29 @@ describe('the Mexican Caribbean content pack', () => {
   });
 
   it('wires asset-pipeline variants onto the creatures that have artwork', () => {
-    const illustrated = creatures.filter((creature) => creature.artwork?.status === 'curated');
+    const illustrated = creatures.filter(
+      (creature) => creature.artwork?.status === 'curated',
+    );
     expect(illustrated.length).toBe(contentMeta.curatedArtworkCount);
     expect(illustrated.length).toBeGreaterThanOrEqual(12);
 
     for (const creature of illustrated) {
       const artwork = creature.artwork;
-      expect(artwork?.thumb).toBe(`/assets/creatures/${creature.id}/thumb.webp`);
-      expect(artwork?.gallery).toBe(`/assets/creatures/${creature.id}/gallery.webp`);
+      expect(artwork?.thumb).toBe(
+        `/assets/creatures/${creature.id}/thumb.webp`,
+      );
+      expect(artwork?.gallery).toBe(
+        `/assets/creatures/${creature.id}/gallery.webp`,
+      );
       expect(artwork?.hero).toBe(`/assets/creatures/${creature.id}/hero.webp`);
       expect(artwork?.aspectRatio).toBe(1);
     }
   });
 
   it('leaves the rest in an explicit no-artwork state rather than a broken link', () => {
-    const unillustrated = creatures.filter((creature) => creature.artwork?.status !== 'curated');
+    const unillustrated = creatures.filter(
+      (creature) => creature.artwork?.status !== 'curated',
+    );
     expect(unillustrated.length).toBeGreaterThan(0);
     for (const creature of unillustrated) {
       expect(creature.artwork?.thumb).toBeUndefined();

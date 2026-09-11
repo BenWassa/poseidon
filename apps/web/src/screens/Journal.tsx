@@ -27,7 +27,8 @@ import {
 } from '../lib/format';
 
 function tripPeriodLabel(trip: DiveTrip): string {
-  if (monthKey(trip.firstDate) === monthKey(trip.lastDate)) return formatMonthYear(trip.firstDate);
+  if (monthKey(trip.firstDate) === monthKey(trip.lastDate))
+    return formatMonthYear(trip.firstDate);
   return `${formatMonthYear(trip.firstDate)} – ${formatMonthYear(trip.lastDate)}`;
 }
 
@@ -45,7 +46,9 @@ function milestoneLabel(milestone: HistoryMilestone): string {
     case 'new-country':
       return 'First dive in a new country';
     case 'new-region':
-      return milestone.areaName ? `First dive in ${milestone.areaName}` : 'First dive in a new region';
+      return milestone.areaName
+        ? `First dive in ${milestone.areaName}`
+        : 'First dive in a new region';
     case 'creature-group':
       return milestone.category
         ? `First ${formatCategory(milestone.category).toLowerCase()} encounter`
@@ -92,10 +95,15 @@ export function Journal() {
             <section key={trip.id} className="mb-8" aria-labelledby={id}>
               <div className="mb-3 flex items-end justify-between gap-3 px-0.5">
                 <div className="min-w-0">
-                  <h2 id={id} className="text-[11px] font-bold uppercase tracking-[0.14em] text-ocean/55">
+                  <h2
+                    id={id}
+                    className="text-[11px] font-bold tracking-[0.14em] text-ocean/55 uppercase"
+                  >
                     {trip.areaName} — {tripPeriodLabel(trip)}
                   </h2>
-                  <p className="mt-0.5 text-xs font-semibold text-ocean/40">{tripDateRange(trip)}</p>
+                  <p className="mt-0.5 text-xs font-semibold text-ocean/40">
+                    {tripDateRange(trip)}
+                  </p>
                 </div>
                 <span className="shrink-0 text-xs font-bold text-ocean/40">
                   {pluralize(trip.dives.length, 'dive')}
@@ -107,10 +115,15 @@ export function Journal() {
                   const hero = heroCreature(dive, index);
                   const others = dive.sightings
                     .map((sighting) => index.get(sighting.creatureId))
-                    .filter((creature): creature is NonNullable<typeof creature> => Boolean(creature))
+                    .filter(
+                      (creature): creature is NonNullable<typeof creature> =>
+                        Boolean(creature),
+                    )
                     .filter((creature) => creature.id !== hero?.id)
                     .slice(0, 4);
-                  const milestones = (milestonesByDive.get(dive.id) ?? []).slice(0, 2);
+                  const milestones = (
+                    milestonesByDive.get(dive.id) ?? []
+                  ).slice(0, 2);
 
                   return (
                     <li key={dive.id}>
@@ -129,13 +142,15 @@ export function Journal() {
                               </div>
                             )}
                             <div className="flex min-w-0 flex-1 flex-col justify-center">
-                              <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-lagoon">
+                              <p className="text-[11px] font-bold tracking-[0.14em] text-lagoon uppercase">
                                 {formatDate(dive.date)}
                               </p>
-                              <h3 className="truncate text-lg font-bold leading-tight text-ocean">
+                              <h3 className="truncate text-lg leading-tight font-bold text-ocean">
                                 {dive.siteName}
                               </h3>
-                              <p className="truncate text-sm font-medium text-ocean/55">{dive.areaName}</p>
+                              <p className="truncate text-sm font-medium text-ocean/55">
+                                {dive.areaName}
+                              </p>
                               <p className="mt-1.5 flex items-center gap-3 text-xs font-bold text-ocean/60">
                                 <span className="inline-flex items-center gap-1">
                                   <Gauge size={13} aria-hidden="true" />
@@ -152,7 +167,9 @@ export function Journal() {
                           <div className="mt-3 flex items-center justify-between gap-3 rounded-2xl bg-foam px-3 py-2.5">
                             {dive.sightings.length > 0 ? (
                               <div className="flex min-w-0 items-center gap-2">
-                                <span className="shrink-0 text-xs font-semibold text-ocean/55">Met</span>
+                                <span className="shrink-0 text-xs font-semibold text-ocean/55">
+                                  Met
+                                </span>
                                 <span className="flex -space-x-2">
                                   {others.map((creature) => (
                                     <CreatureImage
@@ -168,7 +185,9 @@ export function Journal() {
                                 </span>
                               </div>
                             ) : (
-                              <span className="text-xs font-semibold text-ocean/45">No creatures logged</span>
+                              <span className="text-xs font-semibold text-ocean/45">
+                                No creatures logged
+                              </span>
                             )}
                             <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-shallows text-marine">
                               <ArrowRight size={16} aria-hidden="true" />
@@ -176,7 +195,10 @@ export function Journal() {
                           </div>
 
                           {milestones.length > 0 ? (
-                            <div className="mt-2 flex flex-wrap gap-1.5 px-0.5" aria-label="History milestones">
+                            <div
+                              className="mt-2 flex flex-wrap gap-1.5 px-0.5"
+                              aria-label="History milestones"
+                            >
                               {milestones.map((milestone) => (
                                 <span
                                   key={milestone.id}

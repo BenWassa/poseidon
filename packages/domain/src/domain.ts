@@ -118,7 +118,9 @@ type ClearableDiveInputKey =
   | 'note'
   | 'highlightCreatureId';
 
-export type UpdateDiveInput = Partial<Omit<CreateDiveInput, ClearableDiveInputKey>> & {
+export type UpdateDiveInput = Partial<
+  Omit<CreateDiveInput, ClearableDiveInputKey>
+> & {
   [K in ClearableDiveInputKey]?: CreateDiveInput[K] | undefined;
 };
 
@@ -223,7 +225,9 @@ export interface PoseidonStore {
 
   listCreatures(): Promise<Creature[]>;
   searchCreatures(query: string): Promise<Creature[]>;
-  listSuggestedCreatures(context: CreatureSuggestionContext): Promise<Creature[]>;
+  listSuggestedCreatures(
+    context: CreatureSuggestionContext,
+  ): Promise<Creature[]>;
   createUserCreature(name: string): Promise<Creature>;
   getCreatureHistory(creatureId: Id): Promise<CreatureHistory | null>;
 

@@ -14,12 +14,13 @@
     "pretest": "node scripts/sync-assets.mjs",
     "test": "vitest run",
     "test:watch": "vitest",
-    "e2e": "node scripts/capture-screens.mjs",
+    "test:pwa": "node scripts/test-pwa.mjs",
+    "screenshots": "node scripts/capture-screens.mjs",
     "verify:field": "node scripts/field-readiness.mjs"
   },
   "dependencies": {
     "@poseidon/domain": "*",
-    "lucide-react": "^0.544.0",
+    "lucide-react": "^1.42.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-router-dom": "^7.8.2"
@@ -27,19 +28,22 @@
   "devDependencies": {
     "@tailwindcss/vite": "^4.1.13",
     "@testing-library/dom": "^10.4.1",
-    "@testing-library/jest-dom": "^6.8.0",
+    "@testing-library/jest-dom": "^7.0.1",
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^14.6.1",
     "@types/node": "^22.20.1",
     "@types/react": "^19.1.12",
     "@types/react-dom": "^19.1.9",
-    "@vitejs/plugin-react": "^5.0.2",
-    "jsdom": "^26.1.0",
+    "@vitejs/plugin-react": "^6.1.1",
+    "jsdom": "^29.1.1",
     "playwright": "^1.55.0",
     "tailwindcss": "^4.1.13",
-    "typescript": "5.8.3",
-    "vite": "^7.1.4",
+    "typescript": "^7.0.2",
+    "vite": "^8.2.2",
     "vite-plugin-pwa": "^1.0.3",
-    "vitest": "^3.2.4"
+    "vitest": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=22.12"
   }
 }

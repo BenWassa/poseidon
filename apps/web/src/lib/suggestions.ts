@@ -69,7 +69,11 @@ export function suggestAreas(dives: Dive[], query = ''): AreaSuggestion[] {
 
   return [...byName.values()]
     .filter((area) => matches(query, area.areaName))
-    .sort((a, b) => Number(b.fromHistory) - Number(a.fromHistory) || b.diveCount - a.diveCount);
+    .sort(
+      (a, b) =>
+        Number(b.fromHistory) - Number(a.fromHistory) ||
+        b.diveCount - a.diveCount,
+    );
 }
 
 export interface SiteSuggestion {
@@ -98,7 +102,11 @@ function siteFromCurated(site: CuratedSite): SiteSuggestion {
  * Sites for the currently chosen area come first; anything the diver has
  * actually visited outranks curated content at the same location.
  */
-export function suggestSites(dives: Dive[], areaName: string, query = ''): SiteSuggestion[] {
+export function suggestSites(
+  dives: Dive[],
+  areaName: string,
+  query = '',
+): SiteSuggestion[] {
   const area = normalize(areaName);
   const bySite = new Map<string, SiteSuggestion>();
 
@@ -126,15 +134,24 @@ export function suggestSites(dives: Dive[], areaName: string, query = ''): SiteS
     bySite.set(key, siteFromCurated(site));
   }
 
-  const curatedAliases = new Map(curatedSites.map((site) => [normalize(site.name), site.aliases]));
+  const curatedAliases = new Map(
+    curatedSites.map((site) => [normalize(site.name), site.aliases]),
+  );
 
   return [...bySite.values()]
-    .filter((site) => matches(query, site.siteName, ...(curatedAliases.get(normalize(site.siteName)) ?? [])))
+    .filter((site) =>
+      matches(
+        query,
+        site.siteName,
+        ...(curatedAliases.get(normalize(site.siteName)) ?? []),
+      ),
+    )
     .sort((a, b) => {
       const aLocal = area && normalize(a.areaName) === area ? 1 : 0;
       const bLocal = area && normalize(b.areaName) === area ? 1 : 0;
       if (aLocal !== bLocal) return bLocal - aLocal;
-      if (a.fromHistory !== b.fromHistory) return Number(b.fromHistory) - Number(a.fromHistory);
+      if (a.fromHistory !== b.fromHistory)
+        return Number(b.fromHistory) - Number(a.fromHistory);
       if (a.lastDivedOn && b.lastDivedOn && a.lastDivedOn !== b.lastDivedOn) {
         return b.lastDivedOn.localeCompare(a.lastDivedOn);
       }
@@ -155,5 +172,10 @@ export function sameDayContext(dives: Dive[], date: string): Dive | null {
 
 /** The most recent dive overall, used to pre-fill a fresh trip's first dive. */
 export function mostRecentDive(dives: Dive[]): Dive | null {
-  return [...dives].sort((a, b) => b.date.localeCompare(a.date) || b.createdAt.localeCompare(a.createdAt))[0] ?? null;
+  return (
+    [...dives].sort(
+      (a, b) =>
+        b.date.localeCompare(a.date) || b.createdAt.localeCompare(a.createdAt),
+    )[0] ?? null
+  );
 }

@@ -51,7 +51,10 @@ export class LocalStoragePersistence implements PersistenceAdapter {
       if (raw === null) return null;
       return JSON.parse(raw) as unknown;
     } catch (error) {
-      throw new PoseidonPersistenceError('Unable to read Poseidon local data.', error);
+      throw new PoseidonPersistenceError(
+        'Unable to read Poseidon local data.',
+        error,
+      );
     }
   }
 
@@ -59,7 +62,10 @@ export class LocalStoragePersistence implements PersistenceAdapter {
     try {
       this.storage.setItem(this.key, JSON.stringify(state));
     } catch (error) {
-      throw new PoseidonPersistenceError('Unable to persist Poseidon local data.', error);
+      throw new PoseidonPersistenceError(
+        'Unable to persist Poseidon local data.',
+        error,
+      );
     }
   }
 
@@ -67,12 +73,17 @@ export class LocalStoragePersistence implements PersistenceAdapter {
     try {
       this.storage.removeItem(this.key);
     } catch (error) {
-      throw new PoseidonPersistenceError('Unable to remove Poseidon local data.', error);
+      throw new PoseidonPersistenceError(
+        'Unable to remove Poseidon local data.',
+        error,
+      );
     }
   }
 }
 
-export function createEmptyPersonalState(now: string): PersistedPersonalStateV2 {
+export function createEmptyPersonalState(
+  now: string,
+): PersistedPersonalStateV2 {
   return {
     schemaVersion: CURRENT_SCHEMA_VERSION,
     updatedAt: now,
@@ -85,7 +96,10 @@ function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null && !Array.isArray(value);
 }
 
-function migrateV1ToV2(value: PersistedPersonalStateV1, now: string): PersistedPersonalStateV2 {
+function migrateV1ToV2(
+  value: PersistedPersonalStateV1,
+  now: string,
+): PersistedPersonalStateV2 {
   return {
     schemaVersion: 2,
     updatedAt: now,
@@ -101,16 +115,29 @@ function migrateV1ToV2(value: PersistedPersonalStateV1, now: string): PersistedP
   };
 }
 
-function assertV2Shape(value: Record<string, unknown>): asserts value is Record<string, unknown> & PersistedPersonalStateV2 {
-  if (value.schemaVersion !== 2 || !Array.isArray(value.dives) || !Array.isArray(value.userCreatures)) {
-    throw new PoseidonMigrationError('Stored Poseidon data does not match schema version 2.');
+function assertV2Shape(
+  value: Record<string, unknown>,
+): asserts value is Record<string, unknown> & PersistedPersonalStateV2 {
+  if (
+    value.schemaVersion !== 2 ||
+    !Array.isArray(value.dives) ||
+    !Array.isArray(value.userCreatures)
+  ) {
+    throw new PoseidonMigrationError(
+      'Stored Poseidon data does not match schema version 2.',
+    );
   }
   if (typeof value.updatedAt !== 'string') {
-    throw new PoseidonMigrationError('Stored Poseidon data is missing its schema update timestamp.');
+    throw new PoseidonMigrationError(
+      'Stored Poseidon data is missing its schema update timestamp.',
+    );
   }
 }
 
-export function migratePersistedState(raw: unknown, now: string): MigrationResult {
+export function migratePersistedState(
+  raw: unknown,
+  now: string,
+): MigrationResult {
   if (raw === null || raw === undefined) {
     return { state: createEmptyPersonalState(now), migratedFromVersion: null };
   }
@@ -120,7 +147,9 @@ export function migratePersistedState(raw: unknown, now: string): MigrationResul
 
   const version = raw.schemaVersion;
   if (typeof version !== 'number' || !Number.isInteger(version)) {
-    throw new PoseidonMigrationError('Stored Poseidon data has no supported schema version.');
+    throw new PoseidonMigrationError(
+      'Stored Poseidon data has no supported schema version.',
+    );
   }
   if (version > CURRENT_SCHEMA_VERSION) {
     throw new PoseidonMigrationError(
@@ -130,9 +159,14 @@ export function migratePersistedState(raw: unknown, now: string): MigrationResul
 
   if (version === 1) {
     if (!Array.isArray(raw.dives) || !Array.isArray(raw.userCreatures)) {
-      throw new PoseidonMigrationError('Stored Poseidon schema version 1 is malformed.');
+      throw new PoseidonMigrationError(
+        'Stored Poseidon schema version 1 is malformed.',
+      );
     }
-    const migrated = migrateV1ToV2(raw as unknown as PersistedPersonalStateV1, now);
+    const migrated = migrateV1ToV2(
+      raw as unknown as PersistedPersonalStateV1,
+      now,
+    );
     return { state: migrated, migratedFromVersion: 1 };
   }
 

@@ -25,7 +25,8 @@ interface PackRegion {
   parentRegionId?: string;
 }
 
-export type CoordinatePrecision = 'exact-site' | 'approximate-site' | 'reef-area';
+export type CoordinatePrecision =
+  'exact-site' | 'approximate-site' | 'reef-area';
 
 export interface CuratedCoordinates {
   lat: number;
@@ -78,10 +79,13 @@ const creatureFiles = import.meta.glob<{ creatures: PackCreature[] }>(
   { eager: true, import: 'default' },
 );
 
-const assetManifests = import.meta.glob<AssetManifest>('../../../../assets/creatures/*/manifest.json', {
-  eager: true,
-  import: 'default',
-});
+const assetManifests = import.meta.glob<AssetManifest>(
+  '../../../../assets/creatures/*/manifest.json',
+  {
+    eager: true,
+    import: 'default',
+  },
+);
 
 const base = import.meta.env.BASE_URL ?? '/';
 
@@ -93,10 +97,18 @@ function buildArtworkIndex(): Map<string, CreatureArtwork> {
   const index = new Map<string, CreatureArtwork>();
   for (const manifest of Object.values(assetManifests)) {
     const { creatureId, artwork } = manifest;
-    if (artwork.status !== 'curated' || !artwork.thumb || !artwork.gallery || !artwork.hero) {
+    if (
+      artwork.status !== 'curated' ||
+      !artwork.thumb ||
+      !artwork.gallery ||
+      !artwork.hero
+    ) {
       // A placeholder/missing manifest is a deliberate state, not an error. The
       // UI renders the same considered fallback it uses for unmanifested IDs.
-      index.set(creatureId, { status: artwork.status, aspectRatio: artwork.aspectRatio });
+      index.set(creatureId, {
+        status: artwork.status,
+        aspectRatio: artwork.aspectRatio,
+      });
       continue;
     }
     index.set(creatureId, {
@@ -152,7 +164,10 @@ export const creatures: Creature[] = Object.keys(creatureFiles)
       ...(entry.category ? { category: entry.category } : {}),
       ...(entry.regionIds.length > 0 ? { regionIds: entry.regionIds } : {}),
       curated: true,
-      artwork: artworkById.get(entry.id) ?? { status: 'missing', aspectRatio: 1 },
+      artwork: artworkById.get(entry.id) ?? {
+        status: 'missing',
+        aspectRatio: 1,
+      },
       ...(provenance.length > 0 ? { provenance } : {}),
     };
   });
@@ -167,7 +182,11 @@ export const places: Place[] = packSites.map((site) => {
     kind: site.recordType,
     ...(region?.countryCode ? { countryCode: region.countryCode } : {}),
     regionId: site.regionId,
-    ...(site.coordinates ? { coordinates: { lat: site.coordinates.lat, lng: site.coordinates.lng } } : {}),
+    ...(site.coordinates
+      ? {
+          coordinates: { lat: site.coordinates.lat, lng: site.coordinates.lng },
+        }
+      : {}),
     curated: true,
   };
 });
@@ -200,18 +219,24 @@ export const curatedAreas = regions
     regionId: region.id,
     name: region.name,
     countryCode: region.countryCode,
-    parentName: region.parentRegionId ? (regionById.get(region.parentRegionId)?.name ?? null) : null,
+    parentName: region.parentRegionId
+      ? (regionById.get(region.parentRegionId)?.name ?? null)
+      : null,
   }));
 
 export const contentPack: PoseidonContent = { creatures, regions, places };
 
 export const contentMeta = {
-  packId: manifestJson.packId as string,
-  name: manifestJson.name as string,
-  lastReviewed: manifestJson.lastReviewed as string,
+  packId: manifestJson.packId,
+  name: manifestJson.name,
+  lastReviewed: manifestJson.lastReviewed,
   creatureCount: creatures.length,
-  curatedArtworkCount: creatures.filter((creature) => creature.artwork?.status === 'curated').length,
+  curatedArtworkCount: creatures.filter(
+    (creature) => creature.artwork?.status === 'curated',
+  ).length,
   siteCount: packSites.length,
-  geolocatedSiteCount: packSites.filter((site) => site.coordinates !== undefined).length,
+  geolocatedSiteCount: packSites.filter(
+    (site) => site.coordinates !== undefined,
+  ).length,
   sourceCount: packSources.length,
 };

@@ -6,12 +6,27 @@
  * reachable, not prominent — alongside the unit preference and offline notes.
  */
 import { useState, type ChangeEvent } from 'react';
-import { Check, Database, Download, Ruler, ShieldCheck, Upload, WifiOff } from 'lucide-react';
+import {
+  Check,
+  Database,
+  Download,
+  Ruler,
+  ShieldCheck,
+  Upload,
+  WifiOff,
+} from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 import type { RestoreMode, RestorePreview } from '@poseidon/domain';
 
-import { ACTION_QUIET, Card, Chip, QuietAction, SectionHeader, TopBar } from '../components/ui';
+import {
+  ACTION_QUIET,
+  Card,
+  Chip,
+  QuietAction,
+  SectionHeader,
+  TopBar,
+} from '../components/ui';
 import { contentMeta } from '../data/content';
 import { useLifetimeStats } from '../data/hooks';
 import { usePoseidon } from '../data/provider';
@@ -25,7 +40,9 @@ export function DataAndBackup() {
   const [preferences, setPreferences] = usePreferences();
   const [exported, setExported] = useState<string | null>(null);
   const [restorePayload, setRestorePayload] = useState<unknown | null>(null);
-  const [restorePreview, setRestorePreview] = useState<RestorePreview | null>(null);
+  const [restorePreview, setRestorePreview] = useState<RestorePreview | null>(
+    null,
+  );
   const [restoreError, setRestoreError] = useState<string | null>(null);
   const [restoreStatus, setRestoreStatus] = useState<string | null>(null);
   const [restorePending, setRestorePending] = useState(false);
@@ -60,12 +77,17 @@ export function DataAndBackup() {
       setRestorePayload(parsed);
       setRestorePreview(preview);
     } catch (error) {
-      setRestoreError(error instanceof Error ? error.message : 'Poseidon could not read this backup.');
+      setRestoreError(
+        error instanceof Error
+          ? error.message
+          : 'Poseidon could not read this backup.',
+      );
     }
   };
 
   const restore = async (mode: RestoreMode) => {
-    if (restorePayload === null || restorePreview === null || restorePending) return;
+    if (restorePayload === null || restorePreview === null || restorePending)
+      return;
     if (mode === 'replace') {
       const discardDives = restorePreview.replaceWouldDiscardDives;
       const discardCreatures = restorePreview.replaceWouldDiscardUserCreatures;
@@ -80,7 +102,9 @@ export function DataAndBackup() {
     setRestoreError(null);
     setRestoreStatus(null);
     try {
-      const result = await client.mutate((store) => store.restoreData(restorePayload, mode));
+      const result = await client.mutate((store) =>
+        store.restoreData(restorePayload, mode),
+      );
       setRestoreStatus(
         mode === 'merge'
           ? `Merged safely: ${pluralize(result.addedDives, 'dive')} and ${pluralize(result.addedUserCreatures, 'custom creature')} added; current history kept.`
@@ -88,7 +112,11 @@ export function DataAndBackup() {
       );
       setRestorePreview(await client.store.previewRestore(restorePayload));
     } catch (error) {
-      setRestoreError(error instanceof Error ? error.message : 'Poseidon refused this restore.');
+      setRestoreError(
+        error instanceof Error
+          ? error.message
+          : 'Poseidon refused this restore.',
+      );
     } finally {
       setRestorePending(false);
     }
@@ -101,10 +129,10 @@ export function DataAndBackup() {
       <section className="px-5">
         <SectionHeader title="Your record" />
         <Card className="p-5">
-          <p className="text-sm font-medium leading-relaxed text-ocean/70">
+          <p className="text-sm leading-relaxed font-medium text-ocean/70">
             Poseidon keeps {pluralize(stats?.totalDives ?? 0, 'dive')} and{' '}
-            {pluralize(stats?.distinctCreatures ?? 0, 'creature')} on this device. Nothing is uploaded, and no
-            account is required.
+            {pluralize(stats?.distinctCreatures ?? 0, 'creature')} on this
+            device. Nothing is uploaded, and no account is required.
           </p>
           <div className="mt-4">
             <QuietAction type="button" onClick={exportData}>
@@ -129,10 +157,13 @@ export function DataAndBackup() {
               <ShieldCheck size={20} aria-hidden="true" />
             </span>
             <div className="min-w-0 flex-1">
-              <p className="text-sm font-bold text-ocean">Validated before anything changes</p>
-              <p className="mt-1 text-sm font-medium leading-relaxed text-ocean/65">
-                Choose a Poseidon JSON export. The file, schema version and every personal record are checked
-                before restore actions become available.
+              <p className="text-sm font-bold text-ocean">
+                Validated before anything changes
+              </p>
+              <p className="mt-1 text-sm leading-relaxed font-medium text-ocean/65">
+                Choose a Poseidon JSON export. The file, schema version and
+                every personal record are checked before restore actions become
+                available.
               </p>
             </div>
           </div>
@@ -145,7 +176,10 @@ export function DataAndBackup() {
               className="sr-only"
               onChange={selectBackup}
             />
-            <label htmlFor="poseidon-restore-file" className={`${ACTION_QUIET} cursor-pointer`}>
+            <label
+              htmlFor="poseidon-restore-file"
+              className={`${ACTION_QUIET} cursor-pointer`}
+            >
               <Upload size={18} aria-hidden="true" />
               Choose Poseidon backup
             </label>
@@ -154,7 +188,7 @@ export function DataAndBackup() {
           {restoreError ? (
             <p
               role="alert"
-              className="mt-3 rounded-field bg-coral-soft px-4 py-3 text-sm font-bold leading-relaxed text-coral"
+              className="mt-3 rounded-field bg-coral-soft px-4 py-3 text-sm leading-relaxed font-bold text-coral"
             >
               Restore refused: {restoreError}
             </p>
@@ -162,7 +196,7 @@ export function DataAndBackup() {
           {restoreStatus ? (
             <p
               role="status"
-              className="mt-3 flex items-start gap-2 rounded-field bg-lagoon/10 px-4 py-3 text-sm font-bold leading-relaxed text-reef"
+              className="mt-3 flex items-start gap-2 rounded-field bg-lagoon/10 px-4 py-3 text-sm leading-relaxed font-bold text-reef"
             >
               <Check size={16} className="mt-0.5 shrink-0" aria-hidden="true" />
               {restoreStatus}
@@ -172,24 +206,37 @@ export function DataAndBackup() {
           {restorePreview ? (
             <div className="mt-5 border-t border-shallows pt-4">
               <p className="text-sm font-bold text-ocean">
-                Backup contains {pluralize(restorePreview.backupDives, 'dive')} and{' '}
-                {pluralize(restorePreview.backupUserCreatures, 'custom creature')}.
+                Backup contains {pluralize(restorePreview.backupDives, 'dive')}{' '}
+                and{' '}
+                {pluralize(
+                  restorePreview.backupUserCreatures,
+                  'custom creature',
+                )}
+                .
               </p>
-              <p className="mt-1 text-xs font-medium leading-relaxed text-ocean/55">
-                Exported {new Date(restorePreview.exportedAt).toLocaleString()} · export v
-                {restorePreview.exportVersion} · data schema v{restorePreview.schemaVersion}
+              <p className="mt-1 text-xs leading-relaxed font-medium text-ocean/55">
+                Exported {new Date(restorePreview.exportedAt).toLocaleString()}{' '}
+                · export v{restorePreview.exportVersion} · data schema v
+                {restorePreview.schemaVersion}
               </p>
 
               <div className="mt-4 grid gap-3">
                 <div className="rounded-field border border-shallows bg-shallows/35 p-4">
-                  <p className="text-sm font-black text-ocean">Merge — keep current history</p>
-                  <p className="mt-1 text-xs font-medium leading-relaxed text-ocean/60">
-                    Adds {pluralize(restorePreview.mergeAddsDives, 'new dive')} and{' '}
-                    {pluralize(restorePreview.mergeAddsUserCreatures, 'new custom creature')}. Current records are
-                    never deleted; identical records are skipped.
+                  <p className="text-sm font-black text-ocean">
+                    Merge — keep current history
+                  </p>
+                  <p className="mt-1 text-xs leading-relaxed font-medium text-ocean/60">
+                    Adds {pluralize(restorePreview.mergeAddsDives, 'new dive')}{' '}
+                    and{' '}
+                    {pluralize(
+                      restorePreview.mergeAddsUserCreatures,
+                      'new custom creature',
+                    )}
+                    . Current records are never deleted; identical records are
+                    skipped.
                   </p>
                   {restorePreview.mergeConflicts.length > 0 ? (
-                    <p className="mt-2 text-xs font-bold leading-relaxed text-coral">
+                    <p className="mt-2 text-xs leading-relaxed font-bold text-coral">
                       Merge unavailable: {restorePreview.mergeConflicts[0]}
                       {restorePreview.mergeConflicts.length > 1
                         ? ` (+${restorePreview.mergeConflicts.length - 1} more)`
@@ -200,7 +247,9 @@ export function DataAndBackup() {
                   <QuietAction
                     type="button"
                     className="mt-3"
-                    disabled={restorePending || restorePreview.mergeConflicts.length > 0}
+                    disabled={
+                      restorePending || restorePreview.mergeConflicts.length > 0
+                    }
                     onClick={() => restore('merge')}
                   >
                     Merge backup safely
@@ -208,12 +257,22 @@ export function DataAndBackup() {
                 </div>
 
                 <div className="rounded-field border border-coral/20 bg-coral-soft/35 p-4">
-                  <p className="text-sm font-black text-ocean">Replace — use backup exactly</p>
-                  <p className="mt-1 text-xs font-medium leading-relaxed text-ocean/60">
+                  <p className="text-sm font-black text-ocean">
+                    Replace — use backup exactly
+                  </p>
+                  <p className="mt-1 text-xs leading-relaxed font-medium text-ocean/60">
                     Replaces the complete local record.{' '}
-                    {pluralize(restorePreview.replaceWouldDiscardDives, 'current dive')} and{' '}
-                    {pluralize(restorePreview.replaceWouldDiscardUserCreatures, 'custom creature')} would be
-                    discarded because they are not identical in the backup. You will be asked to confirm.
+                    {pluralize(
+                      restorePreview.replaceWouldDiscardDives,
+                      'current dive',
+                    )}{' '}
+                    and{' '}
+                    {pluralize(
+                      restorePreview.replaceWouldDiscardUserCreatures,
+                      'custom creature',
+                    )}{' '}
+                    would be discarded because they are not identical in the
+                    backup. You will be asked to confirm.
                   </p>
                   <QuietAction
                     type="button"
@@ -236,12 +295,20 @@ export function DataAndBackup() {
           <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-shallows text-marine">
             <Ruler size={20} aria-hidden="true" />
           </span>
-          <p className="flex-1 text-sm font-medium text-ocean/70">Used when you log a new dive.</p>
+          <p className="flex-1 text-sm font-medium text-ocean/70">
+            Used when you log a new dive.
+          </p>
           <div className="flex gap-2">
-            <Chip selected={preferences.depthUnit === 'm'} onClick={() => setPreferences({ depthUnit: 'm' })}>
+            <Chip
+              selected={preferences.depthUnit === 'm'}
+              onClick={() => setPreferences({ depthUnit: 'm' })}
+            >
               m
             </Chip>
-            <Chip selected={preferences.depthUnit === 'ft'} onClick={() => setPreferences({ depthUnit: 'ft' })}>
+            <Chip
+              selected={preferences.depthUnit === 'ft'}
+              onClick={() => setPreferences({ depthUnit: 'ft' })}
+            >
               ft
             </Chip>
           </div>
@@ -254,9 +321,10 @@ export function DataAndBackup() {
           <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-shallows text-marine">
             <WifiOff size={20} aria-hidden="true" />
           </span>
-          <p className="text-sm font-medium leading-relaxed text-ocean/70">
-            Logging and browsing work with no network at all. The app shell, the creature artwork and the
-            marine content pack are stored on the device after your first visit.
+          <p className="text-sm leading-relaxed font-medium text-ocean/70">
+            Logging and browsing work with no network at all. The app shell, the
+            creature artwork and the marine content pack are stored on the
+            device after your first visit.
           </p>
         </Card>
       </section>
@@ -267,15 +335,18 @@ export function DataAndBackup() {
           <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-shallows text-marine">
             <Database size={20} aria-hidden="true" />
           </span>
-          <div className="min-w-0 text-sm font-medium leading-relaxed text-ocean/70">
+          <div className="min-w-0 text-sm leading-relaxed font-medium text-ocean/70">
             <p className="font-bold text-ocean">{contentMeta.name}</p>
             <p className="mt-1">
-              {contentMeta.creatureCount} creatures ({contentMeta.curatedArtworkCount} illustrated),{' '}
-              {contentMeta.siteCount} dive sites, from {pluralize(contentMeta.sourceCount, 'source')}. Reviewed{' '}
+              {contentMeta.creatureCount} creatures (
+              {contentMeta.curatedArtworkCount} illustrated),{' '}
+              {contentMeta.siteCount} dive sites, from{' '}
+              {pluralize(contentMeta.sourceCount, 'source')}. Reviewed{' '}
               {contentMeta.lastReviewed}.
             </p>
             <p className="mt-2 text-xs text-ocean/50">
-              Curated content improves suggestions. It never limits what you can log.
+              Curated content improves suggestions. It never limits what you can
+              log.
             </p>
           </div>
         </Card>

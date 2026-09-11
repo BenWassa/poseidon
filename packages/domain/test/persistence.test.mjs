@@ -13,9 +13,15 @@ import {
 
 class FakeStorage {
   values = new Map();
-  getItem(key) { return this.values.has(key) ? this.values.get(key) : null; }
-  setItem(key, value) { this.values.set(key, String(value)); }
-  removeItem(key) { this.values.delete(key); }
+  getItem(key) {
+    return this.values.has(key) ? this.values.get(key) : null;
+  }
+  setItem(key, value) {
+    this.values.set(key, String(value));
+  }
+  removeItem(key) {
+    this.values.delete(key);
+  }
 }
 
 const legacyDive = {
@@ -33,18 +39,29 @@ const legacyDive = {
 
 test('schema v1 migrates to v2 and the upgraded representation is written back on open', async () => {
   const storage = new FakeStorage();
-  storage.setItem(DEFAULT_STORAGE_KEY, JSON.stringify({
-    schemaVersion: 1,
-    dives: [legacyDive],
-    userCreatures: [{ id: 'legacy-creature', commonName: 'Old manual creature', aliases: ['Old alias'] }],
-  }));
+  storage.setItem(
+    DEFAULT_STORAGE_KEY,
+    JSON.stringify({
+      schemaVersion: 1,
+      dives: [legacyDive],
+      userCreatures: [
+        {
+          id: 'legacy-creature',
+          commonName: 'Old manual creature',
+          aliases: ['Old alias'],
+        },
+      ],
+    }),
+  );
 
   const store = createPoseidonStore({
     persistence: new LocalStoragePersistence(storage),
     now: () => '2026-09-07T12:00:00.000Z',
   });
   assert.equal((await store.listDives())[0].id, 'legacy-dive');
-  const creature = (await store.listCreatures()).find((entry) => entry.id === 'legacy-creature');
+  const creature = (await store.listCreatures()).find(
+    (entry) => entry.id === 'legacy-creature',
+  );
   assert.equal(creature.userCreated, true);
   assert.equal(creature.curated, false);
   assert.equal(creature.artwork.status, 'missing');
@@ -55,23 +72,43 @@ test('schema v1 migrates to v2 and the upgraded representation is written back o
 });
 
 test('migration rejects malformed, unversioned and future-version data rather than discarding it', () => {
-  assert.throws(() => migratePersistedState([], '2026-09-07T00:00:00.000Z'), PoseidonMigrationError);
-  assert.throws(() => migratePersistedState({ dives: [] }, '2026-09-07T00:00:00.000Z'), PoseidonMigrationError);
   assert.throws(
-    () => migratePersistedState({ schemaVersion: 99, dives: [], userCreatures: [] }, '2026-09-07T00:00:00.000Z'),
+    () => migratePersistedState([], '2026-09-07T00:00:00.000Z'),
+    PoseidonMigrationError,
+  );
+  assert.throws(
+    () => migratePersistedState({ dives: [] }, '2026-09-07T00:00:00.000Z'),
+    PoseidonMigrationError,
+  );
+  assert.throws(
+    () =>
+      migratePersistedState(
+        { schemaVersion: 99, dives: [], userCreatures: [] },
+        '2026-09-07T00:00:00.000Z',
+      ),
     PoseidonMigrationError,
   );
 });
 
 test('local persistence surfaces storage failures and does not report a successful write', async () => {
   const storage = {
-    getItem() { return null; },
-    setItem() { throw new Error('quota'); },
+    getItem() {
+      return null;
+    },
+    setItem() {
+      throw new Error('quota');
+    },
     removeItem() {},
   };
   const persistence = new LocalStoragePersistence(storage);
   await assert.rejects(
-    () => persistence.write({ schemaVersion: 2, updatedAt: 'x', dives: [], userCreatures: [] }),
+    () =>
+      persistence.write({
+        schemaVersion: 2,
+        updatedAt: 'x',
+        dives: [],
+        userCreatures: [],
+      }),
     PoseidonPersistenceError,
   );
 });

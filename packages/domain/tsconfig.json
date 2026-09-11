@@ -1,8 +1,7 @@
 {
+  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "target": "ES2022",
     "module": "ES2022",
-    "moduleResolution": "Bundler",
     "lib": ["ES2022", "DOM"],
     "strict": true,
     "declaration": true,
@@ -10,9 +9,7 @@
     "sourceMap": true,
     "outDir": "dist",
     "rootDir": "src",
-    "noUncheckedIndexedAccess": true,
-    "exactOptionalPropertyTypes": true,
-    "skipLibCheck": true
+    "isolatedModules": false
   },
   "include": ["src/**/*.ts"]
 }

@@ -83,8 +83,14 @@ async function assertNoHorizontalOverflow(page, label) {
     document: document.documentElement.scrollWidth,
     main: document.querySelector('[data-testid="app-main"]')?.scrollWidth ?? 0,
   }));
-  assert.ok(metrics.document <= metrics.viewport + 1, `${label}: document overflows horizontally`);
-  assert.ok(metrics.main <= metrics.viewport + 1, `${label}: main rail overflows horizontally`);
+  assert.ok(
+    metrics.document <= metrics.viewport + 1,
+    `${label}: document overflows horizontally`,
+  );
+  assert.ok(
+    metrics.main <= metrics.viewport + 1,
+    `${label}: main rail overflows horizontally`,
+  );
 }
 
 async function downloadJson(page) {
@@ -105,10 +111,20 @@ async function logDive(page) {
   await page.getByLabel('Duration').fill('48');
   await assertNoHorizontalOverflow(page, 'focused log form');
   await page.getByRole('button', { name: /Choose creatures/ }).click();
-  await page.getByRole('button', { name: /Green sea turtle/ }).first().click();
-  await page.getByRole('button', { name: /Spotted eagle ray/ }).first().click();
+  await page
+    .getByRole('button', { name: /Green sea turtle/ })
+    .first()
+    .click();
+  await page
+    .getByRole('button', { name: /Spotted eagle ray/ })
+    .first()
+    .click();
   await page.getByRole('button', { name: /Continue/ }).click();
-  await page.getByRole('button', { name: 'Make Spotted eagle ray the highlight of this dive' }).click();
+  await page
+    .getByRole('button', {
+      name: 'Make Spotted eagle ray the highlight of this dive',
+    })
+    .click();
   await page.getByLabel('Note').fill('Field readiness memory.');
   await page.getByRole('button', { name: /Save this memory/ }).click();
   await page.getByRole('heading', { name: 'Field Reef' }).waitFor();
@@ -165,7 +181,9 @@ async function restoreIntoCleanState(page, backup) {
   await page.close();
   const clean = await context.newPage();
   await clean.goto(route('/'), { waitUntil: 'domcontentloaded' });
-  await clean.getByRole('heading', { name: 'Your atlas starts here' }).waitFor();
+  await clean
+    .getByRole('heading', { name: 'Your atlas starts here' })
+    .waitFor();
 
   await clean.goto(route('/data'), { waitUntil: 'domcontentloaded' });
   await clean.locator('#poseidon-restore-file').setInputFiles({
@@ -176,10 +194,18 @@ async function restoreIntoCleanState(page, backup) {
   await clean.getByText(/Backup contains 1 dive/).waitFor();
   clean.once('dialog', (dialog) => dialog.accept());
   await clean.getByRole('button', { name: 'Replace current record' }).click();
-  await clean.getByText(/Restored backup: 1 dive and 0 custom creatures now on this device/).waitFor();
+  await clean
+    .getByText(
+      /Restored backup: 1 dive and 0 custom creatures now on this device/,
+    )
+    .waitFor();
 
   const roundTrip = await downloadJson(clean);
-  assert.deepEqual(roundTrip.personal, backup.personal, 'export → clean state → restore changed personal history');
+  assert.deepEqual(
+    roundTrip.personal,
+    backup.personal,
+    'export → clean state → restore changed personal history',
+  );
   return clean;
 }
 
@@ -189,15 +215,29 @@ try {
 
   const manifest = await page.evaluate(async () => {
     const link = document.querySelector('link[rel="manifest"]');
-    if (!(link instanceof HTMLLinkElement)) throw new Error('manifest link missing');
+    if (!(link instanceof HTMLLinkElement))
+      throw new Error('manifest link missing');
     const response = await fetch(link.href);
     return response.json();
   });
-  assert.equal(manifest.display, 'standalone', 'manifest must request standalone display');
-  assert.equal(manifest.start_url, `${basePath}#/`, 'manifest start_url must preserve the deployment base and hash router');
-  assert.equal(manifest.scope, basePath, 'manifest scope must match deployment base');
+  assert.equal(
+    manifest.display,
+    'standalone',
+    'manifest must request standalone display',
+  );
+  assert.equal(
+    manifest.start_url,
+    `${basePath}#/`,
+    'manifest start_url must preserve the deployment base and hash router',
+  );
+  assert.equal(
+    manifest.scope,
+    basePath,
+    'manifest scope must match deployment base',
+  );
   assert.ok(
-    Array.isArray(manifest.icons) && manifest.icons.some((icon) => icon.sizes === '512x512'),
+    Array.isArray(manifest.icons) &&
+      manifest.icons.some((icon) => icon.sizes === '512x512'),
     'manifest needs a 512px install icon',
   );
 
@@ -208,7 +248,9 @@ try {
   });
   await page.reload({ waitUntil: 'networkidle' });
   await page.waitForFunction(() => Boolean(navigator.serviceWorker.controller));
-  console.log('[field] installability signals: manifest + controlled service worker');
+  console.log(
+    '[field] installability signals: manifest + controlled service worker',
+  );
 
   await context.setOffline(true);
   await page.close();
@@ -221,7 +263,9 @@ try {
   await verifyCoherence(page);
   await editDive(page);
   await verifySystemBack(page);
-  console.log('[field] offline create/edit + Home/Journal/Collection/Atlas + Back: ok');
+  console.log(
+    '[field] offline create/edit + Home/Journal/Collection/Atlas + Back: ok',
+  );
 
   await page.goto(route('/data'), { waitUntil: 'domcontentloaded' });
   const backup = await downloadJson(page);
@@ -229,10 +273,14 @@ try {
   assert.equal(backup.personal.dives[0].siteName, 'Field Reef North');
 
   page = await restoreIntoCleanState(page, backup);
-  console.log('[field] export → clean state → validated replace restore equivalence: ok');
+  console.log(
+    '[field] export → clean state → validated replace restore equivalence: ok',
+  );
 
   const diveId = backup.personal.dives[0].id;
-  await page.goto(route(`/journal/${encodeURIComponent(diveId)}`), { waitUntil: 'domcontentloaded' });
+  await page.goto(route(`/journal/${encodeURIComponent(diveId)}`), {
+    waitUntil: 'domcontentloaded',
+  });
   await page.getByRole('heading', { name: 'Field Reef North' }).waitFor();
   await page.getByRole('button', { name: 'Delete dive' }).click();
   await page.getByText('Delete this dive?').waitFor();
@@ -244,7 +292,10 @@ try {
     const nav = document.querySelector('nav[aria-label="Main"]');
     return nav ? Number.parseFloat(getComputedStyle(nav).paddingBottom) : 0;
   });
-  assert.ok(safeBottom >= 16, 'bottom navigation must retain safe-area-aware minimum padding');
+  assert.ok(
+    safeBottom >= 16,
+    'bottom navigation must retain safe-area-aware minimum padding',
+  );
   await assertNoHorizontalOverflow(page, 'final Pixel viewport');
   console.log('[field] Pixel viewport composition + safe-area minimum: ok');
 } finally {
