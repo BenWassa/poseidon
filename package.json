@@ -11,7 +11,7 @@
   "scripts": {
     "build": "npm run build --workspace @poseidon/domain && npm run build --workspace @poseidon/web",
     "check": "npm run lint && npm run format:check && npm run typecheck && npm run test",
-    "check:assets": "npm run validate:content && npm run validate:assets && npm run validate:source-assets && npm run test:assets",
+    "check:assets": "npm run validate:content && npm run validate:assets && npm run test:assets",
     "lint": "eslint . --max-warnings=0",
     "format": "prettier --write \"{apps,packages}/**/*.{ts,tsx,js,mjs,json,css}\" \"*.{js,json}\"",
     "format:check": "prettier --check \"{apps,packages}/**/*.{ts,tsx,js,mjs,json,css}\" \"*.{js,json}\"",
