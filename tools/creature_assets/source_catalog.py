@@ -262,6 +262,25 @@ def _validate_candidate_bytes(data: bytes, rel_path: str, entry: dict[str, Any])
         raise AssetPipelineError(f"Unreadable source candidate {rel_path}: {exc}") from exc
 
 
+def _detect_single_root_prefix(names: list[str]) -> str | None:
+    """If every archive member shares one top-level directory, return that directory's prefix.
+
+    Real-world export tools (branch/zip exports, editorial handoffs) commonly wrap an
+    entire tree in one root folder. Detecting it lets the exact, hash-verified bundle be
+    imported without repackaging it, while every other validation stays unchanged.
+    """
+    root_segment: str | None = None
+    for name in names:
+        parts = name.split("/", 1)
+        if len(parts) != 2 or not parts[0]:
+            return None
+        if root_segment is None:
+            root_segment = parts[0]
+        elif parts[0] != root_segment:
+            return None
+    return f"{root_segment}/" if root_segment else None
+
+
 def import_source_bundle(bundle_path: Path, catalog_path: Path, repo_root: Path) -> Path:
     bundle_path = bundle_path.resolve()
     catalog_path = catalog_path.resolve()
@@ -286,12 +305,20 @@ def import_source_bundle(bundle_path: Path, catalog_path: Path, repo_root: Path)
             raise AssetPipelineError("Source bundle contains duplicate ZIP member names.")
         name_set = set(names)
         expected = {entry["path"] for entry in assets}
+        archive_prefix = ""
         missing = sorted(expected - name_set)
+        if missing:
+            wrapper = _detect_single_root_prefix(names)
+            if wrapper is not None:
+                stripped_set = {name[len(wrapper):] for name in names if name.startswith(wrapper)}
+                if not (expected - stripped_set):
+                    archive_prefix = wrapper
+                    missing = []
         if missing:
             raise AssetPipelineError("Source bundle is missing cataloged entries:\n- " + "\n- ".join(missing))
         for entry in assets:
             rel_path = entry["path"]
-            data = archive.read(rel_path)
+            data = archive.read(archive_prefix + rel_path)
             _validate_candidate_bytes(data, rel_path, entry)
             payloads[rel_path] = data
     finally:

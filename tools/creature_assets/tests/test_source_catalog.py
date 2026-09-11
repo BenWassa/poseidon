@@ -103,6 +103,22 @@ class SourceCatalogTests(unittest.TestCase):
         self.assertEqual(imported["assets"][0]["sha256"], hashlib.sha256(payload).hexdigest())
         self.assertEqual(validate_source_catalog(self.catalog, self.repo), [])
 
+    def test_import_bundle_resolves_single_wrapping_root_directory(self) -> None:
+        data = self._catalog(complete=False)
+        source = self.repo / data["assets"][0]["path"]
+        payload = source.read_bytes()
+        source.unlink()
+        self.catalog.write_text(json.dumps(data))
+        bundle = self.repo / "source.zip"
+        with zipfile.ZipFile(bundle, "w", compression=zipfile.ZIP_STORED) as archive:
+            archive.writestr(f"poseidon_library_branch/{data['assets'][0]['path']}", payload)
+            archive.writestr("poseidon_library_branch/IMPORT.md", b"handoff notes")
+        import_source_bundle(bundle, self.catalog, self.repo)
+        imported = json.loads(self.catalog.read_text())
+        self.assertEqual(imported["binaryImportStatus"], "complete")
+        self.assertEqual(imported["assets"][0]["sha256"], hashlib.sha256(payload).hexdigest())
+        self.assertEqual(validate_source_catalog(self.catalog, self.repo), [])
+
     def test_import_bundle_refuses_missing_cataloged_member(self) -> None:
         data = self._catalog(complete=False)
         (self.repo / data["assets"][0]["path"]).unlink()
