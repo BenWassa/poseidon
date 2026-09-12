@@ -81,6 +81,34 @@ export class LocalStoragePersistence implements PersistenceAdapter {
   }
 }
 
+/**
+ * Disposable in-memory persistence for tests and development tooling.
+ * Nothing is written to browser storage or a remote service.
+ */
+export class MemoryPersistence implements PersistenceAdapter {
+  private value: unknown | null;
+
+  constructor(seed: unknown | null = null) {
+    this.value = deepClone(seed);
+  }
+
+  async read(): Promise<unknown | null> {
+    return deepClone(this.value);
+  }
+
+  async write(state: PersistedPersonalStateV2): Promise<void> {
+    this.value = deepClone(state);
+  }
+
+  async remove(): Promise<void> {
+    this.value = null;
+  }
+
+  inspect(): unknown | null {
+    return deepClone(this.value);
+  }
+}
+
 export function createEmptyPersonalState(
   now: string,
 ): PersistedPersonalStateV2 {
