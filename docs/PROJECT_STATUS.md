@@ -10,7 +10,7 @@ Poseidon is now a deployed, integrated React/Vite/TypeScript PWA rather than a g
 
 Current `main` authority at this reconciliation is commit:
 
-`88928b1e08b34c83809a619f2273c276e41be225`
+`2f443804ab80c76cc14061e1a3de67152f503d54`
 
 Current application architecture remains repository authority:
 
@@ -85,6 +85,14 @@ Add an explicit development-only path for testing the real application with dete
 The hard boundary is **zero Firebase initialization in mock mode**: no auth gate, Firestore, Firebase SDK startup or Firebase network traffic. Mock personal history is in-memory only and resets on reload. The seed uses canonical production marine content/assets and normal `PoseidonStore` behavior; only the personal history is synthetic.
 
 Durable implementation contract: `docs/DEV_MOCK_DATA.md`.
+
+### #26 — versioning and release system — scoped, not implemented
+
+Adopt one Poseidon product-version stream using Semantic Versioning, immutable `vX.Y.Z` Git tags/GitHub Releases and a separate Git-SHA build identity for exact deployed-code traceability.
+
+The root `package.json` version is the intended canonical product version. Product/app SemVer must remain distinct from persistence/export schema versions, creature asset/catalog schema versions and Firebase rules language versioning. The preferred release path is a reviewable Release Please PR with Conventional Commit semantics applied prospectively at the squash/merge boundary; continuous GitHub Pages deployment from `main` remains separate from named releases.
+
+Durable implementation contract: `docs/VERSIONING_AND_RELEASES.md`.
 
 ## Completed residual streams
 
