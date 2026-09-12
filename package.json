@@ -22,6 +22,7 @@
     "dev": "npm run dev --workspace @poseidon/web",
     "preview": "npm run preview --workspace @poseidon/web",
     "screenshots": "npm run screenshots --workspace @poseidon/web",
+    "gemini:export": "node tools/gemini-screen-export.mjs",
     "assets:sync": "node apps/web/scripts/sync-assets.mjs",
     "assets:art": "node tools/creature_art/build.mjs",
     "validate:content": "python3 tools/validate_content.py",
