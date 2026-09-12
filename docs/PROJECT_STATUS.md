@@ -10,9 +10,9 @@ Poseidon is a deployed React/Vite/TypeScript PWA with Firebase-backed approved-u
 
 Current `main` authority at this reconciliation is:
 
-`e786f3ba8c8c135ef83b93f3839f91ccfbf0e863`
+`ade128ac524612186a516657d6df962780f7ef47`
 
-That head includes #30 / PR #32: **18 approved HD creature source candidates are promoted into canonical runtime artwork**.
+That head includes PR #35 and PR #36: the six former source-only creatures now have explicit content authority and **all 22 approved `keep` candidates from the original HD batch are live as canonical runtime artwork**.
 
 Application architecture remains:
 
@@ -47,17 +47,17 @@ It covers canonical content/assets, lint/format, typechecks, domain/application 
 
 ## Content and artwork baseline
 
-### On `main`
+Current `main` now contains:
 
-- Mexican-Caribbean content pack: **3 regions, 24 dive sites/areas, 50 creatures**;
+- Mexican-Caribbean content pack: **3 regions, 24 dive sites/areas, 56 creatures**;
 - original HD source batch: **30 immutable 1024×1024 WebPs**;
+- all **30/30** original source candidates mapped to explicit content authority;
 - editorial state: **22 keep / 0 provisional / 8 remake**;
-- #30 promoted the **18** `keep` candidates that were already mapped to content;
-- remaining species retain their existing correct runtime/fallback treatment until deliberate promotion.
+- all **22 `keep` candidates promoted and live** as canonical runtime HD artwork;
+- the **8 `remake` candidates** remain blocked and retain correct fallback/runtime art;
+- **26 current content species** still have no HD source candidate; #33 owns that complete-coverage queue.
 
-### Active #31 branch / draft PR #35
-
-#31 has now resolved all six former source-only candidates through explicit content authority rather than weakening asset safeguards:
+The six content records added through #31 are:
 
 - `queen-triggerfish` — `Balistes vetula`;
 - `longspine-sea-urchin` — `Diadema antillarum`;
@@ -65,16 +65,6 @@ It covers canonical content/assets, lint/format, typechecks, domain/application 
 - `spotted-drum` — `Eques punctatus`, with the source artwork explicitly retaining a juvenile presentation;
 - `caribbean-cushion-sea-star` — `Oreaster reticulatus`;
 - `queen-conch` — `Aliger gigas`.
-
-If merged, the starter pack becomes **56 creatures**. All **30/30** original HD source candidates then have deliberate content mappings:
-
-- **22 keep**;
-- **8 remake**;
-- **18 keep** already promoted by #30;
-- **4 newly mapped keep** candidates ready for normal guarded promotion;
-- **8 remakes** still blocked until new reviewed source binaries exist.
-
-The exact current content gap remains **26 species with no HD source candidate**. #33 owns that complete-coverage batch. #34 owns transparent-background derivation only after the HD source library is stable.
 
 ## Completed enhancement streams
 
@@ -90,7 +80,13 @@ Durable contract: `docs/DEV_MOCK_DATA.md`.
 
 ### #30 — promote approved HD creature art — complete
 
-PR #32 promoted the 18 already-mapped `keep` source candidates through the existing guarded pipeline. Collection, Creature Detail, Log Dive and highlights now resolve those species through canonical HD runtime WebPs.
+PR #32 promoted the 18 already-mapped `keep` source candidates through the existing guarded pipeline. Collection, Creature Detail, Log Dive and highlights resolve those species through canonical HD runtime WebPs.
+
+### #31 mapping + approved-source promotion slices — complete
+
+PR #35 resolved every former `creatureId: null` candidate through explicit sourced content authority rather than weakening promotion safeguards. PR #36 then promoted the four newly mapped `keep` sources through the existing `promote-source` pipeline. Runtime/source validation and the full repository gate were green.
+
+The remaining #31 work is now exclusively the eight blocked biological remakes.
 
 ### #11 — source-art system — complete
 
@@ -98,7 +94,7 @@ The exact original ZIP was hash-verified and imported. All 30 immutable 1024×10
 
 ### #12 — creature-art curation — complete
 
-Biological/style QA resolved the batch to **22 keep / 0 provisional / 8 remake**. Wrong or ambiguous assets remain blocked.
+Biological/style QA resolved the original batch to **22 keep / 0 provisional / 8 remake**. Wrong or ambiguous assets remain blocked.
 
 ### #15 — personal-history refinement — complete
 
@@ -110,28 +106,20 @@ The first truthful map and sourced starter-region coordinates are merged. Coordi
 
 ## Active enhancement streams
 
-### #31 — finish the original HD creature batch — active
+### #31 — finish the original HD creature batch — eight remakes remain
 
-Current branch: `feat/31-finish-hd-creature-library`
+Everything except the blocked biological replacements is now complete. Remaining targets:
 
-Draft PR: #35
+- spotted eagle ray;
+- spotted trunkfish;
+- Atlantic blue tang;
+- Spanish hogfish;
+- Caribbean cushion sea star;
+- porkfish;
+- queen conch;
+- Caribbean reef octopus.
 
-Completed in the current branch:
-
-- corrected stale 51/~20 coverage claims to the audited 50/26 pre-#31 baseline;
-- resolved all six former `creatureId: null` candidates with sourced content authority;
-- mapped all 30 original source candidates;
-- corrected spotted drum to `Eques punctatus`;
-- canonicalized queen conch to `Aliger gigas`;
-- content/source validation is green for the mapping slice.
-
-Still required before #31 closes:
-
-- promote the four newly mapped `keep` candidates through the existing binary pipeline;
-- create immutable replacement source revisions for all eight `remake` candidates;
-- biological/style QA those replacements;
-- promote only reviewed `keep` replacements;
-- full repository gate and rendered mobile review.
+Each replacement must create a new immutable source revision, pass species-specific biological/style QA, become `keep`, then move through the existing guarded runtime promotion path. Do not overwrite `candidate-v1.webp` and do not promote a merely attractive but taxonomically ambiguous image.
 
 ### #33 — complete HD starter-library coverage — queued after #31
 
@@ -155,7 +143,7 @@ Keep #14 open until owner-device evidence is recorded.
 
 ## Intended sequence
 
-1. finish #31 original-batch closeout;
+1. finish #31's eight biological remakes;
 2. complete #33 HD source coverage;
 3. execute #34 transparent-background derivative pass;
 4. perform/record #14 physical Pixel acceptance when desired;
