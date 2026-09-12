@@ -18,8 +18,10 @@
     "typecheck": "npm run typecheck --workspace @poseidon/domain && npm run typecheck --workspace @poseidon/web",
     "test": "npm run test --workspace @poseidon/domain && npm run test --workspace @poseidon/web",
     "test:assets": "python3 -m unittest discover -s tools/creature_assets/tests -v",
+    "test:mock": "npm run test:mock --workspace @poseidon/web",
     "test:pwa": "npm run test:pwa --workspace @poseidon/web",
     "dev": "npm run dev --workspace @poseidon/web",
+    "dev:mock": "npm run dev:mock --workspace @poseidon/web",
     "preview": "npm run preview --workspace @poseidon/web",
     "screenshots": "npm run screenshots --workspace @poseidon/web",
     "gemini:export": "node tools/gemini-screen-export.mjs",
@@ -28,7 +30,7 @@
     "validate:content": "python3 tools/validate_content.py",
     "validate:assets": "python3 -m tools.creature_assets validate --root assets/creatures",
     "validate:source-assets": "python3 -m tools.creature_assets validate-source --catalog assets/source/creatures/catalog.json",
-    "gate": "npm run check:assets && npm run check && npm run build && npm run test:pwa && npm run verify:field --workspace @poseidon/web"
+    "gate": "npm run check:assets && npm run check && npm run test:mock && npm run build && npm run test:pwa && npm run verify:field --workspace @poseidon/web"
   },
   "engines": {
     "node": ">=22.12"
