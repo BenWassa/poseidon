@@ -68,7 +68,9 @@ try {
     waitUntil: 'domcontentloaded',
   });
   await page.getByRole('heading', { name: 'Data & backup' }).waitFor();
-  await page.getByRole('button', { name: 'Export everything as JSON' }).waitFor();
+  await page
+    .getByRole('button', { name: 'Export everything as JSON' })
+    .waitFor();
 
   await page.waitForTimeout(250);
   assert.deepEqual(
