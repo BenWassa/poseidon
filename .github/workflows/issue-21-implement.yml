@@ -3,13 +3,15 @@ name: Issue 21 implementation
 on:
   push:
     branches: [brand-21-sunlit-reef]
+  pull_request:
+    branches: [main]
 
 permissions:
   contents: write
 
 jobs:
   implement:
-    if: github.actor != 'github-actions[bot]'
+    if: github.actor != 'github-actions[bot]' && github.head_ref == 'brand-21-sunlit-reef'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
