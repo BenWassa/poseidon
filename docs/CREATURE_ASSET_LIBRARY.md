@@ -1,70 +1,84 @@
 # Poseidon Creature Asset Library
 
-Last updated: **2026-09-09**
+Last updated: **2026-09-12**
 
 This is the human review ledger for Poseidon creature artwork. The machine-readable authority is [`assets/source/creatures/catalog.json`](../assets/source/creatures/catalog.json). Runtime assets remain under `assets/creatures/` and are produced only through the canonical #11 pipeline.
 
 ## Current state
 
-- **30** unique square source candidates in `poseidon-sunlit-square-v1`.
-- **22 keep**, **0 provisional**, **8 remake** after the #12 biological-QA pass.
-- The source-binary import remains a separate #11 concern; this branch does not bypass its promotion safeguards.
-- `keep` means editorially acceptable, not automatically promoted. `remake` is a hard block.
-- **#30 (complete):** 18 of the 22 `keep` candidates — every one that maps to an existing content record — are promoted into canonical runtime approved artwork, replacing their prior SVG-derived fallback illustrations: queen-angelfish, hawksbill-sea-turtle, nurse-shark, green-moray, great-barracuda, stoplight-parrotfish, caribbean-reef-squid, caribbean-spiny-lobster, french-angelfish, nassau-grouper, southern-stingray, trumpetfish, longsnout-seahorse, yellowtail-snapper, porcupinefish, schoolmaster-snapper, sergeant-major, green-sea-turtle.
-- **Deferred to #31:** 4 `keep` candidates have `creatureId: null` in the catalog — no matching content record exists yet, so `promote-source` correctly refuses to promote them: queen-triggerfish, longspine-sea-urchin, banded-coral-shrimp, juvenile-spotted-drum.
-- **Blocked, tracked in #31:** the 8 `remake` candidates keep their prior fallback art (legacy SVG-derived illustration, or the `CreatureMark` placeholder) until a reviewed HD replacement is promoted.
+The original `poseidon-sunlit-square-v1` batch contains **30** unique 1024 × 1024 opaque-scene WebP candidates:
 
-## #12 biological-QA closeout
+- **22 keep**;
+- **0 provisional**;
+- **8 remake**.
 
-The seven original remake targets were regenerated/reviewed first. The generation pass was judged against diagnostic morphology rather than attractiveness. No attempted replacement was allowed to overwrite the cataloged source revision without a durable reviewed source binary.
+All **30** source candidates now map deliberately to content authority. #31 resolved the former six `creatureId: null` entries by adding sourced Mexican-Caribbean content records rather than weakening the promotion gate.
 
-| Target | Decision | Biological QA |
-| --- | --- | --- |
-| Spotted eagle ray | **remake** | Attempts improved dorsal spotting/disc shape, but no reviewed replacement source binary is present; original remains blocked. |
-| Spotted trunkfish | **remake** | Attempts repeatedly inverted the adult pattern. Target is a pale/whitish boxy fish densely covered in dark spots. |
-| Blue tang | **remake** | Attempts drifted to Indo-Pacific `Paracanthurus hepatus`; Poseidon requires Atlantic `Acanthurus coeruleus`. |
-| Spanish hogfish | **remake** | Attempts missed the diagnostic adult `Bodianus rufus` yellow/lilac colour division. |
-| Caribbean cushion sea star | **remake** | Attempts did not consistently achieve the thick inflated arms/cushion-like `Oreaster reticulatus` form. |
-| Porkfish | **remake** | Attempts used too many broad bars; adult `Anisotremus virginicus` needs the characteristic two dark bars plus yellow striping. |
-| Queen conch | **remake** | Shell improved, but visible animal anatomy remained insufficient; eyestalks/proboscis matter for an identification-led asset. |
+The live content catalogue on this branch contains **56 stable creature IDs**: the prior 50 plus six defensible species represented by the original source-art batch. Of those 56:
 
-All six provisional entries are now resolved:
+- **30** have a mapped HD source candidate;
+- **22** mapped candidates are `keep`;
+- **8** mapped candidates are `remake` and remain hard-blocked;
+- **26** content creatures still have no HD source candidate; #33 owns that complete-coverage batch.
 
-| Target | Decision | Biological QA |
-| --- | --- | --- |
-| Nurse shark | **keep** | Barbels, broad flattened head and rear-set dorsal fins are reliably recognizable. |
-| Stoplight parrotfish | **keep** | Robust parrotfish body/beak and terminal-phase green/red pattern are sufficient at gallery scale. |
-| Caribbean reef squid | **keep** | Elongate mantle and full-length lateral fins read correctly as `Sepioteuthis sepioidea`. |
-| Caribbean reef octopus | **remake** | Attractive generic octopus, but not enough `Octopus briareus`-specific identity for the collection. |
-| Trumpetfish | **keep** | Extremely elongate body, tubular snout and small posterior fins are diagnostic. |
-| Longsnout seahorse | **keep** | Long snout/slender profile are usable; identity remains medium because colour is highly variable. |
+Runtime status:
 
-## Expansion review
+- **18** mapped `keep` candidates were already promoted by #30;
+- **4** newly mapped `keep` candidates are now eligible for normal guarded promotion: queen triggerfish, long-spined sea urchin, banded coral shrimp and the juvenile spotted-drum artwork mapped to the species-level `spotted-drum` record;
+- the eight `remake` entries retain fallback/runtime art until reviewed replacement source binaries exist.
 
-The existing Mexican-Caribbean content shards currently contain **51 stable creature IDs**. #12 did not silently alter taxonomy to make that match the older “50-creature” shorthand.
+## Content decisions resolved by #31
 
-The first expansion priority was the existing `splendid-toadfish` content ID (`Sanopus splendidus`), a conspicuous Cozumel gap. A generation attempt was rejected rather than cataloged: it read as a generic toadfish and failed the distinctive maze-like head striping/facial-barbel/yellow-fin-margin identity expected for the splendid toadfish. This is the intended failure mode: missing art is preferable to wrong art.
+| Source artwork | Content record | Scientific name | Decision |
+| --- | --- | --- | --- |
+| Queen triggerfish | `queen-triggerfish` | `Balistes vetula` | Added sourced content record; source is `keep`. |
+| Longspine sea urchin | `longspine-sea-urchin` | `Diadema antillarum` | Added sourced content record; source is `keep`. |
+| Banded coral shrimp | `banded-coral-shrimp` | `Stenopus hispidus` | Added sourced content record; source is `keep`. |
+| Juvenile spotted drum | `spotted-drum` | `Eques punctatus` | Added species-level content record; source metadata preserves the juvenile presentation. Source is `keep`. |
+| Caribbean cushion sea star | `caribbean-cushion-sea-star` | `Oreaster reticulatus` | Added sourced content record; artwork remains `remake`. |
+| Queen conch | `queen-conch` | `Aliger gigas` | Added sourced content record using current accepted taxonomy; artwork remains `remake`. |
 
-Next reviewed-coverage priorities remain existing content IDs only: parrotfishes, grunts, snappers, wrasses, butterflyfishes and surgeonfishes. New taxonomy requires separate content authority.
+Queen conch historical names `Strombus gigas` and `Lobatus gigas` remain provenance/taxonomic synonyms; the canonical content scientific name is `Aliger gigas`.
+
+## The eight blocked remakes
+
+| Target | Biological QA requirement |
+| --- | --- |
+| Spotted eagle ray | Preserve correct disc/head silhouette and convincing dorsal white spotting. |
+| Spotted trunkfish | Adult must read pale/whitish with dense dark spots; reject inverted dark-body/white-spot treatments. |
+| Blue tang | Must be Atlantic `Acanthurus coeruleus`; reject Indo-Pacific `Paracanthurus hepatus` morphology/pattern. |
+| Spanish hogfish | Preserve diagnostic adult `Bodianus rufus` yellow/lilac colour division. |
+| Caribbean cushion sea star | Thick, inflated arms and cushion-like `Oreaster reticulatus` form. |
+| Porkfish | Characteristic two dark bars plus yellow striping; reject generic broad-bar grunt treatments. |
+| Queen conch | Show visible animal anatomy including eyestalks/proboscis, not only a shell. |
+| Caribbean reef octopus | Must carry useful `Octopus briareus` identity rather than read as a generic octopus. |
+
+Replacement work creates new immutable candidate revisions. It never overwrites `candidate-v1.webp`.
+
+## Existing content still lacking any HD source candidate
+
+The exact **26-species** #33 queue is:
+
+`balloonfish`, `banded-butterflyfish`, `bar-jack`, `bicolor-damselfish`, `black-grouper`, `blue-chromis`, `bluehead-wrasse`, `bluestriped-grunt`, `doctorfish`, `foureye-butterflyfish`, `french-grunt`, `hogfish`, `honeycomb-cowfish`, `lionfish`, `loggerhead-sea-turtle`, `mutton-snapper`, `ocean-surgeonfish`, `princess-parrotfish`, `queen-parrotfish`, `redband-parrotfish`, `rock-beauty`, `sharpnose-puffer`, `splendid-toadfish`, `spotted-moray`, `yellowhead-wrasse`, `yellowtail-damselfish`.
+
+The six #31 content additions already have source candidates, so expanding the content catalogue from 50 to 56 does **not** enlarge this no-art queue.
 
 ## Review references
 
-Species decisions were checked against trustworthy identification/reference material, including Smithsonian Tropical Research Institute Caribbean fish records, Florida Museum species accounts, NOAA Fisheries queen-conch anatomy/material, Smithsonian/Caribbean material for `Oreaster reticulatus`, and the existing Poseidon content pack provenance. These references are QA evidence; they do not create product rarity or encounter-rate claims.
+Species/content decisions use explicit provenance in `content/mexican-caribbean/manifest.json`. Relevant authority includes:
 
-Key diagnostic checks used in this pass:
+- Smithsonian Tropical Research Institute Shorefishes of the Greater Caribbean for queen triggerfish and spotted drum identity;
+- REEF Cozumel records for local occurrence of queen triggerfish and spotted drum;
+- CONANP Cozumel management material for `Stenopus hispidus`, `Diadema antillarum` and queen conch under the historical name `Strombus gigas`;
+- NOAA Fisheries for current queen-conch taxonomy, Caribbean range and visible anatomy;
+- Mexican/UNAM echinoderm literature for `Oreaster reticulatus` in the Mexican Caribbean.
 
-- `Lactophrys bicaudalis`: adult pale/whitish body with dense dark spots.
-- `Acanthurus coeruleus`: Atlantic blue tang, not Indo-Pacific palette/morphology.
-- `Bodianus rufus`: adult Spanish hogfish colour division.
-- `Anisotremus virginicus`: two dark bars plus yellow striping.
-- `Ginglymostoma cirratum`: mouth barbels and rear-set dorsal fins.
-- `Aulostomus maculatus`: extremely elongate body and tubular snout.
-- `Sanopus splendidus`: distinctive Cozumel toadfish identity; generic toadfish art is rejected.
+Reference material supports identity and regional plausibility only. Poseidon does not convert abundance, density or conservation material into user-facing rarity or encounter probability.
 
 ## Architecture and promotion rules
 
 ```text
-assets/source/creatures/<id>/candidate-vN.webp  # editorial source
+assets/source/creatures/<id>/candidate-vN.webp  # immutable editorial source revision
 assets/creatures/<stable-id>/                   # canonical runtime only
   manifest.json
   thumb.webp
@@ -72,14 +86,19 @@ assets/creatures/<stable-id>/                   # canonical runtime only
   hero.webp
 ```
 
-1. Source art is versioned; replacement creates a new candidate revision.
-2. Only `keep` can be considered for deliberate promotion.
-3. `remake`, source-only IDs and missing source binaries are blocked.
+1. Source art is versioned; every replacement or derived transparent master creates a new candidate revision.
+2. Only `keep` may be deliberately promoted.
+3. `remake`, unmapped IDs and missing source binaries are blocked.
 4. Promotion must use #11's explicit ingestion mode and atomic replacement safeguards.
 5. Application code consumes only canonical runtime manifests/variants.
 6. Correct fallback art is preferable to biologically wrong finished art.
 7. Scores/status are internal production metadata, never user-facing rarity or progression.
+8. Original opaque HD masters remain immutable even after #34 derives transparent specimen revisions.
 
-## Relationship to #11
+## Work sequence
 
-#12 is editorially complete when all original remake targets have either a stronger durable replacement or remain explicitly blocked, and all provisionals are resolved. It does **not** make PR #13 mergeable by pretending the original 30-image source bundle exists. #11 remains responsible for binary import, hashes, strict source validation and canonical promotion mechanics.
+1. **#31:** promote the four newly mapped `keep` candidates; replace and review the eight blocked originals; promote approved replacements.
+2. **#33:** generate, review, ingest and promote the 26 current content creatures with no HD source candidate.
+3. **#34:** only after HD source coverage is stable, batch-remove backgrounds into transparent raster specimen revisions; preserve opaque originals and manually QA difficult alpha edges.
+
+No auto-vector tracing is planned for the creature artwork. The HD illustrations contain texture, shading and fine anatomy better preserved as raster assets.
