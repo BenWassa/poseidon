@@ -2,7 +2,6 @@ import { StrictMode, type ReactNode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { HashRouter } from 'react-router-dom';
 
-import { isMockMode } from './dev/mode';
 import { registerPoseidonServiceWorker } from './pwa-registration';
 import './index.css';
 
@@ -14,7 +13,9 @@ async function bootstrap(): Promise<void> {
 
   let application: ReactNode;
 
-  if (isMockMode(import.meta.env.DEV, import.meta.env.MODE)) {
+  // Keep this guard inline: Vite replaces DEV/MODE at build time, which makes
+  // the entire mock branch unreachable and removable from production output.
+  if (import.meta.env.DEV && import.meta.env.MODE === 'mock') {
     const [{ App }, { PoseidonProvider }, mock] = await Promise.all([
       import('./App'),
       import('./data/provider'),
