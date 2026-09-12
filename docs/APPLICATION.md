@@ -39,7 +39,7 @@ npm run dev       # the application
 | Choice | Reason |
 | --- | --- |
 | React + Vite + TypeScript | The prototype already expressed itself in this vocabulary; the toolchain is boring, fast and well supported. |
-| Tailwind CSS v4 | Design tokens live in one CSS file as named product roles (`canvas`, `ocean`, `marine`, `lagoon`, `coral`), not as hex values scattered through components. |
+| Tailwind CSS v4 | Sunlit Reef design tokens live in one CSS authority as named product roles (`canvas`, `shell`, `abyss`, `marine`, `lagoon`, `coral`, `sun`) plus narrowly scoped supporting/semantic tokens. See `docs/BRAND.md`. |
 | react-router | Real URLs for every surface, so back behaviour and deep links work rather than being simulated with view state. |
 | `FirestorePersistence` (`apps/web/src/firebase`), behind the same injected `PersistenceAdapter` boundary as `LocalStoragePersistence` | Sign-in is now required, and dive history syncs through the diver's Firebase account. `LocalStoragePersistence` remains as an offline write-through shadow and one-time migration source; the adapter being injected (not a rewrite) is what made this a swap in one file, `apps/web/src/data/client.ts`. |
 | Firebase Authentication (Google) + Firestore `approvedUsers` allowlist | The whole app is gated behind sign-in; only admin-approved emails get past the gate (approval is a manual Firestore console action, no in-app admin UI). See `firestore.rules` at the repo root. |
@@ -113,11 +113,11 @@ The prototype was treated as strong design evidence, not as product authority.
 
 ## Preserved
 
-Bright light-mode aquatic canvas; deep ocean teal typography; coral as the
-interaction accent; mint supporting accents; generous rounded geometry;
-translucent sticky chrome; the central coral Log Dive action; rich visual
-creature tiles; the coral-ring-plus-check selection feedback; a large
-memory-oriented dive detail; energetic but uncluttered mobile hierarchy.
+Bright light-mode aquatic composition; the locked Sunlit Reef role hierarchy from
+`docs/BRAND.md`; generous rounded geometry; translucent sticky chrome; the
+central Coral Log Dive action; rich visual creature tiles; ring-plus-check
+selection feedback; a large memory-oriented dive detail; energetic but
+uncluttered mobile hierarchy.
 
 ## Changed, and why
 
@@ -159,7 +159,7 @@ better than a fake pin map.
 - Bottom navigation and the logging flow's action bar respect
   `env(safe-area-inset-bottom)`; headers respect the top inset.
 - Phone portrait is the primary target. On a wider screen the app stays a
-  centred column against the tide-blue frame rather than stretching into a
+  centred column against the pale aquatic frame rather than stretching into a
   desktop dashboard.
 - Images carry intrinsic `width`/`height` and sit in aspect-ratio boxes, so
   lazy loading never moves the page under a thumb.

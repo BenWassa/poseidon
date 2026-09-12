@@ -84,10 +84,10 @@ export function Collection() {
       {entries.length > 0 ? (
         <>
           <header className="px-6 pt-2 pb-6">
-            <h2 className="text-[2.2rem] leading-tight font-black tracking-tight text-ocean">
+            <h2 className="text-[2.2rem] leading-tight font-black tracking-tight text-abyss">
               {pluralize(entries.length, 'creature')}
             </h2>
-            <p className="mt-1 text-sm font-semibold text-lagoon">
+            <p className="mt-1 text-sm font-semibold text-abyss/70">
               Encountered across {pluralize(placesCount, 'place')} and{' '}
               {pluralize(divesCount, 'dive')}
             </p>
@@ -97,7 +97,7 @@ export function Collection() {
             <div className="relative flex items-center">
               <Search
                 size={18}
-                className="pointer-events-none absolute left-4 text-ocean/30"
+                className="pointer-events-none absolute left-4 text-abyss/30"
                 aria-hidden="true"
               />
               <input
@@ -106,14 +106,14 @@ export function Collection() {
                 onChange={(event) => setQuery(event.target.value)}
                 placeholder="Search your collection"
                 aria-label="Search your collection"
-                className="w-full rounded-2xl bg-ocean/[0.04] py-3.5 pr-11 pl-11 text-base font-bold text-ocean transition-colors outline-none placeholder:font-medium placeholder:text-ocean/35 focus-visible:bg-ocean/[0.06] focus-visible:ring-2 focus-visible:ring-marine"
+                className="w-full rounded-2xl bg-abyss/[0.04] py-3.5 pr-11 pl-11 text-base font-bold text-abyss transition-colors outline-none placeholder:font-medium placeholder:text-abyss/35 focus-visible:bg-abyss/[0.06] focus-visible:ring-2 focus-visible:ring-marine"
               />
               {query ? (
                 <button
                   type="button"
                   onClick={() => setQuery('')}
                   aria-label="Clear search"
-                  className="absolute right-2 flex h-10 w-10 items-center justify-center rounded-full text-ocean/40 transition-colors active:bg-ocean/5"
+                  className="absolute right-2 flex h-10 w-10 items-center justify-center rounded-full text-abyss/40 transition-colors active:bg-abyss/5"
                 >
                   <X size={18} aria-hidden="true" />
                 </button>
@@ -130,7 +130,7 @@ export function Collection() {
               }`}
               aria-pressed={category === ALL}
             >
-              <span className="text-[12px] font-black tracking-[0.12em] text-ocean uppercase">
+              <span className="text-[12px] font-black tracking-[0.12em] text-abyss uppercase">
                 All{' '}
                 <span className="ml-0.5 font-semibold opacity-60">
                   {entries.length}
@@ -152,7 +152,7 @@ export function Collection() {
                 }`}
                 aria-pressed={category === key}
               >
-                <span className="text-[12px] font-black tracking-[0.12em] text-ocean uppercase">
+                <span className="text-[12px] font-black tracking-[0.12em] text-abyss uppercase">
                   {formatCategory(key === 'unlisted' ? undefined : key)}{' '}
                   <span className="ml-0.5 font-semibold opacity-60">
                     {count}
@@ -167,7 +167,7 @@ export function Collection() {
 
           {visible.length === 0 ? (
             <div className="px-6 py-12 text-center">
-              <p className="text-sm font-medium text-ocean/55">
+              <p className="text-sm font-medium text-abyss/55">
                 Nothing in your collection matches that yet.
               </p>
             </div>

@@ -24,13 +24,13 @@ export function WhereStep({ flow }: { flow: LogDiveController }) {
         />
       </Field>
       {sameDay ? (
-        <Card className="flex items-center gap-3 bg-foam p-4">
+        <Card className="flex items-center gap-3 bg-canvas p-4">
           <Sparkles
             size={20}
-            className="shrink-0 text-lagoon"
+            className="shrink-0 text-abyss"
             aria-hidden="true"
           />
-          <p className="flex-1 text-sm font-medium text-ocean/75">
+          <p className="flex-1 text-sm font-medium text-abyss/75">
             You already logged {sameDay.siteName} on {formatDate(sameDay.date)}.
           </p>
           <Chip
@@ -107,13 +107,13 @@ export function WhereStep({ flow }: { flow: LogDiveController }) {
                     countryCode: site.countryCode,
                   })
                 }
-                className="flex w-full items-center justify-between gap-3 rounded-field border border-shallows bg-surface px-4 py-3 text-left"
+                className="flex w-full items-center justify-between gap-3 rounded-field border border-border bg-surface px-4 py-3 text-left"
               >
                 <span className="min-w-0">
-                  <span className="block truncate text-sm font-bold text-ocean">
+                  <span className="block truncate text-sm font-bold text-abyss">
                     {site.siteName}
                   </span>
-                  <span className="block text-xs font-medium text-ocean/50">
+                  <span className="block text-xs font-medium text-abyss/50">
                     {site.areaName}
                     {site.fromHistory
                       ? ` · ${pluralize(site.diveCount, 'dive')} logged`
@@ -122,7 +122,7 @@ export function WhereStep({ flow }: { flow: LogDiveController }) {
                 </span>
                 <ArrowRight
                   size={16}
-                  className="shrink-0 text-ocean/30"
+                  className="shrink-0 text-abyss/30"
                   aria-hidden="true"
                 />
               </button>
@@ -233,13 +233,13 @@ function CreatureGrid({
 export function CreaturesStep({ flow }: { flow: LogDiveController }) {
   return (
     <div className="mt-4">
-      <p className="text-sm font-medium text-ocean/60">
+      <p className="text-sm font-medium text-abyss/60">
         Tap everything you remember meeting.
       </p>
       <div className="relative mt-5">
         <Search
           size={18}
-          className="pointer-events-none absolute top-1/2 left-4 -translate-y-1/2 text-ocean/40"
+          className="pointer-events-none absolute top-1/2 left-4 -translate-y-1/2 text-abyss/40"
           aria-hidden="true"
         />
         <TextInput
@@ -256,8 +256,8 @@ export function CreaturesStep({ flow }: { flow: LogDiveController }) {
           {flow.results.length ? (
             <CreatureGrid creatures={flow.results} flow={flow} />
           ) : null}
-          <Card className="mt-4 flex items-center gap-3 bg-foam p-4">
-            <p className="flex-1 text-sm font-medium text-ocean/70">
+          <Card className="mt-4 flex items-center gap-3 bg-canvas p-4">
+            <p className="flex-1 text-sm font-medium text-abyss/70">
               Not in the gallery? Add it anyway — Poseidon never blocks a
               sighting.
             </p>
@@ -265,7 +265,7 @@ export function CreaturesStep({ flow }: { flow: LogDiveController }) {
               type="button"
               onClick={() => void flow.addUnlisted()}
               disabled={flow.pending}
-              className="flex min-h-[2.75rem] shrink-0 items-center gap-1.5 rounded-full bg-coral px-4 text-sm font-black text-white"
+              className="flex min-h-[2.75rem] shrink-0 items-center gap-1.5 rounded-full bg-coral px-4 text-sm font-black text-abyss"
             >
               <Plus size={16} aria-hidden="true" />
               Add “{flow.query.trim()}”
@@ -289,7 +289,7 @@ export function CreaturesStep({ flow }: { flow: LogDiveController }) {
             >
               <h2
                 id={`group-${title}`}
-                className="mb-3 text-[11px] font-bold tracking-[0.14em] text-lagoon uppercase"
+                className="mb-3 text-[11px] font-bold tracking-[0.14em] text-abyss uppercase"
               >
                 {title}
               </h2>
@@ -307,7 +307,7 @@ export function MemoryStep({ flow }: { flow: LogDiveController }) {
       <section aria-labelledby="review-creatures">
         <h2
           id="review-creatures"
-          className="mb-3 text-[11px] font-bold tracking-[0.14em] text-lagoon uppercase"
+          className="mb-3 text-[11px] font-bold tracking-[0.14em] text-abyss uppercase"
         >
           {flow.selectedCreatures.length
             ? `${pluralize(flow.selectedCreatures.length, 'creature')} · tap a star to choose the highlight`
@@ -315,7 +315,7 @@ export function MemoryStep({ flow }: { flow: LogDiveController }) {
         </h2>
         {!flow.selectedCreatures.length ? (
           <Card className="p-5">
-            <p className="text-sm font-medium text-ocean/60">
+            <p className="text-sm font-medium text-abyss/60">
               That is fine — the dive still belongs in your record.
             </p>
           </Card>
@@ -330,7 +330,7 @@ export function MemoryStep({ flow }: { flow: LogDiveController }) {
                       variant="thumb"
                       className="w-14 rounded-2xl"
                     />
-                    <p className="min-w-0 flex-1 truncate text-sm font-bold text-ocean">
+                    <p className="min-w-0 flex-1 truncate text-sm font-bold text-abyss">
                       {creature.commonName}
                     </p>
                     <button
@@ -342,7 +342,7 @@ export function MemoryStep({ flow }: { flow: LogDiveController }) {
                         flow.draft.highlightCreatureId === creature.id
                       }
                       aria-label={`Make ${creature.commonName} the highlight of this dive`}
-                      className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full ${flow.draft.highlightCreatureId === creature.id ? 'bg-sand text-white' : 'bg-shallows text-ocean/40'}`}
+                      className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full ${flow.draft.highlightCreatureId === creature.id ? 'bg-sun text-abyss' : 'bg-aqua-soft text-abyss/40'}`}
                     >
                       <Star
                         size={19}
@@ -358,7 +358,7 @@ export function MemoryStep({ flow }: { flow: LogDiveController }) {
                       type="button"
                       onClick={() => flow.toggle(creature.id)}
                       aria-label={`Remove ${creature.commonName} from this dive`}
-                      className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-coral-soft text-coral"
+                      className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-coral-soft text-abyss"
                     >
                       <X size={18} aria-hidden="true" />
                     </button>
@@ -395,8 +395,8 @@ export function MemoryStep({ flow }: { flow: LogDiveController }) {
         />
       </Field>
       {flow.error ? (
-        <Card className="border-coral/40 bg-coral-soft p-4">
-          <p className="text-sm font-bold text-ocean">{flow.error.message}</p>
+        <Card className="border-danger/25 bg-danger-soft p-4">
+          <p className="text-sm font-bold text-abyss">{flow.error.message}</p>
         </Card>
       ) : null}
     </div>

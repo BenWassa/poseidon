@@ -91,11 +91,11 @@ export function Journal() {
               <div className={`px-6 pb-3 ${position === 0 ? 'pt-4' : 'pt-12'}`}>
                 <h2
                   id={id}
-                  className="text-[1.65rem] leading-tight font-black tracking-tight text-ocean"
+                  className="text-[1.65rem] leading-tight font-black tracking-tight text-abyss"
                 >
                   {trip.areaName}
                 </h2>
-                <p className="mt-1 flex items-center gap-2 text-sm font-semibold text-lagoon">
+                <p className="mt-1 flex items-center gap-2 text-sm font-semibold text-abyss/70">
                   {tripPeriodLabel(trip)}
                   <span
                     className="h-1 w-1 rounded-full bg-lagoon/40"
@@ -123,11 +123,11 @@ export function Journal() {
                   return (
                     <li
                       key={dive.id}
-                      className="border-b border-ocean/5 last:border-0"
+                      className="border-b border-abyss/5 last:border-0"
                     >
                       <Link
                         to={`/journal/${dive.id}`}
-                        className="block px-6 py-6 transition-colors active:bg-ocean/5"
+                        className="block px-6 py-6 transition-colors active:bg-abyss/5"
                       >
                         <div className="flex gap-4">
                           {hero ? (
@@ -137,21 +137,21 @@ export function Journal() {
                               className="h-28 w-24 shrink-0 rounded-2xl object-cover"
                             />
                           ) : (
-                            <div className="flex h-28 w-24 shrink-0 items-center justify-center rounded-2xl bg-shallows text-marine">
+                            <div className="flex h-28 w-24 shrink-0 items-center justify-center rounded-2xl bg-aqua-soft text-marine">
                               <Waves size={26} aria-hidden="true" />
                             </div>
                           )}
                           <div className="flex min-w-0 flex-1 flex-col py-0.5">
-                            <p className="text-[11px] font-bold tracking-[0.14em] text-ocean/50 uppercase">
+                            <p className="text-[11px] font-bold tracking-[0.14em] text-abyss/50 uppercase">
                               {formatDate(dive.date)}
                             </p>
-                            <h3 className="mt-1 truncate text-xl leading-tight font-black text-ocean">
+                            <h3 className="mt-1 truncate text-xl leading-tight font-black text-abyss">
                               {dive.siteName}
                             </h3>
-                            <p className="truncate text-sm font-medium text-ocean/60">
+                            <p className="truncate text-sm font-medium text-abyss/60">
                               {dive.areaName}
                             </p>
-                            <div className="mt-auto flex items-center gap-3 pt-3 text-[13px] font-bold text-ocean/50">
+                            <div className="mt-auto flex items-center gap-3 pt-3 text-[13px] font-bold text-abyss/50">
                               <span className="flex items-center gap-1.5">
                                 <Gauge size={14} aria-hidden="true" />
                                 {formatDepth(dive.maxDepth)}
@@ -175,7 +175,7 @@ export function Journal() {
                                   {milestones.map((milestone) => (
                                     <span
                                       key={milestone.id}
-                                      className="inline-flex items-center rounded border border-sand/40 bg-sand/10 px-2 py-1 text-[10px] font-bold tracking-[0.1em] text-ocean/80 uppercase"
+                                      className="inline-flex items-center rounded border border-sun/40 bg-sun/10 px-2 py-1 text-[10px] font-bold tracking-[0.1em] text-abyss/80 uppercase"
                                     >
                                       {milestoneLabel(milestone)}
                                     </span>
@@ -185,7 +185,7 @@ export function Journal() {
 
                               {dive.sightings.length > 0 ? (
                                 <div className="flex items-center gap-2.5">
-                                  <span className="text-xs font-semibold text-ocean/55">
+                                  <span className="text-xs font-semibold text-abyss/55">
                                     Met
                                   </span>
                                   <div className="flex -space-x-1.5">
@@ -198,7 +198,7 @@ export function Journal() {
                                       />
                                     ))}
                                   </div>
-                                  <span className="text-xs font-semibold text-ocean/55">
+                                  <span className="text-xs font-semibold text-abyss/55">
                                     {pluralize(
                                       dive.sightings.length,
                                       'creature',
@@ -206,14 +206,14 @@ export function Journal() {
                                   </span>
                                 </div>
                               ) : (
-                                <span className="text-xs font-semibold text-ocean/40">
+                                <span className="text-xs font-semibold text-abyss/40">
                                   No creatures logged
                                 </span>
                               )}
                             </div>
                             <ArrowRight
                               size={18}
-                              className="mb-0.5 shrink-0 text-ocean/20"
+                              className="mb-0.5 shrink-0 text-abyss/20"
                               aria-hidden="true"
                             />
                           </div>

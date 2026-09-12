@@ -6,8 +6,9 @@ Read these before changing product behavior:
 2. `docs/PRD.md`
 3. `docs/PROJECT_STATUS.md`
 4. `docs/APPLICATION.md`
-5. `docs/CONTENT_AND_ASSETS.md`
-6. `docs/UI_DATA_CONTRACT.md`
+5. `docs/BRAND.md`
+6. `docs/CONTENT_AND_ASSETS.md`
+7. `docs/UI_DATA_CONTRACT.md`
 
 ## Current repository authority
 
@@ -109,14 +110,7 @@ Keep photos, dive-computer sync, PADI integration, social mechanics, technical t
 
 ## Visual implementation
 
-The established character is light, aquatic, saturated and alive:
-
-- rich ocean blues;
-- aquatic greens;
-- coral/tropical accents;
-- polished tactile interactions;
-- creature art as a primary source of colour and personality;
-- phone-first hierarchy rather than a desktop analytics dashboard.
+The canonical colour authority is `docs/BRAND.md` (Sunlit Reef). Keep the interface light and aquatic, use the locked role hierarchy rather than ad-hoc hues, keep Coral separate from semantic danger, reserve Tuscan Sun for highlight, and let creature art remain the primary source of colour and personality. Preserve polished tactile interactions and phone-first hierarchy rather than a desktop analytics dashboard.
 
 Inspect rendered mobile composition for visual changes. Delight does not mean loading full-resolution images into a dense gallery or bypassing the asset pipeline — follow the asset-performance contract in `docs/CONTENT_AND_ASSETS.md`.
 

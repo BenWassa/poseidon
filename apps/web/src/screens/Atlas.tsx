@@ -49,10 +49,10 @@ export function Atlas() {
       {entries.length > 0 ? (
         <>
           <header className="px-6 pt-2 pb-6">
-            <h2 className="text-[2.2rem] leading-tight font-black tracking-tight text-ocean">
+            <h2 className="text-[2.2rem] leading-tight font-black tracking-tight text-abyss">
               {pluralize(entries.length, 'place')}
             </h2>
-            <p className="mt-1 text-sm font-semibold text-lagoon">
+            <p className="mt-1 text-sm font-semibold text-abyss/70">
               {pluralize(stats?.distinctSites ?? 0, 'site')} across{' '}
               {pluralize(stats?.distinctCountries ?? 0, 'country', 'countries')}{' '}
               in {pluralize(stats?.totalDives ?? 0, 'dive')}
@@ -70,29 +70,29 @@ export function Atlas() {
                 </div>
               </div>
               <div className="mt-5 px-8">
-                <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-[10px] font-black tracking-[0.14em] text-ocean/55 uppercase">
+                <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-[10px] font-black tracking-[0.14em] text-abyss/55 uppercase">
                   <span className="inline-flex items-center gap-2">
                     <span
-                      className="h-2 w-2 rounded-full bg-ocean"
+                      className="h-2 w-2 rounded-full bg-abyss"
                       aria-hidden="true"
                     />
                     In your history
                   </span>
                   <span className="inline-flex items-center gap-2">
                     <span
-                      className="h-2 w-2 rounded-full border-[1.5px] border-ocean bg-white"
+                      className="h-2 w-2 rounded-full border-[1.5px] border-abyss bg-white"
                       aria-hidden="true"
                     />
                     Sourced site
                   </span>
                 </div>
-                <p className="mt-3 text-xs leading-relaxed font-medium text-ocean/50">
+                <p className="mt-3 text-xs leading-relaxed font-medium text-abyss/50">
                   {pluralize(mapModel.sites.length, 'site')} with published
                   positions. Approximate reef and site anchors are labelled as
                   such; no drop point or mooring is implied.
                 </p>
                 {mapModel.unmappedHistoryDiveCount > 0 ? (
-                  <p className="mt-1.5 text-xs leading-relaxed font-medium text-ocean/40">
+                  <p className="mt-1.5 text-xs leading-relaxed font-medium text-abyss/40">
                     {pluralize(
                       mapModel.unmappedHistoryDiveCount,
                       'logged dive',
@@ -106,7 +106,7 @@ export function Atlas() {
 
           <section aria-labelledby="atlas-places">
             <div className="px-6 pb-2">
-              <h2 id="atlas-places" className="text-lg font-black text-ocean">
+              <h2 id="atlas-places" className="text-lg font-black text-abyss">
                 Index
               </h2>
             </div>
@@ -116,24 +116,24 @@ export function Atlas() {
                 return (
                   <li
                     key={place.key}
-                    className="border-t border-ocean/5 first:border-0"
+                    className="border-t border-abyss/5 first:border-0"
                   >
                     <Link
                       to={`/atlas/${encodeURIComponent(place.key)}`}
-                      className="flex items-center gap-4 px-6 py-5 transition-colors active:bg-ocean/5"
+                      className="flex items-center gap-4 px-6 py-5 transition-colors active:bg-abyss/5"
                     >
                       <div className="min-w-0 flex-1">
                         <div className="flex items-center gap-3">
-                          <span className="block truncate text-xl font-black text-ocean">
+                          <span className="block truncate text-xl font-black text-abyss">
                             {place.label}
                           </span>
                           {place.countryCode ? (
-                            <span className="shrink-0 rounded bg-ocean/5 px-2 py-0.5 text-[10px] font-black tracking-widest text-ocean/60 uppercase">
+                            <span className="shrink-0 rounded bg-abyss/5 px-2 py-0.5 text-[10px] font-black tracking-widest text-abyss/60 uppercase">
                               {place.countryCode}
                             </span>
                           ) : null}
                         </div>
-                        <div className="mt-1 flex flex-wrap gap-x-2.5 text-[13px] font-bold text-ocean/50">
+                        <div className="mt-1 flex flex-wrap gap-x-2.5 text-[13px] font-bold text-abyss/50">
                           <span>{pluralize(place.diveCount, 'dive')}</span>
                           <span>·</span>
                           <span>{pluralize(place.siteCount, 'site')}</span>
@@ -143,14 +143,14 @@ export function Atlas() {
                           </span>
                         </div>
                         {last ? (
-                          <span className="mt-2.5 block text-[10px] font-black tracking-[0.14em] text-lagoon uppercase">
+                          <span className="mt-2.5 block text-[10px] font-black tracking-[0.14em] text-abyss/70 uppercase">
                             Last visited {formatDate(last)}
                           </span>
                         ) : null}
                       </div>
                       <ArrowRight
                         size={18}
-                        className="shrink-0 text-ocean/20"
+                        className="shrink-0 text-abyss/20"
                         aria-hidden="true"
                       />
                     </Link>
@@ -160,7 +160,7 @@ export function Atlas() {
             </ul>
           </section>
 
-          <p className="px-8 pb-8 text-center text-xs leading-relaxed font-medium text-ocean/45">
+          <p className="px-8 pb-8 text-center text-xs leading-relaxed font-medium text-abyss/45">
             Poseidon does not plot dive sites it cannot source. Sites without
             trustworthy coordinates remain fully usable in logging and history.
           </p>

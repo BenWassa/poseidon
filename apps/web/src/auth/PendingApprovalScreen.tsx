@@ -32,23 +32,23 @@ export function PendingApprovalScreen() {
   };
 
   return (
-    <div className="flex h-[100dvh] w-full flex-col justify-between bg-tide px-6 pt-16 text-center">
+    <div className="flex h-[100dvh] w-full flex-col justify-between bg-frame px-6 pt-16 text-center">
       <div className="mx-auto flex max-w-sm flex-col items-center">
-        <span className="mb-5 flex h-20 w-20 items-center justify-center rounded-full bg-shallows text-marine">
+        <span className="mb-5 flex h-20 w-20 items-center justify-center rounded-full bg-aqua-soft text-marine">
           <ShieldCheck size={36} aria-hidden="true" />
         </span>
         <Eyebrow>Poseidon</Eyebrow>
-        <h1 className="mt-2 text-3xl font-black text-ocean">
+        <h1 className="mt-2 text-3xl font-black text-abyss">
           Waiting for approval
         </h1>
-        <p className="mt-3 text-sm leading-relaxed font-medium text-ocean/60">
+        <p className="mt-3 text-sm leading-relaxed font-medium text-abyss/60">
           Signed in as{' '}
-          <span className="font-bold text-ocean">{user?.email}</span>. This
+          <span className="font-bold text-abyss">{user?.email}</span>. This
           account isn't approved yet.
         </p>
 
         {hasRequestedAccess ? (
-          <div className="mt-6 flex items-center justify-center gap-2 rounded-2xl bg-shallows/50 px-5 py-3.5 text-sm font-bold text-marine">
+          <div className="mt-6 flex items-center justify-center gap-2 rounded-2xl bg-aqua-soft/50 px-5 py-3.5 text-sm font-bold text-marine">
             <Check size={16} aria-hidden="true" />
             Request sent for review
           </div>

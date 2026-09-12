@@ -14,9 +14,9 @@ import { SignInScreen } from './SignInScreen';
 
 function LoadingScreen() {
   return (
-    <div className="flex h-[100dvh] w-full items-center justify-center bg-tide">
+    <div className="flex h-[100dvh] w-full items-center justify-center bg-frame">
       <div
-        className="h-10 w-10 animate-spin rounded-full border-4 border-shallows border-t-marine"
+        className="h-10 w-10 animate-spin rounded-full border-4 border-border border-t-marine"
         role="status"
         aria-label="Loading"
       />

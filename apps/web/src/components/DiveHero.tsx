@@ -81,7 +81,7 @@ export function DiveHero({
 
   return (
     <div
-      className={`relative overflow-hidden rounded-card bg-gradient-to-br from-marine via-ocean to-abyss text-white shadow-lift ${
+      className={`relative overflow-hidden rounded-card bg-gradient-to-br from-marine to-abyss text-white shadow-lift ${
         size === 'lg' ? 'min-h-56 p-6' : 'min-h-40 p-5'
       }`}
     >
@@ -109,7 +109,7 @@ export function DiveHero({
         className={`relative ${art ? (size === 'lg' ? 'pr-32' : 'pr-24') : ''}`}
       >
         {eyebrow ? (
-          <span className="mb-3 inline-block rounded-full bg-coral px-3 py-1.5 text-[10px] font-black tracking-[0.16em] text-white uppercase">
+          <span className="mb-3 inline-block rounded-full bg-coral px-3 py-1.5 text-[10px] font-black tracking-[0.16em] text-abyss uppercase">
             {eyebrow}
           </span>
         ) : null}

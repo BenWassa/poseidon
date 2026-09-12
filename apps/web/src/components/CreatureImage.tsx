@@ -63,7 +63,7 @@ export function CreatureImage({
 
   return (
     <div
-      className={`relative overflow-hidden ${plate ? 'bg-shallows' : ''} ${className}`}
+      className={`relative overflow-hidden ${plate ? 'bg-aqua-soft' : ''} ${className}`}
       style={{ aspectRatio: `${aspectRatio}` }}
     >
       {/* Painted underneath, so a tile is never empty and never shifts. */}

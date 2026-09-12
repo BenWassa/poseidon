@@ -20,7 +20,7 @@ function StepDots({ step }: { step: number }) {
       {LOG_DIVE_STEPS.map((label, position) => (
         <span
           key={label}
-          className={`h-2 rounded-full transition-all ${position === step ? 'w-6 bg-marine' : position < step ? 'w-2 bg-marine/45' : 'w-2 bg-shallows'}`}
+          className={`h-2 rounded-full transition-all ${position === step ? 'w-6 bg-marine' : position < step ? 'w-2 bg-marine/45' : 'w-2 bg-aqua-soft'}`}
         />
       ))}
     </div>
@@ -37,7 +37,7 @@ export function LogDive({ mode }: { mode: LogDiveMode }) {
   ];
   return (
     <div className="flex h-full flex-col bg-canvas">
-      <header className="safe-top sticky top-0 z-20 flex items-center justify-between gap-3 border-b border-shallows bg-surface/85 px-5 pb-3 backdrop-blur-xl">
+      <header className="safe-top sticky top-0 z-20 flex items-center justify-between gap-3 border-b border-border bg-surface/85 px-5 pb-3 backdrop-blur-xl">
         <IconButton
           label="Close without saving"
           tone="coral"
@@ -47,18 +47,18 @@ export function LogDive({ mode }: { mode: LogDiveMode }) {
         </IconButton>
         <div className="flex flex-col items-center gap-1.5">
           <StepDots step={flow.step} />
-          <p className="text-[10px] font-bold tracking-[0.14em] text-ocean/45 uppercase">
+          <p className="text-[10px] font-bold tracking-[0.14em] text-abyss/45 uppercase">
             Step {flow.step + 1} of {LOG_DIVE_STEPS.length}
           </p>
         </div>
         <div className="w-11" />
       </header>
       <div className="rail flex-1 overflow-y-auto px-5 pt-6 pb-40">
-        <h1 className="text-[1.75rem] leading-tight font-black text-ocean">
+        <h1 className="text-[1.75rem] leading-tight font-black text-abyss">
           {mode === 'edit' ? 'Edit this dive' : LOG_DIVE_STEPS[flow.step]}
         </h1>
         {mode === 'edit' ? (
-          <p className="mt-1 text-sm font-semibold text-lagoon">
+          <p className="mt-1 text-sm font-semibold text-abyss">
             {LOG_DIVE_STEPS[flow.step]}
           </p>
         ) : null}

@@ -18,13 +18,29 @@ import {
 } from 'lucide-react';
 import type { Creature } from '@poseidon/domain';
 
-const WASHES: Array<[string, string]> = [
-  ['#7FD8E8', '#118AB2'],
-  ['#9FE3C8', '#17C3B2'],
-  ['#A8D8F0', '#3B7EA1'],
-  ['#BFE7E2', '#0E7C8A'],
-  ['#C7DCF2', '#4A6FA5'],
-  ['#9BD4D8', '#2E8FA8'],
+type Wash = { from: string; to: string; foreground: string };
+
+const WASHES: Wash[] = [
+  {
+    from: 'var(--color-aqua-soft)',
+    to: 'var(--color-lagoon)',
+    foreground: 'text-abyss/85',
+  },
+  {
+    from: 'var(--color-lagoon)',
+    to: 'var(--color-aqua-soft)',
+    foreground: 'text-abyss/85',
+  },
+  {
+    from: 'var(--color-marine)',
+    to: 'var(--color-abyss)',
+    foreground: 'text-white/90',
+  },
+  {
+    from: 'var(--color-abyss)',
+    to: 'var(--color-marine)',
+    foreground: 'text-white/90',
+  },
 ];
 
 const CATEGORY_ICON = {
@@ -39,11 +55,11 @@ const CATEGORY_ICON = {
 } as const;
 
 /** Stable per-creature wash so the same species always looks the same. */
-function washFor(id: string): [string, string] {
+function washFor(id: string): Wash {
   let hash = 0;
   for (let index = 0; index < id.length; index += 1)
     hash = (hash * 31 + id.charCodeAt(index)) >>> 0;
-  return WASHES[hash % WASHES.length] as [string, string];
+  return WASHES[hash % WASHES.length] as Wash;
 }
 
 function monogram(name: string): string {
@@ -65,7 +81,7 @@ export function CreatureMark({
   size = 'md',
   className = '',
 }: CreatureMarkProps) {
-  const [from, to] = washFor(creature.id);
+  const { from, to, foreground } = washFor(creature.id);
   const Icon = creature.category
     ? (CATEGORY_ICON[creature.category as keyof typeof CATEGORY_ICON] ?? Fish)
     : Fish;
@@ -80,13 +96,13 @@ export function CreatureMark({
     >
       {creature.userCreated ? (
         <span
-          className="font-black tracking-tight text-white/90"
+          className={`font-black tracking-tight ${foreground}`}
           style={{ fontSize: glyphSize, lineHeight: 1 }}
         >
           {monogram(creature.commonName)}
         </span>
       ) : (
-        <Icon size={glyphSize} strokeWidth={1.6} className="text-white/85" />
+        <Icon size={glyphSize} strokeWidth={1.6} className={foreground} />
       )}
       {/* A shared swell across every fallback keeps the set coherent. */}
       <svg

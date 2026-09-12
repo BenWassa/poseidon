@@ -9,19 +9,29 @@
  * screens read as intent.
  */
 @theme {
-  --color-canvas: #fff8ec; /* floral white */
-  --color-tide: #f3fafa; /* mint cream frame outside the phone column */
+  --color-canvas: #f3fafa; /* mint cream default canvas */
+  --color-tide: #ddeeee; /* frame outside the phone column */
+  --color-frame: #ddeeee;
   --color-surface: #ffffff; /* flush cards */
   --color-foam: #f3fafa; /* mint cream for sub-surface accents */
-  --color-shallows: #e6f0f0; /* pale fills and hairlines */
+  --color-shallows: #e5f5f3; /* pale fills and hairlines */
+  --color-border: #d3e7e6;
+  --color-aqua-soft: #e5f5f3;
   --color-ocean: #05323f; /* primary ink */
-  --color-abyss: #021b22; /* deepest black for contrast headers */
+  --color-abyss: #05323f; /* primary ink */
+  --color-shell: #fff8ec; /* warm memory/detail surface */
   --color-marine: #087ea4; /* cerulean primary action */
   --color-lagoon: #34b6a4; /* ocean mist supporting accent */
-  --color-reef: #06d6a0; /* positive/confirmation */
+  --color-reef: #176b55; /* positive/confirmation */
   --color-coral: #f7735c; /* vibrant coral interaction */
   --color-coral-soft: #fff0ed;
   --color-sand: #efc15e; /* highlight accent */
+  --color-sun: #efc15e;
+  --color-sun-soft: #fff6de;
+  --color-danger: #a73931;
+  --color-danger-soft: #fcedeb;
+  --color-success: #176b55;
+  --color-success-soft: #e7f5ef;
 
   --radius-card: 2rem;
   --radius-field: 1.5rem;

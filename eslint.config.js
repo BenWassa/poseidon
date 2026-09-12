@@ -67,6 +67,7 @@ export default tseslint.config(
             'heroCreature',
             'ACTION_PRIMARY',
             'ACTION_CORAL',
+            'ACTION_DANGER',
             'ACTION_QUIET',
           ],
         },

@@ -36,13 +36,13 @@ function FirstDiveInvitation() {
   return (
     <div className="px-5 pb-10">
       <Card className="relative overflow-hidden p-7 text-center">
-        <span className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-shallows text-marine">
+        <span className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-aqua-soft text-marine">
           <Waves size={36} aria-hidden="true" />
         </span>
-        <h2 className="mb-2 text-2xl font-black text-ocean">
+        <h2 className="mb-2 text-2xl font-black text-abyss">
           Your atlas starts here
         </h2>
-        <p className="mb-6 text-sm leading-relaxed font-medium text-ocean/60">
+        <p className="mb-6 text-sm leading-relaxed font-medium text-abyss/60">
           Log your first dive and Poseidon begins keeping the record: where you
           went, how long you stayed and every creature you met.
         </p>
@@ -68,17 +68,17 @@ export function Home() {
     <div className="animate-rise">
       <header className="safe-top px-6 pb-8">
         <Eyebrow>Poseidon</Eyebrow>
-        <h1 className="mt-1 text-[2.1rem] leading-tight font-black tracking-tight text-ocean">
+        <h1 className="mt-1 text-[2.1rem] leading-tight font-black tracking-tight text-abyss">
           Your underwater life
         </h1>
         {stats && stats.totalDives > 0 ? (
-          <p className="mt-2 max-w-sm text-lg leading-relaxed font-semibold text-ocean/65">
+          <p className="mt-2 max-w-sm text-lg leading-relaxed font-semibold text-abyss/65">
             A permanent record of {stats.totalDives} dives exploring{' '}
             {places?.length ?? 0} places, with {stats.distinctCreatures}{' '}
             creatures met along the way.
           </p>
         ) : (
-          <p className="mt-2 max-w-sm text-lg leading-relaxed font-semibold text-ocean/65">
+          <p className="mt-2 max-w-sm text-lg leading-relaxed font-semibold text-abyss/65">
             A beautifully kept record, waiting for its first entry.
           </p>
         )}
@@ -165,20 +165,20 @@ export function Home() {
                   <li key={place.key}>
                     <Link
                       to={`/atlas/${encodeURIComponent(place.key)}`}
-                      className="flex items-center gap-4 border-b border-ocean/5 px-4 py-4 transition-colors active:bg-ocean/5"
+                      className="flex items-center gap-4 border-b border-abyss/5 px-4 py-4 transition-colors active:bg-abyss/5"
                     >
                       <span className="min-w-0 flex-1">
-                        <span className="block truncate text-[1.1rem] font-bold text-ocean">
+                        <span className="block truncate text-[1.1rem] font-bold text-abyss">
                           {place.label}
                         </span>
-                        <span className="mt-0.5 block text-sm font-medium text-ocean/50">
+                        <span className="mt-0.5 block text-sm font-medium text-abyss/50">
                           {pluralize(place.diveCount, 'dive')} ·{' '}
                           {pluralize(place.siteCount, 'site')}
                         </span>
                       </span>
                       <ArrowRight
                         size={18}
-                        className="shrink-0 text-ocean/20"
+                        className="shrink-0 text-abyss/20"
                         aria-hidden="true"
                       />
                     </Link>
@@ -191,7 +191,7 @@ export function Home() {
           <section className="px-6 pb-12">
             <Link
               to="/data"
-              className="flex items-center justify-center gap-2 text-sm font-bold text-ocean/50"
+              className="flex items-center justify-center gap-2 text-sm font-bold text-abyss/50"
             >
               <Sparkles size={15} aria-hidden="true" />
               Data &amp; backup
