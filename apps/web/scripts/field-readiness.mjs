@@ -15,9 +15,10 @@ function normalizeBase(value) {
   return leading.endsWith('/') ? leading : `${leading}/`;
 }
 
+// The ordinary development server; every route below selects mock history at
+// runtime with `?mock=0`, so this exercises the same site a developer uses.
 const vite = await createViteServer({
   root,
-  mode: 'mock',
   logLevel: 'error',
   server: {
     host: '127.0.0.1',

@@ -11,24 +11,37 @@ async function bootstrap(): Promise<void> {
   const container = document.getElementById('root');
   if (!container) throw new Error('Poseidon could not find its root element.');
 
-  let application: ReactNode;
+  let application: ReactNode = null;
+  let devBadge: ReactNode = null;
 
-  // Keep this guard inline: Vite replaces DEV/MODE at build time, which makes
-  // the entire mock branch unreachable and removable from production output.
-  if (import.meta.env.DEV && import.meta.env.MODE === 'mock') {
-    const [{ App }, { PoseidonProvider }, mock] = await Promise.all([
-      import('./App'),
-      import('./data/provider'),
-      import('./dev/mock-data'),
+  // Keep this guard inline: Vite replaces DEV at build time, which makes the
+  // entire development block unreachable and removable from production output.
+  // Nothing inside it — the selection, the badge, the seed — can be reached by
+  // a stored preference or a `?mock=` parameter in a production build.
+  if (import.meta.env.DEV) {
+    const [{ readDevSelection }, { DevModeBadge }] = await Promise.all([
+      import('./dev/selection'),
+      import('./dev/DevModeBadge'),
     ]);
-    const preset = mock.resolveMockPreset(window.location.search);
-    const client = await mock.createMockPoseidonClient(preset);
-    application = (
-      <PoseidonProvider client={client}>
-        <App />
-      </PoseidonProvider>
-    );
-  } else {
+    const selection = readDevSelection(window.location.search);
+    devBadge = <DevModeBadge selection={selection} />;
+
+    if (selection.kind === 'mock') {
+      const [{ App }, { PoseidonProvider }, mock] = await Promise.all([
+        import('./App'),
+        import('./data/provider'),
+        import('./dev/mock-data'),
+      ]);
+      const client = await mock.createMockPoseidonClient(selection.preset);
+      application = (
+        <PoseidonProvider client={client}>
+          <App />
+        </PoseidonProvider>
+      );
+    }
+  }
+
+  if (application === null) {
     const [{ App }, { AuthGate }, { AuthProvider }] = await Promise.all([
       import('./App'),
       import('./auth/AuthGate'),
@@ -45,7 +58,10 @@ async function bootstrap(): Promise<void> {
 
   createRoot(container).render(
     <StrictMode>
-      <HashRouter>{application}</HashRouter>
+      <HashRouter>
+        {application}
+        {devBadge}
+      </HashRouter>
     </StrictMode>,
   );
 }
