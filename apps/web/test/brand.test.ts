@@ -47,9 +47,9 @@ function sourceText(directory: string): string {
 
 describe('Sunlit Reef brand contract', () => {
   it('keeps the locked anchors in the single CSS token authority', () => {
-    const css = readFileSync(join(webRoot, 'src/index.css'), 'utf8');
+    const css = readFileSync(join(webRoot, 'src/index.css'), 'utf8').toLowerCase();
     for (const [token, value] of Object.entries(BRAND)) {
-      expect(css).toContain(`--color-${token}: ${value};`);
+      expect(css).toContain(`--color-${token}: ${value.toLowerCase()};`);
     }
   });
 
@@ -80,12 +80,12 @@ describe('Sunlit Reef brand contract', () => {
     ]) {
       expect(source).not.toMatch(
         new RegExp(
-          `(?:bg|text|border|ring|from|via|to)-${retired}(?:[/\s"'\`]|$)`,
+          `(?:bg|text|border|ring|from|via|to)-${retired}(?:[/\\s"'\\`]|$)`,
         ),
       );
     }
     for (const fill of ['coral', 'lagoon', 'sun']) {
-      expect(source).not.toMatch(new RegExp(`bg-${fill}[^"'\`]*text-white`));
+      expect(source).not.toMatch(new RegExp(`bg-${fill}[^"'\\`]*text-white`));
     }
     expect(source).not.toContain('text-lagoon');
   });
