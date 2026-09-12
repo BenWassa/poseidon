@@ -56,7 +56,7 @@ try {
   });
 
   await page.goto(`${appUrl}?mock=3#/`, { waitUntil: 'domcontentloaded' });
-  await page.getByText(/3 dives ·/).waitFor();
+  await page.getByText(/^3 dives · 9 creatures ·/).waitFor();
 
   assert.equal(
     await page.getByRole('button', { name: /sign in/i }).count(),
