@@ -1,0 +1,49 @@
+{
+  "artwork": {
+    "aspectRatio": 1.0,
+    "gallery": "gallery.webp",
+    "hero": "hero.webp",
+    "status": "curated",
+    "thumb": "thumb.webp",
+    "variants": {
+      "gallery": {
+        "aspectRatio": 1.0,
+        "bytes": 32636,
+        "height": 512,
+        "mediaType": "image/webp",
+        "path": "gallery.webp",
+        "sha256": "1e94888a145c5ee3153a9fa1651c34b5cca8cb23966f3034a4753a6bf56a7229",
+        "width": 512
+      },
+      "hero": {
+        "aspectRatio": 1.0,
+        "bytes": 112602,
+        "height": 1024,
+        "mediaType": "image/webp",
+        "path": "hero.webp",
+        "sha256": "9a99c95f525f5d7e5875ced95aace941469dfdadb804b54460166920da4ccb09",
+        "width": 1024
+      },
+      "thumb": {
+        "aspectRatio": 1.0,
+        "bytes": 6896,
+        "height": 192,
+        "mediaType": "image/webp",
+        "path": "thumb.webp",
+        "sha256": "022c6b751c86b9b7f299c75a4cc946e69e4014ad064a6aef97eaf49a525c3a7b",
+        "width": 192
+      }
+    }
+  },
+  "creatureId": "spotted-drum",
+  "source": {
+    "aspectRatio": 1.0,
+    "bytes": 110666,
+    "format": "webp",
+    "height": 1024,
+    "mode": "opaque-scene",
+    "sha256": "884945ea27d81ecc735fc1285a75b2cecd88c4bedafb137a245c4a6528648e0a",
+    "width": 1024
+  },
+  "version": 1
+}

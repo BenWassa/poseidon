@@ -1,0 +1,49 @@
+{
+  "artwork": {
+    "aspectRatio": 1.0,
+    "gallery": "gallery.webp",
+    "hero": "hero.webp",
+    "status": "curated",
+    "thumb": "thumb.webp",
+    "variants": {
+      "gallery": {
+        "aspectRatio": 1.0,
+        "bytes": 34972,
+        "height": 512,
+        "mediaType": "image/webp",
+        "path": "gallery.webp",
+        "sha256": "6b1f273d44afaf72e2f8713def9b434864e781309b215ca58f8cf4095249a0db",
+        "width": 512
+      },
+      "hero": {
+        "aspectRatio": 1.0,
+        "bytes": 115368,
+        "height": 1024,
+        "mediaType": "image/webp",
+        "path": "hero.webp",
+        "sha256": "2e1f2960daeee2b55d5b1d7cc66bde367de9db17a7b90918143c30c29564f825",
+        "width": 1024
+      },
+      "thumb": {
+        "aspectRatio": 1.0,
+        "bytes": 6838,
+        "height": 192,
+        "mediaType": "image/webp",
+        "path": "thumb.webp",
+        "sha256": "01396dcb8e289c86648a584dd77b0593adb559e97841523b63c39a32b247a0b3",
+        "width": 192
+      }
+    }
+  },
+  "creatureId": "banded-coral-shrimp",
+  "source": {
+    "aspectRatio": 1.0,
+    "bytes": 115348,
+    "format": "webp",
+    "height": 1024,
+    "mode": "opaque-scene",
+    "sha256": "565fb4f1f6c088b7619ad99d712ede022b0828d0feccabce0e8846eb43c69191",
+    "width": 1024
+  },
+  "version": 1
+}
