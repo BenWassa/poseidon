@@ -71,9 +71,7 @@ describe('AuthGate', () => {
     );
     emitUser(null);
 
-    expect(
-      await screen.findByText('Sign in to your dive log'),
-    ).toBeInTheDocument();
+    expect(await screen.findByText('Your underwater life')).toBeInTheDocument();
   });
 
   it('shows the pending screen for a signed-in user the server confirms is not approved', async () => {

@@ -123,28 +123,20 @@ let page = await context.newPage();
 
 try {
   await page.goto(route('/'), { waitUntil: 'networkidle' });
-  await page
-    .getByRole('heading', { name: 'Sign in to your dive log' })
-    .waitFor();
+  await page.getByRole('heading', { name: 'Your underwater life' }).waitFor();
   await page.evaluate(() => navigator.serviceWorker.ready);
   await page.reload({ waitUntil: 'networkidle' });
   await page.waitForFunction(() => Boolean(navigator.serviceWorker.controller));
-  await page
-    .getByRole('heading', { name: 'Sign in to your dive log' })
-    .waitFor();
+  await page.getByRole('heading', { name: 'Your underwater life' }).waitFor();
 
   await context.setOffline(true);
   await page.goto(route('/journal'), { waitUntil: 'domcontentloaded' });
-  await page
-    .getByRole('heading', { name: 'Sign in to your dive log' })
-    .waitFor();
+  await page.getByRole('heading', { name: 'Your underwater life' }).waitFor();
 
   await page.close();
   page = await context.newPage();
   await page.goto(route('/data'), { waitUntil: 'domcontentloaded' });
-  await page
-    .getByRole('heading', { name: 'Sign in to your dive log' })
-    .waitFor();
+  await page.getByRole('heading', { name: 'Your underwater life' }).waitFor();
 
   console.log(
     '[pwa] production auth shell is controlled, deep-route-safe and cold-starts offline',
