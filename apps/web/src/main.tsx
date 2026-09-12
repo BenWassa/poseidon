@@ -2,6 +2,7 @@ import { StrictMode, type ReactNode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { HashRouter } from 'react-router-dom';
 
+import { isMockMode } from './dev/mode';
 import { registerPoseidonServiceWorker } from './pwa-registration';
 import './index.css';
 
@@ -13,7 +14,7 @@ async function bootstrap(): Promise<void> {
 
   let application: ReactNode;
 
-  if (import.meta.env.DEV && import.meta.env.MODE === 'mock') {
+  if (isMockMode(import.meta.env.DEV, import.meta.env.MODE)) {
     const [{ App }, { PoseidonProvider }, mock] = await Promise.all([
       import('./App'),
       import('./data/provider'),
