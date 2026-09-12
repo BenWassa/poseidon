@@ -59,7 +59,10 @@ function iconSourcePayload(): Buffer {
 
 describe('Sunlit Reef brand contract', () => {
   it('keeps the locked anchors in the single CSS token authority', () => {
-    const css = readFileSync(join(webRoot, 'src/index.css'), 'utf8').toLowerCase();
+    const css = readFileSync(
+      join(webRoot, 'src/index.css'),
+      'utf8',
+    ).toLowerCase();
     for (const [token, value] of Object.entries(BRAND)) {
       expect(css).toContain(`--color-${token}: ${value.toLowerCase()};`);
     }
@@ -133,8 +136,13 @@ describe('Sunlit Reef brand contract', () => {
   it('keeps PWA chrome and the owner-approved icon source locked', () => {
     const vite = readFileSync(join(webRoot, 'vite.config.ts'), 'utf8');
     const html = readFileSync(join(webRoot, 'index.html'), 'utf8');
-    const generator = readFileSync(join(repoRoot, 'tools/brand/build.py'), 'utf8');
-    const digest = createHash('sha256').update(iconSourcePayload()).digest('hex');
+    const generator = readFileSync(
+      join(repoRoot, 'tools/brand/build.py'),
+      'utf8',
+    );
+    const digest = createHash('sha256')
+      .update(iconSourcePayload())
+      .digest('hex');
 
     expect(vite.match(/#F3FAFA/g)).toHaveLength(2);
     expect(html).toContain('content="#F3FAFA"');

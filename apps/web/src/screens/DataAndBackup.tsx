@@ -157,7 +157,7 @@ export function DataAndBackup() {
         <SectionHeader title="Restore a backup" />
         <Card className="p-5">
           <div className="flex items-start gap-3">
-              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-lagoon/12 text-abyss">
+            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-lagoon/12 text-abyss">
               <ShieldCheck size={20} aria-hidden="true" />
             </span>
             <div className="min-w-0 flex-1">

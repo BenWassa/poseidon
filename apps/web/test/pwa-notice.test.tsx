@@ -75,7 +75,9 @@ describe('PWA notices', () => {
       await screen.findByText('Add Poseidon to your Home Screen'),
     ).toBeInTheDocument();
     expect(
-      screen.getByText('Tap Share in your browser, then choose Add to Home Screen.'),
+      screen.getByText(
+        'Tap Share in your browser, then choose Add to Home Screen.',
+      ),
     ).toBeInTheDocument();
 
     await user.click(screen.getByRole('button', { name: 'Got it' }));
