@@ -51,7 +51,8 @@ describe('development mock data', () => {
     expect(
       [...creatureById.values()].some(
         (creature) =>
-          creature.userCreated && creature.commonName === 'Tiny mystery nudibranch',
+          creature.userCreated &&
+          creature.commonName === 'Tiny mystery nudibranch',
       ),
     ).toBe(true);
   });
@@ -62,7 +63,9 @@ describe('development mock data', () => {
     expect(latest).toBeDefined();
 
     await store.updateDive(latest!.id, { note: 'Temporary mock edit.' });
-    expect((await store.getDive(latest!.id))?.note).toBe('Temporary mock edit.');
+    expect((await store.getDive(latest!.id))?.note).toBe(
+      'Temporary mock edit.',
+    );
 
     await store.deleteDive(latest!.id);
     expect(await store.listDives()).toHaveLength(2);
