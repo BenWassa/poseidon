@@ -149,7 +149,9 @@ try {
   console.log(
     '[pwa] production auth shell is controlled, deep-route-safe and cold-starts offline',
   );
-  console.log('[pwa] development mock seed code is absent from production output');
+  console.log(
+    '[pwa] development mock seed code is absent from production output',
+  );
 } finally {
   await context.setOffline(false).catch(() => {});
   await context.close();
