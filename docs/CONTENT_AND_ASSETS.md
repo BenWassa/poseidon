@@ -4,7 +4,7 @@
 
 This is the durable strategy for creature content, regional relevance and artwork.
 
-Current implementation status is tracked in `docs/PROJECT_STATUS.md`. The Mexican Caribbean starter content pack is implemented. #11/#12/PR #13 produced and reviewed the original HD source-art library; #30 promoted 18 approved mapped candidates into canonical runtime artwork; #31 now owns the remaining original-batch closeout; #33 owns complete HD coverage; #34 owns the later transparent-background derivation pass.
+Current implementation status is tracked in `docs/PROJECT_STATUS.md`. The Mexican Caribbean starter content pack is implemented. #11/#12/PR #13 produced and reviewed the original HD source-art library; #30 and #31 have now promoted all 22 approved `keep` candidates into canonical runtime artwork. #31 owns only the eight original-batch biological remakes; #33 owns complete HD coverage; #34 owns the later transparent-background derivation pass.
 
 ---
 
@@ -55,7 +55,7 @@ The UI must never make an unillustrated creature feel like an error.
 
 Initial enrichment is intentionally concentrated on Cozumel, Playa del Carmen and the wider Mexican Caribbean.
 
-The implemented pack is useful recreational coverage, not a complete biological catalogue. On the active #31 branch it contains **56** sourced creature records: the prior 50 plus six defensible Mexican-Caribbean species that were already represented in the original HD source-art batch.
+The implemented pack is useful recreational coverage, not a complete biological catalogue. It contains **56** sourced creature records: the prior 50 plus six defensible Mexican-Caribbean species that were already represented in the original HD source-art batch.
 
 New regions should primarily be a content operation rather than a new application implementation.
 
@@ -129,7 +129,7 @@ Generated source candidates use internal production states:
 
 Quality scores and identity confidence are production metadata, not user-facing rarity or ecological confidence.
 
-The original source batch is now exactly **30 candidates: 22 keep / 0 provisional / 8 remake**. All 30 now have deliberate content mappings on #31; mapping does not override `remake` status.
+The original source batch is exactly **30 candidates: 22 keep / 0 provisional / 8 remake**. All 30 have deliberate content mappings and all 22 `keep` candidates are now promoted. Mapping does not override `remake` status.
 
 ---
 
@@ -194,12 +194,12 @@ Do not generate a large library and review it only at the end. Work in small bat
 
 The current sequence is deliberately staged:
 
-1. **#30 — complete:** 18 mapped `keep` candidates from the original batch are live as approved HD runtime artwork.
-2. **#31 — active:** all six former source-only candidates now have sourced content authority and explicit mappings. Four are `keep` and await normal promotion; two remain among the eight `remake` candidates. Replace/re-review all eight remakes and promote only accepted replacements.
+1. **#30 — complete:** 18 already-mapped `keep` candidates from the original batch were promoted as approved HD runtime artwork.
+2. **#31 — active:** PR #35 resolved the six former source-only content mappings; PR #36 promoted the four newly mapped `keep` candidates. All **22** original-batch `keep` candidates are now live. #31 now contains only the **8 biological `remake` candidates**: replace, re-review and promote only accepted replacements.
 3. **#33 — queued after #31:** create and promote HD source art for the exact 26 content creatures that still have no HD candidate.
 4. **#34 — queued after #33:** batch-remove backgrounds from the stable approved HD library to create transparent raster specimen revisions where useful. Preserve every opaque original and do not auto-vectorize.
 
-On the active #31 branch there are **56 content records**, **30 mapped HD source candidates**, and **26 content records with no HD source candidate**. Expanding the content catalogue from 50 to 56 did not enlarge the no-art queue because all six additions already had source candidates.
+Current counts are **56 content records**, **30 mapped original HD source candidates**, **22 approved/live original-batch HD assets**, **8 blocked original-batch remakes**, and **26 content records with no HD source candidate**.
 
 Expansion priority remains useful Mexican-Caribbean coverage and locally distinctive gaps, not ocean-wide completeness.
 
