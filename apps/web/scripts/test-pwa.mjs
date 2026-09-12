@@ -59,6 +59,11 @@ async function checkPrecacheBudget() {
     bytes <= MAX_PRECACHE_BYTES,
     `Precache candidates use ${bytes} bytes; budget is ${MAX_PRECACHE_BYTES}.`,
   );
+  assert.equal(
+    precached.some((file) => file.includes('mock-data-')),
+    false,
+    'development mock seed code must not ship in the production bundle',
+  );
   console.log(
     `[pwa] precache budget: ${precached.length} files, ${(bytes / 1024).toFixed(1)} KiB`,
   );
@@ -114,62 +119,39 @@ function route(path = '/') {
 
 const browser = await chromium.launch(launchOptions());
 const context = await browser.newContext({ serviceWorkers: 'allow' });
-const page = await context.newPage();
+let page = await context.newPage();
 
 try {
   await page.goto(route('/'), { waitUntil: 'networkidle' });
+  await page
+    .getByRole('heading', { name: 'Sign in to your dive log' })
+    .waitFor();
   await page.evaluate(() => navigator.serviceWorker.ready);
   await page.reload({ waitUntil: 'networkidle' });
   await page.waitForFunction(() => Boolean(navigator.serviceWorker.controller));
-  assert.equal(
-    await page
-      .getByRole('heading', { name: 'Your atlas starts here' })
-      .isVisible(),
-    true,
-  );
+  await page
+    .getByRole('heading', { name: 'Sign in to your dive log' })
+    .waitFor();
 
   await context.setOffline(true);
   await page.goto(route('/journal'), { waitUntil: 'domcontentloaded' });
-  assert.equal(
-    await page.getByRole('heading', { name: 'No dives yet' }).isVisible(),
-    true,
-  );
-
-  await page.goto(route('/log'), { waitUntil: 'domcontentloaded' });
-  await page.getByRole('button', { name: 'Cozumel' }).first().click();
-  await page.getByLabel('Dive site').fill('Offline Reef');
-  await page.getByRole('button', { name: 'Continue' }).click();
-  await page.getByLabel('Max depth').fill('18');
-  await page.getByLabel('Duration').fill('42');
-  await page.getByRole('button', { name: 'Choose creatures' }).click();
   await page
-    .getByRole('button', { name: /Green sea turtle/ })
-    .first()
-    .click();
-  await page.getByRole('button', { name: 'Continue' }).click();
-  await page.getByRole('button', { name: /Save this memory/ }).click();
-  await page.getByRole('heading', { name: 'Offline Reef' }).waitFor();
-  assert.equal(
-    await page.getByRole('heading', { name: 'Offline Reef' }).isVisible(),
-    true,
-  );
-  assert.equal(
-    await page.getByText('Green sea turtle').first().isVisible(),
-    true,
-  );
+    .getByRole('heading', { name: 'Sign in to your dive log' })
+    .waitFor();
 
   await page.close();
-  const restarted = await context.newPage();
-  await restarted.goto(route('/journal'), { waitUntil: 'domcontentloaded' });
-  await restarted.getByRole('heading', { name: 'Offline Reef' }).waitFor();
-  assert.equal(
-    await restarted.getByRole('heading', { name: 'Offline Reef' }).isVisible(),
-    true,
-  );
+  page = await context.newPage();
+  await page.goto(route('/data'), { waitUntil: 'domcontentloaded' });
+  await page
+    .getByRole('heading', { name: 'Sign in to your dive log' })
+    .waitFor();
+
   console.log(
-    '[pwa] controlled offline deep routes and persisted an offline dive across restart',
+    '[pwa] production auth shell is controlled, deep-route-safe and cold-starts offline',
   );
+  console.log('[pwa] development mock seed code is absent from production output');
 } finally {
+  await context.setOffline(false).catch(() => {});
   await context.close();
   await browser.close();
   server.close();
