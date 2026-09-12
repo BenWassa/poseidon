@@ -1,6 +1,6 @@
 # Poseidon — current project status
 
-Last reconciled: **2026-09-10**
+Last reconciled: **2026-09-11**
 
 This document is the living programme-status companion to the durable product contracts. It records what is implemented and what remains; it does not replace `PRODUCT.md` or `docs/PRD.md`.
 
@@ -8,9 +8,9 @@ This document is the living programme-status companion to the durable product co
 
 Poseidon is now a deployed, integrated React/Vite/TypeScript PWA rather than a greenfield/external-front-end project.
 
-Current `main` authority is commit:
+Current `main` authority at this reconciliation is commit:
 
-`a616e6b16ff8373ba4b22cf23aaaf7fe82537fcf`
+`88928b1e08b34c83809a619f2273c276e41be225`
 
 Current application architecture remains repository authority:
 
@@ -69,6 +69,22 @@ npm run gate
 ```
 
 It covers canonical content/assets, lint/format, typechecks, domain/application tests, production build, PWA precache-budget verification and automated field-readiness acceptance.
+
+## Active enhancement streams
+
+These are deliberate enhancements on top of the integrated product baseline. They are not new v0 field-readiness blockers unless their issues explicitly say otherwise.
+
+### #21 — Sunlit Reef brand-system migration — open
+
+Migrate the live UI, PWA chrome and current generated icon to the locked Sunlit Reef palette while preserving auth, persistence, domain behavior, navigation and current product structure.
+
+### #24 — temporary seeded mock-data dev mode — scoped, not implemented
+
+Add an explicit development-only path for testing the real application with deterministic `0 / 3 / 5 / 15 / 30` dive histories.
+
+The hard boundary is **zero Firebase initialization in mock mode**: no auth gate, Firestore, Firebase SDK startup or Firebase network traffic. Mock personal history is in-memory only and resets on reload. The seed uses canonical production marine content/assets and normal `PoseidonStore` behavior; only the personal history is synthetic.
+
+Durable implementation contract: `docs/DEV_MOCK_DATA.md`.
 
 ## Completed residual streams
 

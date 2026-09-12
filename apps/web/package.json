@@ -7,6 +7,8 @@
   "scripts": {
     "predev": "node scripts/sync-assets.mjs",
     "dev": "vite",
+    "predev:mock": "node scripts/sync-assets.mjs",
+    "dev:mock": "vite --mode mock",
     "prebuild": "node scripts/sync-assets.mjs",
     "build": "vite build",
     "preview": "vite preview",
@@ -14,6 +16,8 @@
     "pretest": "node scripts/sync-assets.mjs",
     "test": "vitest run",
     "test:watch": "vitest",
+    "pretest:mock": "node scripts/sync-assets.mjs",
+    "test:mock": "node scripts/mock-mode-acceptance.mjs",
     "test:pwa": "node scripts/test-pwa.mjs",
     "screenshots": "node scripts/capture-screens.mjs",
     "verify:field": "node scripts/field-readiness.mjs"

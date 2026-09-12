@@ -4,11 +4,8 @@ import type {
   PoseidonContent,
   Region,
 } from './domain.js';
-import type {
-  PersistedPersonalStateV2,
-  PersistenceAdapter,
-} from './persistence.js';
-import { deepClone } from './utils.js';
+
+export { MemoryPersistence } from './persistence.js';
 
 /**
  * Synthetic fixtures for development and contract testing only.
@@ -88,27 +85,3 @@ export const fixtureDiveInputs: CreateDiveInput[] = [
     })),
   } satisfies CreateDiveInput;
 });
-
-export class MemoryPersistence implements PersistenceAdapter {
-  private value: unknown | null;
-
-  constructor(seed: unknown | null = null) {
-    this.value = deepClone(seed);
-  }
-
-  async read(): Promise<unknown | null> {
-    return deepClone(this.value);
-  }
-
-  async write(state: PersistedPersonalStateV2): Promise<void> {
-    this.value = deepClone(state);
-  }
-
-  async remove(): Promise<void> {
-    this.value = null;
-  }
-
-  inspect(): unknown | null {
-    return deepClone(this.value);
-  }
-}

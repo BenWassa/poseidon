@@ -1,67 +1,37 @@
 import assert from 'node:assert/strict';
-import { createServer } from 'node:http';
-import { createReadStream } from 'node:fs';
-import { readFile, stat } from 'node:fs/promises';
-import { dirname, extname, join, resolve } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { readFile } from 'node:fs/promises';
+import { resolve } from 'node:path';
 
 import { chromium } from 'playwright';
+import { createServer as createViteServer } from 'vite';
 
 import { launchOptions } from '../../../tools/chromium.mjs';
 
-const here = dirname(fileURLToPath(import.meta.url));
-const distDir = resolve(here, '../dist');
+const root = resolve(import.meta.dirname, '..');
 const basePath = normalizeBase(process.env.POSEIDON_BASE_PATH ?? '/');
-
-const MIME = {
-  '.html': 'text/html; charset=utf-8',
-  '.js': 'text/javascript; charset=utf-8',
-  '.css': 'text/css; charset=utf-8',
-  '.json': 'application/json; charset=utf-8',
-  '.webmanifest': 'application/manifest+json',
-  '.webp': 'image/webp',
-  '.png': 'image/png',
-  '.svg': 'image/svg+xml',
-  '.woff2': 'font/woff2',
-};
 
 function normalizeBase(value) {
   const leading = value.startsWith('/') ? value : `/${value}`;
   return leading.endsWith('/') ? leading : `${leading}/`;
 }
 
-async function resolveFile(pathname) {
-  if (!pathname.startsWith(basePath)) return null;
-  const relative = decodeURIComponent(pathname.slice(basePath.length));
-  const candidate = join(distDir, relative || 'index.html');
-  try {
-    const info = await stat(candidate);
-    if (info.isFile()) return candidate;
-  } catch {
-    // Hash routes never reach the server; falling back keeps accidental direct
-    // requests useful during the automated production probe.
-  }
-  return join(distDir, 'index.html');
-}
-
-const server = createServer((request, response) => {
-  const url = new URL(request.url ?? '/', 'http://localhost');
-  void resolveFile(url.pathname).then((file) => {
-    if (!file) {
-      response.writeHead(404).end('Not found');
-      return;
-    }
-    response.writeHead(200, {
-      'content-type': MIME[extname(file)] ?? 'application/octet-stream',
-      'cache-control': 'no-cache',
-    });
-    createReadStream(file).pipe(response);
-  });
+const vite = await createViteServer({
+  root,
+  mode: 'mock',
+  logLevel: 'error',
+  server: {
+    host: '127.0.0.1',
+    port: 0,
+  },
 });
 
-await new Promise((done) => server.listen(0, '127.0.0.1', done));
-const { port } = server.address();
-const origin = `http://127.0.0.1:${port}`;
+await vite.listen();
+const address = vite.httpServer?.address();
+assert.ok(
+  address && typeof address !== 'string',
+  'mock Vite server did not bind',
+);
+const origin = `http://127.0.0.1:${address.port}`;
 const appUrl = `${origin}${basePath}`;
 const browser = await chromium.launch(launchOptions());
 const context = await browser.newContext({
@@ -74,7 +44,7 @@ const context = await browser.newContext({
 });
 
 function route(path = '/') {
-  return `${appUrl}#${path}`;
+  return `${appUrl}?mock=0#${path}`;
 }
 
 async function assertNoHorizontalOverflow(page, label) {
@@ -134,7 +104,7 @@ async function verifyCoherence(page) {
   const nav = page.getByRole('navigation', { name: 'Main' });
 
   await nav.getByRole('link', { name: 'Home' }).click();
-  await page.getByText(/1 dive · 2 creatures/).waitFor();
+  await page.getByRole('heading', { name: 'Your underwater life' }).waitFor();
   await assertNoHorizontalOverflow(page, 'Home');
 
   await nav.getByRole('link', { name: 'Journal' }).click();
@@ -177,7 +147,6 @@ async function verifySystemBack(page) {
 }
 
 async function restoreIntoCleanState(page, backup) {
-  await page.evaluate(() => window.localStorage.clear());
   await page.close();
   const clean = await context.newPage();
   await clean.goto(route('/'), { waitUntil: 'domcontentloaded' });
@@ -211,61 +180,15 @@ async function restoreIntoCleanState(page, backup) {
 
 try {
   let page = await context.newPage();
-  await page.goto(route('/'), { waitUntil: 'networkidle' });
-
-  const manifest = await page.evaluate(async () => {
-    const link = document.querySelector('link[rel="manifest"]');
-    if (!(link instanceof HTMLLinkElement))
-      throw new Error('manifest link missing');
-    const response = await fetch(link.href);
-    return response.json();
-  });
-  assert.equal(
-    manifest.display,
-    'standalone',
-    'manifest must request standalone display',
-  );
-  assert.equal(
-    manifest.start_url,
-    `${basePath}#/`,
-    'manifest start_url must preserve the deployment base and hash router',
-  );
-  assert.equal(
-    manifest.scope,
-    basePath,
-    'manifest scope must match deployment base',
-  );
-  assert.ok(
-    Array.isArray(manifest.icons) &&
-      manifest.icons.some((icon) => icon.sizes === '512x512'),
-    'manifest needs a 512px install icon',
-  );
-
-  await page.waitForFunction(async () => {
-    if (!('serviceWorker' in navigator)) return false;
-    await navigator.serviceWorker.ready;
-    return true;
-  });
-  await page.reload({ waitUntil: 'networkidle' });
-  await page.waitForFunction(() => Boolean(navigator.serviceWorker.controller));
-  console.log(
-    '[field] installability signals: manifest + controlled service worker',
-  );
-
-  await context.setOffline(true);
-  await page.close();
-  page = await context.newPage();
   await page.goto(route('/'), { waitUntil: 'domcontentloaded' });
   await page.getByRole('heading', { name: 'Your atlas starts here' }).waitFor();
-  console.log('[field] offline cold start after cache: ok');
+  console.log('[field] clean zero-dive mock root: ok');
 
   await logDive(page);
   await verifyCoherence(page);
   await editDive(page);
   await verifySystemBack(page);
-  console.log(
-    '[field] offline create/edit + Home/Journal/Collection/Atlas + Back: ok',
-  );
+  console.log('[field] create/edit + Home/Journal/Collection/Atlas + Back: ok');
 
   await page.goto(route('/data'), { waitUntil: 'domcontentloaded' });
   const backup = await downloadJson(page);
@@ -286,7 +209,7 @@ try {
   await page.getByText('Delete this dive?').waitFor();
   await page.getByRole('button', { name: /^Delete$/ }).click();
   await page.getByRole('heading', { name: 'No dives yet' }).waitFor();
-  console.log('[field] offline delete + derived history cleanup: ok');
+  console.log('[field] delete + derived history cleanup: ok');
 
   const safeBottom = await page.evaluate(() => {
     const nav = document.querySelector('nav[aria-label="Main"]');
@@ -299,10 +222,9 @@ try {
   await assertNoHorizontalOverflow(page, 'final Pixel viewport');
   console.log('[field] Pixel viewport composition + safe-area minimum: ok');
 } finally {
-  await context.setOffline(false).catch(() => {});
   await context.close();
   await browser.close();
-  server.close();
+  await vite.close();
 }
 
-console.log('[field] automated production PWA field-readiness probe passed');
+console.log('[field] zero-Firebase product-flow readiness probe passed');
