@@ -9,6 +9,13 @@ import { launchOptions } from '../../../tools/chromium.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = resolve(here, '..');
+
+function normalizeBase(value) {
+  const leading = value.startsWith('/') ? value : `/${value}`;
+  return leading.endsWith('/') ? leading : `${leading}/`;
+}
+
+const basePath = normalizeBase(process.env.POSEIDON_BASE_PATH ?? '/');
 const vite = await createViteServer({
   root,
   mode: 'mock',
@@ -21,8 +28,12 @@ const vite = await createViteServer({
 
 await vite.listen();
 const address = vite.httpServer?.address();
-assert.ok(address && typeof address !== 'string', 'mock Vite server did not bind');
+assert.ok(
+  address && typeof address !== 'string',
+  'mock Vite server did not bind',
+);
 const origin = `http://127.0.0.1:${address.port}`;
+const appUrl = `${origin}${basePath}`;
 
 const browser = await chromium.launch(launchOptions());
 const context = await browser.newContext({
@@ -44,7 +55,7 @@ try {
     if (firebasePattern.test(url)) firebaseRequests.push(url);
   });
 
-  await page.goto(`${origin}/?mock=3#/`, { waitUntil: 'domcontentloaded' });
+  await page.goto(`${appUrl}?mock=3#/`, { waitUntil: 'domcontentloaded' });
   await page.getByText(/3 dives ·/).waitFor();
 
   assert.equal(
@@ -53,7 +64,9 @@ try {
     'mock mode unexpectedly rendered sign-in UI',
   );
 
-  await page.goto(`${origin}/?mock=5#/data`, { waitUntil: 'domcontentloaded' });
+  await page.goto(`${appUrl}?mock=5#/data`, {
+    waitUntil: 'domcontentloaded',
+  });
   await page.getByRole('heading', { name: 'Data & backup' }).waitFor();
   await page.getByRole('button', { name: 'Export everything as JSON' }).waitFor();
 
