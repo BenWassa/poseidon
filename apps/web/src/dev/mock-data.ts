@@ -168,7 +168,11 @@ export const MOCK_DIVE_SEQUENCE: readonly MockDiveSeed[] = [
     site: 'Cerebros',
     depth: 18,
     duration: 50,
-    creatures: ['Spotted trunkfish', CUSTOM_CREATURE_NAME, 'Foureye butterflyfish'],
+    creatures: [
+      'Spotted trunkfish',
+      CUSTOM_CREATURE_NAME,
+      'Foureye butterflyfish',
+    ],
     highlight: CUSTOM_CREATURE_NAME,
     note: 'Tiny unfamiliar nudibranch on a shaded patch of reef — logged for later identification.',
   },
@@ -320,7 +324,8 @@ export function resolveMockPreset(search: string): MockPreset {
 
 function requiredSite(name: string) {
   const site = curatedSites.find((candidate) => candidate.name === name);
-  if (!site) throw new Error(`Mock seed requires missing canonical site: ${name}`);
+  if (!site)
+    throw new Error(`Mock seed requires missing canonical site: ${name}`);
   return site;
 }
 
@@ -354,7 +359,9 @@ async function creatureIdForSeed(
   return (await store.createUserCreature(CUSTOM_CREATURE_NAME)).id;
 }
 
-export async function createMockStore(preset: MockPreset): Promise<PoseidonStore> {
+export async function createMockStore(
+  preset: MockPreset,
+): Promise<PoseidonStore> {
   const store = createPoseidonStore({
     persistence: new MemoryPersistence(),
     content: contentPack,
