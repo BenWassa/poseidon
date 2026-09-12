@@ -48,6 +48,16 @@ jobs:
           PY
       - name: Apply Sunlit Reef migration
         run: node tools/issue21-migrate.mjs
+      - name: Repair generated brand regression test
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          path = Path('apps/web/test/brand.test.ts')
+          text = path.read_text()
+          text = text.replace(".join('\n')", r".join('\n')")
+          text = text.replace("const here = fileURLToPath(new URL('.', import.meta.url));\n", "")
+          path.write_text(text)
+          PY
       - name: Format source
         run: npm run format
       - name: Regenerate current icon
