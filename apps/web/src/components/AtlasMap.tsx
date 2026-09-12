@@ -230,7 +230,7 @@ export function AtlasMap({ sites }: { sites: AtlasSiteMarker[] }) {
         ref={containerRef}
         role="region"
         aria-label="Map of sourced Mexican Caribbean dive sites"
-        className="from-shallows h-[310px] w-full bg-gradient-to-br to-surface"
+        className="h-[310px] w-full bg-gradient-to-br from-aqua-soft to-surface"
         style={{ touchAction: interactive ? 'none' : 'pan-y' }}
       />
 
