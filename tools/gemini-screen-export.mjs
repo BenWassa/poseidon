@@ -67,8 +67,10 @@ const sources = {
   authProvider: ['63_AuthProvider.tsx', 'apps/web/src/auth/AuthProvider.tsx'],
 
   signIn: ['70_SignInScreen.tsx', 'apps/web/src/auth/SignInScreen.tsx'],
+  authGate: ['71_AuthGate.tsx', 'apps/web/src/auth/AuthGate.tsx'],
+  firebaseConfig: ['72_firebase-config.ts', 'apps/web/src/firebase/config.ts'],
   pendingApproval: [
-    '71_PendingApprovalScreen.tsx',
+    '73_PendingApprovalScreen.tsx',
     'apps/web/src/auth/PendingApprovalScreen.tsx',
   ],
 };
@@ -154,7 +156,16 @@ const packs = {
     'preferences',
     'authProvider',
   ],
-  auth: ['css', 'shell', 'ui', 'signIn', 'pendingApproval', 'authProvider'],
+  auth: [
+    'css',
+    'shell',
+    'ui',
+    'authProvider',
+    'authGate',
+    'signIn',
+    'pendingApproval',
+    'firebaseConfig',
+  ],
 };
 
 const keys = packs[requestedPack];
