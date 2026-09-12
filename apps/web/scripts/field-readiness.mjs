@@ -27,7 +27,10 @@ const vite = await createViteServer({
 
 await vite.listen();
 const address = vite.httpServer?.address();
-assert.ok(address && typeof address !== 'string', 'mock Vite server did not bind');
+assert.ok(
+  address && typeof address !== 'string',
+  'mock Vite server did not bind',
+);
 const origin = `http://127.0.0.1:${address.port}`;
 const appUrl = `${origin}${basePath}`;
 const browser = await chromium.launch(launchOptions());
