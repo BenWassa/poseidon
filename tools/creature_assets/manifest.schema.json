@@ -19,6 +19,7 @@
           "additionalProperties": false,
           "required": ["format", "width", "height", "aspectRatio", "bytes", "sha256"],
           "properties": {
+            "mode": { "enum": ["transparent-specimen", "opaque-scene"] },
             "format": { "enum": ["png", "webp"] },
             "width": { "type": "integer", "minimum": 1, "maximum": 4096 },
             "height": { "type": "integer", "minimum": 1, "maximum": 4096 },

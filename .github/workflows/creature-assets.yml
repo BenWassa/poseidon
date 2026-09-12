@@ -5,14 +5,18 @@ on:
     paths:
       - 'tools/creature_assets/**'
       - 'assets/creatures/**'
+      - 'assets/source/creatures/**'
       - 'docs/ASSET_PIPELINE.md'
+      - 'docs/CREATURE_ASSET_LIBRARY.md'
       - '.github/workflows/creature-assets.yml'
   push:
     branches: [main]
     paths:
       - 'tools/creature_assets/**'
       - 'assets/creatures/**'
+      - 'assets/source/creatures/**'
       - 'docs/ASSET_PIPELINE.md'
+      - 'docs/CREATURE_ASSET_LIBRARY.md'
       - '.github/workflows/creature-assets.yml'
 
 permissions:
@@ -31,3 +35,4 @@ jobs:
       - run: python -m pip install -r tools/creature_assets/requirements.txt
       - run: python -m unittest discover -s tools/creature_assets/tests -v
       - run: python -m tools.creature_assets validate --root assets/creatures
+      - run: python -m tools.creature_assets validate-source --catalog assets/source/creatures/catalog.json

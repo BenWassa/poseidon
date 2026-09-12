@@ -17,6 +17,9 @@ SUPPORTED_SOURCE_FORMATS = {"PNG", "WEBP"}
 SOURCE_MAX_BYTES = 20 * 1024 * 1024
 SOURCE_MAX_DIMENSION = 4096
 ID_PATTERN = re.compile(r"^[a-z0-9][a-z0-9._-]*$")
+MODE_TRANSPARENT_SPECIMEN = "transparent-specimen"
+MODE_OPAQUE_SCENE = "opaque-scene"
+SOURCE_MODES = (MODE_TRANSPARENT_SPECIMEN, MODE_OPAQUE_SCENE)
 
 
 @dataclass(frozen=True)
@@ -53,7 +56,22 @@ def _validate_creature_id(creature_id: str) -> None:
         )
 
 
-def _open_source(path: Path) -> tuple[Image.Image, dict[str, Any]]:
+def _validate_source_mode(mode: str) -> None:
+    if mode not in SOURCE_MODES:
+        raise AssetPipelineError(
+            f"Unsupported source mode '{mode}'. Expected one of: {', '.join(SOURCE_MODES)}."
+        )
+
+
+def _has_transparency(image: Image.Image) -> bool:
+    if "A" not in image.getbands():
+        return False
+    extrema = image.getchannel("A").getextrema()
+    return extrema != (255, 255)
+
+
+def _open_source(path: Path, mode: str) -> tuple[Image.Image, dict[str, Any]]:
+    _validate_source_mode(mode)
     if not path.is_file():
         raise AssetPipelineError(f"Source image does not exist: {path}")
     source_bytes = path.stat().st_size
@@ -74,9 +92,6 @@ def _open_source(path: Path) -> tuple[Image.Image, dict[str, Any]]:
         raise AssetPipelineError(
             f"Unsupported source format '{source_format or 'unknown'}'. Supported formats: {allowed}."
         )
-    if "A" not in image.getbands():
-        image.close()
-        raise AssetPipelineError("Source image must include an alpha channel for transparent artwork.")
     if max(image.size) > SOURCE_MAX_DIMENSION:
         width, height = image.size
         image.close()
@@ -84,45 +99,80 @@ def _open_source(path: Path) -> tuple[Image.Image, dict[str, Any]]:
             f"Source dimensions are oversized: {width}x{height}; max dimension is {SOURCE_MAX_DIMENSION}px."
         )
 
-    rgba = image.convert("RGBA")
-    image.close()
-    if rgba.getchannel("A").getbbox() is None:
-        rgba.close()
-        raise AssetPipelineError("Source image is fully transparent.")
+    if mode == MODE_TRANSPARENT_SPECIMEN:
+        if "A" not in image.getbands():
+            image.close()
+            raise AssetPipelineError(
+                "Transparent/specimen source must include an alpha channel for transparent artwork."
+            )
+        prepared = image.convert("RGBA")
+        image.close()
+        if prepared.getchannel("A").getbbox() is None:
+            prepared.close()
+            raise AssetPipelineError("Transparent/specimen source image is fully transparent.")
+    else:
+        if image.width != image.height:
+            width, height = image.size
+            image.close()
+            raise AssetPipelineError(
+                f"Opaque-scene source must be square; got {width}x{height}."
+            )
+        if _has_transparency(image):
+            image.close()
+            raise AssetPipelineError(
+                "Opaque-scene source must be fully opaque; use transparent-specimen mode for alpha artwork."
+            )
+        prepared = image.convert("RGB")
+        image.close()
 
     metadata = {
+        "mode": mode,
         "format": source_format.lower(),
-        "width": rgba.width,
-        "height": rgba.height,
-        "aspectRatio": round(rgba.width / rgba.height, 6),
+        "width": prepared.width,
+        "height": prepared.height,
+        "aspectRatio": round(prepared.width / prepared.height, 6),
         "bytes": source_bytes,
         "sha256": _sha256(path),
     }
-    return rgba, metadata
+    return prepared, metadata
 
 
-def _render_variant(source: Image.Image, spec: VariantSpec, destination: Path) -> dict[str, Any]:
-    working = source.copy()
-    working.thumbnail((spec.size, spec.size), Image.Resampling.LANCZOS, reducing_gap=3.0)
-    canvas = Image.new("RGBA", (spec.size, spec.size), (0, 0, 0, 0))
-    x = (spec.size - working.width) // 2
-    y = (spec.size - working.height) // 2
-    canvas.alpha_composite(working, (x, y))
-    working.close()
+def _render_variant(
+    source: Image.Image,
+    spec: VariantSpec,
+    destination: Path,
+    mode: str,
+) -> dict[str, Any]:
+    _validate_source_mode(mode)
+    if mode == MODE_TRANSPARENT_SPECIMEN:
+        working = source.copy()
+        working.thumbnail((spec.size, spec.size), Image.Resampling.LANCZOS, reducing_gap=3.0)
+        canvas = Image.new("RGBA", (spec.size, spec.size), (0, 0, 0, 0))
+        x = (spec.size - working.width) // 2
+        y = (spec.size - working.height) // 2
+        canvas.alpha_composite(working, (x, y))
+        working.close()
+    else:
+        # Opaque scenes are required to be square, so resizing preserves the reviewed composition.
+        canvas = source.resize((spec.size, spec.size), Image.Resampling.LANCZOS, reducing_gap=3.0)
+        if canvas.mode != "RGB":
+            opaque = canvas.convert("RGB")
+            canvas.close()
+            canvas = opaque
 
     destination.parent.mkdir(parents=True, exist_ok=True)
-    # Fixed encoder settings + stripped metadata keep output stable under the pinned toolchain.
-    canvas.save(
-        destination,
-        format="WEBP",
-        quality=spec.quality,
-        method=6,
-        exact=True,
-        lossless=False,
-        exif=b"",
-        xmp=b"",
-        icc_profile=None,
-    )
+    save_kwargs: dict[str, Any] = {
+        "format": "WEBP",
+        "quality": spec.quality,
+        "method": 6,
+        "lossless": False,
+        "exif": b"",
+        "xmp": b"",
+        "icc_profile": None,
+    }
+    if mode == MODE_TRANSPARENT_SPECIMEN:
+        save_kwargs["exact"] = True
+    canvas.save(destination, **save_kwargs)
     canvas.close()
 
     size_bytes = destination.stat().st_size
@@ -184,8 +234,15 @@ def _write_manifest(path: Path, manifest: dict[str, Any]) -> None:
     path.write_text(json.dumps(manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
 
-def ingest(source: Path, creature_id: str, output_root: Path, force: bool = False) -> Path:
+def ingest(
+    source: Path,
+    creature_id: str,
+    output_root: Path,
+    force: bool = False,
+    mode: str = MODE_TRANSPARENT_SPECIMEN,
+) -> Path:
     _validate_creature_id(creature_id)
+    _validate_source_mode(mode)
     source = source.resolve()
     output_root = output_root.resolve()
     output_root.mkdir(parents=True, exist_ok=True)
@@ -195,16 +252,23 @@ def ingest(source: Path, creature_id: str, output_root: Path, force: bool = Fals
             f"Asset directory already exists for '{creature_id}'. Re-run with --force to replace it."
         )
 
-    image, source_metadata = _open_source(source)
+    image, source_metadata = _open_source(source, mode)
     staging = Path(tempfile.mkdtemp(prefix=f".{creature_id}.", dir=output_root))
     try:
         variants: dict[str, dict[str, Any]] = {}
         for spec in VARIANTS:
-            variants[spec.name] = _render_variant(image, spec, staging / f"{spec.name}.webp")
+            variants[spec.name] = _render_variant(
+                image, spec, staging / f"{spec.name}.webp", mode
+            )
         image.close()
         manifest = _manifest_for_curated(creature_id, source_metadata, variants)
         _write_manifest(staging / "manifest.json", manifest)
-        validate_asset_directory(staging, expected_id=creature_id, manifest_path_override=staging / "manifest.json")
+        errors = validate_asset_directory(
+            staging,
+            expected_id=creature_id,
+            manifest_path_override=staging / "manifest.json",
+        )
+        raise_if_invalid(errors)
 
         if target.exists():
             shutil.rmtree(target)
@@ -228,7 +292,12 @@ def write_fallback(creature_id: str, status: str, output_root: Path, force: bool
     staging = Path(tempfile.mkdtemp(prefix=f".{creature_id}.", dir=output_root))
     try:
         _write_manifest(staging / "manifest.json", _manifest_for_fallback(creature_id, status))
-        validate_asset_directory(staging, expected_id=creature_id, manifest_path_override=staging / "manifest.json")
+        errors = validate_asset_directory(
+            staging,
+            expected_id=creature_id,
+            manifest_path_override=staging / "manifest.json",
+        )
+        raise_if_invalid(errors)
         if target.exists():
             shutil.rmtree(target)
         staging.rename(target)
@@ -280,15 +349,27 @@ def validate_asset_directory(
                 f"Manifest ID '{creature_id}' does not match directory ID '{expected_id}'.",
                 errors,
             )
-    _require(manifest.get("version") == MANIFEST_VERSION, f"Unsupported manifest version in {manifest_path}", errors)
+    _require(
+        manifest.get("version") == MANIFEST_VERSION,
+        f"Unsupported manifest version in {manifest_path}",
+        errors,
+    )
 
     artwork = manifest.get("artwork")
     if not isinstance(artwork, dict):
         errors.append(f"Missing/invalid artwork block in {manifest_path}")
         return errors
     status = artwork.get("status")
-    _require(status in {"curated", "placeholder", "missing"}, f"Invalid artwork status in {manifest_path}", errors)
-    _require(artwork.get("aspectRatio") == ASPECT_RATIO, f"Artwork aspectRatio must be {ASPECT_RATIO} in {manifest_path}", errors)
+    _require(
+        status in {"curated", "placeholder", "missing"},
+        f"Invalid artwork status in {manifest_path}",
+        errors,
+    )
+    _require(
+        artwork.get("aspectRatio") == ASPECT_RATIO,
+        f"Artwork aspectRatio must be {ASPECT_RATIO} in {manifest_path}",
+        errors,
+    )
 
     variants = artwork.get("variants")
     _require(isinstance(variants, dict), f"Missing/invalid variants block in {manifest_path}", errors)
@@ -296,24 +377,50 @@ def validate_asset_directory(
         return errors
 
     if status in {"placeholder", "missing"}:
-        _require(manifest.get("source") is None, f"Fallback manifest must have null source: {manifest_path}", errors)
+        _require(
+            manifest.get("source") is None,
+            f"Fallback manifest must have null source: {manifest_path}",
+            errors,
+        )
         _require(not variants, f"Fallback manifest must not reference variants: {manifest_path}", errors)
         for spec in VARIANTS:
-            _require(artwork.get(spec.name) is None, f"Fallback '{spec.name}' reference must be null: {manifest_path}", errors)
+            _require(
+                artwork.get(spec.name) is None,
+                f"Fallback '{spec.name}' reference must be null: {manifest_path}",
+                errors,
+            )
         return errors
 
     source = manifest.get("source")
     _require(isinstance(source, dict), f"Curated manifest requires source metadata: {manifest_path}", errors)
+    if isinstance(source, dict):
+        # Mode was added after manifest v1 shipped. Missing mode is the legacy transparent contract.
+        source_mode = source.get("mode", MODE_TRANSPARENT_SPECIMEN)
+        _require(
+            source_mode in SOURCE_MODES,
+            f"Invalid source mode in {manifest_path}",
+            errors,
+        )
+    else:
+        source_mode = MODE_TRANSPARENT_SPECIMEN
 
     for spec in VARIANTS:
         ref = artwork.get(spec.name)
         _require(isinstance(ref, str), f"Missing artwork.{spec.name} reference in {manifest_path}", errors)
         metadata = variants.get(spec.name)
-        _require(isinstance(metadata, dict), f"Missing variants.{spec.name} metadata in {manifest_path}", errors)
+        _require(
+            isinstance(metadata, dict),
+            f"Missing variants.{spec.name} metadata in {manifest_path}",
+            errors,
+        )
         if not isinstance(ref, str) or not isinstance(metadata, dict):
             continue
         _require(metadata.get("path") == ref, f"Broken {spec.name} path metadata in {manifest_path}", errors)
-        _require(Path(ref).name == ref, f"Variant paths must be local filenames, not nested/absolute paths: {ref}", errors)
+        _require(
+            Path(ref).name == ref,
+            f"Variant paths must be local filenames, not nested/absolute paths: {ref}",
+            errors,
+        )
         file_path = directory / ref
         if not file_path.is_file():
             errors.append(f"Broken reference for {spec.name}: {file_path}")
@@ -333,8 +440,19 @@ def validate_asset_directory(
             with Image.open(file_path) as rendered:
                 rendered.load()
                 _require(rendered.format == "WEBP", f"Variant is not WebP: {file_path}", errors)
-                _require(rendered.size == (spec.size, spec.size), f"Variant dimensions are wrong: {file_path}", errors)
-                _require("A" in rendered.getbands(), f"Variant lost alpha channel: {file_path}", errors)
+                _require(
+                    rendered.size == (spec.size, spec.size),
+                    f"Variant dimensions are wrong: {file_path}",
+                    errors,
+                )
+                if source_mode == MODE_TRANSPARENT_SPECIMEN:
+                    _require("A" in rendered.getbands(), f"Variant lost alpha channel: {file_path}", errors)
+                else:
+                    _require(
+                        not _has_transparency(rendered),
+                        f"Opaque-scene variant contains transparency: {file_path}",
+                        errors,
+                    )
         except (UnidentifiedImageError, OSError) as exc:
             errors.append(f"Unreadable variant {file_path}: {exc}")
 
@@ -351,7 +469,6 @@ def validate_root(output_root: Path) -> list[str]:
     errors: list[str] = []
     seen_ids: dict[str, Path] = {}
 
-    # Every top-level asset directory is canonical and therefore must have a manifest.
     for child in sorted(output_root.iterdir()):
         if not child.is_dir() or child.name.startswith("."):
             continue
@@ -370,7 +487,6 @@ def validate_root(output_root: Path) -> list[str]:
                 seen_ids[creature_id] = manifest_path
         errors.extend(validate_asset_directory(child, expected_id=child.name))
 
-    # Catch duplicate manifests that were accidentally nested/copied outside canonical top-level directories.
     for manifest_path in sorted(output_root.rglob("manifest.json")):
         if manifest_path.parent.parent == output_root:
             continue

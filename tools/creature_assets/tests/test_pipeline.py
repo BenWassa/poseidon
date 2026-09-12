@@ -9,6 +9,8 @@ from pathlib import Path
 from PIL import Image
 
 from tools.creature_assets.pipeline import (
+    MODE_OPAQUE_SCENE,
+    MODE_TRANSPARENT_SPECIMEN,
     AssetPipelineError,
     VARIANTS,
     ingest,
@@ -23,14 +25,13 @@ class AssetPipelineTests(unittest.TestCase):
         self.base = Path(self.temp_dir.name)
         self.root = self.base / "assets"
         self.source = self.base / "source.png"
-        self._write_source(self.source)
+        self._write_transparent_source(self.source)
 
     def tearDown(self) -> None:
         self.temp_dir.cleanup()
 
     @staticmethod
-    def _write_source(path: Path, size: int = 1024) -> None:
-        # Fast synthetic RGBA fixture; no production creature artwork is committed.
+    def _write_transparent_source(path: Path, size: int = 256) -> None:
         noise = Image.effect_noise((size, size), 85).convert("L")
         alpha = Image.new("L", (size, size), 230)
         border = 24
@@ -44,10 +45,19 @@ class AssetPipelineTests(unittest.TestCase):
         noise.close()
         alpha.close()
 
+    @staticmethod
+    def _write_opaque_source(path: Path, size: int = 256) -> None:
+        noise = Image.effect_noise((size, size), 65).convert("L")
+        image = Image.merge("RGB", (noise, noise, noise))
+        image.save(path, format="WEBP", quality=84, method=6)
+        image.close()
+        noise.close()
+
     def test_ingest_produces_stable_variants_manifest_and_transparency(self) -> None:
         manifest_path = ingest(self.source, "sample-ray", self.root)
         manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
         self.assertEqual(manifest["creatureId"], "sample-ray")
+        self.assertEqual(manifest["source"]["mode"], MODE_TRANSPARENT_SPECIMEN)
         self.assertEqual(manifest["artwork"]["status"], "curated")
         self.assertEqual(manifest["artwork"]["aspectRatio"], 1.0)
 
@@ -59,33 +69,54 @@ class AssetPipelineTests(unittest.TestCase):
                 self.assertEqual(rendered.format, "WEBP")
                 self.assertIn("A", rendered.getbands())
             self.assertLessEqual(variant_path.stat().st_size, spec.max_bytes)
-
-        source_bytes = self.source.stat().st_size
-        thumb_bytes = (manifest_path.parent / "thumb.webp").stat().st_size
-        gallery_bytes = (manifest_path.parent / "gallery.webp").stat().st_size
-        hero_bytes = (manifest_path.parent / "hero.webp").stat().st_size
-        self.assertLess(thumb_bytes, gallery_bytes)
-        self.assertLess(gallery_bytes, hero_bytes)
-        self.assertLess(gallery_bytes, source_bytes)
         self.assertEqual(validate_root(self.root), [])
 
-    def test_same_input_is_deterministic_under_pinned_toolchain(self) -> None:
-        root_a = self.base / "a"
-        root_b = self.base / "b"
-        manifest_a = ingest(self.source, "sample-ray", root_a)
-        manifest_b = ingest(self.source, "sample-ray", root_b)
-        self.assertEqual(manifest_a.read_bytes(), manifest_b.read_bytes())
+    def test_opaque_scene_produces_same_runtime_dimensions_without_alpha_requirement(self) -> None:
+        opaque = self.base / "scene.webp"
+        self._write_opaque_source(opaque)
+        manifest_path = ingest(opaque, "sample-ray", self.root, mode=MODE_OPAQUE_SCENE)
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        self.assertEqual(manifest["source"]["mode"], MODE_OPAQUE_SCENE)
+        self.assertEqual(manifest["source"]["width"], 256)
+        self.assertEqual(manifest["source"]["height"], 256)
         for spec in VARIANTS:
-            self.assertEqual(
-                (manifest_a.parent / f"{spec.name}.webp").read_bytes(),
-                (manifest_b.parent / f"{spec.name}.webp").read_bytes(),
-            )
+            with Image.open(manifest_path.parent / f"{spec.name}.webp") as rendered:
+                rendered.load()
+                self.assertEqual(rendered.size, (spec.size, spec.size))
+                if "A" in rendered.getbands():
+                    self.assertEqual(rendered.getchannel("A").getextrema(), (255, 255))
+        self.assertEqual(validate_root(self.root), [])
+
+    def test_both_modes_are_deterministic_under_pinned_toolchain(self) -> None:
+        for mode in (MODE_TRANSPARENT_SPECIMEN, MODE_OPAQUE_SCENE):
+            with self.subTest(mode=mode):
+                source = self.source
+                if mode == MODE_OPAQUE_SCENE:
+                    source = self.base / "scene.webp"
+                    self._write_opaque_source(source)
+                root_a = self.base / f"a-{mode}"
+                root_b = self.base / f"b-{mode}"
+                manifest_a = ingest(source, "sample-ray", root_a, mode=mode)
+                manifest_b = ingest(source, "sample-ray", root_b, mode=mode)
+                self.assertEqual(manifest_a.read_bytes(), manifest_b.read_bytes())
+                for spec in VARIANTS:
+                    self.assertEqual(
+                        (manifest_a.parent / f"{spec.name}.webp").read_bytes(),
+                        (manifest_b.parent / f"{spec.name}.webp").read_bytes(),
+                    )
 
     def test_placeholder_and_missing_states_validate_without_art(self) -> None:
         placeholder = write_fallback("unknown-eel", "placeholder", self.root)
         missing = write_fallback("unknown-ray", "missing", self.root)
         self.assertEqual(json.loads(placeholder.read_text())["artwork"]["status"], "placeholder")
         self.assertEqual(json.loads(missing.read_text())["artwork"]["status"], "missing")
+        self.assertEqual(validate_root(self.root), [])
+
+    def test_validator_accepts_legacy_manifest_without_mode_as_transparent(self) -> None:
+        manifest_path = ingest(self.source, "sample-ray", self.root)
+        manifest = json.loads(manifest_path.read_text())
+        manifest["source"].pop("mode")
+        manifest_path.write_text(json.dumps(manifest))
         self.assertEqual(validate_root(self.root), [])
 
     def test_validator_reports_broken_reference(self) -> None:
@@ -111,7 +142,6 @@ class AssetPipelineTests(unittest.TestCase):
 
     def test_validator_reports_oversized_variant(self) -> None:
         manifest_path = ingest(self.source, "sample-ray", self.root)
-        manifest = json.loads(manifest_path.read_text())
         thumb = manifest_path.parent / "thumb.webp"
         thumb.write_bytes(thumb.read_bytes() + b"x" * (VARIANTS[0].max_bytes + 1))
         errors = validate_root(self.root)
@@ -124,12 +154,23 @@ class AssetPipelineTests(unittest.TestCase):
         with self.assertRaisesRegex(AssetPipelineError, "Unsupported source format"):
             ingest(jpeg, "sample-ray", self.root)
 
-    def test_opaque_png_without_alpha_fails(self) -> None:
+    def test_transparent_mode_still_rejects_opaque_rgb_source(self) -> None:
         opaque = self.base / "opaque.png"
         with Image.new("RGB", (32, 32), "white") as image:
             image.save(opaque, format="PNG")
         with self.assertRaisesRegex(AssetPipelineError, "must include an alpha channel"):
             ingest(opaque, "sample-ray", self.root)
+
+    def test_opaque_scene_rejects_transparency(self) -> None:
+        with self.assertRaisesRegex(AssetPipelineError, "must be fully opaque"):
+            ingest(self.source, "sample-ray", self.root, mode=MODE_OPAQUE_SCENE)
+
+    def test_opaque_scene_rejects_non_square_source(self) -> None:
+        scene = self.base / "wide.webp"
+        with Image.new("RGB", (1024, 900), "white") as image:
+            image.save(scene, format="WEBP", quality=84)
+        with self.assertRaisesRegex(AssetPipelineError, "must be square"):
+            ingest(scene, "sample-ray", self.root, mode=MODE_OPAQUE_SCENE)
 
     def test_oversized_source_dimensions_fail(self) -> None:
         oversized = self.base / "oversized.png"

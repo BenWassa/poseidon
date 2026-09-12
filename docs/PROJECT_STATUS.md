@@ -73,6 +73,16 @@ It covers canonical content/assets, lint/format, typechecks, domain/application 
 
 Parent: #5
 
+### #11 — source-art system / PR #13 — complete
+
+The exact `poseidon-creature-source-library-2026-09-07.zip` (SHA-256 `d6d1d756bffeb2302e02a55f9a09327fbc5fbf2c806b6fb3e96244e63e11f865`) was verified and imported with the existing importer. All 30 immutable 1024×1024 WebP masters are now present under `assets/source/creatures/<id>/candidate-v1.webp`, `binaryImportStatus` is `complete`, and byte/SHA-256 metadata is populated for every candidate.
+
+The importer's ZIP-member resolution was extended to tolerate a single wrapping root directory (the real bundle's members were nested under `poseidon_library_branch/`) — a path-resolution fix only; every other validation (format, dimensions, alpha-channel-by-mode, immutability, byte/hash matching, post-import full catalog re-validation) is unchanged and covered by an added regression test (26/26 asset-tool tests pass).
+
+Editorial state from completed #12 is preserved exactly: **22 keep / 0 provisional / 8 remake**. No `assets/creatures/**` runtime art was replaced; promotion into runtime remains a separate, deliberate `promote-source` step.
+
+Strict source validation and the full repository gate (`npm run gate`) both pass on the reconciled branch.
+
 ### #12 — creature-art curation — complete
 
 Biological/style QA is complete. The original 30-candidate editorial batch is now:
@@ -93,23 +103,6 @@ The first truthful map is merged around sourced starter-region coordinates. Coor
 
 ## Remaining closeout
 
-### #11 — source-art system / draft PR #13
-
-The source-library engineering is implemented and reconciled onto current `main`:
-
-- `assets/source/creatures` editorial/source layer;
-- explicit `transparent-specimen` and `opaque-scene` modes;
-- deterministic 192 / 512 / 1024 runtime variants;
-- immutable source paths plus byte/SHA-256 catalog metadata;
-- promotion safeguards: only reviewed `keep` entries mapped to existing content may promote;
-- `remake` and source-only entries are blocked;
-- existing runtime artwork cannot be replaced without deliberate promotion plus explicit force;
-- React continues consuming only canonical `assets/creatures` output.
-
-The only remaining blocker is importing the exact prepared `poseidon-creature-source-library-2026-09-07.zip` containing the 30 immutable WebP masters. Until that exact archive is accessible and imported, strict source validation correctly remains red and PR #13 remains draft.
-
-Do not substitute or regenerate binaries merely to make this gate pass.
-
 ### #14 — v0 field readiness — owner-device closeout only
 
 Engineering is complete and deployed. Automated production acceptance covers restore, offline cold start after cache establishment, create/edit/delete, Home/Journal/Collection/Atlas coherence, navigation/Back behavior and export → clean-state restore equivalence.
@@ -122,7 +115,7 @@ Keep #14 open until that owner-device evidence is recorded.
 
 The written MVP-A / representative phone scenario in `docs/PRD.md` is implemented on `main`, and the production PWA is live.
 
-Issue #1 remains open for owner-level closeout. The remaining technical blocker is #11's exact immutable source-bundle import; the remaining real-world acceptance blocker is #14's physical Pixel validation.
+Issue #1 remains open for owner-level closeout. The remaining real-world acceptance blocker is #14's physical Pixel validation.
 
 ## Durable boundaries
 
