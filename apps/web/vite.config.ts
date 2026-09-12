@@ -5,7 +5,10 @@ import tailwindcss from '@tailwindcss/vite';
 import { defineConfig, searchForWorkspaceRoot } from 'vite';
 import { VitePWA } from 'vite-plugin-pwa';
 
+import { getBuildIdentity } from '../../tools/release/build-identity.mjs';
+
 const workspaceRoot = searchForWorkspaceRoot(process.cwd());
+const { productVersion, buildRevision } = getBuildIdentity();
 
 function normalizeBase(value: string): string {
   const leading = value.startsWith('/') ? value : `/${value}`;
@@ -16,6 +19,10 @@ const base = normalizeBase(process.env.POSEIDON_BASE_PATH ?? '/');
 
 export default defineConfig({
   base,
+  define: {
+    __POSEIDON_VERSION__: JSON.stringify(productVersion),
+    __POSEIDON_BUILD_SHA__: JSON.stringify(buildRevision),
+  },
   plugins: [
     react(),
     tailwindcss(),

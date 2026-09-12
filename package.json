@@ -30,7 +30,8 @@
     "validate:content": "python3 tools/validate_content.py",
     "validate:assets": "python3 -m tools.creature_assets validate --root assets/creatures",
     "validate:source-assets": "python3 -m tools.creature_assets validate-source --catalog assets/source/creatures/catalog.json",
-    "gate": "npm run check:assets && npm run check && npm run test:mock && npm run verify:brand && npm run build && npm run test:pwa && npm run verify:field --workspace @poseidon/web",
+    "validate:versions": "node tools/release/check-versions.mjs",
+    "gate": "npm run validate:versions && npm run check:assets && npm run check && npm run test:mock && npm run verify:brand && npm run build && npm run test:pwa && npm run verify:field --workspace @poseidon/web",
     "brand:build": "python3 tools/brand/build.py",
     "verify:brand": "npm run brand:build && python3 tools/brand/verify.py"
   },

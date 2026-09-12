@@ -1,0 +1,22 @@
+name: Release please
+
+# Every push to main only ever opens/updates a proposed release PR. A tag and
+# GitHub Release are cut only when that release PR itself is reviewed and
+# merged — ordinary feature merges never publish a release by accident. See
+# docs/VERSIONING_AND_RELEASES.md.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: googleapis/release-please-action@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}

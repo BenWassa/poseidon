@@ -8,8 +8,10 @@
 import { useState, type ChangeEvent } from 'react';
 import {
   Check,
+  Copy,
   Database,
   Download,
+  Info,
   LogOut,
   Ruler,
   ShieldCheck,
@@ -32,6 +34,7 @@ import {
 import { contentMeta } from '../data/content';
 import { useLifetimeStats } from '../data/hooks';
 import { usePoseidon } from '../data/provider';
+import { buildInfo } from '../lib/buildInfo';
 import { pluralize, todayIso } from '../lib/format';
 import { usePreferences } from '../lib/preferences';
 
@@ -49,6 +52,17 @@ export function DataAndBackup() {
   const [restoreError, setRestoreError] = useState<string | null>(null);
   const [restoreStatus, setRestoreStatus] = useState<string | null>(null);
   const [restorePending, setRestorePending] = useState(false);
+  const [buildInfoCopied, setBuildInfoCopied] = useState(false);
+
+  const copyBuildInfo = async () => {
+    try {
+      await navigator.clipboard.writeText(buildInfo.display);
+      setBuildInfoCopied(true);
+      window.setTimeout(() => setBuildInfoCopied(false), 2000);
+    } catch {
+      // Clipboard access can be unavailable; the string is still visible to copy by hand.
+    }
+  };
 
   const exportData = async () => {
     const payload = await client.store.exportData();
@@ -376,6 +390,35 @@ export function DataAndBackup() {
           </Card>
         </section>
       ) : null}
+
+      <section className="mt-7 px-5">
+        <SectionHeader title="About" />
+        <Card className="p-5">
+          <div className="flex items-start gap-3">
+            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-aqua-soft text-marine">
+              <Info size={20} aria-hidden="true" />
+            </span>
+            <div className="min-w-0 flex-1">
+              <p className="text-sm font-bold text-abyss">
+                {buildInfo.display}
+              </p>
+              <p className="mt-1 text-xs leading-relaxed font-medium text-abyss/55">
+                Useful if you ever need to report an issue.
+              </p>
+            </div>
+          </div>
+          <div className="mt-4">
+            <QuietAction type="button" onClick={() => void copyBuildInfo()}>
+              {buildInfoCopied ? (
+                <Check size={18} aria-hidden="true" />
+              ) : (
+                <Copy size={18} aria-hidden="true" />
+              )}
+              {buildInfoCopied ? 'Copied' : 'Copy version info'}
+            </QuietAction>
+          </div>
+        </Card>
+      </section>
     </div>
   );
 }

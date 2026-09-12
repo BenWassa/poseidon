@@ -94,11 +94,11 @@ Durable implementation contract: `docs/DEV_MOCK_DATA.md`.
 
 These are deliberate enhancements on top of the integrated product baseline. They are not new v0 field-readiness blockers unless their issues explicitly say otherwise.
 
-### #26 — versioning and release system — scoped, not implemented
+### #26 — versioning and release system — infrastructure implemented; bootstrap release pending
 
-Adopt one Poseidon product-version stream using Semantic Versioning, immutable `vX.Y.Z` Git tags/GitHub Releases and a separate Git-SHA build identity for exact deployed-code traceability.
+The root `package.json` version (`0.1.0`) is the canonical product version, mechanically kept in sync with `apps/web` and `packages/domain` and validated by `npm run validate:versions` in the gate. Every production build embeds both the product version and the exact Git SHA via `apps/web/src/lib/buildInfo.ts`, surfaced in a restrained, copyable form on the Data & Backup screen. `CHANGELOG.md`, `release-please-config.json` and `.github/workflows/release-please.yml` are in place: ordinary merges to `main` only ever open/update a proposed release PR, and a tag/GitHub Release is cut only when that PR is deliberately reviewed and merged. Pre-1.0 breaking changes are configured to bump minor, never `1.0.0`, automatically.
 
-The root `package.json` version is the intended canonical product version. Product/app SemVer must remain distinct from persistence/export schema versions, creature asset/catalog schema versions and Firebase rules language versioning. The preferred release path is a reviewable Release Please PR with Conventional Commit semantics applied prospectively at the squash/merge boundary; continuous GitHub Pages deployment from `main` remains separate from named releases.
+Remaining per the bootstrap plan in `docs/VERSIONING_AND_RELEASES.md`: let a known-green `main` accumulate, then deliberately merge the first Release Please PR to cut `v0.1.0` as the intentional bootstrap release. This is an owner decision, not something to trigger automatically.
 
 Durable implementation contract: `docs/VERSIONING_AND_RELEASES.md`.
 

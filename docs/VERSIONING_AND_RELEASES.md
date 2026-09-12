@@ -2,7 +2,7 @@
 
 Issue authority: [#26 — Versioning & release system: SemVer, build identity, changelog and GitHub Releases](https://github.com/BenWassa/poseidon/issues/26)
 
-Status: **scoped; not implemented**
+Status: **infrastructure implemented; bootstrap release pending** (see `docs/PROJECT_STATUS.md`)
 
 This document defines the intended versioning and release model for Poseidon. It is deliberately separate from persistence/export schema versioning, asset schema versioning and deployment mechanics.
 
