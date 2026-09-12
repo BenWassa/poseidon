@@ -93,12 +93,12 @@ describe('Sunlit Reef brand contract', () => {
     ]) {
       expect(source).not.toMatch(
         new RegExp(
-          `(?:bg|text|border|ring|from|via|to)-${retired}(?:[/\\s"'\\`]|$)`,
+          `(?:bg|text|border|ring|from|via|to)-${retired}(?:[/\\s"']|$)`,
         ),
       );
     }
     for (const fill of ['coral', 'lagoon', 'sun']) {
-      expect(source).not.toMatch(new RegExp(`bg-${fill}[^"'\\`]*text-white`));
+      expect(source).not.toMatch(new RegExp(`bg-${fill}[^"']*text-white`));
     }
     expect(source).not.toContain('text-lagoon');
   });
