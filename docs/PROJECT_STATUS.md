@@ -1,6 +1,6 @@
 # Poseidon — current project status
 
-Last reconciled: **2026-09-11**
+Last reconciled: **2026-09-12**
 
 This document is the living programme-status companion to the durable product contracts. It records what is implemented and what remains; it does not replace `PRODUCT.md` or `docs/PRD.md`.
 
@@ -10,7 +10,7 @@ Poseidon is now a deployed, integrated React/Vite/TypeScript PWA rather than a g
 
 Current `main` authority at this reconciliation is commit:
 
-`2f443804ab80c76cc14061e1a3de67152f503d54`
+`7b8939b35603fd1f32df896dcfba840ce109fb9e`
 
 Current application architecture remains repository authority:
 
@@ -70,21 +70,29 @@ npm run gate
 
 It covers canonical content/assets, lint/format, typechecks, domain/application tests, production build, PWA precache-budget verification and automated field-readiness acceptance.
 
+## Repository gate
+
+The gate was red from `25d0778c` ("Add Firebase auth and Firestore persistence") through `f4c8ad7`: the commit made `apps/web/src/firebase/config.ts` initialize Firebase from `VITE_FIREBASE_*` env vars, but no GitHub Actions workflow or repository secret ever supplied them. Every production build — including the live GitHub Pages deployment — threw `auth/invalid-api-key` during Firebase init and white-screened before React could render even the sign-in shell. This was not test drift; the deployed app itself was broken for real visitors.
+
+Fixed at `7b8939b` (2026-09-12): the Firebase project config from local dev is now stored as repository secrets and wired into both `.github/workflows/gate.yml` and `.github/workflows/deploy-pages.yml`. `npm run gate` and the live deployment are confirmed green again.
+
+## Completed enhancement streams
+
+### #21 — Sunlit Reef brand-system migration — complete
+
+Migrated the live UI, PWA chrome and generated icon to the locked Sunlit Reef palette while preserving auth, persistence, domain behavior, navigation and product structure. Closed.
+
+### #24 — temporary seeded mock-data dev mode — complete
+
+Added an explicit development-only path for testing the real application with deterministic `0 / 3 / 5 / 15 / 30` dive histories.
+
+The hard boundary is **zero Firebase initialization in mock mode**: no auth gate, Firestore, Firebase SDK startup or Firebase network traffic. Mock personal history is in-memory only and resets on reload. The seed uses canonical production marine content/assets and normal `PoseidonStore` behavior; only the personal history is synthetic. Closed.
+
+Durable implementation contract: `docs/DEV_MOCK_DATA.md`.
+
 ## Active enhancement streams
 
 These are deliberate enhancements on top of the integrated product baseline. They are not new v0 field-readiness blockers unless their issues explicitly say otherwise.
-
-### #21 — Sunlit Reef brand-system migration — open
-
-Migrate the live UI, PWA chrome and current generated icon to the locked Sunlit Reef palette while preserving auth, persistence, domain behavior, navigation and current product structure.
-
-### #24 — temporary seeded mock-data dev mode — scoped, not implemented
-
-Add an explicit development-only path for testing the real application with deterministic `0 / 3 / 5 / 15 / 30` dive histories.
-
-The hard boundary is **zero Firebase initialization in mock mode**: no auth gate, Firestore, Firebase SDK startup or Firebase network traffic. Mock personal history is in-memory only and resets on reload. The seed uses canonical production marine content/assets and normal `PoseidonStore` behavior; only the personal history is synthetic.
-
-Durable implementation contract: `docs/DEV_MOCK_DATA.md`.
 
 ### #26 — versioning and release system — scoped, not implemented
 
