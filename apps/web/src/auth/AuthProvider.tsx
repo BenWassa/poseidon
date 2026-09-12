@@ -1,5 +1,6 @@
 /**
- * Gates the whole app behind Google sign-in plus an admin-managed allowlist.
+ * Gates the Firebase-backed application behind Google sign-in plus an
+ * admin-managed allowlist.
  *
  * The one rule every branch below protects: a cache miss or offline read
  * must never be read as "not approved". Firestore's `approvedUsers` read is
@@ -10,9 +11,7 @@
  * the matching data-side rule.
  */
 import {
-  createContext,
   useCallback,
-  useContext,
   useEffect,
   useRef,
   useState,
@@ -32,9 +31,10 @@ import {
 } from 'firebase/firestore';
 
 import { auth, db, googleProvider } from '../firebase/config';
+import { AuthContextProvider, type AuthStatus } from './AuthContext';
 
-export type AuthStatus =
-  'loading' | 'signed-out' | 'pending' | 'approved' | 'error';
+export { useAuth } from './AuthContext';
+export type { AuthStatus } from './AuthContext';
 
 interface StickyApproval {
   uid: string;
@@ -75,18 +75,6 @@ function clearSticky(): void {
     // ignore
   }
 }
-
-interface AuthContextValue {
-  status: AuthStatus;
-  user: User | null;
-  error: Error | null;
-  hasRequestedAccess: boolean;
-  signInWithGoogle: () => Promise<void>;
-  signOutUser: () => Promise<void>;
-  requestAccess: () => Promise<void>;
-}
-
-const AuthContext = createContext<AuthContextValue | null>(null);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [status, setStatus] = useState<AuthStatus>('loading');
@@ -134,7 +122,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             const snap = await getDocFromServer(
               doc(db, 'approvedUsers', email),
             );
-            if (checkId.current !== thisCheck) return; // stale: user changed mid-check
+            if (checkId.current !== thisCheck) return;
 
             if (snap.exists() && snap.data().approved === true) {
               writeSticky({
@@ -145,16 +133,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
               });
               setStatus('approved');
             } else {
-              // Server-confirmed negative — the only case allowed to demote.
               if (sticky?.uid === nextUser.uid) clearSticky();
               setStatus('pending');
             }
           } catch {
             if (checkId.current !== thisCheck) return;
             if (sticky?.uid === nextUser.uid && sticky.email === email) {
-              setStatus('approved'); // fail-open: offline, previously approved
+              setStatus('approved');
             } else {
-              setStatus('pending'); // fail-closed: offline, never confirmed
+              setStatus('pending');
             }
           }
         })();
@@ -192,7 +179,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [user]);
 
   return (
-    <AuthContext.Provider
+    <AuthContextProvider
       value={{
         status,
         user,
@@ -204,12 +191,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       }}
     >
       {children}
-    </AuthContext.Provider>
+    </AuthContextProvider>
   );
-}
-
-export function useAuth(): AuthContextValue {
-  const context = useContext(AuthContext);
-  if (!context) throw new Error('useAuth must be used inside an AuthProvider.');
-  return context;
 }
