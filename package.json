@@ -14,7 +14,7 @@
     "check:assets": "npm run validate:content && npm run validate:assets && npm run test:assets",
     "lint": "eslint . --max-warnings=0",
     "format": "prettier --write \"{apps,packages}/**/*.{ts,tsx,js,mjs,json,css}\" \"*.{js,json}\"",
-    "format:check": "prettier --write \"{apps,packages}/**/*.{ts,tsx,js,mjs,json,css}\" \"*.{js,json}\" && git diff --exit-code",
+    "format:check": "prettier --check \"{apps,packages}/**/*.{ts,tsx,js,mjs,json,css}\" \"*.{js,json}\"",
     "typecheck": "npm run typecheck --workspace @poseidon/domain && npm run typecheck --workspace @poseidon/web",
     "test": "npm run test --workspace @poseidon/domain && npm run test --workspace @poseidon/web",
     "test:assets": "python3 -m unittest discover -s tools/creature_assets/tests -v",
