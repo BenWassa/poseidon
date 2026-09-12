@@ -7,8 +7,6 @@
   "scripts": {
     "predev": "python3 ../../tools/brand/build.py && node scripts/sync-assets.mjs",
     "dev": "vite",
-    "predev:mock": "node scripts/sync-assets.mjs",
-    "dev:mock": "vite --mode mock",
     "prebuild": "python3 ../../tools/brand/build.py && node scripts/sync-assets.mjs",
     "build": "vite build",
     "preview": "vite preview",

@@ -1,4 +1,4 @@
-import { describe, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import {
   DEFAULT_MOCK_PRESET,
@@ -7,6 +7,13 @@ import {
   resolveMockPreset,
 } from '../src/dev/mock-data';
 import { isMockMode } from '../src/dev/mode';
+import {
+  DEFAULT_DEV_SELECTION,
+  DEV_SELECTION_KEY,
+  readDevSelection,
+  selectionFromSearch,
+  writeDevSelection,
+} from '../src/dev/selection';
 
 describe('development mock data', () => {
   it.each(MOCK_PRESETS)('builds exactly %i seeded dives', async (preset) => {
@@ -102,8 +109,47 @@ describe('development mock data', () => {
   });
 
   it('cannot enable mock bootstrap in a production build', () => {
-    expect(isMockMode(true, 'mock')).toBe(true);
-    expect(isMockMode(true, 'development')).toBe(false);
-    expect(isMockMode(false, 'mock')).toBe(false);
+    expect(isMockMode(true, { kind: 'mock', preset: 15 })).toBe(true);
+    expect(isMockMode(true, { kind: 'real' })).toBe(false);
+    expect(isMockMode(false, { kind: 'mock', preset: 15 })).toBe(false);
+  });
+});
+
+describe('development data selection', () => {
+  beforeEach(() => {
+    window.localStorage.removeItem(DEV_SELECTION_KEY);
+  });
+
+  it('runs the real application until mock history is chosen', () => {
+    expect(DEFAULT_DEV_SELECTION).toEqual({ kind: 'real' });
+    expect(readDevSelection('')).toEqual({ kind: 'real' });
+  });
+
+  it('reads a selection from the query parameter and remembers it', () => {
+    expect(readDevSelection('?mock=30')).toEqual({ kind: 'mock', preset: 30 });
+    expect(readDevSelection('')).toEqual({ kind: 'mock', preset: 30 });
+  });
+
+  it('returns to the real application with ?mock=off', () => {
+    writeDevSelection({ kind: 'mock', preset: 5 });
+    expect(readDevSelection('?mock=off')).toEqual({ kind: 'real' });
+    expect(readDevSelection('')).toEqual({ kind: 'real' });
+  });
+
+  it('defers to the stored choice when no parameter is present', () => {
+    expect(selectionFromSearch('')).toBeNull();
+    writeDevSelection({ kind: 'mock', preset: 3 });
+    expect(readDevSelection('#/journal')).toEqual({ kind: 'mock', preset: 3 });
+  });
+
+  it('falls back to the real application on unusable stored values', () => {
+    window.localStorage.setItem(DEV_SELECTION_KEY, 'not json');
+    expect(readDevSelection('')).toEqual({ kind: 'real' });
+
+    window.localStorage.setItem(
+      DEV_SELECTION_KEY,
+      JSON.stringify({ kind: 'mock', preset: 7 }),
+    );
+    expect(readDevSelection('')).toEqual({ kind: 'real' });
   });
 });

@@ -7,10 +7,18 @@ import {
 import { PoseidonClient } from '../data/client';
 import { contentPack, creatures, curatedSites } from '../data/content';
 
-export const MOCK_PRESETS = [0, 3, 5, 15, 30] as const;
-export type MockPreset = (typeof MOCK_PRESETS)[number];
+import type { MockPreset } from './selection';
 
-export const DEFAULT_MOCK_PRESET: MockPreset = 15;
+// The preset vocabulary and the `?mock=` parser live in `./selection` so that
+// choosing what to boot never has to load this seed. Re-exported here because
+// this module remains the public face of the mock scenario.
+export {
+  DEFAULT_MOCK_PRESET,
+  MOCK_PRESETS,
+  resolveMockPreset,
+  type MockPreset,
+} from './selection';
+
 const CUSTOM_CREATURE_NAME = 'Tiny mystery nudibranch';
 
 interface MockDiveSeed {
@@ -306,21 +314,6 @@ export const MOCK_DIVE_SEQUENCE: readonly MockDiveSeed[] = [
     buddies: ['Maya'],
   },
 ] as const;
-
-function isMockPreset(value: number): value is MockPreset {
-  return (MOCK_PRESETS as readonly number[]).includes(value);
-}
-
-export function resolveMockPreset(search: string): MockPreset {
-  const raw = new URLSearchParams(search).get('mock');
-  if (raw === null || raw === '') return DEFAULT_MOCK_PRESET;
-  const parsed = Number(raw);
-  if (Number.isInteger(parsed) && isMockPreset(parsed)) return parsed;
-  console.warn(
-    `[poseidon] unsupported mock preset "${raw}"; using ${DEFAULT_MOCK_PRESET}. Expected one of ${MOCK_PRESETS.join(', ')}.`,
-  );
-  return DEFAULT_MOCK_PRESET;
-}
 
 function requiredSite(name: string) {
   const site = curatedSites.find((candidate) => candidate.name === name);

@@ -88,6 +88,8 @@ Added an explicit development-only path for testing the real application with de
 
 The hard boundary is **zero Firebase initialization in mock mode**: no auth gate, Firestore, Firebase SDK startup or Firebase network traffic. Mock personal history is in-memory only and resets on reload. The seed uses canonical production marine content/assets and normal `PoseidonStore` behavior; only the personal history is synthetic. Closed.
 
+Follow-up work collapsed the separate `dev:mock` Vite mode into a single development site: `npm run dev` boots the real application, and an in-app development badge switches between `Real · Firebase` and the `0 / 3 / 5 / 15 / 30` mock presets. The Firebase boundary is unchanged and is now proven against the ordinary dev server.
+
 Durable implementation contract: `docs/DEV_MOCK_DATA.md`.
 
 ## Active enhancement streams

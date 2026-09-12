@@ -21,7 +21,6 @@
     "test:mock": "npm run test:mock --workspace @poseidon/web",
     "test:pwa": "npm run test:pwa --workspace @poseidon/web",
     "dev": "npm run dev --workspace @poseidon/web",
-    "dev:mock": "npm run dev:mock --workspace @poseidon/web",
     "preview": "npm run preview --workspace @poseidon/web",
     "screenshots": "npm run screenshots --workspace @poseidon/web",
     "gemini:export": "node tools/gemini-screen-export.mjs",
