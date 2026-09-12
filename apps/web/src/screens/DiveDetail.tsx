@@ -168,7 +168,7 @@ export function DiveDetail() {
         <SectionHeader
           title="Creatures met"
           action={
-            <span className="rounded-full bg-aqua-soft px-3 py-1 text-sm font-bold text-marine">
+            <span className="rounded-full bg-aqua-soft px-3 py-1 text-sm font-bold text-abyss/75">
               {dive.sightings.length}
             </span>
           }
