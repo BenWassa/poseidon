@@ -1,17 +1,10 @@
 /** Personal geography: sourced site positions complement the existing offline history. */
 import { useMemo } from 'react';
-import { ArrowRight, Compass, Map as MapIcon } from 'lucide-react';
+import { ArrowRight, Map as MapIcon } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 import { AtlasMap } from '../components/AtlasMap';
-import { AtlasMotif } from '../components/AtlasMotif';
-import {
-  ACTION_PRIMARY,
-  Card,
-  EmptyState,
-  SectionHeader,
-  TopBar,
-} from '../components/ui';
+import { ACTION_PRIMARY, EmptyState, TopBar } from '../components/ui';
 import { curatedSites } from '../data/content';
 import { useDives, useLifetimeStats, usePlaceSummaries } from '../data/hooks';
 import { buildAtlasMapModel } from '../lib/atlas';
@@ -55,109 +48,111 @@ export function Atlas() {
 
       {entries.length > 0 ? (
         <>
-          <div className="px-5 pb-5">
-            <Card className="relative overflow-hidden bg-gradient-to-br from-ocean to-abyss p-6 text-white shadow-lift">
-              <AtlasMotif className="text-white" seed={entries.length} />
-              <div className="relative">
-                <p className="text-[11px] font-black tracking-[0.16em] text-white/70 uppercase">
-                  Explored
-                </p>
-                <p className="mt-1 text-3xl leading-tight font-black">
-                  {pluralize(entries.length, 'place')}
-                </p>
-                <p className="mt-1 text-sm font-medium text-white/75">
-                  {pluralize(stats?.distinctSites ?? 0, 'site')} ·{' '}
-                  {pluralize(
-                    stats?.distinctCountries ?? 0,
-                    'country',
-                    'countries',
-                  )}{' '}
-                  · {pluralize(stats?.totalDives ?? 0, 'dive')}
-                </p>
-              </div>
-            </Card>
-          </div>
+          <header className="px-6 pt-2 pb-6">
+            <h2 className="text-[2.2rem] leading-tight font-black tracking-tight text-ocean">
+              {pluralize(entries.length, 'place')}
+            </h2>
+            <p className="mt-1 text-sm font-semibold text-lagoon">
+              {pluralize(stats?.distinctSites ?? 0, 'site')} across{' '}
+              {pluralize(stats?.distinctCountries ?? 0, 'country', 'countries')}{' '}
+              in {pluralize(stats?.totalDives ?? 0, 'dive')}
+            </p>
+          </header>
 
           {mapModel.sites.length > 0 ? (
-            <section className="px-5 pb-8" aria-labelledby="atlas-map-heading">
-              <SectionHeader title="Mapped sites" />
+            <section className="pb-10" aria-labelledby="atlas-map-heading">
               <h2 id="atlas-map-heading" className="sr-only">
                 Sourced dive-site map
               </h2>
-              <AtlasMap sites={mapModel.sites} />
-              <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 px-1 text-[11px] font-bold text-ocean/55">
-                <span className="inline-flex items-center gap-1.5">
-                  <span
-                    className="h-2.5 w-2.5 rounded-full bg-ocean"
-                    aria-hidden="true"
-                  />
-                  In your history
-                </span>
-                <span className="inline-flex items-center gap-1.5">
-                  <span
-                    className="h-2.5 w-2.5 rounded-full border-2 border-ocean bg-white"
-                    aria-hidden="true"
-                  />
-                  Sourced site
-                </span>
+              <div className="px-6">
+                <div className="overflow-hidden rounded-card bg-surface shadow-card">
+                  <AtlasMap sites={mapModel.sites} />
+                </div>
               </div>
-              <p className="mt-2 px-1 text-xs leading-relaxed font-medium text-ocean/50">
-                {pluralize(mapModel.sites.length, 'site')} with published
-                positions. Approximate reef and site anchors are labelled as
-                such; no drop point or mooring is implied.
-              </p>
-              {mapModel.unmappedHistoryDiveCount > 0 ? (
-                <p className="mt-1 px-1 text-xs leading-relaxed font-medium text-ocean/45">
-                  {pluralize(mapModel.unmappedHistoryDiveCount, 'logged dive')}{' '}
-                  without a sourced position remain in the history below.
+              <div className="mt-5 px-8">
+                <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-[10px] font-black tracking-[0.14em] text-ocean/55 uppercase">
+                  <span className="inline-flex items-center gap-2">
+                    <span
+                      className="h-2 w-2 rounded-full bg-ocean"
+                      aria-hidden="true"
+                    />
+                    In your history
+                  </span>
+                  <span className="inline-flex items-center gap-2">
+                    <span
+                      className="h-2 w-2 rounded-full border-[1.5px] border-ocean bg-white"
+                      aria-hidden="true"
+                    />
+                    Sourced site
+                  </span>
+                </div>
+                <p className="mt-3 text-xs leading-relaxed font-medium text-ocean/50">
+                  {pluralize(mapModel.sites.length, 'site')} with published
+                  positions. Approximate reef and site anchors are labelled as
+                  such; no drop point or mooring is implied.
                 </p>
-              ) : null}
+                {mapModel.unmappedHistoryDiveCount > 0 ? (
+                  <p className="mt-1.5 text-xs leading-relaxed font-medium text-ocean/40">
+                    {pluralize(
+                      mapModel.unmappedHistoryDiveCount,
+                      'logged dive',
+                    )}{' '}
+                    without a sourced position remain in the history below.
+                  </p>
+                ) : null}
+              </div>
             </section>
           ) : null}
 
-          <section className="px-5 pb-8" aria-labelledby="atlas-places">
-            <SectionHeader title="Places" />
-            <h2 id="atlas-places" className="sr-only">
-              Places you have dived
-            </h2>
-            <ul className="space-y-3">
+          <section aria-labelledby="atlas-places">
+            <div className="px-6 pb-2">
+              <h2 id="atlas-places" className="text-lg font-black text-ocean">
+                Index
+              </h2>
+            </div>
+            <ul className="flex flex-col">
               {entries.map((place) => {
                 const last = lastDiveAt(place.label);
                 return (
-                  <li key={place.key}>
-                    <Link to={`/atlas/${encodeURIComponent(place.key)}`}>
-                      <Card className="flex items-center gap-4 p-4 active:scale-[0.99]">
-                        <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-shallows text-marine">
-                          <Compass size={22} aria-hidden="true" />
-                        </span>
-                        <span className="min-w-0 flex-1">
-                          <span className="flex items-baseline gap-2">
-                            <span className="truncate text-base font-bold text-ocean">
-                              {place.label}
-                            </span>
-                            {place.countryCode ? (
-                              <span className="shrink-0 rounded-full bg-shallows px-2 py-0.5 text-[10px] font-black tracking-widest text-marine">
-                                {place.countryCode}
-                              </span>
-                            ) : null}
+                  <li
+                    key={place.key}
+                    className="border-t border-ocean/5 first:border-0"
+                  >
+                    <Link
+                      to={`/atlas/${encodeURIComponent(place.key)}`}
+                      className="flex items-center gap-4 px-6 py-5 transition-colors active:bg-ocean/5"
+                    >
+                      <div className="min-w-0 flex-1">
+                        <div className="flex items-center gap-3">
+                          <span className="block truncate text-xl font-black text-ocean">
+                            {place.label}
                           </span>
-                          <span className="mt-0.5 block text-xs font-medium text-ocean/55">
-                            {pluralize(place.diveCount, 'dive')} ·{' '}
-                            {pluralize(place.siteCount, 'site')} ·{' '}
-                            {pluralize(place.creatureCount, 'creature')}
-                          </span>
-                          {last ? (
-                            <span className="mt-0.5 block text-xs font-medium text-ocean/40">
-                              Last dived {formatDate(last)}
+                          {place.countryCode ? (
+                            <span className="shrink-0 rounded bg-ocean/5 px-2 py-0.5 text-[10px] font-black tracking-widest text-ocean/60 uppercase">
+                              {place.countryCode}
                             </span>
                           ) : null}
-                        </span>
-                        <ArrowRight
-                          size={18}
-                          className="shrink-0 text-ocean/35"
-                          aria-hidden="true"
-                        />
-                      </Card>
+                        </div>
+                        <div className="mt-1 flex flex-wrap gap-x-2.5 text-[13px] font-bold text-ocean/50">
+                          <span>{pluralize(place.diveCount, 'dive')}</span>
+                          <span>·</span>
+                          <span>{pluralize(place.siteCount, 'site')}</span>
+                          <span>·</span>
+                          <span>
+                            {pluralize(place.creatureCount, 'creature')}
+                          </span>
+                        </div>
+                        {last ? (
+                          <span className="mt-2.5 block text-[10px] font-black tracking-[0.14em] text-lagoon uppercase">
+                            Last visited {formatDate(last)}
+                          </span>
+                        ) : null}
+                      </div>
+                      <ArrowRight
+                        size={18}
+                        className="shrink-0 text-ocean/20"
+                        aria-hidden="true"
+                      />
                     </Link>
                   </li>
                 );

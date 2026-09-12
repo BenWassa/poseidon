@@ -73,7 +73,11 @@ describe('the representative dive-logging scenario', () => {
 
     // Home reflects the dive and the derived lifetime shape immediately.
     await user.click(screen.getByRole('link', { name: /Home/ }));
-    expect(await screen.findByText(/1 dive · 3 creatures/)).toBeInTheDocument();
+    expect(
+      await screen.findByText(
+        'A permanent record of 1 dives exploring 1 places, with 3 creatures met along the way.',
+      ),
+    ).toBeInTheDocument();
     expect(screen.getByText('Latest dive')).toBeInTheDocument();
 
     // Journal derives a trip and restrained history marker from canonical dives.
@@ -82,7 +86,7 @@ describe('the representative dive-logging scenario', () => {
       await screen.findByRole('heading', { name: 'Palancar Gardens' }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole('heading', { name: /Cozumel —/ }),
+      screen.getByRole('heading', { name: 'Cozumel' }),
     ).toBeInTheDocument();
     expect(screen.getByText('First dive in this journal')).toBeInTheDocument();
 

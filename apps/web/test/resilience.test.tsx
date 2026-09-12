@@ -106,7 +106,9 @@ describe('sparse and empty history', () => {
       await screen.findByRole('heading', { name: 'Your atlas starts here' }),
     ).toBeInTheDocument();
     expect(
-      screen.getByText('A record worth keeping for years'),
+      screen.getByText(
+        'A beautifully kept record, waiting for its first entry.',
+      ),
     ).toBeInTheDocument();
     // No fabricated totals anywhere on an empty profile.
     expect(screen.queryByText(/dives ·/)).not.toBeInTheDocument();

@@ -5,7 +5,7 @@
  * discoveries and places are invitations into the deeper surfaces. Every
  * number here comes from the store — there are no decorative totals.
  */
-import { ArrowRight, Compass, Fish, Map, Sparkles, Waves } from 'lucide-react';
+import { ArrowRight, Sparkles, Waves } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 import {
@@ -15,22 +15,16 @@ import {
   usePlaceSummaries,
   useRecentDiscoveries,
 } from '../data/hooks';
-import { formatBottomTime, formatDate, pluralize } from '../lib/format';
+import { formatDate, pluralize } from '../lib/format';
 import { CreatureTile } from '../components/CreatureTile';
 import { DiveHero } from '../components/DiveHero';
-import {
-  ACTION_PRIMARY,
-  Card,
-  Eyebrow,
-  SectionHeader,
-  StatTile,
-} from '../components/ui';
+import { ACTION_PRIMARY, Card, Eyebrow, SectionHeader } from '../components/ui';
 
 function SeeAll({ to, children }: { to: string; children: string }) {
   return (
     <Link
       to={to}
-      className="inline-flex items-center gap-1 text-sm font-bold text-lagoon"
+      className="inline-flex items-center gap-1 text-sm font-bold text-marine"
     >
       {children}
       <ArrowRight size={15} aria-hidden="true" />
@@ -72,20 +66,20 @@ export function Home() {
 
   return (
     <div className="animate-rise">
-      <header className="safe-top px-5 pb-5">
+      <header className="safe-top px-6 pb-8">
         <Eyebrow>Poseidon</Eyebrow>
         <h1 className="mt-1 text-[2.1rem] leading-tight font-black tracking-tight text-ocean">
           Your underwater life
         </h1>
         {stats && stats.totalDives > 0 ? (
-          <p className="mt-1 text-base font-semibold text-lagoon">
-            {pluralize(stats.totalDives, 'dive')} ·{' '}
-            {pluralize(stats.distinctCreatures, 'creature')} ·{' '}
-            {formatBottomTime(stats.totalBottomTimeMinutes)} under
+          <p className="mt-2 max-w-sm text-lg leading-relaxed font-semibold text-ocean/65">
+            A permanent record of {stats.totalDives} dives exploring{' '}
+            {places?.length ?? 0} places, with {stats.distinctCreatures}{' '}
+            creatures met along the way.
           </p>
         ) : (
-          <p className="mt-1 text-base font-semibold text-lagoon">
-            A record worth keeping for years
+          <p className="mt-2 max-w-sm text-lg leading-relaxed font-semibold text-ocean/65">
+            A beautifully kept record, waiting for its first entry.
           </p>
         )}
       </header>
@@ -94,7 +88,7 @@ export function Home() {
 
       {latest ? (
         <>
-          <section className="px-5 pb-8">
+          <section className="pb-10">
             <Link
               to={`/journal/${latest.id}`}
               className="block active:scale-[0.99]"
@@ -107,52 +101,19 @@ export function Home() {
             </Link>
           </section>
 
-          {stats ? (
-            <section className="px-5 pb-8" aria-label="Lifetime shape">
-              <div className="mb-3 flex gap-3">
-                <StatTile
-                  label="Dives"
-                  value={`${stats.totalDives}`}
-                  icon={<Waves size={20} aria-hidden="true" />}
-                  tone="blue"
-                />
-                <StatTile
-                  label="Creatures"
-                  value={`${stats.distinctCreatures}`}
-                  icon={<Fish size={20} aria-hidden="true" />}
-                  tone="mint"
-                />
-              </div>
-              <div className="flex gap-3">
-                <StatTile
-                  label="Sites"
-                  value={`${stats.distinctSites}`}
-                  icon={<Compass size={20} aria-hidden="true" />}
-                  tone="blue"
-                />
-                <StatTile
-                  label="Places"
-                  value={`${places?.length ?? 0}`}
-                  icon={<Map size={20} aria-hidden="true" />}
-                  tone="coral"
-                />
-              </div>
-            </section>
-          ) : null}
-
           {discoveries && discoveries.length > 0 ? (
-            <section className="pb-8" aria-labelledby="home-discoveries">
-              <div className="px-5">
+            <section className="pb-12" aria-labelledby="home-discoveries">
+              <div className="px-6">
                 <SectionHeader
                   title="Newly met"
                   action={<SeeAll to="/collection">Collection</SeeAll>}
-                  className="mb-3"
+                  className="mb-4"
                 />
               </div>
               <h2 id="home-discoveries" className="sr-only">
                 Recently discovered creatures
               </h2>
-              <ul className="rail flex gap-3 overflow-x-auto px-5 pb-2">
+              <ul className="rail flex gap-4 overflow-x-auto px-6 pb-2">
                 {discoveries.map((discovery) => (
                   <li key={discovery.creature.id} className="w-36 shrink-0">
                     <CreatureTile
@@ -167,15 +128,15 @@ export function Home() {
           ) : null}
 
           {recent.length > 0 ? (
-            <section className="px-5 pb-8" aria-labelledby="home-recent">
+            <section className="px-6 pb-12" aria-labelledby="home-recent">
               <SectionHeader
-                title="Before that"
+                title="Past entries"
                 action={<SeeAll to="/journal">Journal</SeeAll>}
               />
               <h2 id="home-recent" className="sr-only">
                 Recent dives
               </h2>
-              <ul className="space-y-3">
+              <ul className="space-y-4">
                 {recent.map((dive) => (
                   <li key={dive.id}>
                     <Link
@@ -191,38 +152,35 @@ export function Home() {
           ) : null}
 
           {places && places.length > 0 ? (
-            <section className="px-5 pb-10" aria-labelledby="home-places">
+            <section className="px-6 pb-12" aria-labelledby="home-places">
               <SectionHeader
-                title="Where you have been"
+                title="Explored"
                 action={<SeeAll to="/atlas">Atlas</SeeAll>}
               />
               <h2 id="home-places" className="sr-only">
                 Places
               </h2>
-              <ul className="space-y-3">
+              <ul className="-mx-4">
                 {places.slice(0, 3).map((place) => (
                   <li key={place.key}>
-                    <Link to={`/atlas/${encodeURIComponent(place.key)}`}>
-                      <Card className="flex items-center gap-4 p-4 active:scale-[0.99]">
-                        <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-shallows text-marine">
-                          <Map size={22} aria-hidden="true" />
+                    <Link
+                      to={`/atlas/${encodeURIComponent(place.key)}`}
+                      className="flex items-center gap-4 border-b border-ocean/5 px-4 py-4 transition-colors active:bg-ocean/5"
+                    >
+                      <span className="min-w-0 flex-1">
+                        <span className="block truncate text-[1.1rem] font-bold text-ocean">
+                          {place.label}
                         </span>
-                        <span className="min-w-0 flex-1">
-                          <span className="block truncate text-base font-bold text-ocean">
-                            {place.label}
-                          </span>
-                          <span className="block text-xs font-medium text-ocean/55">
-                            {pluralize(place.diveCount, 'dive')} ·{' '}
-                            {pluralize(place.siteCount, 'site')} ·{' '}
-                            {pluralize(place.creatureCount, 'creature')}
-                          </span>
+                        <span className="mt-0.5 block text-sm font-medium text-ocean/50">
+                          {pluralize(place.diveCount, 'dive')} ·{' '}
+                          {pluralize(place.siteCount, 'site')}
                         </span>
-                        <ArrowRight
-                          size={18}
-                          className="shrink-0 text-ocean/35"
-                          aria-hidden="true"
-                        />
-                      </Card>
+                      </span>
+                      <ArrowRight
+                        size={18}
+                        className="shrink-0 text-ocean/20"
+                        aria-hidden="true"
+                      />
                     </Link>
                   </li>
                 ))}
@@ -230,7 +188,7 @@ export function Home() {
             </section>
           ) : null}
 
-          <section className="px-5 pb-10">
+          <section className="px-6 pb-12">
             <Link
               to="/data"
               className="flex items-center justify-center gap-2 text-sm font-bold text-ocean/50"

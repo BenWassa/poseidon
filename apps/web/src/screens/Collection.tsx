@@ -12,18 +12,11 @@ import { Fish, Search, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 import { CreatureTile } from '../components/CreatureTile';
-import {
-  ACTION_PRIMARY,
-  Card,
-  Chip,
-  EmptyState,
-  TextInput,
-  TopBar,
-} from '../components/ui';
+import { ACTION_PRIMARY, EmptyState, TopBar } from '../components/ui';
 import { useCollection } from '../data/hooks';
 import { formatCategory, formatDate, pluralize } from '../lib/format';
 
-const ALL = '__all__';
+const ALL = '**all**';
 
 export function Collection() {
   const { data: collection, loading } = useCollection();
@@ -62,6 +55,15 @@ export function Collection() {
     });
   }, [entries, query, category]);
 
+  const placesCount = useMemo(
+    () => new Set(entries.flatMap((entry) => entry.areas)).size,
+    [entries],
+  );
+  const divesCount = useMemo(
+    () => new Set(entries.flatMap((entry) => entry.relatedDiveIds)).size,
+    [entries],
+  );
+
   return (
     <div className="animate-rise">
       <TopBar title="Marine collection" />
@@ -81,51 +83,37 @@ export function Collection() {
 
       {entries.length > 0 ? (
         <>
-          <div className="px-5 pb-4">
-            <Card className="overflow-hidden bg-gradient-to-br from-marine to-abyss p-6 text-white shadow-lift">
-              <p className="text-[11px] font-black tracking-[0.16em] text-white/70 uppercase">
-                Encountered
-              </p>
-              <p className="mt-1 text-3xl leading-tight font-black">
-                {pluralize(entries.length, 'creature')}
-              </p>
-              <p className="mt-1 text-sm font-medium text-white/75">
-                across{' '}
-                {pluralize(
-                  new Set(entries.flatMap((entry) => entry.areas)).size,
-                  'place',
-                )}{' '}
-                and{' '}
-                {pluralize(
-                  new Set(entries.flatMap((entry) => entry.relatedDiveIds))
-                    .size,
-                  'dive',
-                )}
-              </p>
-            </Card>
-          </div>
+          <header className="px-6 pt-2 pb-6">
+            <h2 className="text-[2.2rem] leading-tight font-black tracking-tight text-ocean">
+              {pluralize(entries.length, 'creature')}
+            </h2>
+            <p className="mt-1 text-sm font-semibold text-lagoon">
+              Encountered across {pluralize(placesCount, 'place')} and{' '}
+              {pluralize(divesCount, 'dive')}
+            </p>
+          </header>
 
-          <div className="px-5 pb-3">
-            <div className="relative">
+          <div className="px-6 pb-6">
+            <div className="relative flex items-center">
               <Search
                 size={18}
-                className="pointer-events-none absolute top-1/2 left-4 -translate-y-1/2 text-ocean/40"
+                className="pointer-events-none absolute left-4 text-ocean/30"
                 aria-hidden="true"
               />
-              <TextInput
+              <input
                 type="search"
                 value={query}
                 onChange={(event) => setQuery(event.target.value)}
                 placeholder="Search your collection"
                 aria-label="Search your collection"
-                className="pl-11"
+                className="w-full rounded-2xl bg-ocean/[0.04] py-3.5 pr-11 pl-11 text-base font-bold text-ocean transition-colors outline-none placeholder:font-medium placeholder:text-ocean/35 focus-visible:bg-ocean/[0.06] focus-visible:ring-2 focus-visible:ring-marine"
               />
               {query ? (
                 <button
                   type="button"
                   onClick={() => setQuery('')}
                   aria-label="Clear search"
-                  className="absolute top-1/2 right-3 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full text-ocean/45"
+                  className="absolute right-2 flex h-10 w-10 items-center justify-center rounded-full text-ocean/40 transition-colors active:bg-ocean/5"
                 >
                   <X size={18} aria-hidden="true" />
                 </button>
@@ -133,27 +121,58 @@ export function Collection() {
             </div>
           </div>
 
-          <div className="rail -mx-0 flex gap-2 overflow-x-auto px-5 pb-4">
-            <Chip selected={category === ALL} onClick={() => setCategory(ALL)}>
-              All {entries.length}
-            </Chip>
+          <div className="rail flex gap-6 overflow-x-auto px-6 pb-6">
+            <button
+              type="button"
+              onClick={() => setCategory(ALL)}
+              className={`relative pb-2 transition-opacity ${
+                category === ALL ? 'opacity-100' : 'opacity-40 hover:opacity-70'
+              }`}
+              aria-pressed={category === ALL}
+            >
+              <span className="text-[12px] font-black tracking-[0.12em] text-ocean uppercase">
+                All{' '}
+                <span className="ml-0.5 font-semibold opacity-60">
+                  {entries.length}
+                </span>
+              </span>
+              {category === ALL ? (
+                <span className="absolute bottom-0 left-0 h-0.5 w-full rounded-full bg-marine" />
+              ) : null}
+            </button>
             {categories.map(([key, count]) => (
-              <Chip
+              <button
+                type="button"
                 key={key}
-                selected={category === key}
                 onClick={() => setCategory(key)}
+                className={`relative pb-2 transition-opacity ${
+                  category === key
+                    ? 'opacity-100'
+                    : 'opacity-40 hover:opacity-70'
+                }`}
+                aria-pressed={category === key}
               >
-                {formatCategory(key === 'unlisted' ? undefined : key)} {count}
-              </Chip>
+                <span className="text-[12px] font-black tracking-[0.12em] text-ocean uppercase">
+                  {formatCategory(key === 'unlisted' ? undefined : key)}{' '}
+                  <span className="ml-0.5 font-semibold opacity-60">
+                    {count}
+                  </span>
+                </span>
+                {category === key ? (
+                  <span className="absolute bottom-0 left-0 h-0.5 w-full rounded-full bg-marine" />
+                ) : null}
+              </button>
             ))}
           </div>
 
           {visible.length === 0 ? (
-            <p className="px-5 py-10 text-center text-sm font-medium text-ocean/55">
-              Nothing in your collection matches that yet.
-            </p>
+            <div className="px-6 py-12 text-center">
+              <p className="text-sm font-medium text-ocean/55">
+                Nothing in your collection matches that yet.
+              </p>
+            </div>
           ) : (
-            <ul className="grid grid-cols-2 gap-3 px-5 pb-8">
+            <ul className="grid grid-cols-2 gap-4 px-6 pb-12">
               {visible.map((entry, position) => (
                 <li key={entry.creature.id}>
                   <CreatureTile

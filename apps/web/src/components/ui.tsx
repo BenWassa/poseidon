@@ -1,9 +1,8 @@
 /**
  * Poseidon's tactile primitives.
  *
- * Rounded geometry, translucent chrome, deep-teal type and coral interactions
- * come from the external visual prototype; the semantics — real buttons, real
- * labels, 44px targets, focus that is visible — are the product's own.
+ * Refined for a sunlit, editorial atlas aesthetic. Borders and heavy shadows
+ * are kept quiet so content, type and touch interactions carry the hierarchy.
  */
 import type {
   ButtonHTMLAttributes,
@@ -23,9 +22,7 @@ export function Card({
   as?: 'div' | 'section' | 'article' | 'li';
 }) {
   return (
-    <As
-      className={`rounded-card border border-shallows bg-surface shadow-card ${className}`}
-    >
+    <As className={`rounded-card bg-surface shadow-card ${className}`}>
       {children}
     </As>
   );
@@ -40,7 +37,7 @@ export function Eyebrow({
 }) {
   return (
     <p
-      className={`text-[11px] font-bold tracking-[0.14em] text-lagoon uppercase ${className}`}
+      className={`text-[10px] font-bold tracking-[0.2em] text-ocean/50 uppercase ${className}`}
     >
       {children}
     </p>
@@ -57,8 +54,8 @@ export function SectionHeader({
   className?: string;
 }) {
   return (
-    <div className={`mb-3 flex items-end justify-between gap-3 ${className}`}>
-      <h2 className="text-lg font-bold text-ocean">{title}</h2>
+    <div className={`mb-4 flex items-end justify-between gap-3 ${className}`}>
+      <h2 className="text-xl font-black text-ocean">{title}</h2>
       {action}
     </div>
   );
@@ -107,7 +104,7 @@ const BUTTON_BASE =
 /** Shared with `Link` so a navigation CTA never nests a button inside an anchor. */
 export const ACTION_PRIMARY = `${BUTTON_BASE} bg-marine text-white shadow-lift`;
 export const ACTION_CORAL = `${BUTTON_BASE} bg-coral text-white shadow-float`;
-export const ACTION_QUIET = `${BUTTON_BASE} border border-shallows bg-surface text-ocean shadow-card`;
+export const ACTION_QUIET = `${BUTTON_BASE} bg-surface text-ocean shadow-card`;
 
 export function PrimaryAction({ className = '', ...props }: ButtonProps) {
   return <button {...props} className={`${ACTION_PRIMARY} ${className}`} />;
@@ -154,9 +151,7 @@ export function Chip({
       {...props}
       aria-pressed={selected}
       className={`min-h-[2.5rem] rounded-full px-4 text-sm font-bold whitespace-nowrap transition-colors ${
-        selected
-          ? 'bg-ocean text-white'
-          : 'border border-shallows bg-surface text-ocean/65'
+        selected ? 'bg-ocean text-white' : 'bg-surface text-ocean/65 shadow-sm'
       } ${className}`}
     />
   );
@@ -178,7 +173,7 @@ export function Field({
   return (
     <div className={className}>
       <label
-        className="mb-1.5 block text-[11px] font-bold tracking-[0.14em] text-lagoon uppercase"
+        className="mb-1.5 block text-[10px] font-bold tracking-[0.2em] text-ocean/50 uppercase"
         htmlFor={htmlFor}
       >
         {label}
@@ -192,7 +187,7 @@ export function Field({
 }
 
 const CONTROL =
-  'w-full rounded-field border border-shallows bg-surface px-5 py-3.5 text-base font-bold text-ocean shadow-card outline-none placeholder:font-medium placeholder:text-ocean/35 focus-visible:border-marine';
+  'w-full rounded-field bg-surface px-5 py-3.5 text-base font-bold text-ocean shadow-card outline-none placeholder:font-medium placeholder:text-ocean/35 focus-visible:ring-2 focus-visible:ring-marine focus-visible:ring-offset-2 focus-visible:ring-offset-canvas transition-shadow';
 
 export function TextInput({
   className = '',
