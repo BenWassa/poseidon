@@ -4,13 +4,15 @@ name: Sunlit Reef visual review
 on:
   push:
     branches: [brand-21-sunlit-reef]
+  pull_request:
+    branches: [main]
 
 permissions:
   contents: write
 
 jobs:
   capture:
-    if: github.actor != 'github-actions[bot]'
+    if: github.actor != 'github-actions[bot]' && github.head_ref == 'brand-21-sunlit-reef'
     runs-on: ubuntu-latest
     env:
       VITE_FIREBASE_API_KEY: AIzaSyPoseidonVisualReviewOnly
