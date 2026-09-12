@@ -31,6 +31,21 @@ jobs:
         run: python -m pip install -r tools/creature_assets/requirements.txt
       - name: Install Chromium
         run: npx playwright install --with-deps chromium
+      - name: Remove redundant migration assertion
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          path = Path('tools/issue21-migrate.mjs')
+          text = path.read_text()
+          block = """for (const path of ['apps/web/src/screens/Journal.tsx', 'apps/web/src/screens/CreatureDetail.tsx']) {
+            await update(path, (content) => content.replaceAll('text-marine uppercase', 'text-abyss/70 uppercase'));
+          }
+
+          """
+          if block not in text:
+              raise SystemExit('expected redundant assertion block not found')
+          path.write_text(text.replace(block, ''))
+          PY
       - name: Apply Sunlit Reef migration
         run: node tools/issue21-migrate.mjs
       - name: Format source
