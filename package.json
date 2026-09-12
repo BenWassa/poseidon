@@ -29,8 +29,8 @@
     "validate:assets": "python3 -m tools.creature_assets validate --root assets/creatures",
     "validate:source-assets": "python3 -m tools.creature_assets validate-source --catalog assets/source/creatures/catalog.json",
     "gate": "npm run check:assets && npm run check && npm run verify:brand && npm run build && npm run test:pwa && npm run verify:field --workspace @poseidon/web",
-    "brand:build": "node tools/brand/build.mjs",
-    "verify:brand": "npm run brand:build && git diff --exit-code -- apps/web/public/icons"
+    "brand:build": "python3 tools/brand/build.py",
+    "verify:brand": "npm run brand:build && python3 tools/brand/verify.py"
   },
   "engines": {
     "node": ">=22.12"
@@ -39,7 +39,7 @@
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "eslint": "^10.10.0",
-    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-hooks": "^10.0.1",
     "eslint-plugin-react-refresh": "^0.5.6",
     "globals": "^17.12.0",
     "prettier": "^3.9.6",

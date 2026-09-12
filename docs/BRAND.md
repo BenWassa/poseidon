@@ -52,9 +52,21 @@ Cerulean text is safe on pure white but is slightly below 4.5:1 on the pale bran
 
 Use few gradients. The standard deep-ocean field is **Cerulean → Jet Black**. A shallow **Ocean Mist → Cerulean** treatment is allowed only where it improves composition. Do not build seven-stop/rainbow gradients; Coral and Tuscan Sun are normally discrete marks.
 
-## Current icon
+## App icon
 
-The current generated trident keeps its geometry. Its field is Cerulean → Jet Black, the trident is Vibrant Coral, and Ocean Mist may carry subtle bathymetric detail. Maskable safe zones and small-launcher legibility remain required. Final icon-concept exploration is separate work.
+The approved Poseidon app icon is a close-up illustration of two dive buddies in sunlit Caribbean water. The man is on the left; his mask reflects reef fish and coral. The woman is on the right; her mask reflects a sea turtle, coral and supporting fish. The surrounding water carries bright surface light, distant reef silhouettes and marine life. The icon is intentionally an illustration rather than a flat palette mark: its ocean, coral and sunlight colours harmonize with Sunlit Reef without forcing every artwork pixel onto the seven UI anchors.
+
+The canonical source is hash-locked under `tools/brand/source/`. `tools/brand/build.py` deterministically creates the browser favicons, 180px Apple touch icon, standard 192/512 PWA icons and a separate Android maskable 512 icon.
+
+- **iPhone/iPad:** use the full sharp composition in the Apple touch icon.
+- **Pixel/Android:** use the maskable asset. Important faces and mask reflections are inset into the safe area, with a blurred full-bleed ocean treatment behind them so circular, squircle and other launcher masks do not expose blank corners or cut away the subject.
+- **Browser/PWA:** use the standard full-frame composition.
+
+Do not replace the approved artwork by regenerating a new interpretation from a prompt. Any future icon revision should replace the canonical source deliberately and update its locked SHA-256.
+
+## Installation
+
+Poseidon may offer installation after the browser declares the PWA installable. On Chromium/Android, the app shows a restrained in-product prompt and only invokes the native installation dialog after the user taps **Install**. On iPhone/iPad, browsers do not expose the same programmable install dialog, so Poseidon gives the truthful **Share → Add to Home Screen** instruction. Standalone launches do not show installation guidance.
 
 ## Do / don't
 

@@ -1,3 +1,4 @@
+import { createHash } from 'node:crypto';
 import { readFileSync, readdirSync } from 'node:fs';
 import { extname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -5,6 +6,8 @@ import { describe, expect, it } from 'vitest';
 
 const webRoot = fileURLToPath(new URL('..', import.meta.url));
 const repoRoot = fileURLToPath(new URL('../../..', import.meta.url));
+const ICON_SOURCE_SHA256 =
+  'c3bebef7794cb00f1987d6ac52bec98e6d8e84377551674fa640a0ba3208e028';
 
 const BRAND = {
   abyss: '#05323F',
@@ -43,6 +46,16 @@ function sourceText(directory: string): string {
         : '';
     })
     .join('\n');
+}
+
+function iconSourcePayload(): Buffer {
+  const sourceDirectory = join(repoRoot, 'tools/brand/source');
+  const encoded = readdirSync(sourceDirectory)
+    .filter((name) => name.startsWith('app-icon-master.b64.'))
+    .sort()
+    .map((name) => readFileSync(join(sourceDirectory, name), 'utf8').trim())
+    .join('');
+  return Buffer.from(encoded, 'base64');
 }
 
 describe('Sunlit Reef brand contract', () => {
@@ -95,7 +108,7 @@ describe('Sunlit Reef brand contract', () => {
       sourceText(join(webRoot, 'src')),
       readFileSync(join(webRoot, 'vite.config.ts'), 'utf8'),
       readFileSync(join(webRoot, 'index.html'), 'utf8'),
-      readFileSync(join(repoRoot, 'tools/brand/build.mjs'), 'utf8'),
+      readFileSync(join(repoRoot, 'tools/brand/build.py'), 'utf8'),
     ]
       .join('\n')
       .toUpperCase();
@@ -112,22 +125,19 @@ describe('Sunlit Reef brand contract', () => {
     }
   });
 
-  it('keeps PWA chrome and icon generation on the locked palette', () => {
+  it('keeps PWA chrome and the owner-approved icon source locked', () => {
     const vite = readFileSync(join(webRoot, 'vite.config.ts'), 'utf8');
     const html = readFileSync(join(webRoot, 'index.html'), 'utf8');
-    const generator = readFileSync(
-      join(repoRoot, 'tools/brand/build.mjs'),
-      'utf8',
-    );
+    const generator = readFileSync(join(repoRoot, 'tools/brand/build.py'), 'utf8');
+    const digest = createHash('sha256').update(iconSourcePayload()).digest('hex');
+
     expect(vite.match(/#F3FAFA/g)).toHaveLength(2);
     expect(html).toContain('content="#F3FAFA"');
-    for (const value of [
-      BRAND.marine,
-      BRAND.abyss,
-      BRAND.lagoon,
-      BRAND.coral,
-    ]) {
-      expect(generator).toContain(value);
-    }
+    expect(html).toContain('%BASE_URL%icons/apple-touch-icon.png');
+    expect(html).toContain('%BASE_URL%icons/favicon-32.png');
+    expect(html).toContain('%BASE_URL%icons/favicon-64.png');
+    expect(digest).toBe(ICON_SOURCE_SHA256);
+    expect(generator).toContain(`SOURCE_SHA256 = '${ICON_SOURCE_SHA256}'`);
+    expect(generator).toContain('MASKABLE_SCALE = 0.82');
   });
 });

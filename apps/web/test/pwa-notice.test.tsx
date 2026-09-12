@@ -1,9 +1,11 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import { PwaNotice } from '../src/components/PwaNotice';
 import {
+  announceInstallAvailable,
+  announceIosInstallAvailable,
   announceOfflineReady,
   announceUpdateAvailable,
   resetPwaStatus,
@@ -41,5 +43,44 @@ describe('PWA notices', () => {
     announceUpdateAvailable(update);
     await user.click(await screen.findByRole('button', { name: 'Update' }));
     expect(update).toHaveBeenCalledWith(true);
+  });
+
+  it('offers the native install prompt only after the user chooses Install', async () => {
+    const prompt = vi.fn<() => Promise<void>>().mockResolvedValue(undefined);
+    const user = userEvent.setup();
+    render(<PwaNotice />);
+
+    announceInstallAvailable({
+      prompt,
+      userChoice: Promise.resolve({ outcome: 'accepted' as const }),
+    });
+
+    expect(await screen.findByText('Install Poseidon')).toBeInTheDocument();
+    expect(prompt).not.toHaveBeenCalled();
+
+    await user.click(screen.getByRole('button', { name: 'Install' }));
+    expect(prompt).toHaveBeenCalledOnce();
+    await waitFor(() =>
+      expect(screen.queryByText('Install Poseidon')).not.toBeInTheDocument(),
+    );
+  });
+
+  it('shows the real iPhone Add to Home Screen instructions', async () => {
+    const user = userEvent.setup();
+    render(<PwaNotice />);
+
+    announceIosInstallAvailable();
+
+    expect(
+      await screen.findByText('Add Poseidon to your Home Screen'),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText('Tap Share in your browser, then choose Add to Home Screen.'),
+    ).toBeInTheDocument();
+
+    await user.click(screen.getByRole('button', { name: 'Got it' }));
+    expect(
+      screen.queryByText('Add Poseidon to your Home Screen'),
+    ).not.toBeInTheDocument();
   });
 });

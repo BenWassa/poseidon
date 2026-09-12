@@ -5,9 +5,9 @@
   "type": "module",
   "description": "Poseidon mobile-first personal dive journal application.",
   "scripts": {
-    "predev": "node scripts/sync-assets.mjs",
+    "predev": "python3 ../../tools/brand/build.py && node scripts/sync-assets.mjs",
     "dev": "vite",
-    "prebuild": "node scripts/sync-assets.mjs",
+    "prebuild": "python3 ../../tools/brand/build.py && node scripts/sync-assets.mjs",
     "build": "vite build",
     "preview": "vite preview",
     "typecheck": "tsc -p tsconfig.json --noEmit",
