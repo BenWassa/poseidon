@@ -8,41 +8,41 @@
     "variants": {
       "gallery": {
         "aspectRatio": 1.0,
-        "bytes": 18512,
+        "bytes": 11314,
         "height": 512,
         "mediaType": "image/webp",
         "path": "gallery.webp",
-        "sha256": "eaaa68130a87cde258a55a9dd8cd80ed41fa2d808502c4c0f536f3a7aed04464",
+        "sha256": "c22fb9c4edada5477f6c354db6f162d5cd039e95bc629011d7981ac0c2e987cb",
         "width": 512
       },
       "hero": {
         "aspectRatio": 1.0,
-        "bytes": 38456,
+        "bytes": 28442,
         "height": 1024,
         "mediaType": "image/webp",
         "path": "hero.webp",
-        "sha256": "49c6fdd0e1a710d6576e6ea140925811e1dbd2020fef7c41142443a19a9554eb",
+        "sha256": "6fc54f19339e451bd41bbc92a0c51ae93a8e027cecd32b8789c7e3832659dbe5",
         "width": 1024
       },
       "thumb": {
         "aspectRatio": 1.0,
-        "bytes": 4392,
+        "bytes": 2838,
         "height": 192,
         "mediaType": "image/webp",
         "path": "thumb.webp",
-        "sha256": "3bd7c181851a6db5af0c42cfa9eb21877f1a7698e297cd04d80a95664fe549bb",
+        "sha256": "4bfcee26d56ebba9c4347a3e5b2fa07b38d2453f25f5973fed845f126509c7fa",
         "width": 192
       }
     }
   },
-  "creatureId": "spotted-eagle-ray",
+  "creatureId": "spanish-hogfish",
   "source": {
     "aspectRatio": 1.0,
-    "bytes": 17710,
+    "bytes": 12248,
     "format": "webp",
     "height": 1024,
     "mode": "opaque-scene",
-    "sha256": "0f8e4f5df8a99021dff15b5b4dcbb0d3db6ae2f3dce15baeabab5007b02a24aa",
+    "sha256": "4403f5fcf8ea21d2c91a161b23fd9c534e28b2171d5a8f66a90be597f0bd0ba3",
     "width": 1024
   },
   "version": 1

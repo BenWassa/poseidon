@@ -6,9 +6,9 @@
   "binaryImportStatus": "complete",
   "summary": {
     "total": 30,
-    "keep": 22,
+    "keep": 26,
     "provisional": 0,
-    "remake": 8
+    "remake": 4
   },
   "provenance": {
     "generator": "ChatGPT image generation",
@@ -54,14 +54,14 @@
       "id": "spotted-eagle-ray",
       "creatureId": "spotted-eagle-ray",
       "name": "Spotted eagle ray",
-      "path": "assets/source/creatures/spotted-eagle-ray/candidate-v1.webp",
-      "score": 6.5,
-      "status": "remake",
-      "identity": "medium",
+      "path": "assets/source/creatures/spotted-eagle-ray/candidate-v2.webp",
+      "score": 7.8,
+      "status": "keep",
+      "identity": "high",
       "ingestMode": "opaque-scene",
-      "qaNote": "Replacement attempts improved spotting and disc shape but no reviewed replacement binary is in the source layer; original remains blocked.",
-      "bytes": 80840,
-      "sha256": "0098c13d1b0f944f9cf5a90e8789607ce3a5de8c8fb08495b944c0b7546abf01"
+      "qaNote": "Replacement v2: eagle-ray disc/head silhouette and dense white dorsal spotting read clearly at card scale; long whip tail is explicit. Composite source uses an AI-generated specimen isolated into the established sunlit Caribbean scene treatment.",
+      "bytes": 17710,
+      "sha256": "0f8e4f5df8a99021dff15b5b4dcbb0d3db6ae2f3dce15baeabab5007b02a24aa"
     },
     {
       "id": "nurse-shark",
@@ -171,14 +171,14 @@
       "id": "spotted-trunkfish",
       "creatureId": "spotted-trunkfish",
       "name": "Spotted trunkfish",
-      "path": "assets/source/creatures/spotted-trunkfish/candidate-v1.webp",
-      "score": 3.0,
-      "status": "remake",
-      "identity": "low",
+      "path": "assets/source/creatures/spotted-trunkfish/candidate-v2.webp",
+      "score": 7.6,
+      "status": "keep",
+      "identity": "high",
       "ingestMode": "opaque-scene",
-      "qaNote": "Replacement attempts still inverted the adult field pattern; target is pale/whitish with dense dark spots, not a dark body with white spots. Blocked.",
-      "bytes": 109108,
-      "sha256": "17c5c07a07238207796a3abbfb7c4a15641015afb9660d7a7976beff2a095611"
+      "qaNote": "Replacement v2: adult reads pale/whitish with dense dark spots and no pre-eye horns; the prior inverted dark-body/white-spot failure is removed. AI-generated specimen was pattern-corrected and isolated into the established sunlit Caribbean scene treatment.",
+      "bytes": 20562,
+      "sha256": "c5c802f813bc181341a7b9a71b64edd7f70cc8e505c3b62d179e4e7a30982968"
     },
     {
       "id": "queen-triggerfish",
@@ -210,14 +210,14 @@
       "id": "blue-tang",
       "creatureId": "blue-tang",
       "name": "Blue tang",
-      "path": "assets/source/creatures/blue-tang/candidate-v1.webp",
-      "score": 4.0,
-      "status": "remake",
-      "identity": "low",
+      "path": "assets/source/creatures/blue-tang/candidate-v2.webp",
+      "score": 7.6,
+      "status": "keep",
+      "identity": "high",
       "ingestMode": "opaque-scene",
-      "qaNote": "Replacement attempts continued to read as Indo-Pacific Paracanthurus hepatus. Target is Atlantic Acanthurus coeruleus; blocked.",
-      "bytes": 118880,
-      "sha256": "5a0eb7be921624a5b7fd5c78cf3b32e825d536cbedbd61b3496cba92ed67e908"
+      "qaNote": "Replacement v2: Atlantic Acanthurus coeruleus presentation with a deep compressed blue surgeonfish body, fine flank lines and blue tail; the Indo-Pacific Paracanthurus black/yellow palette is explicitly removed. AI-generated specimen was identity-corrected and isolated into the established scene treatment.",
+      "bytes": 7924,
+      "sha256": "95a78123f860742551754c0b896accbf3c14c20c87cd8f283ab696766b80b540"
     },
     {
       "id": "southern-stingray",
@@ -327,14 +327,14 @@
       "id": "spanish-hogfish",
       "creatureId": "spanish-hogfish",
       "name": "Spanish hogfish",
-      "path": "assets/source/creatures/spanish-hogfish/candidate-v1.webp",
-      "score": 2.5,
-      "status": "remake",
-      "identity": "low",
+      "path": "assets/source/creatures/spanish-hogfish/candidate-v2.webp",
+      "score": 7.4,
+      "status": "keep",
+      "identity": "medium",
       "ingestMode": "opaque-scene",
-      "qaNote": "Replacement attempts still missed the adult Bodianus rufus yellow/lilac diagnostic colour division. Blocked.",
-      "bytes": 103450,
-      "sha256": "001034fcc6eef5d6ba65215c0aa166843a94a7425467e848f76cfc9d88bd915e"
+      "qaNote": "Replacement v2: adult Bodianus rufus identification is carried by the robust hogfish form plus the explicit lilac/blue-grey upper and yellow lower-body division; generic red-wrasse coloration is removed. Identity remains medium because the corrected source is intentionally stylized.",
+      "bytes": 12248,
+      "sha256": "4403f5fcf8ea21d2c91a161b23fd9c534e28b2171d5a8f66a90be597f0bd0ba3"
     },
     {
       "id": "caribbean-cushion-sea-star",

@@ -8,41 +8,41 @@
     "variants": {
       "gallery": {
         "aspectRatio": 1.0,
-        "bytes": 18512,
+        "bytes": 21862,
         "height": 512,
         "mediaType": "image/webp",
         "path": "gallery.webp",
-        "sha256": "eaaa68130a87cde258a55a9dd8cd80ed41fa2d808502c4c0f536f3a7aed04464",
+        "sha256": "b335e9c95a91f11356d96532ad7ee4448f582acc7189018bbbe96b8b582a6e86",
         "width": 512
       },
       "hero": {
         "aspectRatio": 1.0,
-        "bytes": 38456,
+        "bytes": 44668,
         "height": 1024,
         "mediaType": "image/webp",
         "path": "hero.webp",
-        "sha256": "49c6fdd0e1a710d6576e6ea140925811e1dbd2020fef7c41142443a19a9554eb",
+        "sha256": "53bc829f4fb7abe9ad5aaa8a6a673af57c55706cd4e7c10490378563db514c22",
         "width": 1024
       },
       "thumb": {
         "aspectRatio": 1.0,
-        "bytes": 4392,
+        "bytes": 5104,
         "height": 192,
         "mediaType": "image/webp",
         "path": "thumb.webp",
-        "sha256": "3bd7c181851a6db5af0c42cfa9eb21877f1a7698e297cd04d80a95664fe549bb",
+        "sha256": "9a0a17962f1ce7da4d26d526a2cf41c7af516fa8bffb6d1baebf3411af3c35cb",
         "width": 192
       }
     }
   },
-  "creatureId": "spotted-eagle-ray",
+  "creatureId": "spotted-trunkfish",
   "source": {
     "aspectRatio": 1.0,
-    "bytes": 17710,
+    "bytes": 20562,
     "format": "webp",
     "height": 1024,
     "mode": "opaque-scene",
-    "sha256": "0f8e4f5df8a99021dff15b5b4dcbb0d3db6ae2f3dce15baeabab5007b02a24aa",
+    "sha256": "c5c802f813bc181341a7b9a71b64edd7f70cc8e505c3b62d179e4e7a30982968",
     "width": 1024
   },
   "version": 1
