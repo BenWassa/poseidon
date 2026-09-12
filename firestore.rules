@@ -1,0 +1,130 @@
+rules_version = '2';
+
+// ===============================================================
+// Assumed Data Model
+// ===============================================================
+//
+// Collection: approvedUsers
+// Document ID: the signed-in user's Google account email, exactly as
+//   Firebase Auth reports it on the ID token (request.auth.token.email).
+// Fields:
+//   - approved: bool (required) - true once the admin has granted access
+//   - addedAt: timestamp (required) - when the admin added this entry
+// Written ONLY by the project owner via the Firebase console (which uses
+// privileged access and bypasses these rules entirely). No client write
+// path exists or is allowed.
+//
+// Collection: accessRequests
+// Document ID: the requester's Firebase Auth uid
+// Fields:
+//   - uid: string (required, immutable) - must equal the auth uid
+//   - email: string (required, immutable) - must equal the auth token email
+//   - displayName: string (optional) - Google display name, max 100 chars
+//   - requestedAt: timestamp (required) - must be recent (server time)
+// Created once by a signed-in, not-yet-approved user to signal an access
+// request. Never readable, updatable, or deletable by clients — the owner
+// reviews requests in the Firebase console, which bypasses these rules.
+//
+// Collection: users
+// Document ID: the Firebase Auth uid
+// Fields:
+//   - schemaVersion: number (required, must equal 2)
+//   - updatedAt: string (required) - ISO 8601, set by the domain store, NOT
+//     a Firestore timestamp — PersistedPersonalStateV2.updatedAt is a plain
+//     string so the blob round-trips through migratePersistedState() as-is
+//   - dives: list (required, max 5000 entries) - PersistedPersonalStateV2.dives
+//   - userCreatures: list (required, max 2000 entries) - .userCreatures
+// Readable/writable only by its own owner, and only once that owner's email
+// has an `approved: true` document in approvedUsers. This mirrors the local
+// PersistedPersonalStateV2 blob 1:1 (see packages/domain/src/persistence.ts).
+// Deep per-dive field validation is intentionally not enforced: every writer
+// is a single individually-vetted diver writing only to their own isolated
+// document, so the residual risk is self-corruption of one's own log, not
+// cross-user exposure or privilege escalation.
+//
+// ===============================================================
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ===============================================================
+    // Helper Functions
+    // ===============================================================
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function authEmail() {
+      return request.auth.token.email;
+    }
+
+    function isOwner(uid) {
+      return isAuthenticated() && request.auth.uid == uid;
+    }
+
+    function isRecent(time) {
+      return time is timestamp &&
+        time > request.time - duration.value(5, 'm') &&
+        time <= request.time;
+    }
+
+    function isApproved() {
+      return isAuthenticated() &&
+        authEmail() is string &&
+        exists(/databases/$(database)/documents/approvedUsers/$(authEmail())) &&
+        get(/databases/$(database)/documents/approvedUsers/$(authEmail())).data.approved == true;
+    }
+
+    // ===============================================================
+    // approvedUsers/{email} — allowlist, admin-managed only
+    // ===============================================================
+    match /approvedUsers/{email} {
+      // Only the matching signed-in user may read their own approval status.
+      allow get: if isAuthenticated() && authEmail() == email;
+      // No `list`: nobody can enumerate other users' emails or approvals.
+      allow list: if false;
+      allow write: if false;
+    }
+
+    // ===============================================================
+    // accessRequests/{uid} — one-shot "please approve me" signal
+    // ===============================================================
+    match /accessRequests/{uid} {
+      allow create: if isOwner(uid) &&
+        request.resource.data.keys().hasOnly(['uid', 'email', 'displayName', 'requestedAt']) &&
+        request.resource.data.keys().hasAll(['uid', 'email', 'requestedAt']) &&
+        request.resource.data.uid == uid &&
+        request.resource.data.email == authEmail() &&
+        request.resource.data.email is string &&
+        request.resource.data.email.size() < 320 &&
+        (!('displayName' in request.resource.data) ||
+          (request.resource.data.displayName is string &&
+           request.resource.data.displayName.size() < 100)) &&
+        isRecent(request.resource.data.requestedAt);
+      // The admin reviews requests in the Firebase console; no client can
+      // read, amend, or delete a request once filed.
+      allow read, update, delete: if false;
+    }
+
+    // ===============================================================
+    // users/{uid} — the personal dive-log blob
+    // ===============================================================
+    match /users/{uid} {
+      function isValidState() {
+        let data = request.resource.data;
+        return data.keys().hasOnly(['schemaVersion', 'updatedAt', 'dives', 'userCreatures']) &&
+          data.keys().hasAll(['schemaVersion', 'updatedAt', 'dives', 'userCreatures']) &&
+          data.schemaVersion == 2 &&
+          data.updatedAt is string && data.updatedAt.size() < 40 &&
+          data.dives is list && data.dives.size() <= 5000 &&
+          data.userCreatures is list && data.userCreatures.size() <= 2000;
+      }
+
+      allow read: if isOwner(uid) && isApproved();
+      allow create, update: if isOwner(uid) && isApproved() && isValidState();
+      // No client delete: clearing history goes through create/update with
+      // empty arrays, never a document delete.
+      allow delete: if false;
+    }
+  }
+}

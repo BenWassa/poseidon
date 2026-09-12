@@ -49,10 +49,11 @@ export class PoseidonClient {
 }
 
 /**
- * localStorage is deliberate for a personal log: it is synchronous, universally
- * available, survives restart, needs no account, and a lifetime of dives is
- * kilobytes. The adapter is injectable so tests and any future IndexedDB or
- * sync adapter drop in without touching a component.
+ * localStorage is the offline-first default: synchronous, universally
+ * available, and a lifetime of dives is kilobytes. Signed-in, approved users
+ * get `FirestorePersistence` instead (see apps/web/src/firebase), injected
+ * the same way — the adapter boundary is what makes that a swap in one file
+ * rather than a rewrite.
  */
 function browserPersistence(): PersistenceAdapter {
   return new LocalStoragePersistence(window.localStorage);

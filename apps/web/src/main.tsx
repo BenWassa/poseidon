@@ -3,7 +3,8 @@ import { createRoot } from 'react-dom/client';
 import { HashRouter } from 'react-router-dom';
 
 import { App } from './App';
-import { PoseidonProvider } from './data/provider';
+import { AuthGate } from './auth/AuthGate';
+import { AuthProvider } from './auth/AuthProvider';
 import { registerPoseidonServiceWorker } from './pwa-registration';
 import './index.css';
 
@@ -15,9 +16,11 @@ if (!container) throw new Error('Poseidon could not find its root element.');
 createRoot(container).render(
   <StrictMode>
     <HashRouter>
-      <PoseidonProvider>
-        <App />
-      </PoseidonProvider>
+      <AuthProvider>
+        <AuthGate>
+          <App />
+        </AuthGate>
+      </AuthProvider>
     </HashRouter>
   </StrictMode>,
 );

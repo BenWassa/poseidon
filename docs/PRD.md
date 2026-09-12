@@ -437,7 +437,7 @@ Remaining or partially implemented refinement includes:
 - photos / GoPro ingestion;
 - PADI integration;
 - dive-computer sync;
-- public accounts;
+- public/multi-tenant accounts (this remains a single-owner, admin-allowlisted personal app: see `docs/PROJECT_STATUS.md` for the Firebase auth gate now in place);
 - social feeds;
 - likes/comments/followers;
 - leaderboards;

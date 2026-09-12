@@ -19,7 +19,8 @@ Current application architecture remains repository authority:
 - React Router;
 - Lucide React for application icons;
 - `packages/domain` — framework-independent `PoseidonStore`, persistence and selectors;
-- local-first `LocalStoragePersistence` behind the injected persistence boundary;
+- Firebase Google sign-in gates the whole app, enforced by an admin-managed Firestore `approvedUsers` allowlist (console-only approval, no in-app admin UI);
+- `FirestorePersistence` behind the injected persistence boundary for approved, signed-in users, with `LocalStoragePersistence` kept as an offline write-through shadow and one-time migration source (see `apps/web/src/firebase`);
 - Vite PWA/offline shell;
 - Vitest + Testing Library + Playwright production acceptance;
 - canonical repository content and creature-asset pipelines.
@@ -137,7 +138,7 @@ Unless deliberately promoted into a new issue, do not treat these as current blo
 - photos / GoPro ingestion;
 - PADI integration;
 - dive-computer sync;
-- cloud accounts/sync;
+- an in-app admin UI for approving accounts (console-only for now);
 - social features;
 - technical-diving analytics;
 - broad global creature-art completeness;

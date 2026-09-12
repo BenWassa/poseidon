@@ -10,6 +10,7 @@ import {
   Check,
   Database,
   Download,
+  LogOut,
   Ruler,
   ShieldCheck,
   Upload,
@@ -19,6 +20,7 @@ import { useNavigate } from 'react-router-dom';
 
 import type { RestoreMode, RestorePreview } from '@poseidon/domain';
 
+import { useAuth } from '../auth/AuthProvider';
 import {
   ACTION_QUIET,
   Card,
@@ -36,6 +38,7 @@ import { pluralize, todayIso } from '../lib/format';
 export function DataAndBackup() {
   const navigate = useNavigate();
   const client = usePoseidon();
+  const { user, signOutUser } = useAuth();
   const { data: stats } = useLifetimeStats();
   const [preferences, setPreferences] = usePreferences();
   const [exported, setExported] = useState<string | null>(null);
@@ -131,8 +134,9 @@ export function DataAndBackup() {
         <Card className="p-5">
           <p className="text-sm leading-relaxed font-medium text-ocean/70">
             Poseidon keeps {pluralize(stats?.totalDives ?? 0, 'dive')} and{' '}
-            {pluralize(stats?.distinctCreatures ?? 0, 'creature')} on this
-            device. Nothing is uploaded, and no account is required.
+            {pluralize(stats?.distinctCreatures ?? 0, 'creature')}, synced to
+            your account. A local copy also stays on this device for offline
+            use.
           </p>
           <div className="mt-4">
             <QuietAction type="button" onClick={exportData}>
@@ -348,6 +352,22 @@ export function DataAndBackup() {
               Curated content improves suggestions. It never limits what you can
               log.
             </p>
+          </div>
+        </Card>
+      </section>
+
+      <section className="mt-7 px-5">
+        <SectionHeader title="Account" />
+        <Card className="p-5">
+          <p className="text-sm leading-relaxed font-medium text-ocean/70">
+            Signed in as{' '}
+            <span className="font-bold text-ocean">{user?.email}</span>.
+          </p>
+          <div className="mt-4">
+            <QuietAction type="button" onClick={() => void signOutUser()}>
+              <LogOut size={18} aria-hidden="true" />
+              Sign out
+            </QuietAction>
           </div>
         </Card>
       </section>

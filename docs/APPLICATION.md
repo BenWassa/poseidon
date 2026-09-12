@@ -41,8 +41,9 @@ npm run dev       # the application
 | React + Vite + TypeScript | The prototype already expressed itself in this vocabulary; the toolchain is boring, fast and well supported. |
 | Tailwind CSS v4 | Design tokens live in one CSS file as named product roles (`canvas`, `ocean`, `marine`, `lagoon`, `coral`), not as hex values scattered through components. |
 | react-router | Real URLs for every surface, so back behaviour and deep links work rather than being simulated with view state. |
-| `LocalStoragePersistence` from the domain package | Synchronous, universally available, survives restart, needs no account. A lifetime of dives is kilobytes. The adapter is injected, so IndexedDB or an optional sync layer is a change in one file. |
-| `vite-plugin-pwa` | Offline is a product law, not a nice-to-have. The shell, the content pack and every creature variant are precached, so a cold start on a boat with no signal still works. |
+| `FirestorePersistence` (`apps/web/src/firebase`), behind the same injected `PersistenceAdapter` boundary as `LocalStoragePersistence` | Sign-in is now required, and dive history syncs through the diver's Firebase account. `LocalStoragePersistence` remains as an offline write-through shadow and one-time migration source; the adapter being injected (not a rewrite) is what made this a swap in one file, `apps/web/src/data/client.ts`. |
+| Firebase Authentication (Google) + Firestore `approvedUsers` allowlist | The whole app is gated behind sign-in; only admin-approved emails get past the gate (approval is a manual Firestore console action, no in-app admin UI). See `firestore.rules` at the repo root. |
+| `vite-plugin-pwa` | Offline is a product law, not a nice-to-have. The shell, the content pack and every creature variant are precached, so a cold start on a boat with no signal still works — including for an already-signed-in, already-approved diver (see `FirestorePersistence`'s and `AuthProvider`'s doc comments for how the offline fallback is kept safe). |
 | Vitest + Testing Library | The acceptance scenario is driven through the real application against real persistence, not against mocks. |
 
 Components never import persistence. They read through `useStoreQuery` and write

@@ -12,3 +12,8 @@ apps/web/public/assets/
 
 # Local knowledge graph artifacts
 graphify-out/
+
+# Firebase local state and secrets
+.firebase/
+apps/web/.env
+apps/web/.env.local
