@@ -1,11 +1,7 @@
 import { createContext, useContext, type ReactNode } from 'react';
 
 export type AuthStatus =
-  | 'loading'
-  | 'signed-out'
-  | 'pending'
-  | 'approved'
-  | 'error';
+  'loading' | 'signed-out' | 'pending' | 'approved' | 'error';
 
 export interface AuthUser {
   uid: string;
