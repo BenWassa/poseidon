@@ -14,27 +14,28 @@ The original `poseidon-sunlit-square-v1` batch contains **30** unique 1024 × 10
 
 All **30** source candidates now map deliberately to content authority. #31 resolved the former six `creatureId: null` entries by adding sourced Mexican-Caribbean content records rather than weakening the promotion gate.
 
-The live content catalogue on this branch contains **56 stable creature IDs**: the prior 50 plus six defensible species represented by the original source-art batch. Of those 56:
+The live content catalogue contains **56 stable creature IDs**: the prior 50 plus six defensible species represented by the original source-art batch. Of those 56:
 
 - **30** have a mapped HD source candidate;
-- **22** mapped candidates are `keep`;
+- **22** mapped candidates are `keep` and are now live as canonical runtime HD artwork;
 - **8** mapped candidates are `remake` and remain hard-blocked;
 - **26** content creatures still have no HD source candidate; #33 owns that complete-coverage batch.
 
 Runtime status:
 
-- **18** mapped `keep` candidates were already promoted by #30;
-- **4** newly mapped `keep` candidates are now eligible for normal guarded promotion: queen triggerfish, long-spined sea urchin, banded coral shrimp and the juvenile spotted-drum artwork mapped to the species-level `spotted-drum` record;
+- **18** mapped `keep` candidates were promoted by #30 / PR #32;
+- **4** formerly source-only `keep` candidates were mapped by PR #35 and promoted by PR #36: queen triggerfish, long-spined sea urchin, banded coral shrimp and the juvenile spotted-drum artwork mapped to the species-level `spotted-drum` record;
+- therefore **all 22 original-batch `keep` candidates are live**;
 - the eight `remake` entries retain fallback/runtime art until reviewed replacement source binaries exist.
 
 ## Content decisions resolved by #31
 
 | Source artwork | Content record | Scientific name | Decision |
 | --- | --- | --- | --- |
-| Queen triggerfish | `queen-triggerfish` | `Balistes vetula` | Added sourced content record; source is `keep`. |
-| Longspine sea urchin | `longspine-sea-urchin` | `Diadema antillarum` | Added sourced content record; source is `keep`. |
-| Banded coral shrimp | `banded-coral-shrimp` | `Stenopus hispidus` | Added sourced content record; source is `keep`. |
-| Juvenile spotted drum | `spotted-drum` | `Eques punctatus` | Added species-level content record; source metadata preserves the juvenile presentation. Source is `keep`. |
+| Queen triggerfish | `queen-triggerfish` | `Balistes vetula` | Added sourced content record; source is `keep` and promoted. |
+| Longspine sea urchin | `longspine-sea-urchin` | `Diadema antillarum` | Added sourced content record; source is `keep` and promoted. |
+| Banded coral shrimp | `banded-coral-shrimp` | `Stenopus hispidus` | Added sourced content record; source is `keep` and promoted. |
+| Juvenile spotted drum | `spotted-drum` | `Eques punctatus` | Added species-level content record; source metadata preserves the juvenile presentation. Source is `keep` and promoted. |
 | Caribbean cushion sea star | `caribbean-cushion-sea-star` | `Oreaster reticulatus` | Added sourced content record; artwork remains `remake`. |
 | Queen conch | `queen-conch` | `Aliger gigas` | Added sourced content record using current accepted taxonomy; artwork remains `remake`. |
 
@@ -97,7 +98,7 @@ assets/creatures/<stable-id>/                   # canonical runtime only
 
 ## Work sequence
 
-1. **#31:** promote the four newly mapped `keep` candidates; replace and review the eight blocked originals; promote approved replacements.
+1. **#31:** replace and review the eight blocked originals; promote only approved replacements. The mapping and all 22 existing `keep` promotions are complete.
 2. **#33:** generate, review, ingest and promote the 26 current content creatures with no HD source candidate.
 3. **#34:** only after HD source coverage is stable, batch-remove backgrounds into transparent raster specimen revisions; preserve opaque originals and manually QA difficult alpha edges.
 
