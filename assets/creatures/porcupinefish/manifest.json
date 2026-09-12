@@ -8,29 +8,29 @@
     "variants": {
       "gallery": {
         "aspectRatio": 1.0,
-        "bytes": 21154,
+        "bytes": 37364,
         "height": 512,
         "mediaType": "image/webp",
         "path": "gallery.webp",
-        "sha256": "fa3514d1fdb04ce52e1d45a455d5fa41ccb4bafef8b143118ca3b12d502cc021",
+        "sha256": "0325c66a2a039c706d01555ffd2496d3d0306a033942f7f2e778b43666bb7039",
         "width": 512
       },
       "hero": {
         "aspectRatio": 1.0,
-        "bytes": 33960,
+        "bytes": 127834,
         "height": 1024,
         "mediaType": "image/webp",
         "path": "hero.webp",
-        "sha256": "060bd67124408ad6b2fa433431066cfe5eb4dd78e450e77a8c21bdbb2a23cecd",
+        "sha256": "480ee2f434f3ba27c79119c4b01a13848791c1f680b784389fbeb517671d2b46",
         "width": 1024
       },
       "thumb": {
         "aspectRatio": 1.0,
-        "bytes": 6516,
+        "bytes": 6898,
         "height": 192,
         "mediaType": "image/webp",
         "path": "thumb.webp",
-        "sha256": "ad7b17f15b9371423041584f27487bafc41c14023b8b350a273b327399c80fb6",
+        "sha256": "42dc9a4fae5a52e0cd2878943a19486830659b051e5fba20a4949395b6bed32c",
         "width": 192
       }
     }
@@ -38,10 +38,11 @@
   "creatureId": "porcupinefish",
   "source": {
     "aspectRatio": 1.0,
-    "bytes": 73141,
-    "format": "png",
+    "bytes": 126186,
+    "format": "webp",
     "height": 1024,
-    "sha256": "41598a6554bd8a852c1910f85100f4951dffeb7ca19931208908f8b6e613d7d0",
+    "mode": "opaque-scene",
+    "sha256": "3707ce1a9eee6158bebf2f9e133219a4ca4e8a81c74398c3ae88a0c42902792b",
     "width": 1024
   },
   "version": 1

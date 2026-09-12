@@ -8,29 +8,29 @@
     "variants": {
       "gallery": {
         "aspectRatio": 1.0,
-        "bytes": 14230,
+        "bytes": 35388,
         "height": 512,
         "mediaType": "image/webp",
         "path": "gallery.webp",
-        "sha256": "9e5dd175f5de82860a152a06e110b2a2f235c8dc43538aefebf6ec7e8c107ff6",
+        "sha256": "7fc3adc33c24a64e2ff50fdf883ede877ad77a749c12c352ed3a43f591ff4ad9",
         "width": 512
       },
       "hero": {
         "aspectRatio": 1.0,
-        "bytes": 22576,
+        "bytes": 116694,
         "height": 1024,
         "mediaType": "image/webp",
         "path": "hero.webp",
-        "sha256": "59740b994165ea03a4543c6a0c61f7a202fdbe6b1e7ecd443c8429b74e285cf2",
+        "sha256": "f9abff0f220357c92ff6cde3dcfbf5e9fdf8087778b339d8f01c89529539072e",
         "width": 1024
       },
       "thumb": {
         "aspectRatio": 1.0,
-        "bytes": 4524,
+        "bytes": 6270,
         "height": 192,
         "mediaType": "image/webp",
         "path": "thumb.webp",
-        "sha256": "67c93bdd5cde66138c1a20fecaf1df71a07e40a0ca4fa299e3f6cb8db06893e8",
+        "sha256": "d90144fdcced9caa97f2255cad5e389408cf0fe9d164562fed1cb18aaf42d3fe",
         "width": 192
       }
     }
@@ -38,10 +38,11 @@
   "creatureId": "green-sea-turtle",
   "source": {
     "aspectRatio": 1.0,
-    "bytes": 81983,
-    "format": "png",
+    "bytes": 114930,
+    "format": "webp",
     "height": 1024,
-    "sha256": "0b1525522766ad462e0db28876d773a38a4c7db8fa88c963b73f20e023541119",
+    "mode": "opaque-scene",
+    "sha256": "69b1eea63f853cf9afd9dd226040244e5b0d3cbcbe85a87d7e5e8ac7d0a09cbb",
     "width": 1024
   },
   "version": 1

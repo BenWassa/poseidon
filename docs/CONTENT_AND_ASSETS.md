@@ -4,7 +4,7 @@
 
 This is the durable strategy for creature content, regional relevance and artwork.
 
-Current implementation status is tracked in `docs/PROJECT_STATUS.md`. The Mexican Caribbean starter content pack is already implemented; the current artwork expansion programme is #11 / #12 / PR #13.
+Current implementation status is tracked in `docs/PROJECT_STATUS.md`. The Mexican Caribbean starter content pack is already implemented. #11/#12/PR #13 produced and reviewed the HD source-art library; #30 promoted 18 of the 22 `keep` candidates into canonical runtime artwork; #31 tracks the remaining 8 `remake` candidates, 4 unmapped `keep` candidates and a subsequent coverage audit.
 
 ---
 
@@ -175,7 +175,17 @@ The first generated batch currently tracks **30 unique square candidates: 17 kee
 
 ---
 
-# 10. Runtime asset contract
+# 10. Three artwork categories
+
+Poseidon's creature imagery falls into exactly three categories, and it matters which one a given screen is actually showing:
+
+- **Source artwork** — `assets/source/creatures/<id>/candidate-vN.webp`. Editorial-only input. Application code must never read from this tree, and it never determines what a user sees.
+- **Approved runtime artwork** — `assets/creatures/<id>/{thumb,gallery,hero}.webp`, produced only by deliberately promoting a `keep` source candidate through `promote-source` (#11/#30/#31). This is the reviewed HD `poseidon-sunlit-square-v1` art once promoted.
+- **Fallback artwork** — whatever a species has when no approved HD promotion exists yet for it: either an older SVG-derived runtime illustration still sitting in `assets/creatures/<id>` (legacy, pre-#11 art; also what a species keeps when its HD candidate is blocked as `remake`, per #31), or, if no runtime directory exists at all, the designed `CreatureMark` aquatic placeholder (§12).
+
+The manifest at `assets/creatures/<id>/manifest.json` does not itself distinguish "approved HD" from "legacy SVG-derived fallback" — both are simply the current canonical runtime asset for that ID, resolved identically by the application. The distinction lives in editorial history (the source catalog's `status`/`creatureId` mapping), not in a separate runtime flag. Do not read this as parity: a `remake`-blocked or unmapped species' fallback art is deliberately retained until a reviewed HD replacement is promoted, not treated as equivalent quality to a promoted one.
+
+# 11. Runtime asset contract
 
 Accepted production artwork uses deterministic fixed-square variants:
 
@@ -198,7 +208,7 @@ The application should:
 
 ---
 
-# 11. Missing-art behavior
+# 12. Missing-art behavior
 
 No artwork is a first-class state.
 
@@ -210,7 +220,7 @@ Do not suppress creatures because production art is incomplete.
 
 ---
 
-# 12. Production workflow
+# 13. Production workflow
 
 For each new/replacement creature asset:
 
@@ -231,14 +241,13 @@ Do not regenerate hundreds of species without review just to improve a coverage 
 
 ---
 
-# 13. Current artwork programme
+# 14. Current artwork programme
 
-The merged application already has 18 canonical runtime illustrations plus deliberate fallback for the remaining starter-pack species.
+#11 imported the reviewed `poseidon-sunlit-square-v1` source library; #12 completed its biological/style QA (22 keep / 0 provisional / 8 remake). #30 promoted the 18 of those 22 `keep` candidates that map to an existing content record into canonical runtime approved artwork, replacing the older SVG-derived illustrations for those species. #31 covers the remainder:
 
-The next artwork work is split deliberately:
-
-- **#11** — source-library import, source-catalog validation and opaque-scene ingestion support;
-- **#12** — seven remakes, six provisional QA resolutions and continued reviewed coverage.
+- the 8 `remake` candidates, which keep their pre-existing fallback art (legacy SVG-derived illustration, or the `CreatureMark` placeholder where none exists) until a reviewed HD replacement is promoted;
+- the 4 `keep` candidates with no matching content record (`creatureId: null`) — a deliberate content-catalog decision, not a promotion-tool gap;
+- a subsequent audit of starter-catalog species still lacking any HD imagery.
 
 The source library may temporarily run ahead of the 50-creature content pack, but source-only candidates must not silently create production taxonomy/content records.
 
@@ -246,7 +255,7 @@ Expansion priority should favor useful Mexican-Caribbean coverage and locally di
 
 ---
 
-# 14. Rarity / encounter significance
+# 15. Rarity / encounter significance
 
 Do not assign arbitrary percentage rarity.
 
@@ -262,7 +271,7 @@ Omitting rarity is preferable to weak evidence.
 
 ---
 
-# 15. Expansion model
+# 16. Expansion model
 
 Adding a new region should primarily mean adding structured content:
 

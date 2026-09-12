@@ -1,0 +1,49 @@
+{
+  "artwork": {
+    "aspectRatio": 1.0,
+    "gallery": "gallery.webp",
+    "hero": "hero.webp",
+    "status": "curated",
+    "thumb": "thumb.webp",
+    "variants": {
+      "gallery": {
+        "aspectRatio": 1.0,
+        "bytes": 26268,
+        "height": 512,
+        "mediaType": "image/webp",
+        "path": "gallery.webp",
+        "sha256": "3cdd8cbf75ecca2a8e539d9a2cf8ac0dbfe2b18a78e270a0f21f36b3555f95d5",
+        "width": 512
+      },
+      "hero": {
+        "aspectRatio": 1.0,
+        "bytes": 95076,
+        "height": 1024,
+        "mediaType": "image/webp",
+        "path": "hero.webp",
+        "sha256": "506cf00db3ec972c36a86c7727be6989cebc75d0d5582d11c7d8bf802c7802dc",
+        "width": 1024
+      },
+      "thumb": {
+        "aspectRatio": 1.0,
+        "bytes": 4574,
+        "height": 192,
+        "mediaType": "image/webp",
+        "path": "thumb.webp",
+        "sha256": "ea63a03afa57b0c1cb023cdaa5c01b4ff4c5f03b77aef4ccbc09ffc9b867470a",
+        "width": 192
+      }
+    }
+  },
+  "creatureId": "yellowtail-snapper",
+  "source": {
+    "aspectRatio": 1.0,
+    "bytes": 94380,
+    "format": "webp",
+    "height": 1024,
+    "mode": "opaque-scene",
+    "sha256": "6ff1773431354e83b6e0c3a6f9450f26b4527fe06e7e1bd724c623b78aeb6170",
+    "width": 1024
+  },
+  "version": 1
+}

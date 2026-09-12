@@ -10,7 +10,7 @@ Poseidon is now a deployed, integrated React/Vite/TypeScript PWA rather than a g
 
 Current `main` authority at this reconciliation is commit:
 
-`7b8939b35603fd1f32df896dcfba840ce109fb9e`
+`2b5b605d89cf70a7befab74617ce9b48bd9b6ae0`
 
 Current application architecture remains repository authority:
 
@@ -100,9 +100,15 @@ These are deliberate enhancements on top of the integrated product baseline. The
 
 The root `package.json` version (`0.1.0`) is the canonical product version, mechanically kept in sync with `apps/web` and `packages/domain` and validated by `npm run validate:versions` in the gate. Every production build embeds both the product version and the exact Git SHA via `apps/web/src/lib/buildInfo.ts`, surfaced in a restrained, copyable form on the Data & Backup screen. `CHANGELOG.md`, `release-please-config.json` and `.github/workflows/release-please.yml` are in place: ordinary merges to `main` only ever open/update a proposed release PR, and a tag/GitHub Release is cut only when that PR is deliberately reviewed and merged. Pre-1.0 breaking changes are configured to bump minor, never `1.0.0`, automatically.
 
-Remaining per the bootstrap plan in `docs/VERSIONING_AND_RELEASES.md`: let a known-green `main` accumulate, then deliberately merge the first Release Please PR to cut `v0.1.0` as the intentional bootstrap release. This is an owner decision, not something to trigger automatically.
+Remaining per the bootstrap plan in `docs/VERSIONING_AND_RELEASES.md`: let a known-green `main` accumulate, then deliberately merge the first Release Please PR to cut `v0.1.0` as the intentional bootstrap release. This is an owner decision, not something to trigger automatically. **#26 remains unimplemented as a shipped release** — infrastructure is in place but no deliberate `v0.1.0` tag/GitHub Release has been cut yet.
 
-Durable implementation contract: `docs/VERSIONING_AND_RELEASES.md`.
+### #30 — promote approved HD creature art into production — outstanding
+
+The HD source-art library (#11) is complete and biologically reviewed (#12: 22 keep / 0 provisional / 8 remake), but that reviewed artwork has not yet been promoted into `assets/creatures`. The application currently still renders the older SVG-derived runtime illustrations for every one of those `keep` species; the good generated artwork is sitting unused. #30 promotes the 18 of 22 `keep` candidates that map to an existing content record through the existing `promote-source` safeguard, replacing that SVG-derived runtime art, and verifies Collection/Creature Detail/Log Dive/highlight surfaces all resolve through the new canonical runtime WebPs. This is the main outstanding art-visibility gap and the priority ahead of #14 field acceptance.
+
+### #31 — finish the HD creature library — outstanding, follow-up to #30
+
+Tracks the 8 `remake` candidates (regenerate/re-review/promote), the 4 `keep`-but-unmapped candidates deferred from #30 (`queen-triggerfish`, `longspine-sea-urchin`, `banded-coral-shrimp`, `juvenile-spotted-drum` — no matching content record yet), and a subsequent audit of the ~20 starter-catalog species still lacking any HD imagery.
 
 ## Completed residual streams
 
@@ -137,6 +143,8 @@ Derived trip grouping, restrained/safe milestones and richer sourced Creature De
 The first truthful map is merged around sourced starter-region coordinates. Coordinate provenance and precision are explicit, missing-coordinate sites remain valid, and core logging/history do not depend on map availability.
 
 ## Remaining closeout
+
+The intended closeout sequence is: green `main` (done) → #30 (18 HD images live) → #31 (remaining 8 remake + 4 unmapped candidates promoted, coverage gap audited) → #14 physical Pixel acceptance → close #14/#5 and assess #1 → #26 bootstrap release. #26 is deliberately sequenced after field acceptance, not before or during the art-visibility work — it is release hygiene, not a v0 blocker.
 
 ### #14 — v0 field readiness — owner-device closeout only
 

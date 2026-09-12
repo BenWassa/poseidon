@@ -8,29 +8,29 @@
     "variants": {
       "gallery": {
         "aspectRatio": 1.0,
-        "bytes": 10638,
+        "bytes": 27084,
         "height": 512,
         "mediaType": "image/webp",
         "path": "gallery.webp",
-        "sha256": "8ba20a6cf2d8e8489fcf6cdea761c943547983fd3782626e16df7845bcff545f",
+        "sha256": "ecd0477b933dff0d7cd60018f78e3da9e43b8de17cbffb42548b39d3f1b9f7fd",
         "width": 512
       },
       "hero": {
         "aspectRatio": 1.0,
-        "bytes": 17058,
+        "bytes": 95754,
         "height": 1024,
         "mediaType": "image/webp",
         "path": "hero.webp",
-        "sha256": "79677b3dcdb4dd33316f75a4e66de4e7f8fab076d70690a4704fca412fc50ef3",
+        "sha256": "894b4ef0c0d53a9e14ad41250a5e3e3694be27d05cde2bc55ca66f09ae826816",
         "width": 1024
       },
       "thumb": {
         "aspectRatio": 1.0,
-        "bytes": 3450,
+        "bytes": 4884,
         "height": 192,
         "mediaType": "image/webp",
         "path": "thumb.webp",
-        "sha256": "0be4ecbbad26cae18af31bd6a7704861f70df34c0d0b84bd133bcc1cad298049",
+        "sha256": "4524a2162696da7e9ee05400e5d48e96be825fce019121f6daf4d9941f7ed7e1",
         "width": 192
       }
     }
@@ -38,10 +38,11 @@
   "creatureId": "stoplight-parrotfish",
   "source": {
     "aspectRatio": 1.0,
-    "bytes": 41531,
-    "format": "png",
+    "bytes": 95492,
+    "format": "webp",
     "height": 1024,
-    "sha256": "7991594d6070c886314d1690b4d35b3647dead740caddaab67a9be0a34052140",
+    "mode": "opaque-scene",
+    "sha256": "79b13a0b6e914a47885dd1858f4713dfebe93d07f8689a1856b955459e3a12a1",
     "width": 1024
   },
   "version": 1

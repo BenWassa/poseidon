@@ -8,29 +8,29 @@
     "variants": {
       "gallery": {
         "aspectRatio": 1.0,
-        "bytes": 10004,
+        "bytes": 41056,
         "height": 512,
         "mediaType": "image/webp",
         "path": "gallery.webp",
-        "sha256": "151efc8b8cb73aa5224fda73ac3f280d557f0284a8d7c5a07d9edc91978171c2",
+        "sha256": "7ed855a476635345d7f513337b759e8b1ae5edd950cf056c3d11bafdd1c91227",
         "width": 512
       },
       "hero": {
         "aspectRatio": 1.0,
-        "bytes": 16884,
+        "bytes": 138750,
         "height": 1024,
         "mediaType": "image/webp",
         "path": "hero.webp",
-        "sha256": "c74d7898123bebd0697d58cf7f610f91e92914686e53e5e0e26358c537355a1f",
+        "sha256": "122b870f37e2d1443233e0d71f334fe1ff48d53f61661b6e2a081fa11041b61e",
         "width": 1024
       },
       "thumb": {
         "aspectRatio": 1.0,
-        "bytes": 3358,
+        "bytes": 6378,
         "height": 192,
         "mediaType": "image/webp",
         "path": "thumb.webp",
-        "sha256": "08873dfbfb18fa9f390174db0062f3ecf3e0f60fc529afae85e677e00e7ee319",
+        "sha256": "d9637f85e3ef757c254988f4fec2fa987e7597fd9a024f480c4d155ecabec566",
         "width": 192
       }
     }
@@ -38,10 +38,11 @@
   "creatureId": "french-angelfish",
   "source": {
     "aspectRatio": 1.0,
-    "bytes": 46600,
-    "format": "png",
+    "bytes": 139196,
+    "format": "webp",
     "height": 1024,
-    "sha256": "9620a3932aa59b932a8be807879be5a76d5b414a9a2db432474015a7fb921dfe",
+    "mode": "opaque-scene",
+    "sha256": "d366fcad6d383a45aea559ae3ac3210ccaa6824c9803ebe8307f842aed55a99f",
     "width": 1024
   },
   "version": 1

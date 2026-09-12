@@ -1,0 +1,49 @@
+{
+  "artwork": {
+    "aspectRatio": 1.0,
+    "gallery": "gallery.webp",
+    "hero": "hero.webp",
+    "status": "curated",
+    "thumb": "thumb.webp",
+    "variants": {
+      "gallery": {
+        "aspectRatio": 1.0,
+        "bytes": 18634,
+        "height": 512,
+        "mediaType": "image/webp",
+        "path": "gallery.webp",
+        "sha256": "fe881d8eb09ed9cc240895cd2a3682fb03d4f7f9d1bd577d268de64fa2f184d3",
+        "width": 512
+      },
+      "hero": {
+        "aspectRatio": 1.0,
+        "bytes": 59168,
+        "height": 1024,
+        "mediaType": "image/webp",
+        "path": "hero.webp",
+        "sha256": "f9be9afaaf33d48f33d56a19d909d0069cdec8d662d405f39dd8b474b408c2a2",
+        "width": 1024
+      },
+      "thumb": {
+        "aspectRatio": 1.0,
+        "bytes": 3794,
+        "height": 192,
+        "mediaType": "image/webp",
+        "path": "thumb.webp",
+        "sha256": "23c56277206304cd9b1159b366a0fe6b5a1680556a86bfd575959c32a225972f",
+        "width": 192
+      }
+    }
+  },
+  "creatureId": "trumpetfish",
+  "source": {
+    "aspectRatio": 1.0,
+    "bytes": 59790,
+    "format": "webp",
+    "height": 1024,
+    "mode": "opaque-scene",
+    "sha256": "777c838e9282daa37537a88c38e16ebdf379c0e8098eac85cc00076b16c059dd",
+    "width": 1024
+  },
+  "version": 1
+}

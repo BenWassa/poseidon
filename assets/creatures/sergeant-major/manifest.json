@@ -8,29 +8,29 @@
     "variants": {
       "gallery": {
         "aspectRatio": 1.0,
-        "bytes": 12240,
+        "bytes": 31040,
         "height": 512,
         "mediaType": "image/webp",
         "path": "gallery.webp",
-        "sha256": "df97d2329840be7a514322b409bb6f787ee4414d9fa39f0e6492f1560c03dc85",
+        "sha256": "141fc797b1b93cad864aa9913f89d2b778ccf0597393b57b646295247d23a559",
         "width": 512
       },
       "hero": {
         "aspectRatio": 1.0,
-        "bytes": 19726,
+        "bytes": 117948,
         "height": 1024,
         "mediaType": "image/webp",
         "path": "hero.webp",
-        "sha256": "3e095126e9dc3f4cda2e077179da39eb4b1b778e5d9605f7a777da13b6147b0d",
+        "sha256": "eb6250c0ca09d58f69ef26277b049751a6b77d49c93c7bf6a588cd8a6f2216ca",
         "width": 1024
       },
       "thumb": {
         "aspectRatio": 1.0,
-        "bytes": 3992,
+        "bytes": 4936,
         "height": 192,
         "mediaType": "image/webp",
         "path": "thumb.webp",
-        "sha256": "5a00c37a6158c2c66ffaf710c44ad8466ef40602aec8c7f679efe7beb7080ddb",
+        "sha256": "bc9febc56a5f5ae91f384200d231d31cd6c85bbdb91f5bc96156f89cea0eea68",
         "width": 192
       }
     }
@@ -38,10 +38,11 @@
   "creatureId": "sergeant-major",
   "source": {
     "aspectRatio": 1.0,
-    "bytes": 44750,
-    "format": "png",
+    "bytes": 116848,
+    "format": "webp",
     "height": 1024,
-    "sha256": "4b6bfc91978fec03f15b36686b56a46ca508ffffa44a6531a850344f09980143",
+    "mode": "opaque-scene",
+    "sha256": "6a90988e2507234276a467cadad6db472c6ce56d0b954f3feae5456e56ca1ffa",
     "width": 1024
   },
   "version": 1

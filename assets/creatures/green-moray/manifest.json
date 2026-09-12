@@ -8,29 +8,29 @@
     "variants": {
       "gallery": {
         "aspectRatio": 1.0,
-        "bytes": 15306,
+        "bytes": 35982,
         "height": 512,
         "mediaType": "image/webp",
         "path": "gallery.webp",
-        "sha256": "6fb2f5dc037e6fcab7a51ce06f0808eaed986b169eecb3c46e5b8914451f167b",
+        "sha256": "1d4911d751ac689eb325e176294d97c1ac4520241378f5f7f6b137c90c1c001d",
         "width": 512
       },
       "hero": {
         "aspectRatio": 1.0,
-        "bytes": 21634,
+        "bytes": 122012,
         "height": 1024,
         "mediaType": "image/webp",
         "path": "hero.webp",
-        "sha256": "e561a64a6fd76d5d42d4625d47876ee6d6d023980394b25ef05c1383b4e32626",
+        "sha256": "cea4983ea0e1312055480b3e88834270a54fd0c8b1b31edd63d96b7b4eef2d55",
         "width": 1024
       },
       "thumb": {
         "aspectRatio": 1.0,
-        "bytes": 4964,
+        "bytes": 5570,
         "height": 192,
         "mediaType": "image/webp",
         "path": "thumb.webp",
-        "sha256": "a10396353534a544960f58e0f526dd61ae37ebb25139b1fb0bec28164f7652fc",
+        "sha256": "3a7b8cbd1fcbec85ddbb14c498045a69b856a951d7c25b611a71ce899fc3783a",
         "width": 192
       }
     }
@@ -38,10 +38,11 @@
   "creatureId": "green-moray",
   "source": {
     "aspectRatio": 1.0,
-    "bytes": 54790,
-    "format": "png",
+    "bytes": 121290,
+    "format": "webp",
     "height": 1024,
-    "sha256": "5bbbda29999975ea2effa98f78abba8182ceb59e835ddfd092af2de839f7542d",
+    "mode": "opaque-scene",
+    "sha256": "37a7de74a2c22056e63090964ceb01733a5982e66758448f837affb9bb310825",
     "width": 1024
   },
   "version": 1

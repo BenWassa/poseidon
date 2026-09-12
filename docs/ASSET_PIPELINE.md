@@ -2,6 +2,8 @@
 
 This tooling owns canonical runtime creature artwork under `assets/creatures`. Editorial/generated masters live separately under `assets/source/creatures` and are never application inputs.
 
+Poseidon's creature imagery falls into three categories — **source artwork** (`assets/source/creatures`, editorial-only), **approved runtime artwork** (a `keep` source candidate promoted here via `promote-source`), and **fallback artwork** (an older SVG-derived runtime illustration, or the `CreatureMark` placeholder when no runtime art exists at all). See `docs/CONTENT_AND_ASSETS.md` §10 for the full definition; this document only ever produces or validates runtime output, regardless of which category a given directory currently holds.
+
 ## Canonical runtime layout
 
 ```text

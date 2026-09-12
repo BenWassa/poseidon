@@ -8,29 +8,29 @@
     "variants": {
       "gallery": {
         "aspectRatio": 1.0,
-        "bytes": 11422,
+        "bytes": 32436,
         "height": 512,
         "mediaType": "image/webp",
         "path": "gallery.webp",
-        "sha256": "e1a5697a6cf36cf2c755c525bc3e35342f4613cb9cdaa3139646eac8b2c33442",
+        "sha256": "bbc47a8e207ab9e141b7f633d9dac4100d12a3a496befc17e9be4ee97f8a45ac",
         "width": 512
       },
       "hero": {
         "aspectRatio": 1.0,
-        "bytes": 19130,
+        "bytes": 113124,
         "height": 1024,
         "mediaType": "image/webp",
         "path": "hero.webp",
-        "sha256": "a29a81ea2917897001cc1693d95e346e3f9c53da1c8e90eef0f1d12450c4231c",
+        "sha256": "398324f678e7ab4306e0a36772391206aef00d63aa3cf7ca7c93bdf22ba97450",
         "width": 1024
       },
       "thumb": {
         "aspectRatio": 1.0,
-        "bytes": 3834,
+        "bytes": 5308,
         "height": 192,
         "mediaType": "image/webp",
         "path": "thumb.webp",
-        "sha256": "759c9dc5149b6d1d94f7f2b0ac093eaec5752ce5d3f5df9c2c7ac45e63faae0d",
+        "sha256": "1ec934468b43c4935ebd5546a7b3b3bb7073fdf3ab040b1835a393c16bff1f59",
         "width": 192
       }
     }
@@ -38,10 +38,11 @@
   "creatureId": "queen-angelfish",
   "source": {
     "aspectRatio": 1.0,
-    "bytes": 47874,
-    "format": "png",
+    "bytes": 112980,
+    "format": "webp",
     "height": 1024,
-    "sha256": "6e2fd2b6d5f64087e9f90088bcdd7b10e99f8b8b06cc45bb58897d340b8723a7",
+    "mode": "opaque-scene",
+    "sha256": "5242462933e46b2e61995dfee4a58ef54607fab36b69181551cf830b9f54a4de",
     "width": 1024
   },
   "version": 1

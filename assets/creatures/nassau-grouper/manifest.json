@@ -1,0 +1,49 @@
+{
+  "artwork": {
+    "aspectRatio": 1.0,
+    "gallery": "gallery.webp",
+    "hero": "hero.webp",
+    "status": "curated",
+    "thumb": "thumb.webp",
+    "variants": {
+      "gallery": {
+        "aspectRatio": 1.0,
+        "bytes": 32518,
+        "height": 512,
+        "mediaType": "image/webp",
+        "path": "gallery.webp",
+        "sha256": "d118dfb50e9ad6a38a0e28bb9c9fb07a1132dc863a4d78a0b3a482cd65058e79",
+        "width": 512
+      },
+      "hero": {
+        "aspectRatio": 1.0,
+        "bytes": 114678,
+        "height": 1024,
+        "mediaType": "image/webp",
+        "path": "hero.webp",
+        "sha256": "5cff4a72a421c8a7addfb667de9a58242780463527091b9a0122c1460b11fa64",
+        "width": 1024
+      },
+      "thumb": {
+        "aspectRatio": 1.0,
+        "bytes": 5782,
+        "height": 192,
+        "mediaType": "image/webp",
+        "path": "thumb.webp",
+        "sha256": "e40296ad8fb503710a87b82d107f4b633e8643820a4706469b3afcd5e7729493",
+        "width": 192
+      }
+    }
+  },
+  "creatureId": "nassau-grouper",
+  "source": {
+    "aspectRatio": 1.0,
+    "bytes": 113404,
+    "format": "webp",
+    "height": 1024,
+    "mode": "opaque-scene",
+    "sha256": "c682d42a055fd8080e87ec8b5215c52b7edeba0641aa25e0d8403c65cad21709",
+    "width": 1024
+  },
+  "version": 1
+}
