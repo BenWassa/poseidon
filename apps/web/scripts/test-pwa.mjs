@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { createReadStream } from 'node:fs';
-import { readdir, stat } from 'node:fs/promises';
+import { readFile, stat } from 'node:fs/promises';
 import { createServer } from 'node:http';
 import { extname, join, resolve } from 'node:path';
 
@@ -9,16 +9,14 @@ import { chromium } from 'playwright';
 import { launchOptions } from '../../../tools/chromium.mjs';
 
 const distDir = resolve(import.meta.dirname, '../dist');
-const MAX_PRECACHE_BYTES = 2 * 1024 * 1024;
-const PRECACHE_EXTENSIONS = new Set([
-  '.js',
-  '.css',
-  '.html',
-  '.webp',
-  '.png',
-  '.svg',
-  '.woff2',
-]);
+// The HD-art promotion (#30) replaced flat SVG-derived illustrations with
+// richer opaque-scene thumb/gallery variants, raising the legitimate
+// precached footprint for cold-start browsing. `hero.webp` (the largest
+// variant) is deliberately excluded from precache via `globIgnores` in
+// vite.config.ts and runtime-cached on first view instead, so this budget
+// covers the shell plus thumb/gallery art only, with headroom for the
+// remaining starter-catalog promotions tracked in #31.
+const MAX_PRECACHE_BYTES = 3 * 1024 * 1024;
 const MIME = {
   '.css': 'text/css; charset=utf-8',
   '.html': 'text/html; charset=utf-8',
@@ -31,28 +29,29 @@ const MIME = {
   '.woff2': 'font/woff2',
 };
 
-async function filesUnder(directory) {
-  const files = [];
-  for (const entry of await readdir(directory, { withFileTypes: true })) {
-    const path = join(directory, entry.name);
-    if (entry.isDirectory()) files.push(...(await filesUnder(path)));
-    else files.push(path);
-  }
-  return files;
+/**
+ * The budget must reflect what the service worker actually precaches, not
+ * every matching-extension file that happens to sit in `dist` — workbox's
+ * `globIgnores`/`runtimeCaching` (e.g. lazily-cached `hero.webp` creature
+ * art) deliberately keep some built assets out of the precache manifest.
+ * Reading `self.__WB_MANIFEST`'s literal from the generated `sw.js` is the
+ * only way to measure the real precache set rather than re-deriving
+ * (and silently drifting from) workbox's own glob configuration.
+ */
+async function readPrecacheManifest() {
+  const swSource = await readFile(join(distDir, 'sw.js'), 'utf8');
+  const match = swSource.match(/precacheAndRoute\((\[.*?\])\s*,/s);
+  assert.ok(match, 'Could not locate the precacheAndRoute manifest in sw.js.');
+  const entries = new Function(`return ${match[1]};`)();
+  return entries.map((entry) =>
+    typeof entry === 'string' ? entry : entry.url,
+  );
 }
 
 async function checkPrecacheBudget() {
-  const files = await filesUnder(distDir);
-  const precached = files.filter((file) => {
-    const relative = file.slice(distDir.length + 1);
-    return (
-      PRECACHE_EXTENSIONS.has(extname(file)) &&
-      relative !== 'sw.js' &&
-      !relative.startsWith('workbox-')
-    );
-  });
+  const precached = await readPrecacheManifest();
   const sizes = await Promise.all(
-    precached.map(async (file) => (await stat(file)).size),
+    precached.map(async (url) => (await stat(join(distDir, url))).size),
   );
   const bytes = sizes.reduce((total, size) => total + size, 0);
   assert.ok(
@@ -60,7 +59,7 @@ async function checkPrecacheBudget() {
     `Precache candidates use ${bytes} bytes; budget is ${MAX_PRECACHE_BYTES}.`,
   );
   assert.equal(
-    precached.some((file) => file.includes('mock-data-')),
+    precached.some((url) => url.includes('mock-data-')),
     false,
     'development mock seed code must not ship in the production bundle',
   );

@@ -8,29 +8,29 @@
     "variants": {
       "gallery": {
         "aspectRatio": 1.0,
-        "bytes": 15222,
+        "bytes": 37552,
         "height": 512,
         "mediaType": "image/webp",
         "path": "gallery.webp",
-        "sha256": "cbd3c2f38abb09558be648bfda44a746a8e5aaec729fc87240f90acc9b6e3cd5",
+        "sha256": "c412bebd772cc73a8da08e19a19018cb94bb7fec40aabf68d2f5acd7d883b919",
         "width": 512
       },
       "hero": {
         "aspectRatio": 1.0,
-        "bytes": 25534,
+        "bytes": 123730,
         "height": 1024,
         "mediaType": "image/webp",
         "path": "hero.webp",
-        "sha256": "68c8f3d3ab2bfcc2ad13ed1f8b75e91d8052e72c0a25f633344e56ad3b0a924c",
+        "sha256": "90676646092f439a885e98c13318b625990abce399331e4fce32d4815c2eae9a",
         "width": 1024
       },
       "thumb": {
         "aspectRatio": 1.0,
-        "bytes": 4736,
+        "bytes": 6722,
         "height": 192,
         "mediaType": "image/webp",
         "path": "thumb.webp",
-        "sha256": "0ec88d7ef82aaac448cb8bd1b8ac5f1615ea70e7c3b0134cc582e17e2c70469c",
+        "sha256": "db9bf7a1ec96d568265dbcb558702d506f1fa7b05d80e50650ea205fc9c33acf",
         "width": 192
       }
     }
@@ -38,10 +38,11 @@
   "creatureId": "hawksbill-sea-turtle",
   "source": {
     "aspectRatio": 1.0,
-    "bytes": 81951,
-    "format": "png",
+    "bytes": 121314,
+    "format": "webp",
     "height": 1024,
-    "sha256": "d059f932ff43d5cf747981afb9b1f2bb6bbbb641225139fa7af8a06f3f494346",
+    "mode": "opaque-scene",
+    "sha256": "a443e7dff52ab7acb2d7ecfbe2c653b4e054c09f0a3cef7bbdafaae0e352fe84",
     "width": 1024
   },
   "version": 1

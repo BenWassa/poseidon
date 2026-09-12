@@ -76,11 +76,29 @@ export default defineConfig({
     VitePWA({
       registerType: 'prompt',
       // Core logging and browsing must survive a cold start with no network,
-      // so the shell, the content pack and the creature variants are precached.
+      // so the shell, the content pack and the thumb/gallery creature
+      // variants used by dense grids are precached. `hero.webp` is the
+      // largest variant (up to 700 KiB each) and is only needed for a
+      // creature's own Detail view, so it is cached on first view instead
+      // of bloating every cold install/update with every hero image.
       workbox: {
         globPatterns: ['**/*.{js,css,html,webp,png,svg,woff2}'],
+        globIgnores: ['**/assets/creatures/*/hero.webp'],
         maximumFileSizeToCacheInBytes: 4 * 1024 * 1024,
         cleanupOutdatedCaches: true,
+        runtimeCaching: [
+          {
+            urlPattern: ({ url }) => url.pathname.endsWith('/hero.webp'),
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'poseidon-creature-hero',
+              expiration: {
+                maxEntries: 200,
+                maxAgeSeconds: 60 * 60 * 24 * 365,
+              },
+            },
+          },
+        ],
       },
       manifest: {
         id: '/',

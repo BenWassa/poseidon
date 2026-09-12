@@ -8,29 +8,29 @@
     "variants": {
       "gallery": {
         "aspectRatio": 1.0,
-        "bytes": 20162,
+        "bytes": 31886,
         "height": 512,
         "mediaType": "image/webp",
         "path": "gallery.webp",
-        "sha256": "2a7ee33c9655c36d48f2ecacb87f15da59580c5bfc59ad5b7ae7e51556304d0b",
+        "sha256": "253e0c51046d977c32c4f1406b6cbece5d2753e207d6acbdc73fc8512cd96f65",
         "width": 512
       },
       "hero": {
         "aspectRatio": 1.0,
-        "bytes": 29560,
+        "bytes": 108774,
         "height": 1024,
         "mediaType": "image/webp",
         "path": "hero.webp",
-        "sha256": "0c89527f5cd92ddd15f08d5d2d1c313112e390d3aef72c4eff7a2fc7b099d7dc",
+        "sha256": "8de77be89c2b51dbf563275987ff476426f4b9e8a25024bbc79f6357318317f5",
         "width": 1024
       },
       "thumb": {
         "aspectRatio": 1.0,
-        "bytes": 6456,
+        "bytes": 5604,
         "height": 192,
         "mediaType": "image/webp",
         "path": "thumb.webp",
-        "sha256": "f301ecd91891bddf834e01f55fbbc07fd583e58cecb01decd348a2bca1c26f8b",
+        "sha256": "9ea24e3d8c2f744f1e87aae47b7fd9ca59216251c8a568c47303a0b76950b51c",
         "width": 192
       }
     }
@@ -38,10 +38,11 @@
   "creatureId": "caribbean-reef-squid",
   "source": {
     "aspectRatio": 1.0,
-    "bytes": 61660,
-    "format": "png",
+    "bytes": 107806,
+    "format": "webp",
     "height": 1024,
-    "sha256": "af8a44340931803a442a61fe05d7e1ed6cc3922b72dd2611013b902699b4ba01",
+    "mode": "opaque-scene",
+    "sha256": "c8285bd1b4ba7f7bb7960ea2a325a3ed93a52965d8e5ff68df2841ebef52d4be",
     "width": 1024
   },
   "version": 1

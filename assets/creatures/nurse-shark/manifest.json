@@ -8,29 +8,29 @@
     "variants": {
       "gallery": {
         "aspectRatio": 1.0,
-        "bytes": 14604,
+        "bytes": 24340,
         "height": 512,
         "mediaType": "image/webp",
         "path": "gallery.webp",
-        "sha256": "952a71292efe0808c03fe0d4c755d90632fe3f89fff689e56d198f9c83efd3bd",
+        "sha256": "0245962175abbdc2e3aadeb9718aa750e43cf1e99eda4a2edce08ea0a5b0e2d2",
         "width": 512
       },
       "hero": {
         "aspectRatio": 1.0,
-        "bytes": 21156,
+        "bytes": 89064,
         "height": 1024,
         "mediaType": "image/webp",
         "path": "hero.webp",
-        "sha256": "196fa1d24dcbcf8ff5cea71ed2dcdc9cf7ddca2e33e7b594abd63fdc5903e962",
+        "sha256": "1314997850b1d44a685d34c41d0d7d0f3a8907edd7ec166c0066d42d03011b6e",
         "width": 1024
       },
       "thumb": {
         "aspectRatio": 1.0,
-        "bytes": 4628,
+        "bytes": 4164,
         "height": 192,
         "mediaType": "image/webp",
         "path": "thumb.webp",
-        "sha256": "a374a54b9baf131dc40c4ee7d14b18b5e8c1387ebc5339d6da5ec6c001598eb0",
+        "sha256": "6bf386453ed0dea4dd4528405aa6f52c48209fb7b33fb3b0e48ad8b75718c72f",
         "width": 192
       }
     }
@@ -38,10 +38,11 @@
   "creatureId": "nurse-shark",
   "source": {
     "aspectRatio": 1.0,
-    "bytes": 39055,
-    "format": "png",
+    "bytes": 88390,
+    "format": "webp",
     "height": 1024,
-    "sha256": "17f442927e0c8396dc6e8dce7391121306bb4bb727720043d3a1d3de3647cba4",
+    "mode": "opaque-scene",
+    "sha256": "aa18f70ab96b4fe3ce043af1d1f89a7c249bc35078787f1b79f2ed291e335952",
     "width": 1024
   },
   "version": 1

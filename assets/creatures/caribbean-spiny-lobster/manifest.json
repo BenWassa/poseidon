@@ -8,29 +8,29 @@
     "variants": {
       "gallery": {
         "aspectRatio": 1.0,
-        "bytes": 22928,
+        "bytes": 38674,
         "height": 512,
         "mediaType": "image/webp",
         "path": "gallery.webp",
-        "sha256": "c7c62aea3e3782ad402a2ea8e0fc91d6efd9e1e4519b1d33b34944588b149205",
+        "sha256": "9b4b341b375d4f13b29efd6aad9c482ca947fced7feea18dbc7f02591f06ddbc",
         "width": 512
       },
       "hero": {
         "aspectRatio": 1.0,
-        "bytes": 35020,
+        "bytes": 124862,
         "height": 1024,
         "mediaType": "image/webp",
         "path": "hero.webp",
-        "sha256": "5ee503f39be8aaa0b11b2718d33d060d797ae1da46472201488e88e898dce86d",
+        "sha256": "3ad5460f5def498a813b3db2a03e1f3a4f1796c9ea44238045c1d6446f411297",
         "width": 1024
       },
       "thumb": {
         "aspectRatio": 1.0,
-        "bytes": 7212,
+        "bytes": 7348,
         "height": 192,
         "mediaType": "image/webp",
         "path": "thumb.webp",
-        "sha256": "95b28c0e788697f30934ca1e5fb2a36cd04950fb281e18bf80c754b44b8add5b",
+        "sha256": "ee537ab61525ef94d5d67bbca64f7268153e7ed7c7061fde3c5eeee6d9c18dc4",
         "width": 192
       }
     }
@@ -38,10 +38,11 @@
   "creatureId": "caribbean-spiny-lobster",
   "source": {
     "aspectRatio": 1.0,
-    "bytes": 68894,
-    "format": "png",
+    "bytes": 123264,
+    "format": "webp",
     "height": 1024,
-    "sha256": "081a03756d86ff1600fa1b61d9ec2f21d621ee7db6caab0f7769b18787feb691",
+    "mode": "opaque-scene",
+    "sha256": "a2427ecc71101dd65d01f054ef93985e80f01b39ee607ff036767c66130c9aae",
     "width": 1024
   },
   "version": 1

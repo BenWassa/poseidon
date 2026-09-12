@@ -1,0 +1,49 @@
+{
+  "artwork": {
+    "aspectRatio": 1.0,
+    "gallery": "gallery.webp",
+    "hero": "hero.webp",
+    "status": "curated",
+    "thumb": "thumb.webp",
+    "variants": {
+      "gallery": {
+        "aspectRatio": 1.0,
+        "bytes": 27702,
+        "height": 512,
+        "mediaType": "image/webp",
+        "path": "gallery.webp",
+        "sha256": "ca7497de7a3187b19bac3fe54c3e45db1ab0ff483a8cc16b7faac5dc04df84b3",
+        "width": 512
+      },
+      "hero": {
+        "aspectRatio": 1.0,
+        "bytes": 103270,
+        "height": 1024,
+        "mediaType": "image/webp",
+        "path": "hero.webp",
+        "sha256": "2b86434b8946e35737a94be03e27a9fae9f7a341e68657d69c056653b8642ba9",
+        "width": 1024
+      },
+      "thumb": {
+        "aspectRatio": 1.0,
+        "bytes": 4848,
+        "height": 192,
+        "mediaType": "image/webp",
+        "path": "thumb.webp",
+        "sha256": "0af562d059e5ebd2b9f713e0636a1e28e6a1ef6755e1e355b1b8000edb719df9",
+        "width": 192
+      }
+    }
+  },
+  "creatureId": "schoolmaster-snapper",
+  "source": {
+    "aspectRatio": 1.0,
+    "bytes": 102568,
+    "format": "webp",
+    "height": 1024,
+    "mode": "opaque-scene",
+    "sha256": "3919d814e498b773e6990767df2fcfa60b2fb4b8b88b414764d353c32e83065d",
+    "width": 1024
+  },
+  "version": 1
+}

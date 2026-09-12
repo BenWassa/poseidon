@@ -8,29 +8,29 @@
     "variants": {
       "gallery": {
         "aspectRatio": 1.0,
-        "bytes": 14464,
+        "bytes": 31872,
         "height": 512,
         "mediaType": "image/webp",
         "path": "gallery.webp",
-        "sha256": "1cf84237857d6bdf6247d7606f998b2f926d75b8d85789d5e2b4e650ce4a9dab",
+        "sha256": "0d7200b91a3e221c0286d574e8c55e1272236a2ecf4a17e80bc7d0981d7be1e6",
         "width": 512
       },
       "hero": {
         "aspectRatio": 1.0,
-        "bytes": 22120,
+        "bytes": 106414,
         "height": 1024,
         "mediaType": "image/webp",
         "path": "hero.webp",
-        "sha256": "3f62d20687c6044ba37ca3e809c0d408dbfae0cd4ede073596649cc8f44baf98",
+        "sha256": "48457078258d07425d1e292a06399cccd7c7ceca88017e378d5afdcf4492c04c",
         "width": 1024
       },
       "thumb": {
         "aspectRatio": 1.0,
-        "bytes": 4584,
+        "bytes": 5552,
         "height": 192,
         "mediaType": "image/webp",
         "path": "thumb.webp",
-        "sha256": "eef2839f5bc675b9e83ef3ea5033db1991d897c9d5a927a2d2ff32fba435f495",
+        "sha256": "5151dd602010bc85cd66f58f174342e0edb413e461ebfc69822b2301fea9be6b",
         "width": 192
       }
     }
@@ -38,10 +38,11 @@
   "creatureId": "longsnout-seahorse",
   "source": {
     "aspectRatio": 1.0,
-    "bytes": 48719,
-    "format": "png",
+    "bytes": 105922,
+    "format": "webp",
     "height": 1024,
-    "sha256": "eace47ca79a6c4a3592209cf4870bb0d18042807c30cc48cbba283fb09af001d",
+    "mode": "opaque-scene",
+    "sha256": "a4a1a81863e1156a0dcabff8464f078b91b0671b55a4179c16d5c37e6bf57f17",
     "width": 1024
   },
   "version": 1

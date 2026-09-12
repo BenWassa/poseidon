@@ -8,29 +8,29 @@
     "variants": {
       "gallery": {
         "aspectRatio": 1.0,
-        "bytes": 11254,
+        "bytes": 26380,
         "height": 512,
         "mediaType": "image/webp",
         "path": "gallery.webp",
-        "sha256": "5febea9c5794a03928a41837e4e08baa82dd7410d92bae20e114834c946bd8d4",
+        "sha256": "abe83261359254e531e946fe27a83af3ffeb054688da3b432fd417d0b8e3f3cb",
         "width": 512
       },
       "hero": {
         "aspectRatio": 1.0,
-        "bytes": 17652,
+        "bytes": 99556,
         "height": 1024,
         "mediaType": "image/webp",
         "path": "hero.webp",
-        "sha256": "26162684a0ba634d7566dc16d5c6a08bd02598ece5588369179a927c13b4cc2b",
+        "sha256": "924d6dbca8363a4b86bc118fdfba32f311d59261d5af58b0d1ffb0420cd3d48a",
         "width": 1024
       },
       "thumb": {
         "aspectRatio": 1.0,
-        "bytes": 3628,
+        "bytes": 4304,
         "height": 192,
         "mediaType": "image/webp",
         "path": "thumb.webp",
-        "sha256": "1663e19637bcebb64c109b5810b20dca5ad56bab133e505eb18a74d466ec0d4c",
+        "sha256": "04831b2ea8f02e340ca7e16b303bd04c7dc58ec6aa396cde201f83b45e734a36",
         "width": 192
       }
     }
@@ -38,10 +38,11 @@
   "creatureId": "southern-stingray",
   "source": {
     "aspectRatio": 1.0,
-    "bytes": 88764,
-    "format": "png",
+    "bytes": 98868,
+    "format": "webp",
     "height": 1024,
-    "sha256": "3bc70349efbbc16f3606851da0087e2eaae863ca7870dd2e5b8142473c9d7232",
+    "mode": "opaque-scene",
+    "sha256": "e2a571dbec82f0e4fe38be4b0ff11bdf71c27071dcbf339fe77ac4f3dfa6714a",
     "width": 1024
   },
   "version": 1

@@ -10,6 +10,9 @@ This is the human review ledger for Poseidon creature artwork. The machine-reada
 - **22 keep**, **0 provisional**, **8 remake** after the #12 biological-QA pass.
 - The source-binary import remains a separate #11 concern; this branch does not bypass its promotion safeguards.
 - `keep` means editorially acceptable, not automatically promoted. `remake` is a hard block.
+- **#30 (complete):** 18 of the 22 `keep` candidates — every one that maps to an existing content record — are promoted into canonical runtime approved artwork, replacing their prior SVG-derived fallback illustrations: queen-angelfish, hawksbill-sea-turtle, nurse-shark, green-moray, great-barracuda, stoplight-parrotfish, caribbean-reef-squid, caribbean-spiny-lobster, french-angelfish, nassau-grouper, southern-stingray, trumpetfish, longsnout-seahorse, yellowtail-snapper, porcupinefish, schoolmaster-snapper, sergeant-major, green-sea-turtle.
+- **Deferred to #31:** 4 `keep` candidates have `creatureId: null` in the catalog — no matching content record exists yet, so `promote-source` correctly refuses to promote them: queen-triggerfish, longspine-sea-urchin, banded-coral-shrimp, juvenile-spotted-drum.
+- **Blocked, tracked in #31:** the 8 `remake` candidates keep their prior fallback art (legacy SVG-derived illustration, or the `CreatureMark` placeholder) until a reviewed HD replacement is promoted.
 
 ## #12 biological-QA closeout
 
