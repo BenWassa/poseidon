@@ -1,0 +1,49 @@
+{
+  "artwork": {
+    "aspectRatio": 1.0,
+    "gallery": "gallery.webp",
+    "hero": "hero.webp",
+    "status": "curated",
+    "thumb": "thumb.webp",
+    "variants": {
+      "gallery": {
+        "aspectRatio": 1.0,
+        "bytes": 33238,
+        "height": 512,
+        "mediaType": "image/webp",
+        "path": "gallery.webp",
+        "sha256": "f86e0ff5e77ee74ec658cf33cc831070d82c69bdc0cd56ce64b4c7478ccf2432",
+        "width": 512
+      },
+      "hero": {
+        "aspectRatio": 1.0,
+        "bytes": 116112,
+        "height": 1024,
+        "mediaType": "image/webp",
+        "path": "hero.webp",
+        "sha256": "7f7a34875c703ad86ba3405e385d37aec4374c67f1ec2e3e1e2e75bc087452f9",
+        "width": 1024
+      },
+      "thumb": {
+        "aspectRatio": 1.0,
+        "bytes": 5612,
+        "height": 192,
+        "mediaType": "image/webp",
+        "path": "thumb.webp",
+        "sha256": "a48c45a1ca67686d5078001e622ba7537790c15f3cae0612c3b1f897a2a55178",
+        "width": 192
+      }
+    }
+  },
+  "creatureId": "queen-triggerfish",
+  "source": {
+    "aspectRatio": 1.0,
+    "bytes": 115978,
+    "format": "webp",
+    "height": 1024,
+    "mode": "opaque-scene",
+    "sha256": "d56b2457ca3cdb0e02a4fb9860733f40bc04ae8ea008a5a9c27eb457f8a385ed",
+    "width": 1024
+  },
+  "version": 1
+}

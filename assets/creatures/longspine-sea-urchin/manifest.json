@@ -1,0 +1,49 @@
+{
+  "artwork": {
+    "aspectRatio": 1.0,
+    "gallery": "gallery.webp",
+    "hero": "hero.webp",
+    "status": "curated",
+    "thumb": "thumb.webp",
+    "variants": {
+      "gallery": {
+        "aspectRatio": 1.0,
+        "bytes": 50140,
+        "height": 512,
+        "mediaType": "image/webp",
+        "path": "gallery.webp",
+        "sha256": "bc5c5b7f2a858334d0a9124d7afa7372bffa96c71a5651013a40fa40ee4ba8c2",
+        "width": 512
+      },
+      "hero": {
+        "aspectRatio": 1.0,
+        "bytes": 178258,
+        "height": 1024,
+        "mediaType": "image/webp",
+        "path": "hero.webp",
+        "sha256": "3cfadb3f01c0ac6fdb71566631feef50e6b1e5f79e54bb9089498a4d3259f4af",
+        "width": 1024
+      },
+      "thumb": {
+        "aspectRatio": 1.0,
+        "bytes": 7996,
+        "height": 192,
+        "mediaType": "image/webp",
+        "path": "thumb.webp",
+        "sha256": "59c3518a2500be59cd6b26517b2c13f3875ecf4474fe8a9bd9a8e2771c8433a0",
+        "width": 192
+      }
+    }
+  },
+  "creatureId": "longspine-sea-urchin",
+  "source": {
+    "aspectRatio": 1.0,
+    "bytes": 175590,
+    "format": "webp",
+    "height": 1024,
+    "mode": "opaque-scene",
+    "sha256": "b5e5f3e6a5eb49de937341d0667bedf2a5c3148a6225812b4decb870f65a30bd",
+    "width": 1024
+  },
+  "version": 1
+}
