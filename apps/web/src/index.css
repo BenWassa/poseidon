@@ -1,28 +1,35 @@
 @import 'tailwindcss';
 
 /**
- * Poseidon design tokens.
+ * Poseidon Sunlit Reef design tokens.
  *
- * The palette is inherited from the external visual prototype, which
- * established the product's aquatic identity: a bright light-mode canvas, deep
- * ocean teal type, a mid-blue primary action and coral as the interaction
- * accent. The roles below are named for the product rather than for the hex
- * values so screens read as intent.
+ * docs/BRAND.md is the product authority. Brand anchors stay distinct from
+ * supporting tints and semantic status colours; components consume these role
+ * tokens rather than scattering raw brand hex values.
  */
 @theme {
-  --color-canvas: #f2fbfc; /* app background */
-  --color-tide: #d0ebef; /* frame outside the phone column on wide screens */
-  --color-surface: #ffffff; /* cards */
-  --color-foam: #f9fdfd; /* sub-surface inside a card */
-  --color-shallows: #e8f5f8; /* pale fills and hairlines */
-  --color-ocean: #084c61; /* primary ink */
-  --color-abyss: #05323f; /* strongest ink */
-  --color-marine: #118ab2; /* primary action */
-  --color-lagoon: #17c3b2; /* mint supporting accent */
-  --color-reef: #06d6a0; /* positive/confirmation */
-  --color-coral: #ff6b6b; /* interaction + selection accent */
-  --color-coral-soft: #fff0f0;
-  --color-sand: #f2b21e; /* highlight-creature accent */
+  /* Locked brand anchors. */
+  --color-abyss: #05323f; /* Jet Black: primary ink / depth */
+  --color-marine: #087ea4; /* Cerulean: primary ocean / action */
+  --color-lagoon: #34b6a4; /* Ocean Mist: supporting aquatic accent */
+  --color-coral: #f7735c; /* Vibrant Coral: expressive brand accent */
+  --color-sun: #efc15e; /* Tuscan Sun: highlight / sunlight */
+  --color-canvas: #f3fafa; /* Mint Cream: default cool canvas */
+  --color-shell: #fff8ec; /* Floral White: warm memory/detail surface */
+  --color-surface: #ffffff; /* neutral raised card */
+
+  /* Small supporting set; these are functional tints, not extra brand hues. */
+  --color-frame: #ddeeee;
+  --color-border: #d3e7e6;
+  --color-aqua-soft: #e5f5f3;
+  --color-coral-soft: #fff0ec;
+  --color-sun-soft: #fff6de;
+
+  /* Semantic status colours stay separate from Coral/Ocean Mist. */
+  --color-danger: #a73931;
+  --color-danger-soft: #fcedeb;
+  --color-success: #176b55;
+  --color-success-soft: #e7f5ef;
 
   --radius-card: 2rem;
   --radius-field: 1.5rem;
@@ -33,9 +40,9 @@
     'Helvetica Neue', Arial, sans-serif;
 
   --shadow-card:
-    0 1px 2px rgb(8 76 97 / 0.04), 0 8px 24px -16px rgb(8 76 97 / 0.28);
-  --shadow-float: 0 12px 32px -12px rgb(255 107 107 / 0.5);
-  --shadow-lift: 0 18px 40px -22px rgb(17 138 178 / 0.55);
+    0 1px 2px rgb(5 50 63 / 0.04), 0 8px 24px -16px rgb(8 126 164 / 0.24);
+  --shadow-float: 0 12px 32px -12px rgb(247 115 92 / 0.42);
+  --shadow-lift: 0 18px 40px -22px rgb(8 126 164 / 0.5);
 }
 
 @layer base {
@@ -45,8 +52,8 @@
 
   body {
     margin: 0;
-    background: var(--color-tide);
-    color: var(--color-ocean);
+    background: var(--color-frame);
+    color: var(--color-abyss);
     font-family: var(--font-sans);
     /* Logging happens on a boat; never bounce the whole document. */
     overscroll-behavior-y: none;
@@ -69,7 +76,6 @@
 }
 
 @layer utilities {
-  /* Horizontal rails: scrollable, but without a scrollbar eating the rhythm. */
   .rail {
     scrollbar-width: none;
     -ms-overflow-style: none;
@@ -88,10 +94,6 @@
   }
 }
 
-/*
- * Motion is decoration here, never information. Everything the app animates
- * also reads correctly with animation switched off.
- */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

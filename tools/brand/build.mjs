@@ -1,9 +1,9 @@
 /**
  * Generates Poseidon's application icons from one hand-authored mark.
  *
- * The mark is a coral trident rising through the ocean gradient and the
- * bathymetric swell used across the app's memory surfaces, so the installed
- * icon reads as the same product as the screens behind it.
+ * The existing trident geometry is retained while its colour follows Sunlit Reef.
+ * The installed icon therefore matches the live product without prejudging a future
+ * icon-concept redesign.
  */
 import { mkdir, writeFile } from 'node:fs/promises';
 import { dirname, join, resolve } from 'node:path';
@@ -25,18 +25,17 @@ function mark({ padded }) {
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
   <defs>
     <linearGradient id="sea" x1="0" y1="0" x2="0.35" y2="1">
-      <stop offset="0" stop-color="#118AB2"/>
-      <stop offset="0.55" stop-color="#084C61"/>
+      <stop offset="0" stop-color="#087EA4"/>
       <stop offset="1" stop-color="#05323F"/>
     </linearGradient>
   </defs>
   <rect width="512" height="512" rx="${radius}" fill="url(#sea)"/>
-  <g opacity="0.28" fill="none" stroke="#7FD8E8" stroke-width="10" stroke-linecap="round">
+  <g opacity="0.28" fill="none" stroke="#34B6A4" stroke-width="10" stroke-linecap="round">
     <path d="M 36 372 C 116 336 172 404 256 372 C 340 340 400 400 476 366"/>
     <path d="M 36 424 C 116 388 172 456 256 424 C 340 392 400 452 476 418"/>
   </g>
   <g transform="translate(256 240) scale(${scale}) translate(-256 -240)">
-    <g fill="#FF6B6B">
+    <g fill="#F7735C">
       <path d="M 140 182 L 158 54 L 176 182 Z"/>
       <path d="M 238 182 L 256 26 L 274 182 Z"/>
       <path d="M 336 182 L 354 54 L 372 182 Z"/>

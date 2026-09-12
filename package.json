@@ -27,7 +27,9 @@
     "validate:content": "python3 tools/validate_content.py",
     "validate:assets": "python3 -m tools.creature_assets validate --root assets/creatures",
     "validate:source-assets": "python3 -m tools.creature_assets validate-source --catalog assets/source/creatures/catalog.json",
-    "gate": "npm run check:assets && npm run check && npm run build && npm run test:pwa && npm run verify:field --workspace @poseidon/web"
+    "gate": "npm run check:assets && npm run check && npm run verify:brand && npm run build && npm run test:pwa && npm run verify:field --workspace @poseidon/web",
+    "brand:build": "node tools/brand/build.mjs",
+    "verify:brand": "npm run brand:build && git diff --exit-code -- apps/web/public/icons"
   },
   "engines": {
     "node": ">=22.12"

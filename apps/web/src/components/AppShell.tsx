@@ -2,7 +2,7 @@
  * The phone column and its chrome.
  *
  * The application is phone-first: on a wider screen it stays a centred column
- * against the tide-blue frame rather than stretching into a desktop dashboard.
+ * against the pale aquatic frame rather than stretching into a desktop dashboard.
  * The bottom bar keeps the prototype's translucent chrome and its central
  * coral Log Dive action, which is the product's most important control.
  */
@@ -36,7 +36,7 @@ function TabLink({ tab }: { tab: Tab }) {
       end={tab.to === '/'}
       className={({ isActive }) =>
         `flex min-h-[3rem] flex-1 flex-col items-center justify-center gap-1 rounded-2xl px-1 transition-colors ${
-          isActive ? 'text-marine' : 'text-ocean/40'
+          isActive ? 'text-marine' : 'text-abyss/40'
         }`
       }
     >
@@ -55,7 +55,7 @@ export function BottomNav() {
   return (
     <nav
       aria-label="Main"
-      className="safe-bottom absolute inset-x-0 bottom-0 z-40 flex items-stretch gap-1 border-t border-shallows bg-surface/92 px-3 pt-2 backdrop-blur-xl"
+      className="safe-bottom absolute inset-x-0 bottom-0 z-40 flex items-stretch gap-1 border-t border-border bg-surface/92 px-3 pt-2 backdrop-blur-xl"
     >
       {LEFT_TABS.map((tab) => (
         <TabLink key={tab.to} tab={tab} />
@@ -64,7 +64,7 @@ export function BottomNav() {
         <button
           type="button"
           onClick={() => navigate('/log')}
-          className="absolute -top-7 left-1/2 flex h-16 w-16 -translate-x-1/2 items-center justify-center rounded-full border-[6px] border-canvas bg-coral text-white shadow-float transition-transform active:scale-90"
+          className="absolute -top-7 left-1/2 flex h-16 w-16 -translate-x-1/2 items-center justify-center rounded-full border-[6px] border-canvas bg-coral text-abyss shadow-float transition-transform active:scale-90"
         >
           <Plus size={30} strokeWidth={3} aria-hidden="true" />
           <span className="sr-only">Log a dive</span>
@@ -87,7 +87,7 @@ export function AppShell({ children }: { children: ReactNode }) {
   const immersive = isImmersive(pathname);
 
   return (
-    <div className="flex h-[100dvh] w-full justify-center bg-tide">
+    <div className="flex h-[100dvh] w-full justify-center bg-frame">
       <div className="relative flex h-full w-full max-w-md flex-col overflow-hidden bg-canvas sm:shadow-2xl">
         <PwaNotice />
         <main

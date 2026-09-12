@@ -14,7 +14,7 @@ import { DiveHero } from '../components/DiveHero';
 import {
   ACTION_QUIET,
   Card,
-  CoralAction,
+  DangerAction,
   EmptyState,
   QuietAction,
   SectionHeader,
@@ -42,10 +42,10 @@ function Metric({
   return (
     <Card className="flex flex-1 flex-col items-center gap-1 px-2 py-4">
       <span className="text-marine">{icon}</span>
-      <span className="text-[10px] font-bold tracking-[0.12em] text-ocean/55 uppercase">
+      <span className="text-[10px] font-bold tracking-[0.12em] text-abyss/55 uppercase">
         {label}
       </span>
-      <span className="text-lg font-black text-ocean">{value}</span>
+      <span className="text-lg font-black text-abyss">{value}</span>
     </Card>
   );
 }
@@ -124,10 +124,10 @@ export function DiveDetail() {
                 aria-hidden="true"
               />
               <span className="min-w-0">
-                <span className="block text-[10px] font-bold tracking-[0.12em] text-ocean/55 uppercase">
+                <span className="block text-[10px] font-bold tracking-[0.12em] text-abyss/55 uppercase">
                   Operator
                 </span>
-                <span className="block truncate text-sm font-bold text-ocean">
+                <span className="block truncate text-sm font-bold text-abyss">
                   {dive.operator}
                 </span>
               </span>
@@ -141,10 +141,10 @@ export function DiveDetail() {
                 aria-hidden="true"
               />
               <span className="min-w-0">
-                <span className="block text-[10px] font-bold tracking-[0.12em] text-ocean/55 uppercase">
+                <span className="block text-[10px] font-bold tracking-[0.12em] text-abyss/55 uppercase">
                   Buddies
                 </span>
-                <span className="block truncate text-sm font-bold text-ocean">
+                <span className="block truncate text-sm font-bold text-abyss">
                   {dive.buddies.join(', ')}
                 </span>
               </span>
@@ -156,8 +156,8 @@ export function DiveDetail() {
       {dive.note ? (
         <section className="mt-7 px-5">
           <SectionHeader title="Memory" />
-          <Card className="bg-foam p-5">
-            <p className="text-[15px] leading-relaxed font-medium text-ocean/85">
+          <Card className="bg-shell p-5">
+            <p className="text-[15px] leading-relaxed font-medium text-abyss/85">
               {dive.note}
             </p>
           </Card>
@@ -168,7 +168,7 @@ export function DiveDetail() {
         <SectionHeader
           title="Creatures met"
           action={
-            <span className="rounded-full bg-shallows px-3 py-1 text-sm font-bold text-marine">
+            <span className="rounded-full bg-aqua-soft px-3 py-1 text-sm font-bold text-marine">
               {dive.sightings.length}
             </span>
           }
@@ -178,7 +178,7 @@ export function DiveDetail() {
         </h2>
         {sightings.length === 0 ? (
           <Card className="p-6 text-center">
-            <p className="text-sm font-medium text-ocean/60">
+            <p className="text-sm font-medium text-abyss/60">
               No creatures were logged on this dive. That is a complete record
               too.
             </p>
@@ -209,11 +209,11 @@ export function DiveDetail() {
         </Link>
 
         {confirmingDelete ? (
-          <Card className="border-coral/40 bg-coral-soft p-5">
-            <p className="mb-1 text-base font-black text-ocean">
+          <Card className="border-danger/25 bg-danger-soft p-5">
+            <p className="mb-1 text-base font-black text-abyss">
               Delete this dive?
             </p>
-            <p className="mb-4 text-sm font-medium text-ocean/70">
+            <p className="mb-4 text-sm font-medium text-abyss/70">
               {dive.siteName} on {formatDate(dive.date)} and its{' '}
               {pluralize(dive.sightings.length, 'sighting')} will be removed
               from your history. This cannot be undone.
@@ -225,17 +225,17 @@ export function DiveDetail() {
               >
                 Keep it
               </QuietAction>
-              <CoralAction type="button" onClick={remove} disabled={pending}>
+              <DangerAction type="button" onClick={remove} disabled={pending}>
                 <Trash2 size={18} aria-hidden="true" />
                 Delete
-              </CoralAction>
+              </DangerAction>
             </div>
           </Card>
         ) : (
           <button
             type="button"
             onClick={() => setConfirmingDelete(true)}
-            className="mx-auto flex min-h-[2.75rem] items-center gap-2 rounded-full px-4 text-sm font-bold text-coral"
+            className="mx-auto flex min-h-[2.75rem] items-center gap-2 rounded-full px-4 text-sm font-bold text-danger"
           >
             <Trash2 size={16} aria-hidden="true" />
             Delete dive

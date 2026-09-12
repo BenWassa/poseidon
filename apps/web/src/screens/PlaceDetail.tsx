@@ -126,10 +126,10 @@ export function PlaceDetail() {
               <li key={site.name}>
                 <Card className="flex items-center justify-between gap-3 px-4 py-3">
                   <span className="min-w-0">
-                    <span className="block truncate text-sm font-bold text-ocean">
+                    <span className="block truncate text-sm font-bold text-abyss">
                       {site.name}
                     </span>
-                    <span className="block text-xs font-medium text-ocean/50">
+                    <span className="block text-xs font-medium text-abyss/50">
                       {pluralize(site.diveCount, 'dive')} · last{' '}
                       {formatDate(site.lastDate)}
                     </span>
@@ -173,17 +173,17 @@ export function PlaceDetail() {
                 <Link to={`/journal/${dive.id}`}>
                   <Card className="flex items-center gap-3 p-4 active:scale-[0.99]">
                     <span className="min-w-0 flex-1">
-                      <span className="block truncate text-base font-bold text-ocean">
+                      <span className="block truncate text-base font-bold text-abyss">
                         {dive.siteName}
                       </span>
-                      <span className="block text-xs font-medium text-ocean/55">
+                      <span className="block text-xs font-medium text-abyss/55">
                         {formatDate(dive.date)} · {formatDepth(dive.maxDepth)} ·{' '}
                         {formatDuration(dive.durationMinutes)}
                       </span>
                     </span>
                     <ArrowRight
                       size={18}
-                      className="shrink-0 text-ocean/35"
+                      className="shrink-0 text-abyss/35"
                       aria-hidden="true"
                     />
                   </Card>

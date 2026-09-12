@@ -32,23 +32,23 @@ export function PendingApprovalScreen() {
   };
 
   return (
-    <div className="flex h-[100dvh] w-full items-center justify-center bg-tide px-5">
+    <div className="flex h-[100dvh] w-full items-center justify-center bg-frame px-5">
       <Card className="w-full max-w-sm p-7 text-center">
-        <span className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-shallows text-marine">
+        <span className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-aqua-soft text-marine">
           <ShieldCheck size={36} aria-hidden="true" />
         </span>
         <Eyebrow>Poseidon</Eyebrow>
-        <h1 className="mt-1 mb-2 text-2xl font-black text-ocean">
+        <h1 className="mt-1 mb-2 text-2xl font-black text-abyss">
           Waiting for approval
         </h1>
-        <p className="mb-6 text-sm leading-relaxed font-medium text-ocean/60">
+        <p className="mb-6 text-sm leading-relaxed font-medium text-abyss/60">
           Signed in as{' '}
-          <span className="font-bold text-ocean">{user?.email}</span>. This
+          <span className="font-bold text-abyss">{user?.email}</span>. This
           account isn't approved yet.
         </p>
 
         {hasRequestedAccess ? (
-          <p className="mb-4 flex items-center justify-center gap-1.5 text-sm font-bold text-reef">
+          <p className="mb-4 flex items-center justify-center gap-1.5 text-sm font-bold text-success">
             <Check size={16} aria-hidden="true" />
             Request sent — you'll get access once it's reviewed.
           </p>
@@ -63,7 +63,7 @@ export function PendingApprovalScreen() {
           </button>
         )}
         {(sendError ?? error) ? (
-          <p role="alert" className="mt-3 text-sm font-bold text-coral">
+          <p role="alert" className="mt-3 text-sm font-bold text-danger">
             {sendError ?? error?.message}
           </p>
         ) : null}

@@ -30,7 +30,7 @@ function SeeAll({ to, children }: { to: string; children: string }) {
   return (
     <Link
       to={to}
-      className="inline-flex items-center gap-1 text-sm font-bold text-lagoon"
+      className="inline-flex items-center gap-1 text-sm font-bold text-abyss/75 underline decoration-marine/45 underline-offset-4"
     >
       {children}
       <ArrowRight size={15} aria-hidden="true" />
@@ -42,13 +42,13 @@ function FirstDiveInvitation() {
   return (
     <div className="px-5 pb-10">
       <Card className="relative overflow-hidden p-7 text-center">
-        <span className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-shallows text-marine">
+        <span className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-aqua-soft text-marine">
           <Waves size={36} aria-hidden="true" />
         </span>
-        <h2 className="mb-2 text-2xl font-black text-ocean">
+        <h2 className="mb-2 text-2xl font-black text-abyss">
           Your atlas starts here
         </h2>
-        <p className="mb-6 text-sm leading-relaxed font-medium text-ocean/60">
+        <p className="mb-6 text-sm leading-relaxed font-medium text-abyss/60">
           Log your first dive and Poseidon begins keeping the record: where you
           went, how long you stayed and every creature you met.
         </p>
@@ -74,17 +74,17 @@ export function Home() {
     <div className="animate-rise">
       <header className="safe-top px-5 pb-5">
         <Eyebrow>Poseidon</Eyebrow>
-        <h1 className="mt-1 text-[2.1rem] leading-tight font-black tracking-tight text-ocean">
+        <h1 className="mt-1 text-[2.1rem] leading-tight font-black tracking-tight text-abyss">
           Your underwater life
         </h1>
         {stats && stats.totalDives > 0 ? (
-          <p className="mt-1 text-base font-semibold text-lagoon">
+          <p className="mt-1 text-base font-semibold text-abyss">
             {pluralize(stats.totalDives, 'dive')} ·{' '}
             {pluralize(stats.distinctCreatures, 'creature')} ·{' '}
             {formatBottomTime(stats.totalBottomTimeMinutes)} under
           </p>
         ) : (
-          <p className="mt-1 text-base font-semibold text-lagoon">
+          <p className="mt-1 text-base font-semibold text-abyss">
             A record worth keeping for years
           </p>
         )}
@@ -204,14 +204,14 @@ export function Home() {
                   <li key={place.key}>
                     <Link to={`/atlas/${encodeURIComponent(place.key)}`}>
                       <Card className="flex items-center gap-4 p-4 active:scale-[0.99]">
-                        <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-shallows text-marine">
+                        <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-aqua-soft text-marine">
                           <Map size={22} aria-hidden="true" />
                         </span>
                         <span className="min-w-0 flex-1">
-                          <span className="block truncate text-base font-bold text-ocean">
+                          <span className="block truncate text-base font-bold text-abyss">
                             {place.label}
                           </span>
-                          <span className="block text-xs font-medium text-ocean/55">
+                          <span className="block text-xs font-medium text-abyss/55">
                             {pluralize(place.diveCount, 'dive')} ·{' '}
                             {pluralize(place.siteCount, 'site')} ·{' '}
                             {pluralize(place.creatureCount, 'creature')}
@@ -219,7 +219,7 @@ export function Home() {
                         </span>
                         <ArrowRight
                           size={18}
-                          className="shrink-0 text-ocean/35"
+                          className="shrink-0 text-abyss/35"
                           aria-hidden="true"
                         />
                       </Card>
@@ -233,7 +233,7 @@ export function Home() {
           <section className="px-5 pb-10">
             <Link
               to="/data"
-              className="flex items-center justify-center gap-2 text-sm font-bold text-ocean/50"
+              className="flex items-center justify-center gap-2 text-sm font-bold text-abyss/50"
             >
               <Sparkles size={15} aria-hidden="true" />
               Data &amp; backup

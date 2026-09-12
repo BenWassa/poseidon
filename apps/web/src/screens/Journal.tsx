@@ -97,15 +97,15 @@ export function Journal() {
                 <div className="min-w-0">
                   <h2
                     id={id}
-                    className="text-[11px] font-bold tracking-[0.14em] text-ocean/55 uppercase"
+                    className="text-[11px] font-bold tracking-[0.14em] text-abyss/55 uppercase"
                   >
                     {trip.areaName} — {tripPeriodLabel(trip)}
                   </h2>
-                  <p className="mt-0.5 text-xs font-semibold text-ocean/40">
+                  <p className="mt-0.5 text-xs font-semibold text-abyss/40">
                     {tripDateRange(trip)}
                   </p>
                 </div>
-                <span className="shrink-0 text-xs font-bold text-ocean/40">
+                <span className="shrink-0 text-xs font-bold text-abyss/40">
                   {pluralize(trip.dives.length, 'dive')}
                 </span>
               </div>
@@ -137,21 +137,21 @@ export function Journal() {
                                 className="w-24 shrink-0 rounded-tile"
                               />
                             ) : (
-                              <div className="flex w-24 shrink-0 items-center justify-center rounded-tile bg-shallows text-marine">
+                              <div className="flex w-24 shrink-0 items-center justify-center rounded-tile bg-aqua-soft text-marine">
                                 <Gauge size={26} aria-hidden="true" />
                               </div>
                             )}
                             <div className="flex min-w-0 flex-1 flex-col justify-center">
-                              <p className="text-[11px] font-bold tracking-[0.14em] text-lagoon uppercase">
+                              <p className="text-[11px] font-bold tracking-[0.14em] text-abyss uppercase">
                                 {formatDate(dive.date)}
                               </p>
-                              <h3 className="truncate text-lg leading-tight font-bold text-ocean">
+                              <h3 className="truncate text-lg leading-tight font-bold text-abyss">
                                 {dive.siteName}
                               </h3>
-                              <p className="truncate text-sm font-medium text-ocean/55">
+                              <p className="truncate text-sm font-medium text-abyss/55">
                                 {dive.areaName}
                               </p>
-                              <p className="mt-1.5 flex items-center gap-3 text-xs font-bold text-ocean/60">
+                              <p className="mt-1.5 flex items-center gap-3 text-xs font-bold text-abyss/60">
                                 <span className="inline-flex items-center gap-1">
                                   <Gauge size={13} aria-hidden="true" />
                                   {formatDepth(dive.maxDepth)}
@@ -164,10 +164,10 @@ export function Journal() {
                             </div>
                           </div>
 
-                          <div className="mt-3 flex items-center justify-between gap-3 rounded-2xl bg-foam px-3 py-2.5">
+                          <div className="mt-3 flex items-center justify-between gap-3 rounded-2xl bg-canvas px-3 py-2.5">
                             {dive.sightings.length > 0 ? (
                               <div className="flex min-w-0 items-center gap-2">
-                                <span className="shrink-0 text-xs font-semibold text-ocean/55">
+                                <span className="shrink-0 text-xs font-semibold text-abyss/55">
                                   Met
                                 </span>
                                 <span className="flex -space-x-2">
@@ -176,20 +176,20 @@ export function Journal() {
                                       key={creature.id}
                                       creature={creature}
                                       variant="thumb"
-                                      className="w-8 rounded-full border-2 border-foam"
+                                      className="w-8 rounded-full border-2 border-canvas"
                                     />
                                   ))}
                                 </span>
-                                <span className="truncate text-xs font-semibold text-ocean/55">
+                                <span className="truncate text-xs font-semibold text-abyss/55">
                                   {pluralize(dive.sightings.length, 'creature')}
                                 </span>
                               </div>
                             ) : (
-                              <span className="text-xs font-semibold text-ocean/45">
+                              <span className="text-xs font-semibold text-abyss/45">
                                 No creatures logged
                               </span>
                             )}
-                            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-shallows text-marine">
+                            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-aqua-soft text-marine">
                               <ArrowRight size={16} aria-hidden="true" />
                             </span>
                           </div>
@@ -202,7 +202,7 @@ export function Journal() {
                               {milestones.map((milestone) => (
                                 <span
                                   key={milestone.id}
-                                  className="rounded-full border border-shallows bg-foam px-2.5 py-1 text-[11px] font-bold text-marine"
+                                  className="rounded-full border border-border bg-canvas px-2.5 py-1 text-[11px] font-bold text-marine"
                                 >
                                   {milestoneLabel(milestone)}
                                 </span>

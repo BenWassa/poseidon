@@ -141,18 +141,9 @@ The core logging and browsing experience must tolerate no network connection.
 
 ## Visual character
 
-Poseidon should be:
+Poseidon's canonical colour system is **Sunlit Reef**, documented in [`docs/BRAND.md`](docs/BRAND.md). The product is light-mode first: Jet Black grounds typography, Cerulean carries primary ocean/action, Coral provides restrained signature expression, Ocean Mist supports aquatic surfaces, and Tuscan Sun is reserved for sunlight/highlight emphasis. Mint Cream, Floral White and neutral white form the cool/warm/raised surface system.
 
-- light mode first;
-- rich in ocean blues;
-- supported by aquatic greens;
-- accented with coral, tropical fish and reef colours;
-- fluid and alive;
-- polished and tactile;
-- playful without becoming childish;
-- premium without becoming sterile.
-
-Creature artwork should feel collectible and desirable in its own right.
+Creature artwork should feel collectible and desirable in its own right and remains the main source of chromatic variety. The interface should be polished and tactile, playful without becoming childish, and premium without becoming sterile.
 
 Avoid:
 

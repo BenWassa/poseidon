@@ -180,8 +180,8 @@ export function AtlasMap({ sites }: { sites: AtlasSiteMarker[] }) {
           const marker = L.circleMarker([site.lat, site.lng], {
             radius: visited ? 8 : 6,
             weight: 2,
-            color: '#075E70',
-            fillColor: visited ? '#075E70' : '#FFFFFF',
+            color: 'var(--color-marine)',
+            fillColor: visited ? 'var(--color-marine)' : 'var(--color-surface)',
             fillOpacity: 1,
           }).addTo(map);
           marker.bindPopup?.(
@@ -225,24 +225,24 @@ export function AtlasMap({ sites }: { sites: AtlasSiteMarker[] }) {
   if (sites.length === 0) return null;
 
   return (
-    <div className="relative overflow-hidden rounded-[28px] border border-ocean/10 bg-shallows shadow-sm">
+    <div className="relative overflow-hidden rounded-[28px] border border-border bg-aqua-soft shadow-sm">
       <div
         ref={containerRef}
         role="region"
         aria-label="Map of sourced Mexican Caribbean dive sites"
-        className="h-[310px] w-full bg-gradient-to-br from-shallows to-surface"
+        className="from-shallows h-[310px] w-full bg-gradient-to-br to-surface"
         style={{ touchAction: interactive ? 'none' : 'pan-y' }}
       />
 
       {status === 'loading' ? (
-        <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-shallows/70 text-sm font-bold text-ocean/65">
+        <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-aqua-soft/70 text-sm font-bold text-abyss/65">
           Loading map…
         </div>
       ) : null}
 
       {status === 'unavailable' ? (
-        <div className="absolute inset-0 flex items-center justify-center bg-shallows px-8 text-center">
-          <p className="max-w-xs text-sm leading-relaxed font-semibold text-ocean/65">
+        <div className="absolute inset-0 flex items-center justify-center bg-aqua-soft px-8 text-center">
+          <p className="max-w-xs text-sm leading-relaxed font-semibold text-abyss/65">
             The basemap needs a connection. Your dive history and place pages
             remain available offline.
           </p>
@@ -253,7 +253,7 @@ export function AtlasMap({ sites }: { sites: AtlasSiteMarker[] }) {
         <button
           type="button"
           onClick={() => setInteractive((value) => !value)}
-          className="absolute top-3 left-3 min-h-11 rounded-full bg-white/95 px-4 text-xs font-black text-ocean shadow-md active:scale-[0.98]"
+          className="absolute top-3 left-3 min-h-11 rounded-full bg-white/95 px-4 text-xs font-black text-abyss shadow-md active:scale-[0.98]"
           aria-pressed={interactive}
         >
           {interactive ? 'Done' : 'Explore map'}

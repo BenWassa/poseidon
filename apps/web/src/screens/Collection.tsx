@@ -109,7 +109,7 @@ export function Collection() {
             <div className="relative">
               <Search
                 size={18}
-                className="pointer-events-none absolute top-1/2 left-4 -translate-y-1/2 text-ocean/40"
+                className="pointer-events-none absolute top-1/2 left-4 -translate-y-1/2 text-abyss/40"
                 aria-hidden="true"
               />
               <TextInput
@@ -125,7 +125,7 @@ export function Collection() {
                   type="button"
                   onClick={() => setQuery('')}
                   aria-label="Clear search"
-                  className="absolute top-1/2 right-3 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full text-ocean/45"
+                  className="absolute top-1/2 right-3 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full text-abyss/45"
                 >
                   <X size={18} aria-hidden="true" />
                 </button>
@@ -149,7 +149,7 @@ export function Collection() {
           </div>
 
           {visible.length === 0 ? (
-            <p className="px-5 py-10 text-center text-sm font-medium text-ocean/55">
+            <p className="px-5 py-10 text-center text-sm font-medium text-abyss/55">
               Nothing in your collection matches that yet.
             </p>
           ) : (

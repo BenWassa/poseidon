@@ -39,10 +39,10 @@ function Fact({
   return (
     <Card className="flex flex-1 flex-col gap-1 p-4">
       <span className="text-marine">{icon}</span>
-      <span className="text-[10px] font-bold tracking-[0.12em] text-ocean/55 uppercase">
+      <span className="text-[10px] font-bold tracking-[0.12em] text-abyss/55 uppercase">
         {label}
       </span>
-      <span className="text-sm leading-tight font-black text-ocean">
+      <span className="text-sm leading-tight font-black text-abyss">
         {value}
       </span>
     </Card>
@@ -108,25 +108,25 @@ export function CreatureDetail() {
             className="rounded-tile"
           />
           <div className="px-1 pt-4">
-            <p className="text-[11px] font-bold tracking-[0.14em] text-lagoon uppercase">
+            <p className="text-[11px] font-bold tracking-[0.14em] text-abyss uppercase">
               {formatCategory(creature.category)}
               {creature.userCreated ? ' · added by you' : ''}
             </p>
-            <h1 className="mt-1 text-2xl leading-tight font-black text-ocean">
+            <h1 className="mt-1 text-2xl leading-tight font-black text-abyss">
               {creature.commonName}
             </h1>
             {creature.scientificName ? (
-              <p className="mt-1 text-sm font-medium text-ocean/50 italic">
+              <p className="mt-1 text-sm font-medium text-abyss/50 italic">
                 {creature.scientificName}
               </p>
             ) : null}
             {creature.aliases?.length ? (
-              <p className="mt-2 text-xs font-medium text-ocean/55">
+              <p className="mt-2 text-xs font-medium text-abyss/55">
                 Also called {creature.aliases.join(', ')}
               </p>
             ) : null}
             {creature.artwork?.status !== 'curated' ? (
-              <p className="mt-3 rounded-2xl bg-foam px-3 py-2 text-xs font-medium text-ocean/60">
+              <p className="mt-3 rounded-2xl bg-canvas px-3 py-2 text-xs font-medium text-abyss/60">
                 Artwork for this creature is still to come. The encounter is
                 recorded either way.
               </p>
@@ -169,7 +169,7 @@ export function CreatureDetail() {
                 {history.sites.map((site) => (
                   <span
                     key={site}
-                    className="rounded-full border border-shallows bg-surface px-3 py-1.5 text-sm font-bold text-ocean/75"
+                    className="rounded-full border border-border bg-surface px-3 py-1.5 text-sm font-bold text-abyss/75"
                   >
                     {site}
                   </span>
@@ -190,10 +190,10 @@ export function CreatureDetail() {
                     <Link to={`/journal/${dive.id}`}>
                       <Card className="flex items-center gap-3 p-4 active:scale-[0.99]">
                         <span className="min-w-0 flex-1">
-                          <span className="block truncate text-base font-bold text-ocean">
+                          <span className="block truncate text-base font-bold text-abyss">
                             {dive.siteName}
                           </span>
-                          <span className="block text-xs font-medium text-ocean/55">
+                          <span className="block text-xs font-medium text-abyss/55">
                             {formatDate(dive.date)} · {dive.areaName} ·{' '}
                             {formatDepth(dive.maxDepth)} ·{' '}
                             {formatDuration(dive.durationMinutes)}
@@ -201,7 +201,7 @@ export function CreatureDetail() {
                         </span>
                         <ArrowRight
                           size={18}
-                          className="shrink-0 text-ocean/35"
+                          className="shrink-0 text-abyss/35"
                           aria-hidden="true"
                         />
                       </Card>
@@ -215,7 +215,7 @@ export function CreatureDetail() {
       ) : (
         <div className="px-5 pt-6">
           <Card className="p-6 text-center">
-            <p className="text-sm font-medium text-ocean/60">
+            <p className="text-sm font-medium text-abyss/60">
               You have not logged this creature yet. It will gain a history the
               first time you do.
             </p>
@@ -229,14 +229,14 @@ export function CreatureDetail() {
           <Card className="p-4">
             {regionNames.length > 0 ? (
               <div>
-                <p className="text-[10px] font-bold tracking-[0.12em] text-ocean/45 uppercase">
+                <p className="text-[10px] font-bold tracking-[0.12em] text-abyss/45 uppercase">
                   Regional relevance
                 </p>
                 <div className="mt-2 flex flex-wrap gap-2">
                   {regionNames.map((name) => (
                     <span
                       key={name}
-                      className="rounded-full border border-shallows bg-foam px-3 py-1.5 text-xs font-bold text-ocean/70"
+                      className="rounded-full border border-border bg-canvas px-3 py-1.5 text-xs font-bold text-abyss/70"
                     >
                       {name}
                     </span>
@@ -249,11 +249,11 @@ export function CreatureDetail() {
               <div
                 className={
                   regionNames.length > 0
-                    ? 'mt-4 border-t border-shallows pt-4'
+                    ? 'mt-4 border-t border-border pt-4'
                     : ''
                 }
               >
-                <p className="text-[10px] font-bold tracking-[0.12em] text-ocean/45 uppercase">
+                <p className="text-[10px] font-bold tracking-[0.12em] text-abyss/45 uppercase">
                   Sources
                 </p>
                 <ul className="mt-2 space-y-2">
@@ -264,14 +264,14 @@ export function CreatureDetail() {
                           href={entry.url}
                           target="_blank"
                           rel="noreferrer"
-                          className="flex min-h-11 items-center gap-3 rounded-2xl bg-foam px-3 py-2 text-left"
+                          className="flex min-h-11 items-center gap-3 rounded-2xl bg-canvas px-3 py-2 text-left"
                         >
                           <span className="min-w-0 flex-1">
-                            <span className="block text-sm leading-snug font-bold text-ocean">
+                            <span className="block text-sm leading-snug font-bold text-abyss">
                               {entry.source}
                             </span>
                             {entry.note ? (
-                              <span className="mt-0.5 block text-xs font-medium text-ocean/50">
+                              <span className="mt-0.5 block text-xs font-medium text-abyss/50">
                                 {entry.note}
                               </span>
                             ) : null}
@@ -283,12 +283,12 @@ export function CreatureDetail() {
                           />
                         </a>
                       ) : (
-                        <div className="rounded-2xl bg-foam px-3 py-2">
-                          <p className="text-sm leading-snug font-bold text-ocean">
+                        <div className="rounded-2xl bg-canvas px-3 py-2">
+                          <p className="text-sm leading-snug font-bold text-abyss">
                             {entry.source}
                           </p>
                           {entry.note ? (
-                            <p className="mt-0.5 text-xs font-medium text-ocean/50">
+                            <p className="mt-0.5 text-xs font-medium text-abyss/50">
                               {entry.note}
                             </p>
                           ) : null}

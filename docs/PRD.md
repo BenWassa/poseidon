@@ -331,17 +331,9 @@ Do not clone Liebestraum’s styling or backend assumptions.
 
 ## 7.2 Poseidon character
 
-- light mode first;
-- rich ocean blues;
-- aquatic greens;
-- coral/tropical accent colours;
-- generous breathing room;
-- tactile selection states;
-- polished creature artwork;
-- premium but playful;
-- alive rather than technical.
+Poseidon uses the locked **Sunlit Reef** colour system in [`BRAND.md`](BRAND.md): cool Mint Cream environmental canvas, Jet Black legibility/depth, Cerulean primary ocean/action, Coral expressive selection/delight, Ocean Mist support, and rare Tuscan Sun highlight. Floral White provides selective warm memory/detail surfaces. Creature artwork remains the primary source of visual variety.
 
-The integrated application’s established visual language is documented in `docs/APPLICATION.md` and should not be casually replaced.
+The integrated application’s established layout and interaction language is documented in `docs/APPLICATION.md` and should not be casually replaced.
 
 ## 7.3 Creature gallery performance contract
 
