@@ -8,41 +8,41 @@
     "variants": {
       "gallery": {
         "aspectRatio": 1.0,
-        "bytes": 6882,
+        "bytes": 11314,
         "height": 512,
         "mediaType": "image/webp",
         "path": "gallery.webp",
-        "sha256": "650038939d30423ea2d5f1c1a5a1e941929827868a96f96faf6653ab2ee4707c",
+        "sha256": "c22fb9c4edada5477f6c354db6f162d5cd039e95bc629011d7981ac0c2e987cb",
         "width": 512
       },
       "hero": {
         "aspectRatio": 1.0,
-        "bytes": 18192,
+        "bytes": 28442,
         "height": 1024,
         "mediaType": "image/webp",
         "path": "hero.webp",
-        "sha256": "c434e9e37987563e06426c450758ed497636320464ef141261cb878c9dae56bf",
+        "sha256": "6fc54f19339e451bd41bbc92a0c51ae93a8e027cecd32b8789c7e3832659dbe5",
         "width": 1024
       },
       "thumb": {
         "aspectRatio": 1.0,
-        "bytes": 1752,
+        "bytes": 2838,
         "height": 192,
         "mediaType": "image/webp",
         "path": "thumb.webp",
-        "sha256": "8ac078b4f915d836c866546444095980da1e023963ececb52e6293ad01f04d5b",
+        "sha256": "4bfcee26d56ebba9c4347a3e5b2fa07b38d2453f25f5973fed845f126509c7fa",
         "width": 192
       }
     }
   },
-  "creatureId": "blue-tang",
+  "creatureId": "spanish-hogfish",
   "source": {
     "aspectRatio": 1.0,
-    "bytes": 7924,
+    "bytes": 12248,
     "format": "webp",
     "height": 1024,
     "mode": "opaque-scene",
-    "sha256": "95a78123f860742551754c0b896accbf3c14c20c87cd8f283ab696766b80b540",
+    "sha256": "4403f5fcf8ea21d2c91a161b23fd9c534e28b2171d5a8f66a90be597f0bd0ba3",
     "width": 1024
   },
   "version": 1

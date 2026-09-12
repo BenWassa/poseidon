@@ -8,41 +8,41 @@
     "variants": {
       "gallery": {
         "aspectRatio": 1.0,
-        "bytes": 6882,
+        "bytes": 21862,
         "height": 512,
         "mediaType": "image/webp",
         "path": "gallery.webp",
-        "sha256": "650038939d30423ea2d5f1c1a5a1e941929827868a96f96faf6653ab2ee4707c",
+        "sha256": "b335e9c95a91f11356d96532ad7ee4448f582acc7189018bbbe96b8b582a6e86",
         "width": 512
       },
       "hero": {
         "aspectRatio": 1.0,
-        "bytes": 18192,
+        "bytes": 44668,
         "height": 1024,
         "mediaType": "image/webp",
         "path": "hero.webp",
-        "sha256": "c434e9e37987563e06426c450758ed497636320464ef141261cb878c9dae56bf",
+        "sha256": "53bc829f4fb7abe9ad5aaa8a6a673af57c55706cd4e7c10490378563db514c22",
         "width": 1024
       },
       "thumb": {
         "aspectRatio": 1.0,
-        "bytes": 1752,
+        "bytes": 5104,
         "height": 192,
         "mediaType": "image/webp",
         "path": "thumb.webp",
-        "sha256": "8ac078b4f915d836c866546444095980da1e023963ececb52e6293ad01f04d5b",
+        "sha256": "9a0a17962f1ce7da4d26d526a2cf41c7af516fa8bffb6d1baebf3411af3c35cb",
         "width": 192
       }
     }
   },
-  "creatureId": "blue-tang",
+  "creatureId": "spotted-trunkfish",
   "source": {
     "aspectRatio": 1.0,
-    "bytes": 7924,
+    "bytes": 20562,
     "format": "webp",
     "height": 1024,
     "mode": "opaque-scene",
-    "sha256": "95a78123f860742551754c0b896accbf3c14c20c87cd8f283ab696766b80b540",
+    "sha256": "c5c802f813bc181341a7b9a71b64edd7f70cc8e505c3b62d179e4e7a30982968",
     "width": 1024
   },
   "version": 1
