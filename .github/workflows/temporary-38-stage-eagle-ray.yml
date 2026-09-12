@@ -1,0 +1,58 @@
+name: Temporary #38 stage eagle-ray candidate
+
+on:
+  push:
+    branches:
+      - feat/38-remake-batch-a
+
+permissions:
+  contents: write
+
+jobs:
+  stage:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/38-remake-batch-a
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install image validation dependency
+        run: python -m pip install Pillow
+
+      - name: Reconstruct candidate-v2
+        run: |
+          mkdir -p assets/source/creatures/spotted-eagle-ray
+          cat .tmp/38/eagle-ray-1.b64 .tmp/38/eagle-ray-2.b64 .tmp/38/eagle-ray-3.b64 | base64 --decode > assets/source/creatures/spotted-eagle-ray/candidate-v2.webp
+
+      - name: Verify exact binary and dimensions
+        run: |
+          test "$(wc -c < assets/source/creatures/spotted-eagle-ray/candidate-v2.webp)" = "17710"
+          echo "0f8e4f5df8a99021dff15b5b4dcbb0d3db6ae2f3dce15baeabab5007b02a24aa  assets/source/creatures/spotted-eagle-ray/candidate-v2.webp" | sha256sum -c -
+          python - <<'PY'
+          from PIL import Image
+          p = 'assets/source/creatures/spotted-eagle-ray/candidate-v2.webp'
+          with Image.open(p) as im:
+              im.load()
+              assert im.format == 'WEBP', im.format
+              assert im.size == (1024, 1024), im.size
+              assert 'A' not in im.getbands(), im.getbands()
+          PY
+
+      - name: Remove transfer scaffolding
+        run: |
+          rm -rf .tmp/38
+          rm .github/workflows/temporary-38-stage-eagle-ray.yml
+
+      - name: Commit immutable candidate revision
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "feat(assets): add spotted eagle ray candidate v2"
+          git push origin HEAD:feat/38-remake-batch-a
