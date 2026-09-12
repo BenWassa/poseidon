@@ -6,9 +6,9 @@
   "binaryImportStatus": "complete",
   "summary": {
     "total": 30,
-    "keep": 22,
+    "keep": 23,
     "provisional": 0,
-    "remake": 8
+    "remake": 7
   },
   "provenance": {
     "generator": "ChatGPT image generation",
@@ -54,14 +54,14 @@
       "id": "spotted-eagle-ray",
       "creatureId": "spotted-eagle-ray",
       "name": "Spotted eagle ray",
-      "path": "assets/source/creatures/spotted-eagle-ray/candidate-v1.webp",
-      "score": 6.5,
-      "status": "remake",
-      "identity": "medium",
+      "path": "assets/source/creatures/spotted-eagle-ray/candidate-v2.webp",
+      "score": 7.8,
+      "status": "keep",
+      "identity": "high",
       "ingestMode": "opaque-scene",
-      "qaNote": "Replacement attempts improved spotting and disc shape but no reviewed replacement binary is in the source layer; original remains blocked.",
-      "bytes": 80840,
-      "sha256": "0098c13d1b0f944f9cf5a90e8789607ce3a5de8c8fb08495b944c0b7546abf01"
+      "qaNote": "Replacement v2: eagle-ray disc/head silhouette and dense white dorsal spotting read clearly at card scale; long whip tail is explicit. Composite source uses an AI-generated specimen isolated into the established sunlit Caribbean scene treatment.",
+      "bytes": 17710,
+      "sha256": "0f8e4f5df8a99021dff15b5b4dcbb0d3db6ae2f3dce15baeabab5007b02a24aa"
     },
     {
       "id": "nurse-shark",

@@ -8,29 +8,29 @@
     "variants": {
       "gallery": {
         "aspectRatio": 1.0,
-        "bytes": 11240,
+        "bytes": 18512,
         "height": 512,
         "mediaType": "image/webp",
         "path": "gallery.webp",
-        "sha256": "9af1aa14dbd9cfde8199d25cf19d1c0b2554f3a82a31c2f0cac9651ebc85416c",
+        "sha256": "eaaa68130a87cde258a55a9dd8cd80ed41fa2d808502c4c0f536f3a7aed04464",
         "width": 512
       },
       "hero": {
         "aspectRatio": 1.0,
-        "bytes": 17890,
+        "bytes": 38456,
         "height": 1024,
         "mediaType": "image/webp",
         "path": "hero.webp",
-        "sha256": "eab4c3d77e20b93b6fbc31b98fd445855662862dbeaa676b9605b80e2bfbd70f",
+        "sha256": "49c6fdd0e1a710d6576e6ea140925811e1dbd2020fef7c41142443a19a9554eb",
         "width": 1024
       },
       "thumb": {
         "aspectRatio": 1.0,
-        "bytes": 3724,
+        "bytes": 4392,
         "height": 192,
         "mediaType": "image/webp",
         "path": "thumb.webp",
-        "sha256": "aaf9489a49a7743f65b9e3d6070fbb37e51a69efde46875e07e336007334b9ca",
+        "sha256": "3bd7c181851a6db5af0c42cfa9eb21877f1a7698e297cd04d80a95664fe549bb",
         "width": 192
       }
     }
@@ -38,10 +38,11 @@
   "creatureId": "spotted-eagle-ray",
   "source": {
     "aspectRatio": 1.0,
-    "bytes": 92674,
-    "format": "png",
+    "bytes": 17710,
+    "format": "webp",
     "height": 1024,
-    "sha256": "6cbffbab9e82274c547c5212d611f47f4c6f27a1f3ab5ca936935031ca2ed94b",
+    "mode": "opaque-scene",
+    "sha256": "0f8e4f5df8a99021dff15b5b4dcbb0d3db6ae2f3dce15baeabab5007b02a24aa",
     "width": 1024
   },
   "version": 1
