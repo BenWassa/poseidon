@@ -263,6 +263,7 @@ export function useLogDiveController(mode: LogDiveMode) {
 
   return {
     mode,
+    hydrated,
     draft,
     patch,
     step,

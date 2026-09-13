@@ -35,6 +35,23 @@ export function LogDive({ mode }: { mode: LogDiveMode }) {
     <CreaturesStep flow={flow} />,
     <MemoryStep flow={flow} />,
   ];
+  if (!flow.hydrated) {
+    return (
+      <div className="flex h-full flex-col bg-canvas">
+        <header className="safe-top sticky top-0 z-20 flex items-center justify-between gap-3 border-b border-border bg-surface/85 px-5 pb-3 backdrop-blur-xl">
+          <IconButton
+            label="Close without changes"
+            tone="coral"
+            onClick={flow.close}
+          >
+            <X size={22} aria-hidden="true" />
+          </IconButton>
+          <div className="w-11" />
+          <div className="w-11" />
+        </header>
+      </div>
+    );
+  }
   return (
     <div className="flex h-full flex-col bg-canvas">
       <header className="safe-top sticky top-0 z-20 flex items-center justify-between gap-3 border-b border-border bg-surface/85 px-5 pb-3 backdrop-blur-xl">
