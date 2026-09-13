@@ -88,7 +88,7 @@ export function StatTile({
         {icon}
       </span>
       <span className="min-w-0">
-        <span className="block text-[10px] font-bold tracking-[0.12em] text-abyss/55 uppercase">
+        <span className="block text-[10px] font-bold tracking-[0.12em] text-abyss/70 uppercase">
           {label}
         </span>
         <span className="block truncate text-xl font-black text-abyss">
@@ -102,7 +102,7 @@ export function StatTile({
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement>;
 
 const BUTTON_BASE =
-  'inline-flex min-h-[3.25rem] w-full items-center justify-center gap-2 rounded-field px-6 text-base font-black transition-transform active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-45 disabled:active:scale-100';
+  'tap-lift inline-flex min-h-[3.25rem] w-full items-center justify-center gap-2 rounded-field px-6 text-base font-black disabled:cursor-not-allowed disabled:opacity-45 disabled:transform-none';
 
 /** Shared with `Link` so a navigation CTA never nests a button inside an anchor. */
 export const ACTION_PRIMARY = `${BUTTON_BASE} bg-marine text-white shadow-lift`;
@@ -142,7 +142,7 @@ export function IconButton({
     <button
       {...props}
       aria-label={label}
-      className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full transition-transform active:scale-90 ${tones[tone]} ${className}`}
+      className={`tap-lift flex h-11 w-11 shrink-0 items-center justify-center rounded-full ${tones[tone]} ${className}`}
     >
       {children}
     </button>
@@ -158,7 +158,7 @@ export function Chip({
     <button
       {...props}
       aria-pressed={selected}
-      className={`min-h-[2.5rem] rounded-full px-4 text-sm font-bold whitespace-nowrap transition-colors ${
+      className={`tap-lift min-h-11 rounded-full px-4 text-sm font-bold whitespace-nowrap ${
         selected
           ? 'bg-marine text-white'
           : 'border border-border bg-surface text-abyss/65'
@@ -190,14 +190,14 @@ export function Field({
       </label>
       {children}
       {hint ? (
-        <p className="mt-1.5 text-xs font-medium text-abyss/55">{hint}</p>
+        <p className="mt-1.5 text-xs font-medium text-abyss/70">{hint}</p>
       ) : null}
     </div>
   );
 }
 
 const CONTROL =
-  'w-full rounded-field border border-border bg-surface px-5 py-3.5 text-base font-bold text-abyss shadow-card outline-none placeholder:font-medium placeholder:text-abyss/35 focus-visible:border-marine';
+  'w-full rounded-field border border-border bg-surface px-5 py-3.5 text-base font-bold text-abyss shadow-card outline-none transition-[border-color,box-shadow,background-color] duration-200 placeholder:font-medium placeholder:text-abyss/35 focus-visible:border-marine focus-visible:shadow-[0_0_0_4px_rgb(8_126_164_/_0.1)]';
 
 export function TextInput({
   className = '',
@@ -267,7 +267,7 @@ export function EmptyState({
         {icon}
       </span>
       <h2 className="mb-2 text-xl font-black text-abyss">{title}</h2>
-      <p className="mb-6 max-w-xs text-sm leading-relaxed font-medium text-abyss/60">
+      <p className="mb-6 max-w-xs text-sm leading-relaxed font-medium text-abyss/70">
         {body}
       </p>
       {action}

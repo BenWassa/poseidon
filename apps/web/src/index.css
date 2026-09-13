@@ -44,6 +44,9 @@
   --shadow-card: 0 4px 20px -10px rgb(5 50 63 / 0.06);
   --shadow-float: 0 12px 28px -10px rgb(247 115 92 / 0.4);
   --shadow-lift: 0 16px 36px -12px rgb(8 126 164 / 0.35);
+
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @layer base {
@@ -58,6 +61,8 @@
     font-family: var(--font-sans);
     /* Logging happens on a boat; never bounce the whole document. */
     overscroll-behavior-y: none;
+    -webkit-tap-highlight-color: transparent;
+    font-kerning: normal;
   }
 
   /* Selection and focus must never be communicated by colour alone. */
@@ -74,6 +79,11 @@
     font: inherit;
     color: inherit;
   }
+
+  button,
+  a {
+    touch-action: manipulation;
+  }
 }
 
 @layer utilities {
@@ -87,12 +97,74 @@
     display: none;
   }
 
+  .rail {
+    scroll-padding-inline: 1.25rem;
+    overscroll-behavior-inline: contain;
+  }
+
+  .tap-lift {
+    transition:
+      transform 180ms var(--ease-out-quart),
+      box-shadow 220ms var(--ease-out-quart),
+      background-color 180ms ease,
+      border-color 180ms ease,
+      color 180ms ease;
+  }
+
+  .tap-lift:active {
+    transform: translateY(1px) scale(0.975);
+  }
+
+  .press-ring {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .press-ring::after {
+    position: absolute;
+    inset: -0.25rem;
+    z-index: -1;
+    border-radius: inherit;
+    background: color-mix(in srgb, var(--color-coral) 18%, transparent);
+    content: '';
+    opacity: 0;
+    transform: scale(0.84);
+    transition:
+      opacity 180ms ease,
+      transform 220ms var(--ease-out-quart);
+  }
+
+  .press-ring:active::after {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .nav-log-action {
+    transition:
+      transform 180ms var(--ease-out-quart),
+      box-shadow 220ms var(--ease-out-quart);
+  }
+
+  .nav-log-action:active {
+    transform: translateX(-50%) translateY(1px) scale(0.94);
+  }
+
   .safe-bottom {
     padding-bottom: max(1rem, env(safe-area-inset-bottom));
   }
 
   .safe-top {
     padding-top: max(1.25rem, env(safe-area-inset-top));
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .tap-lift:hover {
+    transform: translateY(-2px);
+  }
+
+  .nav-log-action:hover {
+    transform: translateX(-50%) translateY(-2px) scale(1.025);
   }
 }
 
@@ -133,10 +205,25 @@
   }
 }
 
+@keyframes poseidon-step-in {
+  from {
+    opacity: 0;
+    transform: translateX(0.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 .animate-rise {
   animation: poseidon-rise 380ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .animate-pop {
   animation: poseidon-pop 200ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-step-in {
+  animation: poseidon-step-in 200ms var(--ease-out-quint) both;
 }

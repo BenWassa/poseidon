@@ -57,7 +57,7 @@ function TileBody({
           {creature.commonName}
         </p>
         {caption ? (
-          <p className="mt-0.5 text-xs font-medium text-abyss/55">{caption}</p>
+          <p className="mt-0.5 text-xs font-medium text-abyss/70">{caption}</p>
         ) : null}
       </div>
     </>
@@ -77,7 +77,7 @@ export interface CreatureTileProps {
   className?: string;
 }
 
-const SHELL = 'block rounded-card p-2 transition-transform active:scale-[0.97]';
+const SHELL = 'tap-lift group block rounded-card p-2';
 
 export function CreatureTile({
   creature,
@@ -93,7 +93,7 @@ export function CreatureTile({
 }: CreatureTileProps) {
   const skin = selected
     ? 'bg-surface ring-4 ring-coral shadow-float'
-    : 'border border-border bg-surface shadow-card';
+    : 'border border-border bg-surface shadow-card hover:border-marine/25 hover:shadow-lift';
   const body = (
     <TileBody
       creature={creature}

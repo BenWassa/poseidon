@@ -233,7 +233,7 @@ function CreatureGrid({
 export function CreaturesStep({ flow }: { flow: LogDiveController }) {
   return (
     <div className="mt-4">
-      <p className="text-sm font-medium text-abyss/60">
+      <p className="text-sm font-medium text-abyss/70">
         Tap everything you remember meeting.
       </p>
       <div className="relative mt-5">
@@ -256,8 +256,8 @@ export function CreaturesStep({ flow }: { flow: LogDiveController }) {
           {flow.results.length ? (
             <CreatureGrid creatures={flow.results} flow={flow} />
           ) : null}
-          <Card className="mt-4 flex items-center gap-3 bg-canvas p-4">
-            <p className="flex-1 text-sm font-medium text-abyss/70">
+          <Card className="mt-4 flex flex-col items-start gap-3 bg-canvas p-4 min-[360px]:flex-row min-[360px]:items-center">
+            <p className="min-w-0 flex-1 text-sm font-medium text-abyss/70">
               Not in the gallery? Add it anyway — Poseidon never blocks a
               sighting.
             </p>
@@ -265,10 +265,10 @@ export function CreaturesStep({ flow }: { flow: LogDiveController }) {
               type="button"
               onClick={() => void flow.addUnlisted()}
               disabled={flow.pending}
-              className="flex min-h-[2.75rem] shrink-0 items-center gap-1.5 rounded-full bg-coral px-4 text-sm font-black text-abyss"
+              className="tap-lift flex min-h-[2.75rem] max-w-full items-center gap-1.5 rounded-full bg-coral px-4 text-sm font-black text-abyss"
             >
               <Plus size={16} aria-hidden="true" />
-              Add “{flow.query.trim()}”
+              <span className="truncate">Add “{flow.query.trim()}”</span>
             </button>
           </Card>
         </section>
@@ -281,14 +281,14 @@ export function CreaturesStep({ flow }: { flow: LogDiveController }) {
           ] as Array<[string, Creature[]]>
         )
           .filter(([, list]) => list.length)
-          .map(([title, list]) => (
+          .map(([title, list], groupIndex) => (
             <section
               key={title}
               className="mt-6"
-              aria-labelledby={`group-${title}`}
+              aria-labelledby={`creature-group-${groupIndex}`}
             >
               <h2
-                id={`group-${title}`}
+                id={`creature-group-${groupIndex}`}
                 className="mb-3 text-[11px] font-bold tracking-[0.14em] text-abyss uppercase"
               >
                 {title}
@@ -315,7 +315,7 @@ export function MemoryStep({ flow }: { flow: LogDiveController }) {
         </h2>
         {!flow.selectedCreatures.length ? (
           <Card className="p-5">
-            <p className="text-sm font-medium text-abyss/60">
+            <p className="text-sm font-medium text-abyss/70">
               That is fine — the dive still belongs in your record.
             </p>
           </Card>

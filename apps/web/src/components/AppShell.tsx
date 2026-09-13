@@ -35,15 +35,17 @@ function TabLink({ tab }: { tab: Tab }) {
       to={tab.to}
       end={tab.to === '/'}
       className={({ isActive }) =>
-        `flex min-h-[3rem] flex-1 flex-col items-center justify-center gap-1 rounded-2xl px-1 transition-colors ${
-          isActive ? 'text-marine' : 'text-abyss/40'
+        `tap-lift relative flex min-h-[3.25rem] flex-1 flex-col items-center justify-center gap-1 rounded-2xl px-1 ${
+          isActive ? 'bg-aqua-soft/70 text-marine' : 'text-abyss/70'
         }`
       }
     >
       {({ isActive }) => (
         <>
           <Icon size={24} strokeWidth={isActive ? 2.5 : 2} aria-hidden="true" />
-          <span className="text-[10px] font-bold">{tab.label}</span>
+          <span className="text-[0.6875rem] leading-none font-bold">
+            {tab.label}
+          </span>
         </>
       )}
     </NavLink>
@@ -55,7 +57,7 @@ export function BottomNav() {
   return (
     <nav
       aria-label="Main"
-      className="safe-bottom absolute inset-x-0 bottom-0 z-40 flex items-stretch gap-1 border-t border-border bg-surface/92 px-3 pt-2 backdrop-blur-xl"
+      className="safe-bottom absolute inset-x-0 bottom-0 z-40 flex items-stretch gap-1 border-t border-border/80 bg-surface/94 px-3 pt-2 shadow-[0_-14px_36px_-28px_rgb(5_50_63_/_0.55)] backdrop-blur-xl"
     >
       {LEFT_TABS.map((tab) => (
         <TabLink key={tab.to} tab={tab} />
@@ -64,7 +66,7 @@ export function BottomNav() {
         <button
           type="button"
           onClick={() => navigate('/log')}
-          className="absolute -top-7 left-1/2 flex h-16 w-16 -translate-x-1/2 items-center justify-center rounded-full border-[6px] border-canvas bg-coral text-abyss shadow-float transition-transform active:scale-90"
+          className="press-ring nav-log-action absolute -top-7 left-1/2 flex h-16 w-16 -translate-x-1/2 items-center justify-center rounded-full border-[6px] border-canvas bg-coral text-abyss shadow-float"
         >
           <Plus size={30} strokeWidth={3} aria-hidden="true" />
           <span className="sr-only">Log a dive</span>

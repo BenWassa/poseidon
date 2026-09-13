@@ -81,7 +81,7 @@ export function DiveHero({
 
   return (
     <div
-      className={`relative overflow-hidden rounded-card bg-gradient-to-br from-marine to-abyss text-white shadow-lift ${
+      className={`tap-lift group relative overflow-hidden rounded-card bg-gradient-to-br from-marine to-abyss text-white shadow-lift ${
         size === 'lg' ? 'min-h-56 p-6' : 'min-h-40 p-5'
       }`}
     >
@@ -100,7 +100,7 @@ export function DiveHero({
             variant={size === 'lg' ? 'hero' : 'gallery'}
             priority={size === 'lg'}
             plate={false}
-            className="opacity-95"
+            className="opacity-95 transition-transform duration-300 ease-out group-hover:-translate-y-1 group-hover:scale-[1.025]"
           />
         </div>
       ) : null}

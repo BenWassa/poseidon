@@ -20,7 +20,7 @@ function StepDots({ step }: { step: number }) {
       {LOG_DIVE_STEPS.map((label, position) => (
         <span
           key={label}
-          className={`h-2 rounded-full transition-all ${position === step ? 'w-6 bg-marine' : position < step ? 'w-2 bg-marine/45' : 'w-2 bg-aqua-soft'}`}
+          className={`h-2 rounded-full transition-[width,background-color] duration-200 ease-out ${position === step ? 'w-6 bg-marine' : position < step ? 'w-2 bg-marine/45' : 'w-2 bg-aqua-soft'}`}
         />
       ))}
     </div>
@@ -47,7 +47,7 @@ export function LogDive({ mode }: { mode: LogDiveMode }) {
         </IconButton>
         <div className="flex flex-col items-center gap-1.5">
           <StepDots step={flow.step} />
-          <p className="text-[10px] font-bold tracking-[0.14em] text-abyss/45 uppercase">
+          <p className="text-[10px] font-bold tracking-[0.14em] text-abyss/70 uppercase">
             Step {flow.step + 1} of {LOG_DIVE_STEPS.length}
           </p>
         </div>
@@ -62,7 +62,9 @@ export function LogDive({ mode }: { mode: LogDiveMode }) {
             {LOG_DIVE_STEPS[flow.step]}
           </p>
         ) : null}
-        {steps[flow.step]}
+        <div key={flow.step} className="animate-step-in">
+          {steps[flow.step]}
+        </div>
       </div>
       <div className="safe-bottom absolute inset-x-0 bottom-0 z-20 flex gap-3 bg-gradient-to-t from-canvas via-canvas to-transparent px-5 pt-8">
         {flow.step > 0 ? (
@@ -91,7 +93,11 @@ export function LogDive({ mode }: { mode: LogDiveMode }) {
             disabled={flow.pending}
             className="flex-[2]"
           >
-            {mode === 'edit' ? 'Save changes' : 'Save this memory'}
+            {flow.pending
+              ? 'Saving…'
+              : mode === 'edit'
+                ? 'Save changes'
+                : 'Save this memory'}
             <Check size={20} strokeWidth={3} aria-hidden="true" />
           </CoralAction>
         )}

@@ -66,19 +66,19 @@ export function Home() {
 
   return (
     <div className="animate-rise">
-      <header className="safe-top px-6 pb-8">
+      <header className="safe-top px-6 pb-7">
         <Eyebrow>Poseidon</Eyebrow>
-        <h1 className="mt-1 text-[2.1rem] leading-tight font-black tracking-tight text-abyss">
+        <h1 className="mt-1 max-w-[12ch] text-[2.25rem] leading-[1.04] font-black tracking-[-0.035em] text-abyss">
           Your underwater life
         </h1>
         {stats && stats.totalDives > 0 ? (
-          <p className="mt-2 max-w-sm text-lg leading-relaxed font-semibold text-abyss/65">
+          <p className="mt-3 max-w-[34ch] text-base leading-relaxed font-semibold text-abyss/65">
             A permanent record of {stats.totalDives} dives exploring{' '}
             {places?.length ?? 0} places, with {stats.distinctCreatures}{' '}
             creatures met along the way.
           </p>
         ) : (
-          <p className="mt-2 max-w-sm text-lg leading-relaxed font-semibold text-abyss/65">
+          <p className="mt-3 max-w-[34ch] text-base leading-relaxed font-semibold text-abyss/65">
             A beautifully kept record, waiting for its first entry.
           </p>
         )}
@@ -89,10 +89,7 @@ export function Home() {
       {latest ? (
         <>
           <section className="pb-10">
-            <Link
-              to={`/journal/${latest.id}`}
-              className="block active:scale-[0.99]"
-            >
+            <Link to={`/journal/${latest.id}`} className="block px-5">
               <DiveHero
                 dive={latest}
                 creatureIndex={index}
@@ -139,10 +136,7 @@ export function Home() {
               <ul className="space-y-4">
                 {recent.map((dive) => (
                   <li key={dive.id}>
-                    <Link
-                      to={`/journal/${dive.id}`}
-                      className="block active:scale-[0.99]"
-                    >
+                    <Link to={`/journal/${dive.id}`} className="block">
                       <DiveHero dive={dive} creatureIndex={index} size="sm" />
                     </Link>
                   </li>

@@ -113,7 +113,7 @@ export function Collection() {
                   type="button"
                   onClick={() => setQuery('')}
                   aria-label="Clear search"
-                  className="absolute right-2 flex h-10 w-10 items-center justify-center rounded-full text-abyss/40 transition-colors active:bg-abyss/5"
+                  className="tap-lift absolute right-1 flex h-11 w-11 items-center justify-center rounded-full text-abyss/65 active:bg-abyss/5"
                 >
                   <X size={18} aria-hidden="true" />
                 </button>
@@ -125,7 +125,7 @@ export function Collection() {
             <button
               type="button"
               onClick={() => setCategory(ALL)}
-              className={`relative pb-2 transition-opacity ${
+              className={`tap-lift relative flex min-h-11 items-center pb-1 ${
                 category === ALL ? 'opacity-100' : 'opacity-40 hover:opacity-70'
               }`}
               aria-pressed={category === ALL}
@@ -145,7 +145,7 @@ export function Collection() {
                 type="button"
                 key={key}
                 onClick={() => setCategory(key)}
-                className={`relative pb-2 transition-opacity ${
+                className={`tap-lift relative flex min-h-11 items-center pb-1 ${
                   category === key
                     ? 'opacity-100'
                     : 'opacity-40 hover:opacity-70'
@@ -167,7 +167,7 @@ export function Collection() {
 
           {visible.length === 0 ? (
             <div className="px-6 py-12 text-center">
-              <p className="text-sm font-medium text-abyss/55">
+              <p className="text-sm font-medium text-abyss/70">
                 Nothing in your collection matches that yet.
               </p>
             </div>
