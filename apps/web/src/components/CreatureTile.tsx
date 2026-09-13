@@ -32,7 +32,6 @@ function TileBody({
           creature={creature}
           variant={variant}
           priority={priority}
-          className="rounded-tile"
         />
         {selected ? (
           // Selection is carried by the ring, the badge and aria-pressed, so it

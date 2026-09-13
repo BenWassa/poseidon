@@ -83,15 +83,29 @@ describe('the representative dive-logging scenario', () => {
     ).toBeInTheDocument();
     expect(screen.getByText('Latest dive')).toBeInTheDocument();
 
-    // Journal derives a trip and restrained history marker from canonical dives.
+    // Journal defaults to chronological groups and keeps every encounter
+    // visible as a token, including the highlighted creature.
     await user.click(screen.getByRole('link', { name: /Journal/ }));
     expect(
       await screen.findByRole('heading', { name: 'Palancar Gardens' }),
     ).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Date' })).toHaveAttribute(
+      'aria-pressed',
+      'true',
+    );
+    expect(
+      screen.getByLabelText('Creatures met on this dive').children,
+    ).toHaveLength(3);
+    expect(screen.getByText('First dive in this journal')).toBeInTheDocument();
+
+    await user.click(screen.getByRole('button', { name: 'Location' }));
     expect(
       screen.getByRole('heading', { name: 'Cozumel' }),
     ).toBeInTheDocument();
-    expect(screen.getByText('First dive in this journal')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Location' })).toHaveAttribute(
+      'aria-pressed',
+      'true',
+    );
 
     // Collection is built from the actual sightings, unlisted creature included.
     await user.click(screen.getByRole('link', { name: /Collection/ }));

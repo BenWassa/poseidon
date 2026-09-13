@@ -42,6 +42,12 @@ export interface CreatureImageProps {
    * floats. The wash still appears whenever the art is missing or fails.
    */
   plate?: boolean;
+  /**
+   * Square source artwork is always deliberately masked at the component
+   * boundary. Dense thumbnails become circular tokens; larger artwork uses
+   * the softer editorial tile shape.
+   */
+  shape?: 'tile' | 'circle';
 }
 
 export function CreatureImage({
@@ -50,6 +56,7 @@ export function CreatureImage({
   className = '',
   priority = false,
   plate = true,
+  shape,
 }: CreatureImageProps) {
   const [failed, setFailed] = useState(false);
   const artwork = creature.artwork;
@@ -60,11 +67,14 @@ export function CreatureImage({
 
   const showArtwork = Boolean(source) && !failed;
   const showMark = !showArtwork || plate;
+  const resolvedShape = shape ?? (variant === 'thumb' ? 'circle' : 'tile');
+  const mask = resolvedShape === 'circle' ? 'rounded-full' : 'rounded-tile';
 
   return (
     <div
-      className={`relative overflow-hidden ${plate ? 'bg-aqua-soft' : ''} ${className}`}
+      className={`relative overflow-hidden ${plate ? 'bg-aqua-soft' : ''} ${className} ${mask}`}
       style={{ aspectRatio: `${aspectRatio}` }}
+      data-creature-image-shape={resolvedShape}
     >
       {/* Painted underneath, so a tile is never empty and never shifts. */}
       {showMark ? (

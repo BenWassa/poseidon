@@ -2,13 +2,13 @@
  * The complete chronological record. Every dive belongs here — an ordinary
  * shore dive earns the same row as the one with the eagle ray.
  */
+import { useState } from 'react';
+
 import { ArrowRight, BookOpen, Clock, Gauge, Waves } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 import {
   deriveHistoryMilestones,
-  groupDivesIntoTrips,
-  type DiveTrip,
   type HistoryMilestone,
 } from '@poseidon/domain';
 
@@ -21,16 +21,13 @@ import {
   formatDate,
   formatDepth,
   formatDuration,
-  formatMonthYear,
-  monthKey,
   pluralize,
 } from '../lib/format';
-
-function tripPeriodLabel(trip: DiveTrip): string {
-  if (monthKey(trip.firstDate) === monthKey(trip.lastDate))
-    return formatMonthYear(trip.firstDate);
-  return `${formatMonthYear(trip.firstDate)} – ${formatMonthYear(trip.lastDate)}`;
-}
+import {
+  groupJournalDives,
+  type JournalGroup,
+  type JournalGrouping,
+} from '../lib/journal';
 
 function milestoneLabel(milestone: HistoryMilestone): string {
   switch (milestone.kind) {
@@ -51,14 +48,15 @@ function milestoneLabel(milestone: HistoryMilestone): string {
   }
 }
 
-function headingId(trip: DiveTrip): string {
-  return trip.id.replace(/[^a-zA-Z0-9_-]/g, '-');
+function headingId(group: JournalGroup): string {
+  return group.id.replace(/[^a-zA-Z0-9_-]/g, '-');
 }
 
 export function Journal() {
   const { data: dives, loading } = useDives();
   const { index } = useCreatureIndex();
-  const trips = groupDivesIntoTrips(dives ?? []);
+  const [grouping, setGrouping] = useState<JournalGrouping>('date');
+  const groups = groupJournalDives(dives ?? [], grouping);
   const milestonesByDive = new Map<string, HistoryMilestone[]>();
   for (const milestone of deriveHistoryMilestones(dives ?? [], index)) {
     const entries = milestonesByDive.get(milestone.diveId) ?? [];
@@ -83,39 +81,68 @@ export function Journal() {
         />
       ) : null}
 
+      {!loading && (dives?.length ?? 0) > 0 ? (
+        <div className="px-6 pt-3">
+          <div
+            className="flex rounded-full bg-aqua-soft p-1"
+            role="group"
+            aria-label="Group journal by"
+          >
+            {(['date', 'location'] as const).map((option) => (
+              <button
+                key={option}
+                type="button"
+                aria-pressed={grouping === option}
+                onClick={() => setGrouping(option)}
+                className={`min-h-11 flex-1 rounded-full px-4 text-sm font-bold transition-colors ${
+                  grouping === option
+                    ? 'bg-surface text-abyss shadow-card'
+                    : 'text-abyss/55'
+                }`}
+              >
+                {option === 'date' ? 'Date' : 'Location'}
+              </button>
+            ))}
+          </div>
+        </div>
+      ) : null}
+
       <div className="pb-10">
-        {trips.map((trip, position) => {
-          const id = `trip-${headingId(trip)}`;
+        {groups.map((group, position) => {
+          const id = `journal-${headingId(group)}`;
           return (
-            <section key={trip.id} aria-labelledby={id}>
+            <section key={group.id} aria-labelledby={id}>
               <div className={`px-6 pb-3 ${position === 0 ? 'pt-4' : 'pt-12'}`}>
                 <h2
                   id={id}
                   className="text-[1.65rem] leading-tight font-black tracking-tight text-abyss"
                 >
-                  {trip.areaName}
+                  {group.title}
                 </h2>
                 <p className="mt-1 flex items-center gap-2 text-sm font-semibold text-abyss/70">
-                  {tripPeriodLabel(trip)}
-                  <span
-                    className="h-1 w-1 rounded-full bg-lagoon/40"
-                    aria-hidden="true"
-                  />
-                  {pluralize(trip.dives.length, 'dive')}
+                  {group.period ? (
+                    <>
+                      {group.period}
+                      <span
+                        className="h-1 w-1 rounded-full bg-lagoon/40"
+                        aria-hidden="true"
+                      />
+                    </>
+                  ) : null}
+                  {pluralize(group.dives.length, 'dive')}
                 </p>
               </div>
 
               <ul className="flex flex-col">
-                {trip.dives.map((dive) => {
+                {group.dives.map((dive) => {
                   const hero = heroCreature(dive, index);
-                  const others = dive.sightings
+                  const encounterTokens = dive.sightings
                     .map((sighting) => index.get(sighting.creatureId))
                     .filter(
                       (creature): creature is NonNullable<typeof creature> =>
                         Boolean(creature),
                     )
-                    .filter((creature) => creature.id !== hero?.id)
-                    .slice(0, 4);
+                    .slice(0, 5);
                   const milestones = (
                     milestonesByDive.get(dive.id) ?? []
                   ).slice(0, 2);
@@ -134,7 +161,7 @@ export function Journal() {
                             <CreatureImage
                               creature={hero}
                               variant="gallery"
-                              className="h-28 w-24 shrink-0 rounded-2xl object-cover"
+                              className="h-28 w-24 shrink-0"
                             />
                           ) : (
                             <div className="flex h-28 w-24 shrink-0 items-center justify-center rounded-2xl bg-aqua-soft text-marine">
@@ -188,13 +215,16 @@ export function Journal() {
                                   <span className="text-xs font-semibold text-abyss/55">
                                     Met
                                   </span>
-                                  <div className="flex -space-x-1.5">
-                                    {others.map((creature) => (
+                                  <div
+                                    className="flex -space-x-1.5"
+                                    aria-label="Creatures met on this dive"
+                                  >
+                                    {encounterTokens.map((creature) => (
                                       <CreatureImage
                                         key={creature.id}
                                         creature={creature}
                                         variant="thumb"
-                                        className="h-7 w-7 rounded-full ring-2 ring-canvas"
+                                        className="h-7 w-7 ring-2 ring-canvas"
                                       />
                                     ))}
                                   </div>

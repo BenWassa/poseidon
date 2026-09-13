@@ -101,12 +101,7 @@ export function CreatureDetail() {
 
       <div className="px-5">
         <Card className="overflow-hidden p-4">
-          <CreatureImage
-            creature={creature}
-            variant="hero"
-            priority
-            className="rounded-tile"
-          />
+          <CreatureImage creature={creature} variant="hero" priority />
           <div className="px-1 pt-4">
             <p className="text-[11px] font-bold tracking-[0.14em] text-abyss uppercase">
               {formatCategory(creature.category)}

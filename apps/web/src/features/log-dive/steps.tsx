@@ -377,7 +377,7 @@ export function MemoryStep({ flow }: { flow: LogDiveController }) {
                     <CreatureImage
                       creature={creature}
                       variant="thumb"
-                      className="w-14 rounded-2xl"
+                      className="w-14"
                     />
                     <p className="min-w-0 flex-1 truncate text-sm font-bold text-abyss">
                       {creature.commonName}

@@ -56,6 +56,10 @@ describe('creature artwork', () => {
     expect(thumb).toHaveAttribute('width', '192');
     expect(thumb).toHaveAttribute('loading', 'lazy');
     expect(container.firstElementChild).toHaveStyle({ aspectRatio: '1' });
+    expect(container.firstElementChild).toHaveAttribute(
+      'data-creature-image-shape',
+      'circle',
+    );
 
     rerender(<CreatureImage creature={curated} variant="hero" priority />);
     const hero = screen.getByTestId('creature-artwork');
@@ -66,6 +70,22 @@ describe('creature artwork', () => {
     expect(hero).toHaveAttribute('width', '1024');
     // Above-the-fold artwork must not wait for lazy loading.
     expect(hero).toHaveAttribute('loading', 'eager');
+    expect(container.firstElementChild).toHaveAttribute(
+      'data-creature-image-shape',
+      'tile',
+    );
+  });
+
+  it('allows an explicit mask while never exposing a hard square edge', () => {
+    const { container } = render(
+      <CreatureImage creature={curated} variant="gallery" shape="circle" />,
+    );
+
+    expect(container.firstElementChild).toHaveClass('rounded-full');
+    expect(container.firstElementChild).toHaveAttribute(
+      'data-creature-image-shape',
+      'circle',
+    );
   });
 
   it('renders a considered mark instead of a broken image when art is missing', () => {
