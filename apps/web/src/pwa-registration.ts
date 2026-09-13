@@ -59,6 +59,21 @@ async function releaseDevelopmentServiceWorkers(): Promise<void> {
   }
 }
 
+/**
+ * `registerType: 'prompt'` (vite.config.ts) deliberately never swaps a diver's
+ * live app out from under them — the "Update" banner only appears once the
+ * browser's own service worker has re-fetched sw.js and found new precache
+ * revisions, and applying it is always the diver's own click. Left to the
+ * browser alone, that re-fetch is only guaranteed on navigation and throttled
+ * to roughly once every 24 hours, so a diver who reopens an already-installed
+ * PWA can sit on a build from before the latest deploy far longer than a
+ * fresh HD-art promotion should ever be invisible for. Polling `update()`
+ * here just asks the browser to redo that same safe check sooner — hourly,
+ * and whenever the app is foregrounded again — so the prompt shows up
+ * promptly without ever forcing a reload on its own.
+ */
+const UPDATE_CHECK_INTERVAL_MS = 60 * 60 * 1000;
+
 export function registerPoseidonServiceWorker() {
   if (import.meta.env.DEV) {
     void releaseDevelopmentServiceWorkers();
@@ -70,6 +85,16 @@ export function registerPoseidonServiceWorker() {
       },
       onOfflineReady() {
         announceOfflineReady();
+      },
+      onRegisteredSW(_swUrl, registration) {
+        if (!registration) return;
+
+        setInterval(() => void registration.update(), UPDATE_CHECK_INTERVAL_MS);
+
+        document.addEventListener('visibilitychange', () => {
+          if (document.visibilityState === 'visible')
+            void registration.update();
+        });
       },
     });
   }
