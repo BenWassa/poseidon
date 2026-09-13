@@ -60,6 +60,9 @@ describe('the representative dive-logging scenario', () => {
     expect(
       await screen.findByRole('heading', { name: 'Palancar Gardens' }),
     ).toBeInTheDocument();
+    expect(screen.getByRole('status')).toHaveTextContent(
+      'Dive saved on this device',
+    );
     expect(screen.getAllByText('Cozumel').length).toBeGreaterThan(0);
     expect(screen.getAllByText('21 m').length).toBeGreaterThan(0);
     expect(screen.getAllByText('48 min').length).toBeGreaterThan(0);
@@ -223,6 +226,23 @@ describe('the representative dive-logging scenario', () => {
     await waitFor(() =>
       expect(screen.getByLabelText('Area')).toHaveValue('Cozumel'),
     );
+  });
+
+  it('keeps an unfinished create draft on this device and restores its step', async () => {
+    const { user } = renderPoseidon('/log');
+
+    await user.type(await screen.findByLabelText('Area'), 'Cozumel');
+    await user.type(screen.getByLabelText('Dive site'), 'Paso del Cedral');
+    await user.click(screen.getByRole('button', { name: /Continue/ }));
+    expect(await screen.findByLabelText('Max depth')).toBeInTheDocument();
+
+    await user.click(screen.getByRole('button', { name: 'Close, keep draft' }));
+    await user.click(screen.getByRole('button', { name: 'Log a dive' }));
+
+    expect(await screen.findByLabelText('Max depth')).toBeInTheDocument();
+    await user.click(screen.getByRole('button', { name: 'Back' }));
+    expect(await screen.findByLabelText('Area')).toHaveValue('Cozumel');
+    expect(screen.getByLabelText('Dive site')).toHaveValue('Paso del Cedral');
   });
 
   it('surfaces places in the atlas without inventing coordinates', async () => {

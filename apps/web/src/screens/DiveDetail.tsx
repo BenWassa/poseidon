@@ -5,9 +5,9 @@
  * highlight and every creature met. The prototype's water temperature and
  * clock time are not part of Poseidon's model and are deliberately absent.
  */
-import { useState } from 'react';
-import { Clock, Gauge, Pencil, Ship, Trash2, Users } from 'lucide-react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Check, Clock, Gauge, Pencil, Ship, Trash2, Users } from 'lucide-react';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 
 import { CreatureTile } from '../components/CreatureTile';
 import { DiveHero } from '../components/DiveHero';
@@ -40,23 +40,35 @@ function Metric({
   value: string;
 }) {
   return (
-    <Card className="flex flex-1 flex-col items-center gap-1 px-2 py-4">
+    <div className="flex flex-1 items-center gap-3 border-y border-border/80 px-2 py-4">
       <span className="text-marine">{icon}</span>
-      <span className="text-[10px] font-bold tracking-[0.12em] text-abyss/55 uppercase">
-        {label}
+      <span>
+        <span className="block text-xs font-bold tracking-[0.08em] text-abyss/70 uppercase">
+          {label}
+        </span>
+        <span className="block text-lg font-black text-abyss">{value}</span>
       </span>
-      <span className="text-lg font-black text-abyss">{value}</span>
-    </Card>
+    </div>
   );
 }
 
 export function DiveDetail() {
   const { diveId } = useParams<{ diveId: string }>();
   const navigate = useNavigate();
+  const location = useLocation();
   const { data: dive, loading } = useDive(diveId);
   const { index } = useCreatureIndex();
   const { run, pending } = useMutation();
   const [confirmingDelete, setConfirmingDelete] = useState(false);
+  const [showSaved, setShowSaved] = useState(
+    Boolean((location.state as { justSaved?: boolean } | null)?.justSaved),
+  );
+
+  useEffect(() => {
+    if (!showSaved) return;
+    const timer = window.setTimeout(() => setShowSaved(false), 3200);
+    return () => window.clearTimeout(timer);
+  }, [showSaved]);
 
   if (!loading && !dive) {
     return (
@@ -97,6 +109,16 @@ export function DiveDetail() {
         backLabel="Back to journal"
       />
 
+      {showSaved ? (
+        <div
+          className="animate-pop mx-5 mb-4 flex items-center gap-3 rounded-field bg-success-soft px-4 py-3 text-success"
+          role="status"
+        >
+          <Check size={20} strokeWidth={3} aria-hidden="true" />
+          <p className="text-sm font-bold">Dive saved on this device</p>
+        </div>
+      ) : null}
+
       <div className="px-5">
         <DiveHero dive={dive} creatureIndex={index} />
       </div>
@@ -124,7 +146,7 @@ export function DiveDetail() {
                 aria-hidden="true"
               />
               <span className="min-w-0">
-                <span className="block text-[10px] font-bold tracking-[0.12em] text-abyss/55 uppercase">
+                <span className="block text-xs font-bold tracking-[0.08em] text-abyss/70 uppercase">
                   Operator
                 </span>
                 <span className="block truncate text-sm font-bold text-abyss">
@@ -141,7 +163,7 @@ export function DiveDetail() {
                 aria-hidden="true"
               />
               <span className="min-w-0">
-                <span className="block text-[10px] font-bold tracking-[0.12em] text-abyss/55 uppercase">
+                <span className="block text-xs font-bold tracking-[0.08em] text-abyss/70 uppercase">
                   Buddies
                 </span>
                 <span className="block truncate text-sm font-bold text-abyss">

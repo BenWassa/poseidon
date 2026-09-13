@@ -1,4 +1,13 @@
-import { ArrowRight, Plus, Search, Sparkles, Star, X } from 'lucide-react';
+import { useState } from 'react';
+import {
+  ArrowRight,
+  ChevronDown,
+  Plus,
+  Search,
+  Sparkles,
+  Star,
+  X,
+} from 'lucide-react';
 import type { Creature, DepthUnit } from '@poseidon/domain';
 import { CreatureImage } from '../../components/CreatureImage';
 import { CreatureTile } from '../../components/CreatureTile';
@@ -15,7 +24,11 @@ export function WhereStep({ flow }: { flow: LogDiveController }) {
   const { draft, patch, sameDay, areaOptions, siteOptions } = flow;
   return (
     <div className="mt-6 space-y-5">
-      <Field label="Date" htmlFor="dive-date">
+      <Field
+        label="Date"
+        htmlFor="dive-date"
+        {...(draft.date ? { hint: formatDate(draft.date) } : {})}
+      >
         <TextInput
           id="dive-date"
           type="date"
@@ -231,6 +244,13 @@ function CreatureGrid({
 }
 
 export function CreaturesStep({ flow }: { flow: LogDiveController }) {
+  const [showAll, setShowAll] = useState(false);
+  const primaryGroups: Array<[string, Creature[]]> = [
+    ['Likely here', flow.groups.local],
+    ['You have seen before', flow.groups.familiar.slice(0, 6)],
+  ];
+  const moreCreatures = [...flow.groups.familiar.slice(6), ...flow.groups.rest];
+
   return (
     <div className="mt-4">
       <p className="text-sm font-medium text-abyss/70">
@@ -273,13 +293,7 @@ export function CreaturesStep({ flow }: { flow: LogDiveController }) {
           </Card>
         </section>
       ) : (
-        (
-          [
-            ['Likely here', flow.groups.local],
-            ['You have seen before', flow.groups.familiar],
-            ['More from the reef', flow.groups.rest],
-          ] as Array<[string, Creature[]]>
-        )
+        primaryGroups
           .filter(([, list]) => list.length)
           .map(([title, list], groupIndex) => (
             <section
@@ -297,6 +311,41 @@ export function CreaturesStep({ flow }: { flow: LogDiveController }) {
             </section>
           ))
       )}
+      {!flow.results && moreCreatures.length ? (
+        <section className="mt-7" aria-labelledby="more-creatures-heading">
+          <div className="flex items-center justify-between gap-3">
+            <h2
+              id="more-creatures-heading"
+              className="text-xs font-bold tracking-[0.1em] text-abyss/75 uppercase"
+            >
+              Browse the reef
+            </h2>
+            <button
+              type="button"
+              onClick={() => setShowAll((current) => !current)}
+              aria-expanded={showAll}
+              className="tap-lift flex min-h-11 items-center gap-1.5 rounded-full px-3 text-sm font-bold text-marine"
+            >
+              {showAll ? 'Show less' : `Browse all ${moreCreatures.length}`}
+              <ChevronDown
+                size={17}
+                aria-hidden="true"
+                className={`transition-transform duration-200 ${showAll ? 'rotate-180' : ''}`}
+              />
+            </button>
+          </div>
+          {showAll ? (
+            <div className="animate-step-in mt-3">
+              <CreatureGrid creatures={moreCreatures} flow={flow} />
+            </div>
+          ) : (
+            <p className="mt-1 text-sm font-medium text-abyss/70">
+              Search or open the full catalogue when the shortlist is not
+              enough.
+            </p>
+          )}
+        </section>
+      ) : null}
     </div>
   );
 }

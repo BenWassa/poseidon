@@ -88,7 +88,7 @@ export function StatTile({
         {icon}
       </span>
       <span className="min-w-0">
-        <span className="block text-[10px] font-bold tracking-[0.12em] text-abyss/70 uppercase">
+        <span className="block text-xs font-bold tracking-[0.08em] text-abyss/70 uppercase">
           {label}
         </span>
         <span className="block truncate text-xl font-black text-abyss">

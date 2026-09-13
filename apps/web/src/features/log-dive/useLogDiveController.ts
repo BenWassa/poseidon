@@ -19,6 +19,34 @@ import {
   type Selection,
 } from './model';
 
+const CREATE_DRAFT_KEY = 'poseidon.log-dive.draft.v1';
+
+interface SavedCreateDraft {
+  draft: DiveDraft;
+  step: number;
+}
+
+function readCreateDraft(depthUnit: DiveDraft['depthUnit']): SavedCreateDraft {
+  try {
+    const raw = window.localStorage.getItem(CREATE_DRAFT_KEY);
+    if (!raw) return { draft: emptyDiveDraft(depthUnit), step: 0 };
+    const saved = JSON.parse(raw) as Partial<SavedCreateDraft>;
+    if (
+      !saved.draft ||
+      typeof saved.draft.date !== 'string' ||
+      !Array.isArray(saved.draft.selections)
+    ) {
+      return { draft: emptyDiveDraft(depthUnit), step: 0 };
+    }
+    return {
+      draft: saved.draft,
+      step: Math.max(0, Math.min(3, Number(saved.step) || 0)),
+    };
+  } catch {
+    return { draft: emptyDiveDraft(depthUnit), step: 0 };
+  }
+}
+
 export function useLogDiveController(mode: LogDiveMode) {
   const navigate = useNavigate();
   const { diveId } = useParams<{ diveId: string }>();
@@ -28,14 +56,22 @@ export function useLogDiveController(mode: LogDiveMode) {
   const { data: dives } = useDives();
   const { data: existing } = useDive(mode === 'edit' ? diveId : undefined);
   const { data: allCreatures } = useCreatures();
+  const [initialCreateDraft] = useState(() =>
+    readCreateDraft(preferences.depthUnit),
+  );
   const [draft, setDraft] = useState<DiveDraft>(() =>
-    emptyDiveDraft(preferences.depthUnit),
+    mode === 'create'
+      ? initialCreateDraft.draft
+      : emptyDiveDraft(preferences.depthUnit),
   );
   const [hydrated, setHydrated] = useState(mode === 'create');
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useState(
+    mode === 'create' ? initialCreateDraft.step : 0,
+  );
   const [query, setQuery] = useState('');
   const [ranked, setRanked] = useState<Creature[]>([]);
   const [results, setResults] = useState<Creature[] | null>(null);
+  const [draftSavedLocally, setDraftSavedLocally] = useState(false);
 
   useEffect(() => {
     if (mode === 'edit' && existing && !hydrated) {
@@ -43,6 +79,20 @@ export function useLogDiveController(mode: LogDiveMode) {
       setHydrated(true);
     }
   }, [mode, existing, hydrated]);
+
+  useEffect(() => {
+    if (mode !== 'create') return;
+    try {
+      window.localStorage.setItem(
+        CREATE_DRAFT_KEY,
+        JSON.stringify({ draft, step } satisfies SavedCreateDraft),
+      );
+      setDraftSavedLocally(true);
+    } catch {
+      // Draft persistence is a resilience layer; logging still works without it.
+      setDraftSavedLocally(false);
+    }
+  }, [draft, mode, step]);
   const patch = useCallback(
     (changes: Partial<DiveDraft>) =>
       setDraft((current) => ({ ...current, ...changes })),
@@ -181,8 +231,16 @@ export function useLogDiveController(mode: LogDiveMode) {
     }
     const created = await run((store) => store.createDive(input));
     if (created) {
+      try {
+        window.localStorage.removeItem(CREATE_DRAFT_KEY);
+      } catch {
+        // The saved dive is canonical even if draft cleanup is blocked.
+      }
       setPreferences({ depthUnit: draft.depthUnit });
-      navigate(`/journal/${created.id}`, { replace: true });
+      navigate(`/journal/${created.id}`, {
+        replace: true,
+        state: { justSaved: true },
+      });
     }
   }, [draft, mode, diveId, run, navigate, setPreferences]);
   const selectedIds = useMemo(
@@ -225,6 +283,7 @@ export function useLogDiveController(mode: LogDiveMode) {
       draft.siteName,
     ).slice(0, 8),
     stepValid: isDiveStepValid(draft, step),
+    draftSavedLocally,
     toggle,
     addUnlisted,
     setQuantity,

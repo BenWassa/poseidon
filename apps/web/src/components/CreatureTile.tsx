@@ -49,7 +49,7 @@ function TileBody({
       </div>
       <div className="px-2 pt-2.5 pb-1 text-left">
         {showCategory ? (
-          <p className="mb-0.5 text-[10px] font-bold tracking-[0.12em] text-abyss/70 uppercase">
+          <p className="mb-0.5 text-xs font-bold tracking-[0.08em] text-abyss/70 uppercase">
             {formatCategory(creature.category)}
           </p>
         ) : null}

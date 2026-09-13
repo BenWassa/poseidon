@@ -220,9 +220,7 @@ describe('the phone shell', () => {
       ).not.toBeInTheDocument(),
     );
 
-    await user.click(
-      screen.getByRole('button', { name: 'Close without saving' }),
-    );
+    await user.click(screen.getByRole('button', { name: 'Close, keep draft' }));
     expect(
       await screen.findByRole('navigation', { name: 'Main' }),
     ).toBeInTheDocument();

@@ -20,7 +20,7 @@ function StepDots({ step }: { step: number }) {
       {LOG_DIVE_STEPS.map((label, position) => (
         <span
           key={label}
-          className={`h-2 rounded-full transition-[width,background-color] duration-200 ease-out ${position === step ? 'w-6 bg-marine' : position < step ? 'w-2 bg-marine/45' : 'w-2 bg-aqua-soft'}`}
+          className={`h-2 rounded-full transition-colors duration-200 ${position === step ? 'w-6 bg-marine' : position < step ? 'w-2 bg-marine/45' : 'w-2 bg-aqua-soft'}`}
         />
       ))}
     </div>
@@ -39,7 +39,9 @@ export function LogDive({ mode }: { mode: LogDiveMode }) {
     <div className="flex h-full flex-col bg-canvas">
       <header className="safe-top sticky top-0 z-20 flex items-center justify-between gap-3 border-b border-border bg-surface/85 px-5 pb-3 backdrop-blur-xl">
         <IconButton
-          label="Close without saving"
+          label={
+            mode === 'create' ? 'Close, keep draft' : 'Close without changes'
+          }
           tone="coral"
           onClick={flow.close}
         >
@@ -50,6 +52,14 @@ export function LogDive({ mode }: { mode: LogDiveMode }) {
           <p className="text-[10px] font-bold tracking-[0.14em] text-abyss/70 uppercase">
             Step {flow.step + 1} of {LOG_DIVE_STEPS.length}
           </p>
+          {flow.draftSavedLocally ? (
+            <p
+              className="text-xs font-semibold text-success"
+              aria-live="polite"
+            >
+              Saved on this device
+            </p>
+          ) : null}
         </div>
         <div className="w-11" />
       </header>
