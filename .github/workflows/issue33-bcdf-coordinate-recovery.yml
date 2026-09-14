@@ -98,10 +98,10 @@ jobs:
 
       - name: Bounded rendered verification
         run: |
-          cat > /tmp/verify-bcdf.mjs <<'JS'
+          cat > tools/issue33_bcdf_coordinate_verify.mjs <<'JS'
           import { spawn } from 'node:child_process';
           import { chromium } from 'playwright';
-          import { launchOptions } from './tools/chromium.mjs';
+          import { launchOptions } from './chromium.mjs';
 
           const species = [
             ['bicolor-damselfish', 'Bicolor damselfish'],
@@ -162,7 +162,7 @@ jobs:
             dev.kill('SIGTERM');
           }
           JS
-          timeout 180s node /tmp/verify-bcdf.mjs
+          timeout 180s node tools/issue33_bcdf_coordinate_verify.mjs
 
       - name: Full repository gate
         env:
@@ -177,7 +177,7 @@ jobs:
 
       - name: Remove temporary machinery and commit
         run: |
-          rm -f .github/workflows/issue33-bcdf-promote.yml tools/issue33_bcdf_verify_render.mjs .github/workflows/issue33-bcdf-coordinate-recovery.yml
+          rm -f .github/workflows/issue33-bcdf-promote.yml tools/issue33_bcdf_verify_render.mjs tools/issue33_bcdf_coordinate_verify.mjs .github/workflows/issue33-bcdf-coordinate-recovery.yml
           git add -A
           git status --short
           git commit -m 'feat(assets): add isolated #33 BCDF art batch'
