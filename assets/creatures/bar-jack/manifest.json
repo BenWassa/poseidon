@@ -1,0 +1,49 @@
+{
+  "artwork": {
+    "aspectRatio": 1.0,
+    "gallery": "gallery.webp",
+    "hero": "hero.webp",
+    "status": "curated",
+    "thumb": "thumb.webp",
+    "variants": {
+      "gallery": {
+        "aspectRatio": 1.0,
+        "bytes": 8542,
+        "height": 512,
+        "mediaType": "image/webp",
+        "path": "gallery.webp",
+        "sha256": "254ade695211ad2536a73cb1d27dbb5b05ca6bc8a8fecaf2c1048d3f0ebe61f7",
+        "width": 512
+      },
+      "hero": {
+        "aspectRatio": 1.0,
+        "bytes": 23558,
+        "height": 1024,
+        "mediaType": "image/webp",
+        "path": "hero.webp",
+        "sha256": "dd51489d5f832aaf4114a7684cd745a72c37c25cff894b1982748c1b8c20f52f",
+        "width": 1024
+      },
+      "thumb": {
+        "aspectRatio": 1.0,
+        "bytes": 2246,
+        "height": 192,
+        "mediaType": "image/webp",
+        "path": "thumb.webp",
+        "sha256": "3956ea3e272628609a333f8928a7992a825871a8e279a330ea29f88ac63c1eb1",
+        "width": 192
+      }
+    }
+  },
+  "creatureId": "bar-jack",
+  "source": {
+    "aspectRatio": 1.0,
+    "bytes": 29508,
+    "format": "webp",
+    "height": 1024,
+    "mode": "opaque-scene",
+    "sha256": "4b140548cfae5aaec6665359b3510ed3c9beb0d50c6f6f2d25b7eb4bc023462c",
+    "width": 1024
+  },
+  "version": 1
+}

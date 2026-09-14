@@ -1,0 +1,49 @@
+{
+  "artwork": {
+    "aspectRatio": 1.0,
+    "gallery": "gallery.webp",
+    "hero": "hero.webp",
+    "status": "curated",
+    "thumb": "thumb.webp",
+    "variants": {
+      "gallery": {
+        "aspectRatio": 1.0,
+        "bytes": 13472,
+        "height": 512,
+        "mediaType": "image/webp",
+        "path": "gallery.webp",
+        "sha256": "24e72c4c05b8e9acca809e763973de5bedc62e6d09808410ee830c9fe2152862",
+        "width": 512
+      },
+      "hero": {
+        "aspectRatio": 1.0,
+        "bytes": 37058,
+        "height": 1024,
+        "mediaType": "image/webp",
+        "path": "hero.webp",
+        "sha256": "e20d0dcfd5ea3c8f973c1f47b02e2d8e9ae0bb6e0e2115ed1d3bb6546af4be9b",
+        "width": 1024
+      },
+      "thumb": {
+        "aspectRatio": 1.0,
+        "bytes": 3452,
+        "height": 192,
+        "mediaType": "image/webp",
+        "path": "thumb.webp",
+        "sha256": "b9fe6af6541ac9de880ab653f48d55d73683a4cfd67748b646d31cc627accfbd",
+        "width": 192
+      }
+    }
+  },
+  "creatureId": "bluestriped-grunt",
+  "source": {
+    "aspectRatio": 1.0,
+    "bytes": 46206,
+    "format": "webp",
+    "height": 1024,
+    "mode": "opaque-scene",
+    "sha256": "cbb05ca410991b0d4205926834b3764e4b8091a882a9b69d7a6388a3e6d2eaa2",
+    "width": 1024
+  },
+  "version": 1
+}

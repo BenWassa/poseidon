@@ -1,0 +1,49 @@
+{
+  "artwork": {
+    "aspectRatio": 1.0,
+    "gallery": "gallery.webp",
+    "hero": "hero.webp",
+    "status": "curated",
+    "thumb": "thumb.webp",
+    "variants": {
+      "gallery": {
+        "aspectRatio": 1.0,
+        "bytes": 11186,
+        "height": 512,
+        "mediaType": "image/webp",
+        "path": "gallery.webp",
+        "sha256": "9031fe638e01b7fbf0f49318c8b60a3afe435a332f5d66b15c3298d1dceba68b",
+        "width": 512
+      },
+      "hero": {
+        "aspectRatio": 1.0,
+        "bytes": 29902,
+        "height": 1024,
+        "mediaType": "image/webp",
+        "path": "hero.webp",
+        "sha256": "cb50d5a168e5fa2f4c2ba67490280094911816272c27b397845feff92d3eab66",
+        "width": 1024
+      },
+      "thumb": {
+        "aspectRatio": 1.0,
+        "bytes": 3058,
+        "height": 192,
+        "mediaType": "image/webp",
+        "path": "thumb.webp",
+        "sha256": "6a83596f05a04445c08369f05b243ea7d001aebad9abd47f9bab6eaf2279003e",
+        "width": 192
+      }
+    }
+  },
+  "creatureId": "banded-butterflyfish",
+  "source": {
+    "aspectRatio": 1.0,
+    "bytes": 37512,
+    "format": "webp",
+    "height": 1024,
+    "mode": "opaque-scene",
+    "sha256": "45953aead0be4c9ba59b49977786a70d5de342825b4cffad4bc178a09dea5ef2",
+    "width": 1024
+  },
+  "version": 1
+}
