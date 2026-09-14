@@ -1,0 +1,49 @@
+{
+  "artwork": {
+    "aspectRatio": 1.0,
+    "gallery": "gallery.webp",
+    "hero": "hero.webp",
+    "status": "curated",
+    "thumb": "thumb.webp",
+    "variants": {
+      "gallery": {
+        "aspectRatio": 1.0,
+        "bytes": 11462,
+        "height": 512,
+        "mediaType": "image/webp",
+        "path": "gallery.webp",
+        "sha256": "a6ee7a529fe5a4f86373b60e3b94cf8f38a6ce5a4ffdfe4d47b89ed6774a70e7",
+        "width": 512
+      },
+      "hero": {
+        "aspectRatio": 1.0,
+        "bytes": 32156,
+        "height": 1024,
+        "mediaType": "image/webp",
+        "path": "hero.webp",
+        "sha256": "e1eeb73cbcd4699340469699b49cde0d0c9cb99ecbbc7058b6d159b8acb5bf99",
+        "width": 1024
+      },
+      "thumb": {
+        "aspectRatio": 1.0,
+        "bytes": 2946,
+        "height": 192,
+        "mediaType": "image/webp",
+        "path": "thumb.webp",
+        "sha256": "12d197c969a6ccd68884adc47b2651cf5e39ea371835c0e5d08f7621cd4bb2e3",
+        "width": 192
+      }
+    }
+  },
+  "creatureId": "porkfish",
+  "source": {
+    "aspectRatio": 1.0,
+    "bytes": 40336,
+    "format": "webp",
+    "height": 1024,
+    "mode": "opaque-scene",
+    "sha256": "bb2a4d7f95f550a0cdd7bc4918405e86d10004376cd4b95c851e156b7c0c4111",
+    "width": 1024
+  },
+  "version": 1
+}

@@ -4,7 +4,7 @@
 
 This is the durable strategy for creature content, regional relevance and artwork.
 
-Current implementation status is tracked in `docs/PROJECT_STATUS.md`. The Mexican Caribbean starter content pack is implemented. #11/#12/PR #13 produced and reviewed the original HD source-art library; #30 and #31 have now promoted all 22 approved `keep` candidates into canonical runtime artwork. #31 owns only the eight original-batch biological remakes; #33 owns complete HD coverage; #34 owns the later transparent-background derivation pass.
+Current implementation status is tracked in `docs/PROJECT_STATUS.md`. The Mexican Caribbean starter content pack is implemented. #11/#12/PR #13 produced and reviewed the original HD source-art library; #30/#31/#38/#39 have now resolved and promoted all 30 original-batch candidates into canonical runtime artwork. #33 owns complete HD coverage for the remaining 26 content creatures; #34 owns the later transparent-background derivation pass.
 
 ---
 
@@ -129,7 +129,7 @@ Generated source candidates use internal production states:
 
 Quality scores and identity confidence are production metadata, not user-facing rarity or ecological confidence.
 
-The original source batch is exactly **30 candidates: 22 keep / 0 provisional / 8 remake**. All 30 have deliberate content mappings and all 22 `keep` candidates are now promoted. Mapping does not override `remake` status.
+The original source batch is exactly **30 mapped candidates** and now stands at **30 keep / 0 provisional / 0 remake** after the two reviewed remake batches. All 30 are promoted. Original v1 source binaries remain immutable; accepted replacements use later candidate revisions.
 
 ---
 
@@ -194,12 +194,12 @@ Do not generate a large library and review it only at the end. Work in small bat
 
 The current sequence is deliberately staged:
 
-1. **#30 — complete:** 18 already-mapped `keep` candidates from the original batch were promoted as approved HD runtime artwork.
-2. **#31 — active:** PR #35 resolved the six former source-only content mappings; PR #36 promoted the four newly mapped `keep` candidates. All **22** original-batch `keep` candidates are now live. #31 now contains only the **8 biological `remake` candidates**: replace, re-review and promote only accepted replacements.
-3. **#33 — queued after #31:** create and promote HD source art for the exact 26 content creatures that still have no HD candidate.
+1. **#30 — complete:** initial mapped `keep` candidates promoted.
+2. **#31 — complete:** all 30 original source entries mapped and the full original batch finished; #38 and #39 supplied immutable reviewed v2 replacements for the eight biological remakes.
+3. **#33 — next:** create and promote HD source art for the exact 26 content creatures that still have no HD candidate.
 4. **#34 — queued after #33:** batch-remove backgrounds from the stable approved HD library to create transparent raster specimen revisions where useful. Preserve every opaque original and do not auto-vectorize.
 
-Current counts are **56 content records**, **30 mapped original HD source candidates**, **22 approved/live original-batch HD assets**, **8 blocked original-batch remakes**, and **26 content records with no HD source candidate**.
+Current counts are **56 content records**, **30 mapped original HD source candidates**, **30 approved/live original-batch HD assets**, **0 blocked original-batch remakes**, and **26 content records with no HD source candidate**.
 
 Expansion priority remains useful Mexican-Caribbean coverage and locally distinctive gaps, not ocean-wide completeness.
 

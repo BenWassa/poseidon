@@ -2,13 +2,13 @@
   "schemaVersion": 1,
   "libraryId": "poseidon-creature-source-art",
   "styleFamily": "poseidon-sunlit-square-v1",
-  "updatedOn": "2026-09-12",
+  "updatedOn": "2026-09-14",
   "binaryImportStatus": "complete",
   "summary": {
     "total": 30,
-    "keep": 26,
+    "keep": 30,
     "provisional": 0,
-    "remake": 4
+    "remake": 0
   },
   "provenance": {
     "generator": "ChatGPT image generation",
@@ -145,14 +145,14 @@
       "id": "caribbean-reef-octopus",
       "creatureId": "caribbean-reef-octopus",
       "name": "Caribbean reef octopus",
-      "path": "assets/source/creatures/caribbean-reef-octopus/candidate-v1.webp",
-      "score": 6.8,
-      "status": "remake",
-      "identity": "medium",
+      "path": "assets/source/creatures/caribbean-reef-octopus/candidate-v2.webp",
+      "score": 8.0,
+      "status": "keep",
+      "identity": "high",
       "ingestMode": "opaque-scene",
-      "qaNote": "Resolved to remake: attractive generic octopus form does not carry enough Octopus briareus-specific identity for an identification-led collection.",
-      "bytes": 146164,
-      "sha256": "7c7b0feeb7e04a07e10c01f15f42a915d34a6a14cec179b5d7397efe1e03f963"
+      "qaNote": "Replacement v2: eight long arms, loose webbing, paired sucker rows visible on foreground arms, dark reddish-brown eyes and a green/blue skin state with red-brown mottling; avoids a generic studio red/brown octopus presentation.",
+      "bytes": 41300,
+      "sha256": "3239a22cc51de6c06747e556008458afd3d77aa24b1e1dbc2fe458f070d14639"
     },
     {
       "id": "french-angelfish",
@@ -340,14 +340,14 @@
       "id": "caribbean-cushion-sea-star",
       "creatureId": "caribbean-cushion-sea-star",
       "name": "Caribbean cushion sea star",
-      "path": "assets/source/creatures/caribbean-cushion-sea-star/candidate-v1.webp",
-      "score": 4.0,
-      "status": "remake",
-      "identity": "low",
+      "path": "assets/source/creatures/caribbean-cushion-sea-star/candidate-v2.webp",
+      "score": 8.0,
+      "status": "keep",
+      "identity": "high",
       "ingestMode": "opaque-scene",
-      "qaNote": "Replacement attempts improved texture but did not consistently achieve the thick inflated arms and cushion-like Oreaster reticulatus body. Content is mapped, but this source remains blocked pending remake.",
-      "bytes": 137640,
-      "sha256": "4391c07a34267ea29467906ae1619087a8793a69082a603825a3b7377174be33"
+      "qaNote": "Replacement v2: reference-guided opaque scene restores the thick inflated five-armed cushion form, broad central disc, robust tapering arms and coarse knobbed/reticulated dorsal texture; the flat generic-star geometry failure is removed.",
+      "bytes": 43466,
+      "sha256": "f0d7f763d4fdea22d7a43712b074c44e010bea95a02e80e167fd2baa46d3a517"
     },
     {
       "id": "sergeant-major",
@@ -366,27 +366,27 @@
       "id": "porkfish",
       "creatureId": "porkfish",
       "name": "Porkfish",
-      "path": "assets/source/creatures/porkfish/candidate-v1.webp",
-      "score": 4.5,
-      "status": "remake",
-      "identity": "low",
+      "path": "assets/source/creatures/porkfish/candidate-v2.webp",
+      "score": 8.3,
+      "status": "keep",
+      "identity": "high",
       "ingestMode": "opaque-scene",
-      "qaNote": "Replacement attempts produced too many broad vertical bars. Adult porkfish needs the characteristic two black bars with yellow striping; blocked.",
-      "bytes": 111254,
-      "sha256": "a5b34e21308b9cab637b9ea2b684869a389039468eeea44538d428582bb9b1da"
+      "qaNote": "Replacement v2: deep compressed grunt body with yellow overall impression, exactly two dark head bars (through the eye and immediately behind the operculum) and blue/yellow longitudinal striping; generic broad-bar grunt treatment is removed.",
+      "bytes": 40336,
+      "sha256": "bb2a4d7f95f550a0cdd7bc4918405e86d10004376cd4b95c851e156b7c0c4111"
     },
     {
       "id": "queen-conch",
       "creatureId": "queen-conch",
       "name": "Queen conch",
-      "path": "assets/source/creatures/queen-conch/candidate-v1.webp",
-      "score": 5.8,
-      "status": "remake",
-      "identity": "medium",
+      "path": "assets/source/creatures/queen-conch/candidate-v2.webp",
+      "score": 8.2,
+      "status": "keep",
+      "identity": "high",
       "ingestMode": "opaque-scene",
-      "qaNote": "Replacement attempts retained a plausible shell but omitted diagnostic visible soft anatomy such as eyestalks/proboscis. Content is mapped, but this source remains blocked pending remake.",
-      "bytes": 132512,
-      "sha256": "015a95cf67ddcedd867eb2f802c7317c4cf08e9cd5bee9bc68cdd7c631769341"
+      "qaNote": "Replacement v2: adult heavy weathered shell with broad flared pink/orange lip plus visible living eyestalks and proboscis; the shell-only souvenir presentation failure is removed.",
+      "bytes": 33046,
+      "sha256": "233c2b04d43ad5ba3bfe426f0cc29b2b692ec4fd11e406c6df9ab3a412a24c95"
     },
     {
       "id": "juvenile-spotted-drum",

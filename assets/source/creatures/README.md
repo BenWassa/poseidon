@@ -10,7 +10,7 @@ Application code must never import from `assets/source`. The React/Vite app cont
 
 ## Current batch
 
-The first generated library is the 2026-09-07 `poseidon-sunlit-square-v1` batch: 30 normalized 1024×1024 opaque WebP scenes, with the editorial ledger unchanged at **17 keep / 6 provisional / 7 remake**.
+The original 2026-09-07 `poseidon-sunlit-square-v1` library has 30 mapped 1024×1024 opaque-scene entries. After focused QA and immutable replacement revisions, the current editorial ledger is **30 keep / 0 provisional / 0 remake**. Four entries from #38 and four from #39 use accepted `candidate-v2.webp` revisions; every original `candidate-v1.webp` remains immutable on disk.
 
 Every catalog entry records:
 

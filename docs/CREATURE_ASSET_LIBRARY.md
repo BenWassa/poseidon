@@ -1,6 +1,6 @@
 # Poseidon Creature Asset Library
 
-Last updated: **2026-09-12**
+Last updated: **2026-09-14**
 
 This is the human review ledger for Poseidon creature artwork. The machine-readable authority is [`assets/source/creatures/catalog.json`](../assets/source/creatures/catalog.json). Runtime assets remain under `assets/creatures/` and are produced only through the canonical #11 pipeline.
 
@@ -10,17 +10,17 @@ The original `poseidon-sunlit-square-v1` batch has **30 catalog entries**. Origi
 
 Current editorial state:
 
-- **26 keep**;
+- **30 keep**;
 - **0 provisional**;
-- **4 remake**.
+- **0 remake**.
 
 All **30** catalog entries map deliberately to content authority. #31 resolved the former six `creatureId: null` entries by adding sourced Mexican-Caribbean content records rather than weakening the promotion gate.
 
 The live content catalogue contains **56 stable creature IDs**. Of those 56:
 
 - **30** have a mapped HD source-catalog entry;
-- **26** mapped candidates are `keep` and are live as canonical runtime HD artwork;
-- **4** mapped candidates are `remake` and remain hard-blocked;
+- **30** mapped candidates are `keep` and are live as canonical runtime HD artwork;
+- **0** mapped candidates remain blocked for remake;
 - **26** content creatures still have no HD source candidate; #33 owns that complete-coverage batch.
 
 Runtime status:
@@ -28,8 +28,8 @@ Runtime status:
 - **18** mapped `keep` candidates were promoted by #30 / PR #32;
 - **4** formerly source-only `keep` candidates were mapped by PR #35 and promoted by PR #36: queen triggerfish, long-spined sea urchin, banded coral shrimp and the juvenile spotted-drum artwork mapped to the species-level `spotted-drum` record;
 - **4** biological remakes were completed by #38 / PR #42 and promoted through the guarded pipeline: spotted eagle ray, spotted trunkfish, Atlantic blue tang and Spanish hogfish;
-- therefore **all 26 current `keep` catalog entries are live**;
-- the four remaining `remake` entries retain correct fallback/runtime art until reviewed replacement source binaries exist.
+- the final **4** biological remakes were completed by #39 and promoted through the same guarded pipeline: Caribbean cushion sea star, porkfish, queen conch and Caribbean reef octopus;
+- therefore **all 30 original-batch catalog entries are `keep` and live** as canonical runtime HD artwork.
 
 ## Content decisions resolved by #31
 
@@ -39,8 +39,8 @@ Runtime status:
 | Longspine sea urchin | `longspine-sea-urchin` | `Diadema antillarum` | Added sourced content record; source is `keep` and promoted. |
 | Banded coral shrimp | `banded-coral-shrimp` | `Stenopus hispidus` | Added sourced content record; source is `keep` and promoted. |
 | Juvenile spotted drum | `spotted-drum` | `Eques punctatus` | Added species-level content record; source metadata preserves the juvenile presentation. Source is `keep` and promoted. |
-| Caribbean cushion sea star | `caribbean-cushion-sea-star` | `Oreaster reticulatus` | Added sourced content record; artwork remains `remake`. |
-| Queen conch | `queen-conch` | `Aliger gigas` | Added sourced content record using current accepted taxonomy; artwork remains `remake`. |
+| Caribbean cushion sea star | `caribbean-cushion-sea-star` | `Oreaster reticulatus` | Added sourced content record; reviewed v2 is `keep` and promoted. |
+| Queen conch | `queen-conch` | `Aliger gigas` | Added sourced content record using current accepted taxonomy; reviewed v2 is `keep` and promoted. |
 
 Queen conch historical names `Strombus gigas` and `Lobatus gigas` remain provenance/taxonomic synonyms; the canonical content scientific name is `Aliger gigas`.
 
@@ -53,16 +53,16 @@ Queen conch historical names `Strombus gigas` and `Lobatus gigas` remain provena
 | Atlantic blue tang | Corrected to Atlantic `Acanthurus coeruleus`, removing Indo-Pacific `Paracanthurus` patterning; new immutable v2 promoted. |
 | Spanish hogfish | Adult `Bodianus rufus` lilac/blue-grey upper and yellow lower-body division restored; new immutable v2 promoted. |
 
-## Remaining blocked remakes — #39
+## Completed remake batch B — #39
 
-| Target | Biological QA requirement |
+| Target | Accepted replacement |
 | --- | --- |
-| Caribbean cushion sea star | Thick, inflated arms and cushion-like `Oreaster reticulatus` form. |
-| Porkfish | Characteristic two dark bars plus yellow/silvery-blue striping; reject generic broad-bar grunt treatments. |
-| Queen conch | Show visible living-animal anatomy including eyestalks/proboscis, not only a shell. |
-| Caribbean reef octopus | Must carry useful `Octopus briareus` identity rather than read as a generic octopus. |
+| Caribbean cushion sea star | Thick inflated five-arm `Oreaster reticulatus` cushion form, broad disc and coarse knobbed/reticulated texture restored in immutable v2; promoted. |
+| Porkfish | Deep compressed yellow grunt with exactly two dark head bars and blue/yellow longitudinal striping restored in immutable v2; promoted. |
+| Queen conch | Adult flared shell plus visible living eyestalks/proboscis restored in immutable v2; promoted. |
+| Caribbean reef octopus | Eight long arms, loose webbing, visible paired suckers, dark eyes and green/blue with red-brown mottling restored in immutable v2; promoted. |
 
-Replacement work creates new immutable candidate revisions. It never overwrites `candidate-v1.webp`.
+Original `candidate-v1.webp` binaries remain immutable and retained alongside the accepted v2 revisions.
 
 ## Existing content still lacking any HD source candidate
 
@@ -106,8 +106,7 @@ assets/creatures/<stable-id>/                   # canonical runtime only
 
 ## Work sequence
 
-1. **#39 / #31:** ingest, review and promote the four remaining biological remakes.
-2. **#33:** generate, review, ingest and promote the 26 current content creatures with no HD source candidate, using the locked diagnostic matrix.
-3. **#34:** only after HD source coverage is stable, batch-remove backgrounds into transparent raster specimen revisions; preserve opaque originals and manually QA difficult alpha edges.
+1. **#33:** generate, review, ingest and promote the 26 current content creatures with no HD source candidate, using the locked diagnostic matrix.
+2. **#34:** only after HD source coverage is stable, batch-remove backgrounds into transparent raster specimen revisions; preserve opaque originals and manually QA difficult alpha edges.
 
 No auto-vector tracing is planned for the creature artwork. The HD illustrations contain texture, shading and fine anatomy better preserved as raster assets.
