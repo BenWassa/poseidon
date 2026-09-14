@@ -127,11 +127,20 @@ jobs:
           async function loaded(page, selector, label) {
             const loc = page.locator(selector).first();
             await loc.waitFor({state:'visible', timeout:10000});
-            await page.waitForFunction((sel) => {
-              const img = document.querySelector(sel);
-              return img instanceof HTMLImageElement && img.complete && img.naturalWidth > 0 && img.naturalHeight > 0;
-            }, selector, { timeout:10000 });
-            console.log('[bcdf render]', label, await loc.getAttribute('src'));
+            const deadline = Date.now() + 10000;
+            while (Date.now() < deadline) {
+              const state = await loc.evaluate((node) => ({
+                complete: node instanceof HTMLImageElement && node.complete,
+                width: node instanceof HTMLImageElement ? node.naturalWidth : 0,
+                height: node instanceof HTMLImageElement ? node.naturalHeight : 0,
+              }));
+              if (state.complete && state.width > 0 && state.height > 0) {
+                console.log('[bcdf render]', label, await loc.getAttribute('src'));
+                return;
+              }
+              await page.waitForTimeout(250);
+            }
+            throw new Error(`${label}: image did not decode`);
           }
           await ready();
           const browser = await chromium.launch(launchOptions());
