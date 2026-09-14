@@ -54,17 +54,19 @@ const route = (path) => `${origin}/#${path}`;
 const demo = buildDemoState();
 
 async function assertLoaded(page, selector, expectedFragment, label) {
-  const image = page.locator(selector).filter({ has: page.locator(`xpath=.`) }).first();
+  const image = page.locator(selector).first();
   await image.scrollIntoViewIfNeeded();
   await image.waitFor({ state: 'visible' });
-  await page.waitForFunction(
-    ([sel, fragment]) => {
-      const candidates = [...document.querySelectorAll(sel)];
-      const target = candidates.find((node) => node instanceof HTMLImageElement && node.src.includes(fragment));
-      return Boolean(target && target.complete && target.naturalWidth > 0 && target.naturalHeight > 0);
-    },
-    [selector, expectedFragment],
-  );
+  await image.evaluate(async (node) => {
+    if (!(node instanceof HTMLImageElement)) throw new Error('expected an image element');
+    if (!node.complete) {
+      await new Promise((resolveLoad, rejectLoad) => {
+        node.addEventListener('load', resolveLoad, { once: true });
+        node.addEventListener('error', () => rejectLoad(new Error('image load failed')), { once: true });
+      });
+    }
+    if (node.naturalWidth <= 0 || node.naturalHeight <= 0) throw new Error('decoded image has no intrinsic size');
+  });
   const src = await image.getAttribute('src');
   if (!src?.includes(expectedFragment)) throw new Error(`${label}: wrong source ${src}`);
   console.log(`[issue33-bcdf] ${label}: ${src}`);
@@ -72,7 +74,12 @@ async function assertLoaded(page, selector, expectedFragment, label) {
 
 const browser = await chromium.launch(launchOptions());
 try {
-  const context = await browser.newContext({ viewport: { width: 412, height: 915 }, deviceScaleFactor: 2, isMobile: true, hasTouch: true });
+  const context = await browser.newContext({
+    viewport: { width: 412, height: 915 },
+    deviceScaleFactor: 2,
+    isMobile: true,
+    hasTouch: true,
+  });
   await context.addInitScript(
     ([key, state]) => {
       window.localStorage.clear();
@@ -82,21 +89,26 @@ try {
   );
   const page = await context.newPage();
 
-  // Collection: every new gallery image must be present and decodable in the real built app.
   await page.goto(route('/collection'), { waitUntil: 'networkidle' });
   for (const [id] of species) {
-    const selector = `img[data-testid="creature-artwork"][src*="/creatures/${id}/gallery.webp"]`;
-    await assertLoaded(page, selector, `/creatures/${id}/gallery.webp`, `Collection ${id}`);
+    await assertLoaded(
+      page,
+      `img[data-testid="creature-artwork"][src*="/creatures/${id}/gallery.webp"]`,
+      `/creatures/${id}/gallery.webp`,
+      `Collection ${id}`,
+    );
   }
 
-  // Creature Detail: hero variant for every member of this isolated batch.
   for (const [id] of species) {
     await page.goto(route(`/collection/${id}`), { waitUntil: 'networkidle' });
-    const selector = `img[data-testid="creature-artwork"][src*="/creatures/${id}/hero.webp"]`;
-    await assertLoaded(page, selector, `/creatures/${id}/hero.webp`, `Creature Detail ${id}`);
+    await assertLoaded(
+      page,
+      `img[data-testid="creature-artwork"][src*="/creatures/${id}/hero.webp"]`,
+      `/creatures/${id}/hero.webp`,
+      `Creature Detail ${id}`,
+    );
   }
 
-  // Log Dive: exercise the actual creature picker and require each thumb to load.
   await page.goto(route('/log'), { waitUntil: 'networkidle' });
   await page.getByRole('button', { name: 'Cozumel' }).first().click();
   await page.getByLabel('Dive site').fill('Issue 33 Render Check');
@@ -109,12 +121,13 @@ try {
   for (const [id, name] of species) {
     const button = page.getByRole('button', { name: new RegExp(name, 'i') }).first();
     await button.scrollIntoViewIfNeeded();
-    const image = button.locator(`img[data-testid="creature-artwork"][src*="/creatures/${id}/thumb.webp"]`).first();
-    await image.waitFor({ state: 'visible' });
-    const loaded = await image.evaluate((node) => node.complete && node.naturalWidth > 0 && node.naturalHeight > 0);
-    if (!loaded) throw new Error(`Log Dive ${id}: thumb failed to render`);
+    await assertLoaded(
+      page,
+      `button:has-text("${name}") img[data-testid="creature-artwork"][src*="/creatures/${id}/thumb.webp"]`,
+      `/creatures/${id}/thumb.webp`,
+      `Log Dive ${id}`,
+    );
     await button.click();
-    console.log(`[issue33-bcdf] Log Dive ${id}: rendered and selected`);
   }
 
   await page.getByRole('button', { name: 'Continue' }).click();
