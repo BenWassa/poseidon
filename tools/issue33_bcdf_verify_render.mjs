@@ -46,7 +46,6 @@ async function waitForServer() {
 
 async function assertLoaded(page, selector, expectedFragment, label) {
   const image = page.locator(selector).first();
-  await image.scrollIntoViewIfNeeded();
   await image.waitFor({ state: 'visible' });
   await image.evaluate(async (node) => {
     if (!(node instanceof HTMLImageElement)) throw new Error('expected an image element');
@@ -131,6 +130,7 @@ try {
   // dive remains live and proves every newly encountered gallery asset.
   await page.getByRole('link', { name: 'Collection' }).click();
   await page.waitForURL(/#\/collection$/);
+  await page.waitForTimeout(250);
   for (const [id] of species) {
     await assertLoaded(
       page,
