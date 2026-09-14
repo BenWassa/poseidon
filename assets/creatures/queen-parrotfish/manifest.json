@@ -1,0 +1,49 @@
+{
+  "artwork": {
+    "aspectRatio": 1.0,
+    "gallery": "gallery.webp",
+    "hero": "hero.webp",
+    "status": "curated",
+    "thumb": "thumb.webp",
+    "variants": {
+      "gallery": {
+        "aspectRatio": 1.0,
+        "bytes": 8736,
+        "height": 512,
+        "mediaType": "image/webp",
+        "path": "gallery.webp",
+        "sha256": "f7a4779000c90f1c34e4dd1338a67df19234f22b70ca9e317592386cae932c18",
+        "width": 512
+      },
+      "hero": {
+        "aspectRatio": 1.0,
+        "bytes": 24788,
+        "height": 1024,
+        "mediaType": "image/webp",
+        "path": "hero.webp",
+        "sha256": "43549dec610c70da7a830cd98ee4dde0fb3c9ad25d5e5e389186cf95144ee842",
+        "width": 1024
+      },
+      "thumb": {
+        "aspectRatio": 1.0,
+        "bytes": 2206,
+        "height": 192,
+        "mediaType": "image/webp",
+        "path": "thumb.webp",
+        "sha256": "edb12bd1f17d4e33f08534ff173aa96fb217dc523be3a934e58780555e907454",
+        "width": 192
+      }
+    }
+  },
+  "creatureId": "queen-parrotfish",
+  "source": {
+    "aspectRatio": 1.0,
+    "bytes": 31654,
+    "format": "webp",
+    "height": 1024,
+    "mode": "opaque-scene",
+    "sha256": "e83a85794a71516f0a5fdacaef1ad49975e09756364fa05726f52c6f9c403f0a",
+    "width": 1024
+  },
+  "version": 1
+}
