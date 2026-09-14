@@ -1,0 +1,49 @@
+{
+  "artwork": {
+    "aspectRatio": 1.0,
+    "gallery": "gallery.webp",
+    "hero": "hero.webp",
+    "status": "curated",
+    "thumb": "thumb.webp",
+    "variants": {
+      "gallery": {
+        "aspectRatio": 1.0,
+        "bytes": 11384,
+        "height": 512,
+        "mediaType": "image/webp",
+        "path": "gallery.webp",
+        "sha256": "84429cc44e91a61ce63538d5a631435164dcdb74a3410c0788b9dde5f6f576d2",
+        "width": 512
+      },
+      "hero": {
+        "aspectRatio": 1.0,
+        "bytes": 33678,
+        "height": 1024,
+        "mediaType": "image/webp",
+        "path": "hero.webp",
+        "sha256": "bd382df946292cd8128c5f81c24cdd4a93f911f4ed2281fa31c0457d4fa6831a",
+        "width": 1024
+      },
+      "thumb": {
+        "aspectRatio": 1.0,
+        "bytes": 2842,
+        "height": 192,
+        "mediaType": "image/webp",
+        "path": "thumb.webp",
+        "sha256": "306201992ffb3b60c4da3f05350778259411d1bbd678364f23e14c38aac0856b",
+        "width": 192
+      }
+    }
+  },
+  "creatureId": "caribbean-reef-octopus",
+  "source": {
+    "aspectRatio": 1.0,
+    "bytes": 41300,
+    "format": "webp",
+    "height": 1024,
+    "mode": "opaque-scene",
+    "sha256": "3239a22cc51de6c06747e556008458afd3d77aa24b1e1dbc2fe458f070d14639",
+    "width": 1024
+  },
+  "version": 1
+}

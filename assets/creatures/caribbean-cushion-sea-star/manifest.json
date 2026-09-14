@@ -1,0 +1,49 @@
+{
+  "artwork": {
+    "aspectRatio": 1.0,
+    "gallery": "gallery.webp",
+    "hero": "hero.webp",
+    "status": "curated",
+    "thumb": "thumb.webp",
+    "variants": {
+      "gallery": {
+        "aspectRatio": 1.0,
+        "bytes": 12614,
+        "height": 512,
+        "mediaType": "image/webp",
+        "path": "gallery.webp",
+        "sha256": "d40b6b5cedea91a8c79a8e6835c83105ed736b65232742cab2191a5fac396ba4",
+        "width": 512
+      },
+      "hero": {
+        "aspectRatio": 1.0,
+        "bytes": 34592,
+        "height": 1024,
+        "mediaType": "image/webp",
+        "path": "hero.webp",
+        "sha256": "8fdba32308dc311c9c565a6da99209bec7c4062609ca6f489e6a0725fce496b1",
+        "width": 1024
+      },
+      "thumb": {
+        "aspectRatio": 1.0,
+        "bytes": 3190,
+        "height": 192,
+        "mediaType": "image/webp",
+        "path": "thumb.webp",
+        "sha256": "8bf69818716efc3ac8481f7f694eb3aa58a78d0ab8d78294f41756fb1b3f47b2",
+        "width": 192
+      }
+    }
+  },
+  "creatureId": "caribbean-cushion-sea-star",
+  "source": {
+    "aspectRatio": 1.0,
+    "bytes": 43466,
+    "format": "webp",
+    "height": 1024,
+    "mode": "opaque-scene",
+    "sha256": "f0d7f763d4fdea22d7a43712b074c44e010bea95a02e80e167fd2baa46d3a517",
+    "width": 1024
+  },
+  "version": 1
+}

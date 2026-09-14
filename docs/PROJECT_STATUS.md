@@ -47,26 +47,11 @@ Current `main` contains:
 
 - Mexican-Caribbean content pack: **3 regions, 24 dive sites/areas, 56 creatures**;
 - **30 mapped HD source-catalog entries** from the original art batch;
-- editorial state: **26 keep / 0 provisional / 4 remake**;
-- all **26 `keep` entries promoted and live** as canonical runtime HD artwork;
-- the **4 remaining `remake` entries** retain valid fallback/runtime art;
+- editorial state: **30 keep / 0 provisional / 0 remake**;
+- all **30 original-batch entries are promoted and live** as canonical runtime HD artwork;
 - **26 content species** still have no HD source candidate; #33 owns that exact queue.
 
-Original source revisions are immutable. #38 / PR #42 added and promoted four accepted v2 replacements without overwriting v1:
-
-- spotted eagle ray;
-- spotted trunkfish;
-- Atlantic blue tang;
-- Spanish hogfish.
-
-The four remaining blocked remakes are:
-
-- Caribbean cushion sea star;
-- porkfish;
-- queen conch;
-- Caribbean reef octopus.
-
-Issue #39 owns that final remake batch.
+Original source revisions remain immutable. #38 / PR #42 supplied and promoted four accepted v2 replacements (spotted eagle ray, spotted trunkfish, Atlantic blue tang and Spanish hogfish). #39 completed the final four immutable v2 replacements (Caribbean cushion sea star, porkfish, queen conch and Caribbean reef octopus). The original 30-entry batch is now **30/30 keep and live**, with no remaining remake state.
 
 PR #43 also locked species-specific generation/review diagnostics for all 26 #33 targets and corrected `honeycomb-cowfish` to accepted **`Acanthostracion polygonium`** before new art metadata is created.
 
@@ -96,6 +81,10 @@ PR #35 resolved every former `creatureId: null` candidate through explicit sourc
 
 PR #42 replaced and promoted spotted eagle ray, spotted trunkfish, Atlantic blue tang and Spanish hogfish. Source/runtime validation and the full repository gate were green.
 
+### #39 / #31 — original HD creature batch — complete
+
+The final Caribbean cushion sea star, porkfish, queen conch and Caribbean reef octopus remakes now use reviewed immutable v2 sources, are `keep`, and are promoted through the guarded runtime pipeline. The original 30-entry source batch is fully resolved at **30 keep / 0 provisional / 0 remake**.
+
 ### #11 — source-art system — complete
 
 The original source ZIP was hash-verified and imported. Source byte/SHA metadata, explicit ingestion modes and strict source/runtime validation remain the promotion authority.
@@ -113,10 +102,6 @@ Derived trip grouping, restrained milestones and richer sourced Creature Detail 
 The first truthful map and sourced starter-region coordinates are merged. Coordinate precision is explicit and missing-coordinate sites remain valid.
 
 ## Active enhancement streams
-
-### #39 / #31 — finish the original HD creature batch
-
-Four biological remakes remain. Each accepted replacement must be a new immutable source revision, pass species-specific biological/style QA, become `keep`, then move through the existing guarded runtime promotion path.
 
 ### #33 — complete HD starter-library coverage
 
@@ -136,11 +121,10 @@ Engineering/deployment acceptance is automated. Keep #14 open until physical Pix
 
 ## Intended sequence
 
-1. finish #39 / close #31;
-2. complete #33 HD source coverage;
-3. execute #34 transparent-background derivative pass;
-4. perform/record #14 physical Pixel acceptance when desired;
-5. close parent/status items as appropriate.
+1. complete #33 HD source coverage;
+2. execute #34 transparent-background derivative pass;
+3. perform/record #14 physical Pixel acceptance when desired;
+4. close parent/status items as appropriate.
 
 ## Durable boundaries
 

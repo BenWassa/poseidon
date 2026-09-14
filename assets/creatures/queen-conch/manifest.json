@@ -1,0 +1,49 @@
+{
+  "artwork": {
+    "aspectRatio": 1.0,
+    "gallery": "gallery.webp",
+    "hero": "hero.webp",
+    "status": "curated",
+    "thumb": "thumb.webp",
+    "variants": {
+      "gallery": {
+        "aspectRatio": 1.0,
+        "bytes": 9164,
+        "height": 512,
+        "mediaType": "image/webp",
+        "path": "gallery.webp",
+        "sha256": "29233e1e5372238342c199beb44ab527bb0588fd64721ff2cb23d9c119cf3c78",
+        "width": 512
+      },
+      "hero": {
+        "aspectRatio": 1.0,
+        "bytes": 26034,
+        "height": 1024,
+        "mediaType": "image/webp",
+        "path": "hero.webp",
+        "sha256": "a658badf906ad406768568c7ee234477cdf7627f2c85bc1317f740942ddad324",
+        "width": 1024
+      },
+      "thumb": {
+        "aspectRatio": 1.0,
+        "bytes": 2332,
+        "height": 192,
+        "mediaType": "image/webp",
+        "path": "thumb.webp",
+        "sha256": "9d01885c1f2175ad361dcce6930e5ea30124293fab2da0bc31c869dd78ae7e09",
+        "width": 192
+      }
+    }
+  },
+  "creatureId": "queen-conch",
+  "source": {
+    "aspectRatio": 1.0,
+    "bytes": 33046,
+    "format": "webp",
+    "height": 1024,
+    "mode": "opaque-scene",
+    "sha256": "233c2b04d43ad5ba3bfe426f0cc29b2b692ec4fd11e406c6df9ab3a412a24c95",
+    "width": 1024
+  },
+  "version": 1
+}
