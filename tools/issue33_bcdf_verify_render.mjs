@@ -1,12 +1,8 @@
 import assert from 'node:assert/strict';
-import { dirname, resolve } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { spawn } from 'node:child_process';
 import { chromium } from 'playwright';
-import { createServer as createViteServer } from 'vite';
 import { launchOptions } from './chromium.mjs';
 
-const here = dirname(fileURLToPath(import.meta.url));
-const root = resolve(here, '../apps/web');
 const species = [
   ['bicolor-damselfish', 'Bicolor damselfish'],
   ['french-grunt', 'French grunt'],
@@ -16,16 +12,37 @@ const species = [
   ['redband-parrotfish', 'Redband parrotfish'],
 ];
 
-const vite = await createViteServer({
-  root,
-  logLevel: 'error',
-  server: { host: '127.0.0.1', port: 0 },
-});
-await vite.listen();
-const address = vite.httpServer?.address();
-assert.ok(address && typeof address !== 'string', 'development Vite server did not bind');
-const origin = `http://127.0.0.1:${address.port}`;
+const port = 4175;
+const origin = `http://127.0.0.1:${port}`;
 const route = (path) => `${origin}/?mock=3#${path}`;
+const dev = spawn(
+  'npm',
+  ['run', 'dev', '--workspace', '@poseidon/web', '--', '--host', '127.0.0.1', '--port', String(port), '--strictPort'],
+  { cwd: process.cwd(), stdio: ['ignore', 'pipe', 'pipe'], env: process.env },
+);
+let devLog = '';
+for (const stream of [dev.stdout, dev.stderr]) {
+  stream.setEncoding('utf8');
+  stream.on('data', (chunk) => {
+    devLog += chunk;
+    process.stdout.write(chunk);
+  });
+}
+
+async function waitForServer() {
+  const deadline = Date.now() + 30_000;
+  while (Date.now() < deadline) {
+    if (dev.exitCode !== null) throw new Error(`dev server exited early (${dev.exitCode})\n${devLog}`);
+    try {
+      const response = await fetch(origin);
+      if (response.ok) return;
+    } catch {
+      // Retry until the normal dev entrypoint is ready.
+    }
+    await new Promise((resolve) => setTimeout(resolve, 250));
+  }
+  throw new Error(`dev server did not become ready\n${devLog}`);
+}
 
 async function assertLoaded(page, selector, expectedFragment, label) {
   const image = page.locator(selector).first();
@@ -48,6 +65,7 @@ async function assertLoaded(page, selector, expectedFragment, label) {
   console.log(`[issue33-bcdf] ${label}: ${src}`);
 }
 
+await waitForServer();
 const browser = await chromium.launch(launchOptions());
 try {
   const context = await browser.newContext({
@@ -121,7 +139,12 @@ try {
   await context.close();
 } finally {
   await browser.close();
-  await vite.close();
+  dev.kill('SIGTERM');
+  await new Promise((resolve) => {
+    if (dev.exitCode !== null) return resolve();
+    dev.once('exit', resolve);
+    setTimeout(resolve, 3000);
+  });
 }
 
 console.log('[issue33-bcdf] rendered verification passed');
