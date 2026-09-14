@@ -1,0 +1,212 @@
+name: Issue 33 isolated batch validate promote verify
+
+on:
+  push:
+    branches:
+      - feat/33-art-batch-bcdf
+
+permissions:
+  contents: write
+
+jobs:
+  validate-promote-verify:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/33-art-batch-bcdf
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: tools/creature_assets/requirements.txt
+      - run: npm ci
+      - run: python -m pip install -r tools/creature_assets/requirements.txt
+      - run: npx playwright install --with-deps chromium
+
+      - name: Register reviewed immutable source candidates
+        run: |
+          python - <<'PY'
+          import hashlib
+          import json
+          from pathlib import Path
+
+          catalog_path = Path('assets/source/creatures/catalog.json')
+          catalog = json.loads(catalog_path.read_text())
+          ids = {entry['id'] for entry in catalog['assets']}
+          reviewed = [
+              {
+                  'id': 'bicolor-damselfish',
+                  'creatureId': 'bicolor-damselfish',
+                  'name': 'Bicolor damselfish',
+                  'score': 8.3,
+                  'qaNote': 'Adult bicolor morph reads clearly at card scale: deep damselfish body with a black anterior half and sharply contrasting white posterior half/tail; no blue/yellow damsel palette leakage.',
+              },
+              {
+                  'id': 'french-grunt',
+                  'creatureId': 'french-grunt',
+                  'name': 'French grunt',
+                  'score': 8.5,
+                  'qaNote': 'Pale grunt body carries a dense yellow stripe field with lower stripes turning diagonal and consistently yellow fins; avoids the dark-fin treatment that would suggest bluestriped grunt.',
+              },
+              {
+                  'id': 'honeycomb-cowfish',
+                  'creatureId': 'honeycomb-cowfish',
+                  'name': 'Honeycomb cowfish',
+                  'score': 8.8,
+                  'qaNote': 'Rigid thick oblong boxfish carapace, explicit dark honeycomb/hexagonal network with pale outlines, horn-like supraorbital spines and a lower rear carapace spine make Acanthostracion polygonium unambiguous.',
+              },
+              {
+                  'id': 'lionfish',
+                  'creatureId': 'lionfish',
+                  'name': 'Lionfish',
+                  'score': 8.8,
+                  'qaNote': 'Red/cream zebra banding, very long separate dorsal spines and pectoral rays, plus spotted soft fins/tail preserve Pterois volitans identity and reject a short-finned generic scorpionfish silhouette.',
+              },
+              {
+                  'id': 'mutton-snapper',
+                  'creatureId': 'mutton-snapper',
+                  'name': 'Mutton snapper',
+                  'score': 8.6,
+                  'qaNote': 'Snapper silhouette retains red iris and reddish fins, multiple blue cheek lines below the eye and the small dark flank spot above the lateral line beneath the soft dorsal region.',
+              },
+              {
+                  'id': 'redband-parrotfish',
+                  'creatureId': 'redband-parrotfish',
+                  'name': 'Redband parrotfish',
+                  'score': 8.6,
+                  'qaNote': 'Terminal-phase presentation preserves parrotfish beak, red iris and red under-eye stripe, yellow-and-black spot above the pectoral base, and black tail tips; avoids a generic green parrotfish substitution.',
+              },
+          ]
+
+          collisions = sorted(entry['id'] for entry in reviewed if entry['id'] in ids)
+          if collisions:
+              raise SystemExit(f'refusing catalog collision for isolated batch: {collisions}')
+
+          for entry in reviewed:
+              candidate = Path('assets/source/creatures') / entry['id'] / 'candidate-v1.webp'
+              if not candidate.is_file():
+                  raise SystemExit(f'missing immutable candidate: {candidate}')
+              data = candidate.read_bytes()
+              catalog['assets'].append({
+                  'id': entry['id'],
+                  'creatureId': entry['creatureId'],
+                  'name': entry['name'],
+                  'path': candidate.as_posix(),
+                  'score': entry['score'],
+                  'status': 'keep',
+                  'identity': 'high',
+                  'ingestMode': 'opaque-scene',
+                  'qaNote': entry['qaNote'],
+                  'generator': 'ChatGPT procedural SVG renderer',
+                  'generatedOn': '2026-09-14',
+                  'generationBatch': 'issue-33-isolated-batch-bcdf',
+                  'bytes': len(data),
+                  'sha256': hashlib.sha256(data).hexdigest(),
+              })
+
+          catalog['updatedOn'] = '2026-09-14'
+          counts = {'keep': 0, 'provisional': 0, 'remake': 0}
+          for entry in catalog['assets']:
+              counts[entry['status']] += 1
+          catalog['summary'] = {'total': len(catalog['assets']), **counts}
+          catalog_path.write_text(json.dumps(catalog, indent=2) + '\n')
+          print('catalog summary', catalog['summary'])
+          PY
+
+      - name: Strict source validation
+        run: python -m tools.creature_assets validate-source --catalog assets/source/creatures/catalog.json
+
+      - name: Guarded promotion of reviewed keep candidates
+        run: |
+          set -euxo pipefail
+          for id in \
+            bicolor-damselfish \
+            french-grunt \
+            honeycomb-cowfish \
+            lionfish \
+            mutton-snapper \
+            redband-parrotfish
+          do
+            python -m tools.creature_assets promote-source --candidate "$id" --force
+          done
+
+      - name: Canonical runtime validation
+        run: python -m tools.creature_assets validate --root assets/creatures
+
+      - name: Focused source/runtime closure check
+        run: |
+          python - <<'PY'
+          import hashlib
+          import json
+          from pathlib import Path
+
+          ids = [
+              'bicolor-damselfish',
+              'french-grunt',
+              'honeycomb-cowfish',
+              'lionfish',
+              'mutton-snapper',
+              'redband-parrotfish',
+          ]
+          catalog = json.loads(Path('assets/source/creatures/catalog.json').read_text())
+          by_id = {entry['id']: entry for entry in catalog['assets']}
+          for creature_id in ids:
+              entry = by_id[creature_id]
+              source = Path(entry['path'])
+              assert entry['status'] == 'keep'
+              assert entry['identity'] == 'high'
+              assert entry['ingestMode'] == 'opaque-scene'
+              assert source.stat().st_size == entry['bytes']
+              assert hashlib.sha256(source.read_bytes()).hexdigest() == entry['sha256']
+              manifest = json.loads((Path('assets/creatures') / creature_id / 'manifest.json').read_text())
+              assert manifest['creatureId'] == creature_id
+              assert manifest['source']['mode'] == 'opaque-scene'
+              assert manifest['source']['width'] == 1024 and manifest['source']['height'] == 1024
+              assert manifest['source']['sha256'] == entry['sha256']
+              assert manifest['artwork']['variants']['thumb']['width'] == 192
+              assert manifest['artwork']['variants']['gallery']['width'] == 512
+              assert manifest['artwork']['variants']['hero']['width'] == 1024
+              print('[issue33-bcdf] closed', creature_id)
+          PY
+
+      - name: Full repository gate
+        run: npm run gate
+
+      - name: Rendered in-app verification
+        run: node tools/issue33_bcdf_verify_render.mjs
+
+      - name: Remove temporary verification machinery
+        run: rm -f tools/issue33_bcdf_verify_render.mjs .github/workflows/issue33-bcdf-promote.yml
+
+      - name: Assert isolated working tree
+        run: |
+          git status --short
+          unexpected="$(git status --short | awk '{print $2}' | grep -Ev '^(assets/source/creatures/catalog.json|assets/creatures/(bicolor-damselfish|french-grunt|honeycomb-cowfish|lionfish|mutton-snapper|redband-parrotfish)/|tools/issue33_bcdf_verify_render.mjs|.github/workflows/issue33-bcdf-promote.yml)$' || true)"
+          if [ -n "$unexpected" ]; then
+            echo "Unexpected files changed:" >&2
+            echo "$unexpected" >&2
+            exit 1
+          fi
+
+      - name: Commit validated promoted batch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add assets/source/creatures/catalog.json \
+            assets/creatures/bicolor-damselfish \
+            assets/creatures/french-grunt \
+            assets/creatures/honeycomb-cowfish \
+            assets/creatures/lionfish \
+            assets/creatures/mutton-snapper \
+            assets/creatures/redband-parrotfish \
+            tools/issue33_bcdf_verify_render.mjs \
+            .github/workflows/issue33-bcdf-promote.yml
+          git commit -m 'feat(assets): add isolated #33 art batch'
+          git push origin HEAD:feat/33-art-batch-bcdf
