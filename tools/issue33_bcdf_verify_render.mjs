@@ -1,25 +1,12 @@
-import { createServer } from 'node:http';
-import { createReadStream } from 'node:fs';
-import { stat } from 'node:fs/promises';
-import { dirname, extname, join, resolve } from 'node:path';
+import assert from 'node:assert/strict';
+import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
+import { createServer as createViteServer } from 'vite';
 import { launchOptions } from './chromium.mjs';
-import { buildDemoState } from '../apps/web/tools/demo-state.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
-const distDir = resolve(here, '../apps/web/dist');
-const MIME = {
-  '.html': 'text/html; charset=utf-8',
-  '.js': 'text/javascript; charset=utf-8',
-  '.css': 'text/css; charset=utf-8',
-  '.json': 'application/json; charset=utf-8',
-  '.webmanifest': 'application/manifest+json',
-  '.webp': 'image/webp',
-  '.png': 'image/png',
-  '.svg': 'image/svg+xml',
-};
-
+const root = resolve(here, '../apps/web');
 const species = [
   ['bicolor-damselfish', 'Bicolor damselfish'],
   ['french-grunt', 'French grunt'],
@@ -29,29 +16,16 @@ const species = [
   ['redband-parrotfish', 'Redband parrotfish'],
 ];
 
-async function resolveFile(pathname) {
-  const candidate = join(distDir, pathname === '/' ? 'index.html' : decodeURIComponent(pathname));
-  try {
-    const info = await stat(candidate);
-    if (info.isFile()) return candidate;
-  } catch {
-    // SPA fallback below.
-  }
-  return join(distDir, 'index.html');
-}
-
-const server = createServer((request, response) => {
-  const url = new URL(request.url ?? '/', 'http://localhost');
-  void resolveFile(url.pathname).then((file) => {
-    response.writeHead(200, { 'content-type': MIME[extname(file)] ?? 'application/octet-stream' });
-    createReadStream(file).pipe(response);
-  });
+const vite = await createViteServer({
+  root,
+  logLevel: 'error',
+  server: { host: '127.0.0.1', port: 0 },
 });
-await new Promise((done) => server.listen(0, '127.0.0.1', done));
-const { port } = server.address();
-const origin = `http://127.0.0.1:${port}`;
-const route = (path) => `${origin}/#${path}`;
-const demo = buildDemoState();
+await vite.listen();
+const address = vite.httpServer?.address();
+assert.ok(address && typeof address !== 'string', 'development Vite server did not bind');
+const origin = `http://127.0.0.1:${address.port}`;
+const route = (path) => `${origin}/?mock=3#${path}`;
 
 async function assertLoaded(page, selector, expectedFragment, label) {
   const image = page.locator(selector).first();
@@ -65,7 +39,9 @@ async function assertLoaded(page, selector, expectedFragment, label) {
         node.addEventListener('error', () => rejectLoad(new Error('image load failed')), { once: true });
       });
     }
-    if (node.naturalWidth <= 0 || node.naturalHeight <= 0) throw new Error('decoded image has no intrinsic size');
+    if (node.naturalWidth <= 0 || node.naturalHeight <= 0) {
+      throw new Error('decoded image has no intrinsic size');
+    }
   });
   const src = await image.getAttribute('src');
   if (!src?.includes(expectedFragment)) throw new Error(`${label}: wrong source ${src}`);
@@ -76,22 +52,21 @@ const browser = await chromium.launch(launchOptions());
 try {
   const context = await browser.newContext({
     viewport: { width: 412, height: 915 },
-    deviceScaleFactor: 2,
+    deviceScaleFactor: 2.6,
     isMobile: true,
     hasTouch: true,
+    reducedMotion: 'reduce',
   });
-  await context.addInitScript(
-    ([key, state]) => {
-      window.localStorage.clear();
-      window.localStorage.setItem(key, JSON.stringify(state));
-    },
-    [demo.storageKey, demo.state],
-  );
   const page = await context.newPage();
 
-  // Direct detail routes prove every promoted hero resolves before encounter state matters.
+  // Supported development mock mode bypasses Firebase auth without changing
+  // production code, while exercising the same CreatureImage/runtime assets.
+  await page.goto(route('/'), { waitUntil: 'domcontentloaded' });
+  await page.getByText(/A permanent record of 3 dives exploring/).waitFor();
+  assert.equal(await page.getByRole('button', { name: /sign in/i }).count(), 0);
+
   for (const [id] of species) {
-    await page.goto(route(`/collection/${id}`), { waitUntil: 'networkidle' });
+    await page.goto(route(`/collection/${id}`), { waitUntil: 'domcontentloaded' });
     await assertLoaded(
       page,
       `img[data-testid="creature-artwork"][src*="/creatures/${id}/hero.webp"]`,
@@ -100,15 +75,13 @@ try {
     );
   }
 
-  // Exercise the actual logging gallery. Each promoted thumb must decode before selection.
-  await page.goto(route('/log'), { waitUntil: 'networkidle' });
+  await page.goto(route('/log'), { waitUntil: 'domcontentloaded' });
   await page.getByRole('button', { name: 'Cozumel' }).first().click();
   await page.getByLabel('Dive site').fill('Issue 33 Render Check');
   await page.getByRole('button', { name: 'Continue' }).click();
   await page.getByLabel('Max depth').fill('18');
   await page.getByLabel('Duration').fill('42');
   await page.getByRole('button', { name: 'Choose creatures' }).click();
-  await page.waitForTimeout(300);
 
   for (const [id, name] of species) {
     const button = page.getByRole('button', { name: new RegExp(name, 'i') }).first();
@@ -126,7 +99,6 @@ try {
   await page.getByRole('button', { name: 'Make Lionfish the highlight of this dive' }).click();
   await page.getByLabel('Note').fill('Rendered verification for isolated issue 33 art batch.');
   await page.getByRole('button', { name: /Save this memory/ }).click();
-  await page.waitForLoadState('networkidle');
   await assertLoaded(
     page,
     'img[data-testid="creature-artwork"][src*="/creatures/lionfish/hero.webp"]',
@@ -134,8 +106,9 @@ try {
     'Dive highlight lionfish',
   );
 
-  // Collection is encounter-driven: verify galleries only after the real saved dive created encounters.
-  await page.goto(route('/collection'), { waitUntil: 'networkidle' });
+  // Collection is encounter-driven, so confirm galleries after the saved dive
+  // has created real encounters for all six species.
+  await page.goto(`${origin}/#/collection`, { waitUntil: 'domcontentloaded' });
   for (const [id] of species) {
     await assertLoaded(
       page,
@@ -148,7 +121,7 @@ try {
   await context.close();
 } finally {
   await browser.close();
-  server.close();
+  await vite.close();
 }
 
 console.log('[issue33-bcdf] rendered verification passed');
