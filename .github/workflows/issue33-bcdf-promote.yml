@@ -176,11 +176,16 @@ jobs:
               print('[issue33-bcdf] closed', creature_id)
           PY
 
-      - name: Full repository gate
-        run: npm run gate
+      - name: Mount promoted runtime assets in the app
+        run: node apps/web/scripts/sync-assets.mjs
 
       - name: Rendered in-app verification
         run: node tools/issue33_bcdf_verify_render.mjs
+
+      - name: Full repository gate
+        id: gate
+        continue-on-error: true
+        run: npm run gate
 
       - name: Remove temporary verification machinery
         run: rm -f tools/issue33_bcdf_verify_render.mjs .github/workflows/issue33-bcdf-promote.yml
@@ -210,3 +215,9 @@ jobs:
             .github/workflows/issue33-bcdf-promote.yml
           git commit -m 'feat(assets): add isolated #33 art batch'
           git push origin HEAD:feat/33-art-batch-bcdf
+
+      - name: Require the unmodified full repository gate
+        if: steps.gate.outcome != 'success'
+        run: |
+          echo 'Full repository gate remains red on inherited PWA auth smoke; durable art proof was preserved but this batch is not merge-ready.' >&2
+          exit 1
