@@ -1,0 +1,160 @@
+name: Issue 39 validation and promotion
+
+on:
+  push:
+    branches:
+      - feat/39-remake-batch-b
+
+permissions:
+  contents: write
+
+jobs:
+  finalize:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/39-remake-batch-b
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: tools/creature_assets/requirements.txt
+      - run: npm ci
+      - run: python -m pip install -r tools/creature_assets/requirements.txt
+      - run: npx playwright install --with-deps chromium
+      - name: Review metadata and promote v2 candidates to keep
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import hashlib, json
+          from PIL import Image
+
+          catalog_path = Path('assets/source/creatures/catalog.json')
+          catalog = json.loads(catalog_path.read_text())
+          review = {
+              'caribbean-cushion-sea-star': (8.0, 'Replacement v2: reference-guided opaque scene restores the thick inflated five-armed cushion form, broad central disc, robust tapering arms and coarse knobbed/reticulated dorsal texture; the flat generic-star geometry failure is removed.'),
+              'porkfish': (8.3, 'Replacement v2: deep compressed grunt body with yellow overall impression, exactly two dark head bars (through the eye and immediately behind the operculum) and blue/yellow longitudinal striping; generic broad-bar grunt treatment is removed.'),
+              'queen-conch': (8.2, 'Replacement v2: adult heavy weathered shell with broad flared pink/orange lip plus visible living eyestalks and proboscis; the shell-only souvenir presentation failure is removed.'),
+              'caribbean-reef-octopus': (8.0, 'Replacement v2: eight long arms, loose webbing, paired sucker rows visible on foreground arms, dark reddish-brown eyes and a green/blue skin state with red-brown mottling; avoids a generic studio red/brown octopus presentation.'),
+          }
+          assets = {entry['id']: entry for entry in catalog['assets']}
+          for creature_id, (score, note) in review.items():
+              path = Path('assets/source/creatures') / creature_id / 'candidate-v2.webp'
+              data = path.read_bytes()
+              with Image.open(path) as image:
+                  assert image.size == (1024, 1024), (creature_id, image.size)
+                  assert image.format == 'WEBP', (creature_id, image.format)
+              entry = assets[creature_id]
+              entry.update({
+                  'path': path.as_posix(),
+                  'score': score,
+                  'status': 'keep',
+                  'identity': 'high',
+                  'ingestMode': 'opaque-scene',
+                  'qaNote': note,
+                  'bytes': len(data),
+                  'sha256': hashlib.sha256(data).hexdigest(),
+              })
+              print(creature_id, len(data), entry['sha256'])
+          catalog['updatedOn'] = '2026-09-14'
+          catalog['summary'] = {
+              'total': len(catalog['assets']),
+              'keep': sum(a['status'] == 'keep' for a in catalog['assets']),
+              'provisional': sum(a['status'] == 'provisional' for a in catalog['assets']),
+              'remake': sum(a['status'] == 'remake' for a in catalog['assets']),
+          }
+          assert catalog['summary'] == {'total': 30, 'keep': 30, 'provisional': 0, 'remake': 0}
+          catalog_path.write_text(json.dumps(catalog, indent=2) + '\n')
+          PY
+          python -m tools.creature_assets validate-source
+          for id in caribbean-cushion-sea-star porkfish queen-conch caribbean-reef-octopus; do
+            python -m tools.creature_assets promote-source --candidate "$id" --force
+          done
+          python -m tools.creature_assets validate --root assets/creatures
+      - name: Reconcile durable asset documentation
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          def replace(path, old, new):
+              p = Path(path)
+              s = p.read_text()
+              if old not in s:
+                  raise SystemExit(f'expected text not found in {path}: {old[:80]!r}')
+              p.write_text(s.replace(old, new))
+
+          replace('docs/CREATURE_ASSET_LIBRARY.md', 'Last updated: **2026-09-12**', 'Last updated: **2026-09-14**')
+          replace('docs/CREATURE_ASSET_LIBRARY.md', '- **26 keep**;\n- **0 provisional**;\n- **4 remake**.', '- **30 keep**;\n- **0 provisional**;\n- **0 remake**.')
+          replace('docs/CREATURE_ASSET_LIBRARY.md', '- **26** mapped candidates are `keep` and are live as canonical runtime HD artwork;\n- **4** mapped candidates are `remake` and remain hard-blocked;', '- **30** mapped candidates are `keep` and are live as canonical runtime HD artwork;\n- **0** mapped candidates remain blocked for remake;')
+          replace('docs/CREATURE_ASSET_LIBRARY.md', '- **4** biological remakes were completed by #38 / PR #42 and promoted through the guarded pipeline: spotted eagle ray, spotted trunkfish, Atlantic blue tang and Spanish hogfish;\n- therefore **all 26 current `keep` catalog entries are live**;\n- the four remaining `remake` entries retain correct fallback/runtime art until reviewed replacement source binaries exist.', '- **4** biological remakes were completed by #38 / PR #42 and promoted through the guarded pipeline: spotted eagle ray, spotted trunkfish, Atlantic blue tang and Spanish hogfish;\n- the final **4** biological remakes were completed by #39 and promoted through the same guarded pipeline: Caribbean cushion sea star, porkfish, queen conch and Caribbean reef octopus;\n- therefore **all 30 original-batch catalog entries are `keep` and live** as canonical runtime HD artwork.')
+          replace('docs/CREATURE_ASSET_LIBRARY.md', '| Caribbean cushion sea star | `caribbean-cushion-sea-star` | `Oreaster reticulatus` | Added sourced content record; artwork remains `remake`. |', '| Caribbean cushion sea star | `caribbean-cushion-sea-star` | `Oreaster reticulatus` | Added sourced content record; reviewed v2 is `keep` and promoted. |')
+          replace('docs/CREATURE_ASSET_LIBRARY.md', '| Queen conch | `queen-conch` | `Aliger gigas` | Added sourced content record using current accepted taxonomy; artwork remains `remake`. |', '| Queen conch | `queen-conch` | `Aliger gigas` | Added sourced content record using current accepted taxonomy; reviewed v2 is `keep` and promoted. |')
+          old = '''## Remaining blocked remakes — #39\n\n| Target | Biological QA requirement |\n| --- | --- |\n| Caribbean cushion sea star | Thick, inflated arms and cushion-like `Oreaster reticulatus` form. |\n| Porkfish | Characteristic two dark bars plus yellow/silvery-blue striping; reject generic broad-bar grunt treatments. |\n| Queen conch | Show visible living-animal anatomy including eyestalks/proboscis, not only a shell. |\n| Caribbean reef octopus | Must carry useful `Octopus briareus` identity rather than read as a generic octopus. |\n\nReplacement work creates new immutable candidate revisions. It never overwrites `candidate-v1.webp`.'''
+          new = '''## Completed remake batch B — #39\n\n| Target | Accepted replacement |\n| --- | --- |\n| Caribbean cushion sea star | Thick inflated five-arm `Oreaster reticulatus` cushion form, broad disc and coarse knobbed/reticulated texture restored in immutable v2; promoted. |\n| Porkfish | Deep compressed yellow grunt with exactly two dark head bars and blue/yellow longitudinal striping restored in immutable v2; promoted. |\n| Queen conch | Adult flared shell plus visible living eyestalks/proboscis restored in immutable v2; promoted. |\n| Caribbean reef octopus | Eight long arms, loose webbing, visible paired suckers, dark eyes and green/blue with red-brown mottling restored in immutable v2; promoted. |\n\nOriginal `candidate-v1.webp` binaries remain immutable and retained alongside the accepted v2 revisions.'''
+          replace('docs/CREATURE_ASSET_LIBRARY.md', old, new)
+          replace('docs/CREATURE_ASSET_LIBRARY.md', '1. **#39 / #31:** ingest, review and promote the four remaining biological remakes.\n2. **#33:** generate, review, ingest and promote the 26 current content creatures with no HD source candidate, using the locked diagnostic matrix.\n3. **#34:** only after HD source coverage is stable, batch-remove backgrounds into transparent raster specimen revisions; preserve opaque originals and manually QA difficult alpha edges.', '1. **#33:** generate, review, ingest and promote the 26 current content creatures with no HD source candidate, using the locked diagnostic matrix.\n2. **#34:** only after HD source coverage is stable, batch-remove backgrounds into transparent raster specimen revisions; preserve opaque originals and manually QA difficult alpha edges.')
+
+          replace('docs/CONTENT_AND_ASSETS.md', 'Current implementation status is tracked in `docs/PROJECT_STATUS.md`. The Mexican Caribbean starter content pack is implemented. #11/#12/PR #13 produced and reviewed the original HD source-art library; #30 and #31 have now promoted all 22 approved `keep` candidates into canonical runtime artwork. #31 owns only the eight original-batch biological remakes; #33 owns complete HD coverage; #34 owns the later transparent-background derivation pass.', 'Current implementation status is tracked in `docs/PROJECT_STATUS.md`. The Mexican Caribbean starter content pack is implemented. #11/#12/PR #13 produced and reviewed the original HD source-art library; #30/#31/#38/#39 have now resolved and promoted all 30 original-batch candidates into canonical runtime artwork. #33 owns complete HD coverage for the remaining 26 content creatures; #34 owns the later transparent-background derivation pass.')
+          replace('docs/CONTENT_AND_ASSETS.md', 'The original source batch is exactly **30 candidates: 22 keep / 0 provisional / 8 remake**. All 30 have deliberate content mappings and all 22 `keep` candidates are now promoted. Mapping does not override `remake` status.', 'The original source batch is exactly **30 mapped candidates** and now stands at **30 keep / 0 provisional / 0 remake** after the two reviewed remake batches. All 30 are promoted. Original v1 source binaries remain immutable; accepted replacements use later candidate revisions.')
+          old = '''1. **#30 — complete:** 18 already-mapped `keep` candidates from the original batch were promoted as approved HD runtime artwork.\n2. **#31 — active:** PR #35 resolved the six former source-only content mappings; PR #36 promoted the four newly mapped `keep` candidates. All **22** original-batch `keep` candidates are now live. #31 now contains only the **8 biological `remake` candidates**: replace, re-review and promote only accepted replacements.\n3. **#33 — queued after #31:** create and promote HD source art for the exact 26 content creatures that still have no HD candidate.\n4. **#34 — queued after #33:** batch-remove backgrounds from the stable approved HD library to create transparent raster specimen revisions where useful. Preserve every opaque original and do not auto-vectorize.\n\nCurrent counts are **56 content records**, **30 mapped original HD source candidates**, **22 approved/live original-batch HD assets**, **8 blocked original-batch remakes**, and **26 content records with no HD source candidate**.'''
+          new = '''1. **#30 — complete:** initial mapped `keep` candidates promoted.\n2. **#31 — complete:** all 30 original source entries mapped and the full original batch finished; #38 and #39 supplied immutable reviewed v2 replacements for the eight biological remakes.\n3. **#33 — next:** create and promote HD source art for the exact 26 content creatures that still have no HD candidate.\n4. **#34 — queued after #33:** batch-remove backgrounds from the stable approved HD library to create transparent raster specimen revisions where useful. Preserve every opaque original and do not auto-vectorize.\n\nCurrent counts are **56 content records**, **30 mapped original HD source candidates**, **30 approved/live original-batch HD assets**, **0 blocked original-batch remakes**, and **26 content records with no HD source candidate**.'''
+          replace('docs/CONTENT_AND_ASSETS.md', old, new)
+
+          replace('assets/source/creatures/README.md', 'The first generated library is the 2026-09-07 `poseidon-sunlit-square-v1` batch: 30 normalized 1024×1024 opaque WebP scenes, with the editorial ledger unchanged at **17 keep / 6 provisional / 7 remake**.', 'The original 2026-09-07 `poseidon-sunlit-square-v1` library has 30 mapped 1024×1024 opaque-scene entries. After focused QA and immutable replacement revisions, the current editorial ledger is **30 keep / 0 provisional / 0 remake**. Four entries from #38 and four from #39 use accepted `candidate-v2.webp` revisions; every original `candidate-v1.webp` remains immutable on disk.')
+
+          p = Path('docs/PROJECT_STATUS.md')
+          s = p.read_text()
+          s = s.replace('- editorial state: **26 keep / 0 provisional / 4 remake**;\n- all **26 `keep` entries promoted and live** as canonical runtime HD artwork;\n- the **4 remaining `remake` entries** retain valid fallback/runtime art;\n- **26 content species** still have no HD source candidate; #33 owns that exact queue.', '- editorial state: **30 keep / 0 provisional / 0 remake**;\n- all **30 original-batch entries are promoted and live** as canonical runtime HD artwork;\n- **26 content species** still have no HD source candidate; #33 owns that exact queue.')
+          start = s.index('Original source revisions are immutable. #38 / PR #42')
+          end_marker = 'Issue #39 owns that final remake batch.\n'
+          end = s.index(end_marker, start) + len(end_marker)
+          s = s[:start] + 'Original source revisions remain immutable. #38 / PR #42 supplied and promoted four accepted v2 replacements (spotted eagle ray, spotted trunkfish, Atlantic blue tang and Spanish hogfish). #39 completed the final four immutable v2 replacements (Caribbean cushion sea star, porkfish, queen conch and Caribbean reef octopus). The original 30-entry batch is now **30/30 keep and live**, with no remaining remake state.\n' + s[end:]
+          old_active = '''### #39 / #31 — finish the original HD creature batch\n\nFour biological remakes remain. Each accepted replacement must be a new immutable source revision, pass species-specific biological/style QA, become `keep`, then move through the existing guarded runtime promotion path.\n\n'''
+          if old_active not in s:
+              raise SystemExit('PROJECT_STATUS active #39 block not found')
+          s = s.replace(old_active, '')
+          anchor = '### #38 — remake batch A — complete\n\nPR #42 replaced and promoted spotted eagle ray, spotted trunkfish, Atlantic blue tang and Spanish hogfish. Source/runtime validation and the full repository gate were green.\n\n'
+          if anchor not in s:
+              raise SystemExit('PROJECT_STATUS #38 anchor not found')
+          s = s.replace(anchor, anchor + '### #39 / #31 — original HD creature batch — complete\n\nThe final Caribbean cushion sea star, porkfish, queen conch and Caribbean reef octopus remakes now use reviewed immutable v2 sources, are `keep`, and are promoted through the guarded runtime pipeline. The original 30-entry source batch is fully resolved at **30 keep / 0 provisional / 0 remake**.\n\n')
+          s = s.replace('1. finish #39 / close #31;\n2. complete #33 HD source coverage;\n3. execute #34 transparent-background derivative pass;\n4. perform/record #14 physical Pixel acceptance when desired;\n5. close parent/status items as appropriate.', '1. complete #33 HD source coverage;\n2. execute #34 transparent-background derivative pass;\n3. perform/record #14 physical Pixel acceptance when desired;\n4. close parent/status items as appropriate.')
+          p.write_text(s)
+          PY
+      - name: Verify #39 runtime closure
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          ids = ['caribbean-cushion-sea-star','porkfish','queen-conch','caribbean-reef-octopus']
+          for creature_id in ids:
+              root = Path('assets/creatures') / creature_id
+              manifest = json.loads((root / 'manifest.json').read_text())
+              for filename in ('thumb.webp','gallery.webp','hero.webp'):
+                  assert (root / filename).is_file(), (creature_id, filename)
+              print(creature_id, manifest.get('status'), manifest.get('source'))
+          PY
+      - name: Full repository gate
+        env:
+          POSEIDON_BASE_PATH: /poseidon/
+          VITE_FIREBASE_API_KEY: ${{ secrets.VITE_FIREBASE_API_KEY }}
+          VITE_FIREBASE_AUTH_DOMAIN: ${{ secrets.VITE_FIREBASE_AUTH_DOMAIN }}
+          VITE_FIREBASE_PROJECT_ID: ${{ secrets.VITE_FIREBASE_PROJECT_ID }}
+          VITE_FIREBASE_STORAGE_BUCKET: ${{ secrets.VITE_FIREBASE_STORAGE_BUCKET }}
+          VITE_FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.VITE_FIREBASE_MESSAGING_SENDER_ID }}
+          VITE_FIREBASE_APP_ID: ${{ secrets.VITE_FIREBASE_APP_ID }}
+        run: npm run gate
+      - name: Remove temporary workflow and commit final #39 state
+        run: |
+          rm .github/workflows/issue39-finalize.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add assets/source/creatures assets/creatures docs/CREATURE_ASSET_LIBRARY.md docs/CONTENT_AND_ASSETS.md docs/PROJECT_STATUS.md .github/workflows/issue39-finalize.yml
+          git commit -m 'feat(assets): complete #39 remake batch B'
+          git push origin HEAD:feat/39-remake-batch-b
