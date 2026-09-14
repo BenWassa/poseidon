@@ -1,0 +1,71 @@
+name: Reconcile #33 ADPY batch
+
+on:
+  push:
+    branches:
+      - feat/33-art-batch-adpy
+
+permissions:
+  contents: write
+
+jobs:
+  reconcile:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/33-art-batch-adpy
+          fetch-depth: 0
+      - name: Merge current main and union source catalog
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git fetch origin main
+          set +e
+          git merge --no-commit --no-ff origin/main
+          merge_status=$?
+          set -e
+          if [ "$merge_status" -ne 0 ]; then
+            conflicts="$(git diff --name-only --diff-filter=U)"
+            if [ "$conflicts" != "assets/source/creatures/catalog.json" ]; then
+              echo "Unexpected conflicts:"
+              printf '%s\n' "$conflicts"
+              exit 1
+            fi
+            git show :2:assets/source/creatures/catalog.json > /tmp/ours.json
+            git show :3:assets/source/creatures/catalog.json > /tmp/main.json
+            python - <<'PY'
+          import json
+          from pathlib import Path
+
+          ours = json.loads(Path('/tmp/ours.json').read_text())
+          main = json.loads(Path('/tmp/main.json').read_text())
+          merged = main
+          existing = {a['id']: a for a in merged['assets']}
+          for asset in ours['assets']:
+              current = existing.get(asset['id'])
+              if current is None:
+                  merged['assets'].append(asset)
+                  existing[asset['id']] = asset
+              elif current != asset:
+                  # Existing original entries should be identical. New disjoint batch IDs are appended above.
+                  raise SystemExit(f"catalog entry collision for {asset['id']}")
+          merged['updatedOn'] = max(str(main.get('updatedOn','')), str(ours.get('updatedOn','')))
+          merged['summary'] = {
+              'total': len(merged['assets']),
+              'keep': sum(a.get('status') == 'keep' for a in merged['assets']),
+              'provisional': sum(a.get('status') == 'provisional' for a in merged['assets']),
+              'remake': sum(a.get('status') == 'remake' for a in merged['assets']),
+          }
+          Path('assets/source/creatures/catalog.json').write_text(json.dumps(merged, indent=2) + '\n')
+          print('merged summary', merged['summary'])
+          PY
+            git add assets/source/creatures/catalog.json
+          fi
+          rm .github/workflows/reconcile-33-adpy.yml
+          git add -A
+          git commit -m 'chore: reconcile #33 ADPY batch onto current main'
+          git push origin HEAD:feat/33-art-batch-adpy
