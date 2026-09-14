@@ -1,6 +1,6 @@
 # Poseidon — current project status
 
-Last reconciled: **2026-09-12**
+Last reconciled: **2026-09-14**
 
 This is the living programme-status companion to the durable product contracts. It records current implementation and remaining work; it does not replace `PRODUCT.md` or `docs/PRD.md`.
 
@@ -8,7 +8,7 @@ This is the living programme-status companion to the durable product contracts. 
 
 Current `main` authority at this reconciliation is:
 
-`da305c06b76c0c2d26a2dcd5521ab0fbe79d1eba`
+`63a601a36c0d92a11dfea2c1239c4866daed16ae`
 
 Poseidon is a deployed React/Vite/TypeScript PWA with Firebase-backed approved-user persistence, local/offline shadow persistence, canonical marine content and a guarded creature-asset pipeline.
 
@@ -126,9 +126,9 @@ Generate, QA, ingest and promote the exact 26 content species with no HD source 
 
 Only after HD source coverage is stable, batch-remove backgrounds from approved opaque masters into versioned transparent raster specimen revisions. Preserve original masters and manually QA fins, antennae, spines, tentacles, translucent margins and other high-risk edges. Do not auto-trace creature illustrations to SVG.
 
-### #26 — versioning/release system
+### #26 — versioning/release system — complete
 
-Root/package version synchronization, embedded product/Git SHA, `CHANGELOG.md`, Release Please configuration and workflow are in place. The deliberate bootstrap release remains owner-controlled.
+Root/package version synchronization, embedded product/Git SHA, `CHANGELOG.md`, Release Please configuration and workflow are in place. The first named release, **Poseidon 0.1.0**, was published on 2026-09-13 from `63a601a`. Release Please uses the component-aware tag `poseidon-v0.1.0`; future named releases follow the same convention.
 
 ### #14 — owner-device Pixel acceptance
 
@@ -140,8 +140,7 @@ Engineering/deployment acceptance is automated. Keep #14 open until physical Pix
 2. complete #33 HD source coverage;
 3. execute #34 transparent-background derivative pass;
 4. perform/record #14 physical Pixel acceptance when desired;
-5. close parent/status items as appropriate;
-6. cut the deliberate bootstrap release when the product state is ready.
+5. close parent/status items as appropriate.
 
 ## Durable boundaries
 

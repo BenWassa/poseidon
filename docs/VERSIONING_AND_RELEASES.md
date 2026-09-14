@@ -2,7 +2,7 @@
 
 Issue authority: [#26 — Versioning & release system: SemVer, build identity, changelog and GitHub Releases](https://github.com/BenWassa/poseidon/issues/26)
 
-Status: **infrastructure implemented; bootstrap release pending** (see `docs/PROJECT_STATUS.md`)
+Status: **implemented and bootstrapped**. The first named release, Poseidon 0.1.0, was published on 2026-09-13 from `63a601a`.
 
 This document defines the intended versioning and release model for Poseidon. It is deliberately separate from persistence/export schema versioning, asset schema versioning and deployment mechanics.
 
@@ -35,10 +35,10 @@ Example:
 0.3.0
 ```
 
-The corresponding Git tag and GitHub Release are:
+Release Please uses the repository component name in the corresponding Git tag:
 
 ```text
-v0.3.0
+poseidon-v0.3.0
 ```
 
 ### Build revision
@@ -72,7 +72,7 @@ The current repository deploys `main` continuously. A deployment therefore does 
 An intentional named checkpoint consisting of:
 
 - a SemVer product version;
-- an immutable `vX.Y.Z` Git tag;
+- an immutable `poseidon-vX.Y.Z` Git tag;
 - a GitHub Release;
 - a changelog entry;
 - one exact source revision.
@@ -375,7 +375,7 @@ Expected lifecycle:
 2. Release Please evaluates release-relevant merged commits;
 3. it maintains a release PR proposing the next version and changelog;
 4. the release PR is reviewed like normal source changes;
-5. merging the release PR creates the `vX.Y.Z` tag and GitHub Release;
+5. merging the release PR creates the `poseidon-vX.Y.Z` tag and GitHub Release;
 6. the release points to one immutable source revision.
 
 This avoids a bespoke release database or opaque custom script.
@@ -388,25 +388,18 @@ The repository policy above remains authority until the owner explicitly chooses
 
 ## Release bootstrap
 
-Poseidon has no existing GitHub Releases at the time this policy is written.
-
-Bootstrap rules:
-
-1. Land #26 release/versioning infrastructure without creating a tag as an incidental CI side effect.
-2. Keep `0.1.0` as the starting declared product version unless implementation discovers a concrete technical conflict.
-3. Establish one known-green baseline after the infrastructure is merged.
-4. Create the first `v0.1.0` GitHub Release intentionally from that baseline.
-5. Do not create fictional historical `v0.x.y` tags for older commits.
-6. Future releases follow the release-PR flow.
+Bootstrap completed on **2026-09-13**. Release Please created the first named release, **Poseidon 0.1.0**, from commit `63a601a36c0d92a11dfea2c1239c4866daed16ae`. The published tag is `poseidon-v0.1.0`, matching Release Please's component-aware repository convention. No fictional historical releases were created. Future releases follow the same reviewable release-PR flow.
 
 ## Git tag and GitHub Release rules
 
 For every named release:
 
 ```text
-tag: vX.Y.Z
-release title: Poseidon vX.Y.Z
+tag: poseidon-vX.Y.Z
+release title: poseidon: vX.Y.Z
 ```
+
+The product version remains plain SemVer (`X.Y.Z`); the `poseidon-` prefix is repository release metadata, not part of the product version.
 
 Rules:
 
@@ -513,4 +506,4 @@ If a native wrapper is added later, platform-specific build/version integers sho
 - release automation does not publish on ordinary CI by accident;
 - existing PWA/update/offline/auth/persistence behavior is preserved;
 - `npm run gate` passes;
-- the initial release is intentionally bootstrapped rather than retroactively fabricated.
+- the initial release was intentionally bootstrapped rather than retroactively fabricated.
