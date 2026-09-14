@@ -89,16 +89,7 @@ try {
   );
   const page = await context.newPage();
 
-  await page.goto(route('/collection'), { waitUntil: 'networkidle' });
-  for (const [id] of species) {
-    await assertLoaded(
-      page,
-      `img[data-testid="creature-artwork"][src*="/creatures/${id}/gallery.webp"]`,
-      `/creatures/${id}/gallery.webp`,
-      `Collection ${id}`,
-    );
-  }
-
+  // Direct detail routes prove every promoted hero resolves before encounter state matters.
   for (const [id] of species) {
     await page.goto(route(`/collection/${id}`), { waitUntil: 'networkidle' });
     await assertLoaded(
@@ -109,6 +100,7 @@ try {
     );
   }
 
+  // Exercise the actual logging gallery. Each promoted thumb must decode before selection.
   await page.goto(route('/log'), { waitUntil: 'networkidle' });
   await page.getByRole('button', { name: 'Cozumel' }).first().click();
   await page.getByLabel('Dive site').fill('Issue 33 Render Check');
@@ -142,6 +134,17 @@ try {
     'Dive highlight lionfish',
   );
 
+  // Collection is encounter-driven: verify galleries only after the real saved dive created encounters.
+  await page.goto(route('/collection'), { waitUntil: 'networkidle' });
+  for (const [id] of species) {
+    await assertLoaded(
+      page,
+      `img[data-testid="creature-artwork"][src*="/creatures/${id}/gallery.webp"]`,
+      `/creatures/${id}/gallery.webp`,
+      `Collection ${id}`,
+    );
+  }
+
   await context.close();
 } finally {
   await browser.close();
@@ -149,4 +152,3 @@ try {
 }
 
 console.log('[issue33-bcdf] rendered verification passed');
-// Trigger after the validation workflow exists on the branch.
