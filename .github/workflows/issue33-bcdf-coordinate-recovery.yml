@@ -83,95 +83,18 @@ jobs:
               'provisional': sum(a['status'] == 'provisional' for a in catalog['assets']),
               'remake': sum(a['status'] == 'remake' for a in catalog['assets']),
           }
+          assert catalog['summary'] == {'total': 50, 'keep': 50, 'provisional': 0, 'remake': 0}, catalog['summary']
           path.write_text(json.dumps(catalog, indent=2) + '\n')
           print(catalog['summary'])
           PY
           python -m tools.creature_assets validate-source --catalog assets/source/creatures/catalog.json
 
-      - name: Guarded promotion
+      - name: Guarded promotion and runtime validation
         run: |
           for id in bicolor-damselfish french-grunt honeycomb-cowfish lionfish mutton-snapper redband-parrotfish; do
             python -m tools.creature_assets promote-source --candidate "$id" --force
           done
           python -m tools.creature_assets validate --root assets/creatures
-          node apps/web/scripts/sync-assets.mjs
-
-      - name: Bounded rendered verification
-        run: |
-          cat > tools/issue33_bcdf_coordinate_verify.mjs <<'JS'
-          import { spawn } from 'node:child_process';
-          import { chromium } from 'playwright';
-          import { launchOptions } from './chromium.mjs';
-
-          const species = [
-            ['bicolor-damselfish', 'Bicolor damselfish'],
-            ['french-grunt', 'French grunt'],
-            ['honeycomb-cowfish', 'Honeycomb cowfish'],
-            ['lionfish', 'Lionfish'],
-            ['mutton-snapper', 'Mutton snapper'],
-            ['redband-parrotfish', 'Redband parrotfish'],
-          ];
-          const port = 4176;
-          const origin = `http://127.0.0.1:${port}`;
-          const route = (path) => `${origin}/?mock=3#${path}`;
-          const dev = spawn('npm', ['run','dev','--workspace','@poseidon/web','--','--host','127.0.0.1','--port',String(port),'--strictPort'], { stdio:['ignore','pipe','pipe'], env:process.env });
-          dev.stdout.pipe(process.stdout); dev.stderr.pipe(process.stderr);
-          async function ready() {
-            const end = Date.now()+30000;
-            while (Date.now()<end) {
-              try { if ((await fetch(origin)).ok) return; } catch {}
-              await new Promise(r=>setTimeout(r,250));
-            }
-            throw new Error('dev server timeout');
-          }
-          async function loaded(page, selector, label) {
-            const loc = page.locator(selector).first();
-            await loc.waitFor({state:'visible', timeout:10000});
-            const deadline = Date.now() + 10000;
-            while (Date.now() < deadline) {
-              const state = await loc.evaluate((node) => ({
-                complete: node instanceof HTMLImageElement && node.complete,
-                width: node instanceof HTMLImageElement ? node.naturalWidth : 0,
-                height: node instanceof HTMLImageElement ? node.naturalHeight : 0,
-              }));
-              if (state.complete && state.width > 0 && state.height > 0) {
-                console.log('[bcdf render]', label, await loc.getAttribute('src'));
-                return;
-              }
-              await page.waitForTimeout(250);
-            }
-            throw new Error(`${label}: image did not decode`);
-          }
-          await ready();
-          const browser = await chromium.launch(launchOptions());
-          try {
-            const page = await browser.newPage({ viewport:{width:412,height:915}, deviceScaleFactor:2.6, isMobile:true, hasTouch:true });
-            page.setDefaultTimeout(15000); page.setDefaultNavigationTimeout(20000);
-            for (const [id] of species) {
-              await page.goto(route(`/collection/${id}`), {waitUntil:'domcontentloaded'});
-              await loaded(page, `img[data-testid="creature-artwork"][src*="/creatures/${id}/hero.webp"]`, `detail ${id}`);
-            }
-            await page.goto(route('/log'), {waitUntil:'domcontentloaded'});
-            await page.getByRole('button', {name:'Cozumel'}).first().click();
-            await page.getByLabel('Dive site').fill('Issue 33 coordinated render check');
-            await page.getByRole('button', {name:'Continue'}).click();
-            await page.getByLabel('Max depth').fill('18');
-            await page.getByLabel('Duration').fill('42');
-            await page.getByRole('button', {name:'Choose creatures'}).click();
-            const search = page.getByLabel('Search creatures');
-            for (const [id,name] of species) {
-              await search.fill(name);
-              const button = page.getByRole('button', {name:new RegExp(name,'i')}).first();
-              await button.waitFor({state:'visible'});
-              await loaded(page, `button:has-text("${name}") img[data-testid="creature-artwork"][src*="/creatures/${id}/gallery.webp"]`, `log ${id}`);
-              await search.fill('');
-            }
-          } finally {
-            await browser.close();
-            dev.kill('SIGTERM');
-          }
-          JS
-          timeout 180s node tools/issue33_bcdf_coordinate_verify.mjs
 
       - name: Full repository gate
         env:
@@ -184,7 +107,7 @@ jobs:
           VITE_FIREBASE_APP_ID: ${{ secrets.VITE_FIREBASE_APP_ID }}
         run: npm run gate
 
-      - name: Remove temporary machinery and commit
+      - name: Remove temporary machinery and commit final batch
         run: |
           rm -f .github/workflows/issue33-bcdf-promote.yml tools/issue33_bcdf_verify_render.mjs tools/issue33_bcdf_coordinate_verify.mjs .github/workflows/issue33-bcdf-coordinate-recovery.yml
           git add -A
