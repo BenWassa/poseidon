@@ -5,8 +5,8 @@
   "updatedOn": "2026-09-14",
   "binaryImportStatus": "complete",
   "summary": {
-    "total": 30,
-    "keep": 30,
+    "total": 37,
+    "keep": 37,
     "provisional": 0,
     "remake": 0
   },
@@ -413,6 +413,146 @@
       "qaNote": "Good rounded head and smoother shell distinguish it from hawksbill.",
       "bytes": 114930,
       "sha256": "69b1eea63f853cf9afd9dd226040244e5b0d3cbcbe85a87d7e5e8ac7d0a09cbb"
+    },
+    {
+      "id": "balloonfish",
+      "creatureId": "balloonfish",
+      "name": "Balloonfish",
+      "scientificName": "Diodon holocanthus",
+      "path": "assets/source/creatures/balloonfish/candidate-v1.webp",
+      "score": 8.1,
+      "status": "keep",
+      "identity": "high",
+      "ingestMode": "opaque-scene",
+      "qaNote": "Accepted at full and card scale: robust inflated porcupinefish form; numerous long erectile spines longer than the eye; dark eye bar; broad dark body blotches with sparse spots; unspotted fins and no spines on the tail base.",
+      "bytes": 48750,
+      "sha256": "1ca90a9fe951d98df678f1880cde06a74c82c8d0c7ceb489e573e1e0f2d85aad",
+      "provenance": {
+        "generator": "ChatGPT assisted vector generation",
+        "generatedOn": "2026-09-14",
+        "batch": "issue-33-isolated-art-batch-adpy",
+        "styleFamily": "poseidon-sunlit-square-v1"
+      }
+    },
+    {
+      "id": "black-grouper",
+      "creatureId": "black-grouper",
+      "name": "Black grouper",
+      "scientificName": "Mycteroperca bonaci",
+      "path": "assets/source/creatures/black-grouper/candidate-v1.webp",
+      "score": 8.0,
+      "status": "keep",
+      "identity": "high",
+      "ingestMode": "opaque-scene",
+      "qaNote": "Accepted at full and card scale: robust grouper form with rectangular dark-grey flank blotches and black outer thirds on second dorsal, anal and caudal fins; avoids uniform-black and Nassau-grouper bar treatments.",
+      "bytes": 33608,
+      "sha256": "0585564cc8674c3c39b80d25b97a541ee856921bdaf94b13a74740d591a27658",
+      "provenance": {
+        "generator": "ChatGPT assisted vector generation",
+        "generatedOn": "2026-09-14",
+        "batch": "issue-33-isolated-art-batch-adpy",
+        "styleFamily": "poseidon-sunlit-square-v1"
+      }
+    },
+    {
+      "id": "doctorfish",
+      "creatureId": "doctorfish",
+      "name": "Doctorfish",
+      "scientificName": "Acanthurus chirurgus",
+      "path": "assets/source/creatures/doctorfish/candidate-v1.webp",
+      "score": 8.2,
+      "status": "keep",
+      "identity": "high",
+      "ingestMode": "opaque-scene",
+      "qaNote": "Accepted at full and card scale: grey-brown compressed surgeonfish body with ten long thin dark vertical bars and a blunt, nearly straight/slightly concave tail without a narrow white rear edge.",
+      "bytes": 34524,
+      "sha256": "d50bc55854b1e958e17efaa0badf66b77972058bbe6f88c9efcd0cd1b88f5b83",
+      "provenance": {
+        "generator": "ChatGPT assisted vector generation",
+        "generatedOn": "2026-09-14",
+        "batch": "issue-33-isolated-art-batch-adpy",
+        "styleFamily": "poseidon-sunlit-square-v1"
+      }
+    },
+    {
+      "id": "foureye-butterflyfish",
+      "creatureId": "foureye-butterflyfish",
+      "name": "Foureye butterflyfish",
+      "scientificName": "Chaetodon capistratus",
+      "path": "assets/source/creatures/foureye-butterflyfish/candidate-v1.webp",
+      "score": 8.3,
+      "status": "keep",
+      "identity": "high",
+      "ingestMode": "opaque-scene",
+      "qaNote": "Accepted at full and card scale: cream disc-like butterflyfish with thin chevron flank lines, short pointed snout and one large rear ocellus below the dorsal; distinct from banded butterflyfish.",
+      "bytes": 42176,
+      "sha256": "5c63cf502f9a3121666cc994606ad2d5dd748f4205d9dee1c243b68e6458d811",
+      "provenance": {
+        "generator": "ChatGPT assisted vector generation",
+        "generatedOn": "2026-09-14",
+        "batch": "issue-33-isolated-art-batch-adpy",
+        "styleFamily": "poseidon-sunlit-square-v1"
+      }
+    },
+    {
+      "id": "princess-parrotfish",
+      "creatureId": "princess-parrotfish",
+      "name": "Princess parrotfish",
+      "scientificName": "Scarus taeniopterus",
+      "path": "assets/source/creatures/princess-parrotfish/candidate-v1.webp",
+      "score": 7.9,
+      "status": "keep",
+      "identity": "high",
+      "ingestMode": "opaque-scene",
+      "qaNote": "Accepted terminal-phase treatment at full and card scale: blue chest, blue dorsal with pink centre, pink upper/lower tail edges and yellow stripe above the pectoral; avoids a generic green parrotfish presentation.",
+      "bytes": 33244,
+      "sha256": "5e7f57ff00f0c971b97e5a956dc0e86b60297fc42ecb3e089cd4547be1a3fa38",
+      "provenance": {
+        "generator": "ChatGPT assisted vector generation",
+        "generatedOn": "2026-09-14",
+        "batch": "issue-33-isolated-art-batch-adpy",
+        "styleFamily": "poseidon-sunlit-square-v1"
+      }
+    },
+    {
+      "id": "spotted-moray",
+      "creatureId": "spotted-moray",
+      "name": "Spotted moray",
+      "scientificName": "Gymnothorax moringa",
+      "path": "assets/source/creatures/spotted-moray/candidate-v1.webp",
+      "score": 8.2,
+      "status": "keep",
+      "identity": "high",
+      "ingestMode": "opaque-scene",
+      "qaNote": "Accepted at full and card scale: eel-like pale yellow/cream body with many distinct small round dark brown spots; avoids green-moray colour and large irregular blotches.",
+      "bytes": 41876,
+      "sha256": "2697d4ede69ada17acc73ef00a487ae5ffca05ab66127202035754150f90bf89",
+      "provenance": {
+        "generator": "ChatGPT assisted vector generation",
+        "generatedOn": "2026-09-14",
+        "batch": "issue-33-isolated-art-batch-adpy",
+        "styleFamily": "poseidon-sunlit-square-v1"
+      }
+    },
+    {
+      "id": "yellowtail-damselfish",
+      "creatureId": "yellowtail-damselfish",
+      "name": "Yellowtail damselfish",
+      "scientificName": "Microspathodon chrysurus",
+      "path": "assets/source/creatures/yellowtail-damselfish/candidate-v1.webp",
+      "score": 8.2,
+      "status": "keep",
+      "identity": "high",
+      "ingestMode": "opaque-scene",
+      "qaNote": "Accepted adult treatment at full and card scale: deep robust brown damselfish body, bright yellow caudal fin and blue spots concentrated on the upper body.",
+      "bytes": 35894,
+      "sha256": "413edefd98528854536d2529d0bb30072e51706d3db633b5e3b3312ae7943fc6",
+      "provenance": {
+        "generator": "ChatGPT assisted vector generation",
+        "generatedOn": "2026-09-14",
+        "batch": "issue-33-isolated-art-batch-adpy",
+        "styleFamily": "poseidon-sunlit-square-v1"
+      }
     }
   ]
 }

@@ -1,0 +1,49 @@
+{
+  "artwork": {
+    "aspectRatio": 1.0,
+    "gallery": "gallery.webp",
+    "hero": "hero.webp",
+    "status": "curated",
+    "thumb": "thumb.webp",
+    "variants": {
+      "gallery": {
+        "aspectRatio": 1.0,
+        "bytes": 9350,
+        "height": 512,
+        "mediaType": "image/webp",
+        "path": "gallery.webp",
+        "sha256": "c02ad8fdc8cff049505545b934e9605d82fbfd78e113b8dc0794fde4c8a322fa",
+        "width": 512
+      },
+      "hero": {
+        "aspectRatio": 1.0,
+        "bytes": 27230,
+        "height": 1024,
+        "mediaType": "image/webp",
+        "path": "hero.webp",
+        "sha256": "1202bc52bba55b0a5143c6506c006320f8ddb396edce20333a4bf3036dfeb024",
+        "width": 1024
+      },
+      "thumb": {
+        "aspectRatio": 1.0,
+        "bytes": 2518,
+        "height": 192,
+        "mediaType": "image/webp",
+        "path": "thumb.webp",
+        "sha256": "b8600caeabd0176907f5cac12bff6a75549cb78844b1411d0dc823b6e665ff15",
+        "width": 192
+      }
+    }
+  },
+  "creatureId": "doctorfish",
+  "source": {
+    "aspectRatio": 1.0,
+    "bytes": 34524,
+    "format": "webp",
+    "height": 1024,
+    "mode": "opaque-scene",
+    "sha256": "d50bc55854b1e958e17efaa0badf66b77972058bbe6f88c9efcd0cd1b88f5b83",
+    "width": 1024
+  },
+  "version": 1
+}
