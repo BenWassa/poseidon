@@ -8,41 +8,41 @@
     "variants": {
       "gallery": {
         "aspectRatio": 1.0,
-        "bytes": 16440,
+        "bytes": 9260,
         "height": 512,
         "mediaType": "image/webp",
         "path": "gallery.webp",
-        "sha256": "bd6875eb2984ffe85339b24fdd71e4b404117130c4c1ca70f93d7708f85bb679",
+        "sha256": "0ce3b1f8544b8949f937fd67303da5185b6047f1f99896567c91c641161fac3b",
         "width": 512
       },
       "hero": {
         "aspectRatio": 1.0,
-        "bytes": 43984,
+        "bytes": 25774,
         "height": 1024,
         "mediaType": "image/webp",
         "path": "hero.webp",
-        "sha256": "0d59ddbe20314ee48af8865bc0004b21a198c2044d79aee5b63fcb6e9310223e",
+        "sha256": "c4ed988a10ac2b9ae8f6d54a2bf95884e41d2f40c1b4c3bc4edccfab80bdfad4",
         "width": 1024
       },
       "thumb": {
         "aspectRatio": 1.0,
-        "bytes": 4030,
+        "bytes": 2562,
         "height": 192,
         "mediaType": "image/webp",
         "path": "thumb.webp",
-        "sha256": "d05808559688cee8e3df301bb94bb31539e3819862c6e0789e4ff8b3742b0dce",
+        "sha256": "dc0aac2d1ab9f1846d8ff8358826ad4a946888d4e610e48b61d35195e5644117",
         "width": 192
       }
     }
   },
-  "creatureId": "lionfish",
+  "creatureId": "mutton-snapper",
   "source": {
     "aspectRatio": 1.0,
-    "bytes": 55546,
+    "bytes": 32904,
     "format": "webp",
     "height": 1024,
     "mode": "opaque-scene",
-    "sha256": "014acc4d85ceaa6e68a395c0b0696325267daaa40cce4794f97153bd62b6007d",
+    "sha256": "e03b654c4b219502ce512d54f3ed2f823e1d9fe8ed8113c2094b5296aec60cd6",
     "width": 1024
   },
   "version": 1
