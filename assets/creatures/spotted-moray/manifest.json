@@ -1,0 +1,49 @@
+{
+  "artwork": {
+    "aspectRatio": 1.0,
+    "gallery": "gallery.webp",
+    "hero": "hero.webp",
+    "status": "curated",
+    "thumb": "thumb.webp",
+    "variants": {
+      "gallery": {
+        "aspectRatio": 1.0,
+        "bytes": 11846,
+        "height": 512,
+        "mediaType": "image/webp",
+        "path": "gallery.webp",
+        "sha256": "545ca337c09320312d6d255039597ad4f1441298407b566a6e3a994a80b40a61",
+        "width": 512
+      },
+      "hero": {
+        "aspectRatio": 1.0,
+        "bytes": 32930,
+        "height": 1024,
+        "mediaType": "image/webp",
+        "path": "hero.webp",
+        "sha256": "27073005d41961bcb4b00076b63d689ef9e82b98f86873f4f42d9b8a5ba22b7e",
+        "width": 1024
+      },
+      "thumb": {
+        "aspectRatio": 1.0,
+        "bytes": 3220,
+        "height": 192,
+        "mediaType": "image/webp",
+        "path": "thumb.webp",
+        "sha256": "0ec6340ed39045d140e4b621450a00387b0ddab5608412fd2a5fea1827ba00fa",
+        "width": 192
+      }
+    }
+  },
+  "creatureId": "spotted-moray",
+  "source": {
+    "aspectRatio": 1.0,
+    "bytes": 41876,
+    "format": "webp",
+    "height": 1024,
+    "mode": "opaque-scene",
+    "sha256": "2697d4ede69ada17acc73ef00a487ae5ffca05ab66127202035754150f90bf89",
+    "width": 1024
+  },
+  "version": 1
+}

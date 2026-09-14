@@ -1,0 +1,49 @@
+{
+  "artwork": {
+    "aspectRatio": 1.0,
+    "gallery": "gallery.webp",
+    "hero": "hero.webp",
+    "status": "curated",
+    "thumb": "thumb.webp",
+    "variants": {
+      "gallery": {
+        "aspectRatio": 1.0,
+        "bytes": 9962,
+        "height": 512,
+        "mediaType": "image/webp",
+        "path": "gallery.webp",
+        "sha256": "f4945042cefb7750c3e155dd9b6c9a0d3f4afe97ecb420dfe522178166c3f963",
+        "width": 512
+      },
+      "hero": {
+        "aspectRatio": 1.0,
+        "bytes": 26870,
+        "height": 1024,
+        "mediaType": "image/webp",
+        "path": "hero.webp",
+        "sha256": "64e5965f7e518e47e28e03256301da13088eb6e4ee653932c01adc721163217c",
+        "width": 1024
+      },
+      "thumb": {
+        "aspectRatio": 1.0,
+        "bytes": 2712,
+        "height": 192,
+        "mediaType": "image/webp",
+        "path": "thumb.webp",
+        "sha256": "c4664c4e41df862cfcd7c50cb20c39d00a77f177cd3024289443928ec155c245",
+        "width": 192
+      }
+    }
+  },
+  "creatureId": "hogfish",
+  "source": {
+    "aspectRatio": 1.0,
+    "bytes": 33370,
+    "format": "webp",
+    "height": 1024,
+    "mode": "opaque-scene",
+    "sha256": "6add119d7f2f3da2efae18d3c18a588a9b7ef7a4dc63226a0ddbe7f9be1bf6f1",
+    "width": 1024
+  },
+  "version": 1
+}

@@ -1,0 +1,49 @@
+{
+  "artwork": {
+    "aspectRatio": 1.0,
+    "gallery": "gallery.webp",
+    "hero": "hero.webp",
+    "status": "curated",
+    "thumb": "thumb.webp",
+    "variants": {
+      "gallery": {
+        "aspectRatio": 1.0,
+        "bytes": 8226,
+        "height": 512,
+        "mediaType": "image/webp",
+        "path": "gallery.webp",
+        "sha256": "31e88f0cca2195942f8026eece3007ec5fef6fe01cc0c47771717362c2d4cd35",
+        "width": 512
+      },
+      "hero": {
+        "aspectRatio": 1.0,
+        "bytes": 23340,
+        "height": 1024,
+        "mediaType": "image/webp",
+        "path": "hero.webp",
+        "sha256": "2a6284fc520bad95df540cd267a4f1154d3ad66543105be1c95e8d18893a5e88",
+        "width": 1024
+      },
+      "thumb": {
+        "aspectRatio": 1.0,
+        "bytes": 2082,
+        "height": 192,
+        "mediaType": "image/webp",
+        "path": "thumb.webp",
+        "sha256": "e7e43cb0ab9bc54897a26d26f4577ac73a8e065d8add47e88e8df232c9249f40",
+        "width": 192
+      }
+    }
+  },
+  "creatureId": "blue-chromis",
+  "source": {
+    "aspectRatio": 1.0,
+    "bytes": 30088,
+    "format": "webp",
+    "height": 1024,
+    "mode": "opaque-scene",
+    "sha256": "e66ac6fbc9e5a74a4b1dd96ad5189edd6c4a6d4c251bb24be77f90fa1824f005",
+    "width": 1024
+  },
+  "version": 1
+}

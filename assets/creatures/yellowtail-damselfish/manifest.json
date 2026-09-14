@@ -1,0 +1,49 @@
+{
+  "artwork": {
+    "aspectRatio": 1.0,
+    "gallery": "gallery.webp",
+    "hero": "hero.webp",
+    "status": "curated",
+    "thumb": "thumb.webp",
+    "variants": {
+      "gallery": {
+        "aspectRatio": 1.0,
+        "bytes": 9540,
+        "height": 512,
+        "mediaType": "image/webp",
+        "path": "gallery.webp",
+        "sha256": "c02311e27453c22e216dc6ab1371680ffeb747de83f5f283e927373b731d70af",
+        "width": 512
+      },
+      "hero": {
+        "aspectRatio": 1.0,
+        "bytes": 27142,
+        "height": 1024,
+        "mediaType": "image/webp",
+        "path": "hero.webp",
+        "sha256": "0decb17f7add2ea58fd588236378b33f629ee068efb5c1df26e160dcb6bebd7a",
+        "width": 1024
+      },
+      "thumb": {
+        "aspectRatio": 1.0,
+        "bytes": 2588,
+        "height": 192,
+        "mediaType": "image/webp",
+        "path": "thumb.webp",
+        "sha256": "71afcd9b66d8d5783a8f86299b39593ebde8e8454b6f9a42493de639373d729e",
+        "width": 192
+      }
+    }
+  },
+  "creatureId": "yellowtail-damselfish",
+  "source": {
+    "aspectRatio": 1.0,
+    "bytes": 35894,
+    "format": "webp",
+    "height": 1024,
+    "mode": "opaque-scene",
+    "sha256": "413edefd98528854536d2529d0bb30072e51706d3db633b5e3b3312ae7943fc6",
+    "width": 1024
+  },
+  "version": 1
+}

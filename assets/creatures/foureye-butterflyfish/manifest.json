@@ -1,0 +1,49 @@
+{
+  "artwork": {
+    "aspectRatio": 1.0,
+    "gallery": "gallery.webp",
+    "hero": "hero.webp",
+    "status": "curated",
+    "thumb": "thumb.webp",
+    "variants": {
+      "gallery": {
+        "aspectRatio": 1.0,
+        "bytes": 11964,
+        "height": 512,
+        "mediaType": "image/webp",
+        "path": "gallery.webp",
+        "sha256": "5d207ecacc853bf300c5e9a4cdcd79bea9010eeeb515feb09ce87c5bbfb8f42d",
+        "width": 512
+      },
+      "hero": {
+        "aspectRatio": 1.0,
+        "bytes": 33814,
+        "height": 1024,
+        "mediaType": "image/webp",
+        "path": "hero.webp",
+        "sha256": "13f0b21e0a3ce99dac527ebbcd4e40c1465035ff6025288c368ede541b774895",
+        "width": 1024
+      },
+      "thumb": {
+        "aspectRatio": 1.0,
+        "bytes": 3190,
+        "height": 192,
+        "mediaType": "image/webp",
+        "path": "thumb.webp",
+        "sha256": "0f6d97634d68a78034159f38367857735bf9a7ef5e71d971e25389ae9c2a407d",
+        "width": 192
+      }
+    }
+  },
+  "creatureId": "foureye-butterflyfish",
+  "source": {
+    "aspectRatio": 1.0,
+    "bytes": 42176,
+    "format": "webp",
+    "height": 1024,
+    "mode": "opaque-scene",
+    "sha256": "5c63cf502f9a3121666cc994606ad2d5dd748f4205d9dee1c243b68e6458d811",
+    "width": 1024
+  },
+  "version": 1
+}
