@@ -149,3 +149,4 @@ try {
 }
 
 console.log('[issue33-bcdf] rendered verification passed');
+// Trigger after the validation workflow exists on the branch.
