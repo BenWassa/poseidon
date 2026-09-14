@@ -127,9 +127,10 @@ try {
     'Dive highlight lionfish',
   );
 
-  // Collection is encounter-driven, so confirm galleries after the saved dive
-  // has created real encounters for all six species.
-  await page.goto(`${origin}/#/collection`, { waitUntil: 'domcontentloaded' });
+  // Collection is encounter-driven. Navigate inside the SPA so the saved mock
+  // dive remains live and proves every newly encountered gallery asset.
+  await page.getByRole('link', { name: 'Collection' }).click();
+  await page.waitForURL(/#\/collection$/);
   for (const [id] of species) {
     await assertLoaded(
       page,
