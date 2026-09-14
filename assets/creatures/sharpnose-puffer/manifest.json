@@ -1,0 +1,49 @@
+{
+  "artwork": {
+    "aspectRatio": 1.0,
+    "gallery": "gallery.webp",
+    "hero": "hero.webp",
+    "status": "curated",
+    "thumb": "thumb.webp",
+    "variants": {
+      "gallery": {
+        "aspectRatio": 1.0,
+        "bytes": 8654,
+        "height": 512,
+        "mediaType": "image/webp",
+        "path": "gallery.webp",
+        "sha256": "464c772adf56df3d661b03a395df26fe9b8a4b396256050d3ddb1d4814eeb35b",
+        "width": 512
+      },
+      "hero": {
+        "aspectRatio": 1.0,
+        "bytes": 25072,
+        "height": 1024,
+        "mediaType": "image/webp",
+        "path": "hero.webp",
+        "sha256": "2810e70748958eadb825cf2ea8aca9e362c6556cd0c4440774b1843c03020acf",
+        "width": 1024
+      },
+      "thumb": {
+        "aspectRatio": 1.0,
+        "bytes": 2380,
+        "height": 192,
+        "mediaType": "image/webp",
+        "path": "thumb.webp",
+        "sha256": "1d1e7c2bc96b1d70e809ebd77b399aedb3157150825c5df064997bd6ba789fea",
+        "width": 192
+      }
+    }
+  },
+  "creatureId": "sharpnose-puffer",
+  "source": {
+    "aspectRatio": 1.0,
+    "bytes": 31472,
+    "format": "webp",
+    "height": 1024,
+    "mode": "opaque-scene",
+    "sha256": "c31ea055e62317a5d39763c35ed987a6bf682c8ad78fec1ad73bb7637c7d126e",
+    "width": 1024
+  },
+  "version": 1
+}
