@@ -188,7 +188,7 @@ jobs:
       - name: Assert isolated working tree
         run: |
           git status --short
-          unexpected="$(git status --short | awk '{print $2}' | grep -Ev '^(assets/source/creatures/catalog.json|assets/creatures/(bicolor-damselfish|french-grunt|honeycomb-cowfish|lionfish|mutton-snapper|redband-parrotfish)/|tools/issue33_bcdf_verify_render.mjs|.github/workflows/issue33-bcdf-promote.yml)$' || true)"
+          unexpected="$(git status --short | awk '{print $2}' | grep -Ev '^(assets/source/creatures/catalog\.json|assets/creatures/(bicolor-damselfish|french-grunt|honeycomb-cowfish|lionfish|mutton-snapper|redband-parrotfish)/.*|tools/issue33_bcdf_verify_render\.mjs|\.github/workflows/issue33-bcdf-promote\.yml)$' || true)"
           if [ -n "$unexpected" ]; then
             echo "Unexpected files changed:" >&2
             echo "$unexpected" >&2
