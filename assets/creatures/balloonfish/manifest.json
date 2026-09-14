@@ -1,0 +1,49 @@
+{
+  "artwork": {
+    "aspectRatio": 1.0,
+    "gallery": "gallery.webp",
+    "hero": "hero.webp",
+    "status": "curated",
+    "thumb": "thumb.webp",
+    "variants": {
+      "gallery": {
+        "aspectRatio": 1.0,
+        "bytes": 14372,
+        "height": 512,
+        "mediaType": "image/webp",
+        "path": "gallery.webp",
+        "sha256": "cfb4027e27e63cb86f3659ab17183d0bd7964f02000883e156ae3fbaa95c82cf",
+        "width": 512
+      },
+      "hero": {
+        "aspectRatio": 1.0,
+        "bytes": 39910,
+        "height": 1024,
+        "mediaType": "image/webp",
+        "path": "hero.webp",
+        "sha256": "ca78ec18b2a964cafc4b710aa0ada7787682d6541142bc73d9ef42e8aab51dec",
+        "width": 1024
+      },
+      "thumb": {
+        "aspectRatio": 1.0,
+        "bytes": 3818,
+        "height": 192,
+        "mediaType": "image/webp",
+        "path": "thumb.webp",
+        "sha256": "2d85499232390928b09dcc41d0891bbfa23aa91864b7858601980acea7ddadbe",
+        "width": 192
+      }
+    }
+  },
+  "creatureId": "balloonfish",
+  "source": {
+    "aspectRatio": 1.0,
+    "bytes": 48750,
+    "format": "webp",
+    "height": 1024,
+    "mode": "opaque-scene",
+    "sha256": "1ca90a9fe951d98df678f1880cde06a74c82c8d0c7ceb489e573e1e0f2d85aad",
+    "width": 1024
+  },
+  "version": 1
+}

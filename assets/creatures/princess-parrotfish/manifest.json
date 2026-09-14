@@ -1,0 +1,49 @@
+{
+  "artwork": {
+    "aspectRatio": 1.0,
+    "gallery": "gallery.webp",
+    "hero": "hero.webp",
+    "status": "curated",
+    "thumb": "thumb.webp",
+    "variants": {
+      "gallery": {
+        "aspectRatio": 1.0,
+        "bytes": 8834,
+        "height": 512,
+        "mediaType": "image/webp",
+        "path": "gallery.webp",
+        "sha256": "c67710b27c737f7a43e716eca9c57a420021bbe63538eba8a6dd98d6c5133ea0",
+        "width": 512
+      },
+      "hero": {
+        "aspectRatio": 1.0,
+        "bytes": 25688,
+        "height": 1024,
+        "mediaType": "image/webp",
+        "path": "hero.webp",
+        "sha256": "3ff42a6d6ee94b96040f751e6cb65a36093de911eac4c2b70de67b203051204e",
+        "width": 1024
+      },
+      "thumb": {
+        "aspectRatio": 1.0,
+        "bytes": 2378,
+        "height": 192,
+        "mediaType": "image/webp",
+        "path": "thumb.webp",
+        "sha256": "ed7927dfa41adc5de73ca0329a5f9bf101864d80c868dc81cfd5b1d087bc71f6",
+        "width": 192
+      }
+    }
+  },
+  "creatureId": "princess-parrotfish",
+  "source": {
+    "aspectRatio": 1.0,
+    "bytes": 33244,
+    "format": "webp",
+    "height": 1024,
+    "mode": "opaque-scene",
+    "sha256": "5e7f57ff00f0c971b97e5a956dc0e86b60297fc42ecb3e089cd4547be1a3fa38",
+    "width": 1024
+  },
+  "version": 1
+}
