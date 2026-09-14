@@ -101,16 +101,19 @@ try {
   await page.getByLabel('Duration').fill('42');
   await page.getByRole('button', { name: 'Choose creatures' }).click();
 
+  const search = page.getByLabel('Search creatures');
   for (const [id, name] of species) {
+    await search.fill(name);
     const button = page.getByRole('button', { name: new RegExp(name, 'i') }).first();
-    await button.scrollIntoViewIfNeeded();
+    await button.waitFor({ state: 'visible' });
     await assertLoaded(
       page,
-      `button:has-text("${name}") img[data-testid="creature-artwork"][src*="/creatures/${id}/thumb.webp"]`,
-      `/creatures/${id}/thumb.webp`,
+      `button:has-text("${name}") img[data-testid="creature-artwork"][src*="/creatures/${id}/gallery.webp"]`,
+      `/creatures/${id}/gallery.webp`,
       `Log Dive ${id}`,
     );
     await button.click();
+    await search.fill('');
   }
 
   await page.getByRole('button', { name: 'Continue' }).click();
