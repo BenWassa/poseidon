@@ -8,41 +8,41 @@
     "variants": {
       "gallery": {
         "aspectRatio": 1.0,
-        "bytes": 16440,
+        "bytes": 8890,
         "height": 512,
         "mediaType": "image/webp",
         "path": "gallery.webp",
-        "sha256": "bd6875eb2984ffe85339b24fdd71e4b404117130c4c1ca70f93d7708f85bb679",
+        "sha256": "578dbde557abe6dce85036f01c3f7ea093bf2507c9b98bd890e353f4c4f95257",
         "width": 512
       },
       "hero": {
         "aspectRatio": 1.0,
-        "bytes": 43984,
+        "bytes": 23982,
         "height": 1024,
         "mediaType": "image/webp",
         "path": "hero.webp",
-        "sha256": "0d59ddbe20314ee48af8865bc0004b21a198c2044d79aee5b63fcb6e9310223e",
+        "sha256": "61e23fb3c170884a4b7f2c0b83eb53740f272b321a2c4baa9085a8a0bbc68282",
         "width": 1024
       },
       "thumb": {
         "aspectRatio": 1.0,
-        "bytes": 4030,
+        "bytes": 2398,
         "height": 192,
         "mediaType": "image/webp",
         "path": "thumb.webp",
-        "sha256": "d05808559688cee8e3df301bb94bb31539e3819862c6e0789e4ff8b3742b0dce",
+        "sha256": "2c3e167b5699b66c6658d094837aae25629ad0ede8251af0e7aec5a5e196be5a",
         "width": 192
       }
     }
   },
-  "creatureId": "lionfish",
+  "creatureId": "bicolor-damselfish",
   "source": {
     "aspectRatio": 1.0,
-    "bytes": 55546,
+    "bytes": 30704,
     "format": "webp",
     "height": 1024,
     "mode": "opaque-scene",
-    "sha256": "014acc4d85ceaa6e68a395c0b0696325267daaa40cce4794f97153bd62b6007d",
+    "sha256": "7a2f298ee05b3b280825616ebef9296e394e1f0dc1e04e8565fee6117e2260d8",
     "width": 1024
   },
   "version": 1
