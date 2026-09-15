@@ -11,6 +11,7 @@ import { beforeEach, describe, expect, it } from 'vitest';
 import type { Creature } from '@poseidon/domain';
 
 import { CreatureImage } from '../src/components/CreatureImage';
+import { creatures } from '../src/data/content';
 import { renderPoseidon } from './harness';
 
 const curated: Creature = {
@@ -134,7 +135,7 @@ describe('sparse and empty history', () => {
     expect(screen.queryByText(/dives ·/)).not.toBeInTheDocument();
   });
 
-  it('gives every empty surface a way back into logging', async () => {
+  it('keeps empty personal-history surfaces useful before the first dive', async () => {
     const { user } = renderPoseidon('/journal');
     expect(
       await screen.findByRole('heading', { name: 'No dives yet' }),
@@ -147,11 +148,12 @@ describe('sparse and empty history', () => {
 
     await user.click(screen.getByRole('link', { name: /Collection/ }));
     expect(
-      await screen.findByRole('heading', { name: 'Nothing collected yet' }),
+      await screen.findByRole('heading', {
+        name: `0 of ${creatures.length} seen`,
+      }),
     ).toBeInTheDocument();
-    expect(
-      screen.getByRole('link', { name: 'Log a dive' }),
-    ).toBeInTheDocument();
+    expect(screen.getByText('Green sea turtle')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Log a dive' })).toBeInTheDocument();
   });
 
   it('records a dive with no creatures at all, because every dive belongs', async () => {
