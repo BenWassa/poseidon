@@ -1,14 +1,12 @@
 # Poseidon — current project status
 
-Last reconciled: **2026-09-14**
+Last reconciled: **2026-09-15**
 
 This is the living programme-status companion to the durable product contracts. It records current implementation and remaining work; it does not replace `PRODUCT.md` or `docs/PRD.md`.
 
 ## Current integrated baseline
 
-Current `main` authority at this reconciliation is:
-
-`63a601a36c0d92a11dfea2c1239c4866daed16ae`
+Repository `main` is the commit authority. This reconciliation accompanies the #33 complete-HD-library closeout and is intended to describe the merged state after that work lands.
 
 Poseidon is a deployed React/Vite/TypeScript PWA with Firebase-backed approved-user persistence, local/offline shadow persistence, canonical marine content and a guarded creature-asset pipeline.
 
@@ -43,17 +41,19 @@ Do not restart stack selection or recreate the former external prototype archite
 
 ## Content and artwork baseline
 
-Current `main` contains:
+The completed #33 baseline is:
 
 - Mexican-Caribbean content pack: **3 regions, 24 dive sites/areas, 56 creatures**;
-- **30 mapped HD source-catalog entries** from the original art batch;
-- editorial state: **30 keep / 0 provisional / 0 remake**;
-- all **30 original-batch entries are promoted and live** as canonical runtime HD artwork;
-- **26 content species** still have no HD source candidate; #33 owns that exact queue.
+- **56 mapped HD source-catalog entries**;
+- editorial state: **56 keep / 0 provisional / 0 remake**;
+- **56 canonical runtime manifests**, each with deterministic 192/512/1024 WebP variants;
+- **0 current content species** without a reviewed HD source candidate or canonical runtime promotion.
 
-Original source revisions remain immutable. #38 / PR #42 supplied and promoted four accepted v2 replacements (spotted eagle ray, spotted trunkfish, Atlantic blue tang and Spanish hogfish). #39 completed the final four immutable v2 replacements (Caribbean cushion sea star, porkfish, queen conch and Caribbean reef octopus). The original 30-entry batch is now **30/30 keep and live**, with no remaining remake state.
+Original source revisions remain immutable. #38 / PR #42 supplied and promoted four accepted v2 replacements (spotted eagle ray, spotted trunkfish, Atlantic blue tang and Spanish hogfish). #39 completed the final four immutable v2 replacements (Caribbean cushion sea star, porkfish, queen conch and Caribbean reef octopus). The original 30-entry batch is **30/30 keep and live**, with no remaining remake state.
 
-PR #43 also locked species-specific generation/review diagnostics for all 26 #33 targets and corrected `honeycomb-cowfish` to accepted **`Acanthostracion polygonium`** before new art metadata is created.
+#33 then added the 26 previously uncovered content creatures in isolated reviewed batches. The final six were bluehead wrasse, loggerhead sea turtle, ocean surgeonfish, rock beauty, splendid toadfish and yellowhead wrasse. All accepted #33 sources use the locked `poseidon-sunlit-square-v1` family and were promoted only through the guarded source pipeline.
+
+PR #43 locked species-specific generation/review diagnostics for all 26 #33 targets and corrected `honeycomb-cowfish` to accepted **`Acanthostracion polygonium`** before new art metadata was created.
 
 Human art ledger: `docs/CREATURE_ASSET_LIBRARY.md`.
 Machine authority: `assets/source/creatures/catalog.json`.
@@ -73,9 +73,9 @@ Migrated live UI, PWA chrome and generated icon to the locked Sunlit Reef palett
 
 PR #32 promoted the 18 already-mapped `keep` source candidates through the guarded pipeline.
 
-### #31 mapping and approved-source promotion — complete
+### #31 — original source mapping and closeout — complete
 
-PR #35 resolved every former `creatureId: null` candidate through explicit sourced content authority. PR #36 promoted the four newly mapped `keep` sources. The only remaining #31 work is the four #39 biological replacements.
+PR #35 resolved every former `creatureId: null` candidate through explicit sourced content authority. PR #36 promoted the four newly mapped `keep` sources. #38 and #39 then supplied the eight required biological replacements, leaving the original batch fully resolved at **30 keep / 0 provisional / 0 remake**.
 
 ### #38 — remake batch A — complete
 
@@ -83,7 +83,11 @@ PR #42 replaced and promoted spotted eagle ray, spotted trunkfish, Atlantic blue
 
 ### #39 / #31 — original HD creature batch — complete
 
-The final Caribbean cushion sea star, porkfish, queen conch and Caribbean reef octopus remakes now use reviewed immutable v2 sources, are `keep`, and are promoted through the guarded runtime pipeline. The original 30-entry source batch is fully resolved at **30 keep / 0 provisional / 0 remake**.
+The final Caribbean cushion sea star, porkfish, queen conch and Caribbean reef octopus remakes use reviewed immutable v2 sources, are `keep`, and are promoted through the guarded runtime pipeline.
+
+### #33 — complete HD starter-library coverage — complete
+
+All 26 formerly uncovered Mexican-Caribbean content creatures now have reviewed immutable 1024×1024 `poseidon-sunlit-square-v1` source art and canonical runtime variants. Completion is defined and verified as **56 content IDs = 56 mapped `keep` source entries = 56 canonical runtime manifests**. Biological identity and full/card-scale QA remained promotion requirements throughout the four isolated batches.
 
 ### #11 — source-art system — complete
 
@@ -101,19 +105,17 @@ Derived trip grouping, restrained milestones and richer sourced Creature Detail 
 
 The first truthful map and sourced starter-region coordinates are merged. Coordinate precision is explicit and missing-coordinate sites remain valid.
 
+### #26 — versioning/release system — complete
+
+Root/package version synchronization, embedded product/Git SHA, `CHANGELOG.md`, Release Please configuration and workflow are in place. The first named release, **Poseidon 0.1.0**, was published on 2026-09-13. Release Please uses the component-aware `poseidon-vX.Y.Z` tag convention.
+
 ## Active enhancement streams
-
-### #33 — complete HD starter-library coverage
-
-Generate, QA, ingest and promote the exact 26 content species with no HD source candidate. Work in the four diagnostic batches recorded in the issue and `docs/CREATURE_ART_QA_REFERENCES.md`. Biological identity outranks completion percentage.
 
 ### #34 — derive transparent creature masters
 
-Only after HD source coverage is stable, batch-remove backgrounds from approved opaque masters into versioned transparent raster specimen revisions. Preserve original masters and manually QA fins, antennae, spines, tentacles, translucent margins and other high-risk edges. Do not auto-trace creature illustrations to SVG.
+Only after the completed HD source coverage, batch-remove backgrounds from approved opaque masters into versioned transparent raster specimen revisions. Preserve original masters and manually QA fins, antennae, spines, tentacles, translucent margins and other high-risk edges. Do not auto-trace creature illustrations to SVG.
 
-### #26 — versioning/release system — complete
-
-Root/package version synchronization, embedded product/Git SHA, `CHANGELOG.md`, Release Please configuration and workflow are in place. The first named release, **Poseidon 0.1.0**, was published on 2026-09-13 from `63a601a`. Release Please uses the component-aware tag `poseidon-v0.1.0`; future named releases follow the same convention.
+#33 completion does not begin #34; #34 remains a separate future implementation stream.
 
 ### #14 — owner-device Pixel acceptance
 
@@ -121,10 +123,9 @@ Engineering/deployment acceptance is automated. Keep #14 open until physical Pix
 
 ## Intended sequence
 
-1. complete #33 HD source coverage;
-2. execute #34 transparent-background derivative pass;
-3. perform/record #14 physical Pixel acceptance when desired;
-4. close parent/status items as appropriate.
+1. execute #34 transparent-background derivative pass when deliberately started;
+2. perform/record #14 physical Pixel acceptance when desired;
+3. close parent/status items as appropriate.
 
 ## Durable boundaries
 
@@ -134,7 +135,7 @@ Engineering/deployment acceptance is automated. Keep #14 open until physical Pix
 - Curated marine content is replaceable enrichment, not personal history.
 - `assets/source` is editorial input; `assets/creatures` is canonical runtime output.
 - Content availability never prevents logging.
-- Missing artwork is a first-class state.
+- Missing artwork remains a first-class supported state for future/user-created content even though all 56 current curated creatures now have approved HD runtime art.
 - Common names dominate the primary UX.
 - No fake rarity.
 - Never gamify unsafe diving or wildlife interaction.
