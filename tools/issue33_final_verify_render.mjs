@@ -1,18 +1,15 @@
 import assert from 'node:assert/strict';
+import { spawn } from 'node:child_process';
 import { resolve } from 'node:path';
 
 import { chromium } from 'playwright';
-import { createServer as createViteServer } from 'vite';
 
 import { launchOptions } from './chromium.mjs';
 
-const root = resolve(import.meta.dirname, '../apps/web');
-const basePath = normalizeBase(process.env.POSEIDON_BASE_PATH ?? '/');
-
-function normalizeBase(value) {
-  const leading = value.startsWith('/') ? value : `/${value}`;
-  return leading.endsWith('/') ? leading : `${leading}/`;
-}
+const repoRoot = resolve(import.meta.dirname, '..');
+const port = 4179;
+const origin = `http://127.0.0.1:${port}`;
+const route = (path = '/') => `${origin}/?mock=0#${path}`;
 
 const species = [
   ['bluehead-wrasse', 'Bluehead wrasse'],
@@ -22,6 +19,21 @@ const species = [
   ['splendid-toadfish', 'Splendid toadfish'],
   ['yellowhead-wrasse', 'Yellowhead wrasse'],
 ];
+
+async function waitForServer() {
+  const deadline = Date.now() + 30_000;
+  let lastError;
+  while (Date.now() < deadline) {
+    try {
+      const response = await fetch(origin, { redirect: 'manual' });
+      if (response.ok || response.status === 302 || response.status === 307) return;
+    } catch (error) {
+      lastError = error;
+    }
+    await new Promise((done) => setTimeout(done, 250));
+  }
+  throw new Error(`dev server did not become ready: ${lastError ?? 'timeout'}`);
+}
 
 async function assertLocatorImageLoaded(image, expectedFragment, label) {
   await image.waitFor({ state: 'attached' });
@@ -47,21 +59,19 @@ async function assertLocatorImageLoaded(image, expectedFragment, label) {
   console.log(`[issue33-final] ${label}: ${src}`);
 }
 
-const vite = await createViteServer({
-  root,
-  logLevel: 'error',
-  server: {
-    host: '127.0.0.1',
-    port: 0,
+const devServer = spawn(
+  'npm',
+  ['run', 'dev', '--', '--host', '127.0.0.1', '--port', String(port), '--strictPort'],
+  {
+    cwd: repoRoot,
+    env: { ...process.env, POSEIDON_BASE_PATH: '/' },
+    stdio: ['ignore', 'pipe', 'pipe'],
   },
-});
-await vite.listen();
-const address = vite.httpServer?.address();
-assert.ok(address && typeof address !== 'string', 'mock Vite server did not bind');
-const origin = `http://127.0.0.1:${address.port}`;
-const appUrl = `${origin}${basePath}`;
-const route = (path = '/') => `${appUrl}?mock=0#${path}`;
+);
+devServer.stdout.on('data', (chunk) => process.stdout.write(`[issue33-dev] ${chunk}`));
+devServer.stderr.on('data', (chunk) => process.stderr.write(`[issue33-dev] ${chunk}`));
 
+await waitForServer();
 const browser = await chromium.launch(launchOptions());
 try {
   const context = await browser.newContext({
@@ -73,9 +83,6 @@ try {
   });
   const page = await context.newPage();
 
-  // Use the supported zero-Firebase mock app and create one real temporary dive
-  // containing all six species. This proves Log Dive thumbnails and makes the
-  // encounter-only Collection on this branch render the same six species.
   await page.goto(route('/log'), { waitUntil: 'domcontentloaded' });
   await page.getByRole('button', { name: 'Cozumel' }).first().click();
   await page.getByLabel('Dive site').fill('Issue 33 final render check');
@@ -113,7 +120,14 @@ try {
   await context.close();
 } finally {
   await browser.close();
-  await vite.close();
+  devServer.kill('SIGTERM');
+  await new Promise((done) => {
+    const timeout = setTimeout(done, 5_000);
+    devServer.once('exit', () => {
+      clearTimeout(timeout);
+      done();
+    });
+  });
 }
 
 console.log('[issue33-final] rendered verification passed');
