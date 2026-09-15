@@ -34,8 +34,7 @@ export function Collection() {
   const { data: collection, loading: collectionLoading } = useCollection();
   const [query, setQuery] = useState('');
   const [category, setCategory] = useState(ALL_COLLECTION_CATEGORIES);
-  const [discovery, setDiscovery] =
-    useState<CollectionDiscoveryFilter>('all');
+  const [discovery, setDiscovery] = useState<CollectionDiscoveryFilter>('all');
 
   const guide = useMemo(
     () => buildCollectionGuide(creatures ?? [], collection ?? []),

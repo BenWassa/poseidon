@@ -116,18 +116,25 @@ async function verifyCollectionResponsive(page) {
     name: 'Filter by discovery status',
   });
   assert.equal(
-    await statusFilters.getByRole('button', { name: /^All/ }).getAttribute('aria-pressed'),
+    await statusFilters
+      .getByRole('button', { name: /^All/ })
+      .getAttribute('aria-pressed'),
     'true',
     'Collection All filter should be selected by default',
   );
   assert.equal(
-    await statusFilters.getByRole('button', { name: /^Seen/ }).getAttribute('aria-pressed'),
+    await statusFilters
+      .getByRole('button', { name: /^Seen/ })
+      .getAttribute('aria-pressed'),
     'false',
     'Collection Seen filter should not be selected by default',
   );
 
   for (const viewport of viewports) {
-    await page.setViewportSize({ width: viewport.width, height: viewport.height });
+    await page.setViewportSize({
+      width: viewport.width,
+      height: viewport.height,
+    });
     await assertNoHorizontalOverflow(page, `Collection ${viewport.label}`);
     assert.ok(
       await page.getByText('Green sea turtle').first().isVisible(),

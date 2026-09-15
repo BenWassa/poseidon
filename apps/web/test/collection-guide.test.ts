@@ -72,9 +72,9 @@ describe('Marine Collection guide view model', () => {
 
     expect(guide.curatedSeenCount).toBe(1);
     expect(guide.curatedTotalCount).toBe(2);
-    expect(guide.entries.find((entry) => entry.creature.id === turtle.id)?.seen).toBe(
-      true,
-    );
+    expect(
+      guide.entries.find((entry) => entry.creature.id === turtle.id)?.seen,
+    ).toBe(true);
   });
 
   it('returns a creature to not-yet-seen when its final sighting disappears', () => {
@@ -83,9 +83,9 @@ describe('Marine Collection guide view model', () => {
 
     expect(before.curatedSeenCount).toBe(1);
     expect(after.curatedSeenCount).toBe(0);
-    expect(after.entries.find((entry) => entry.creature.id === turtle.id)?.seen).toBe(
-      false,
-    );
+    expect(
+      after.entries.find((entry) => entry.creature.id === turtle.id)?.seen,
+    ).toBe(false);
   });
 
   it('searches names, aliases and scientific names across seen and unseen entries', () => {
@@ -142,9 +142,9 @@ describe('Marine Collection guide view model', () => {
       [history(custom)],
     );
 
-    expect(withoutHistory.entries.some((entry) => entry.creature.id === custom.id)).toBe(
-      false,
-    );
+    expect(
+      withoutHistory.entries.some((entry) => entry.creature.id === custom.id),
+    ).toBe(false);
     expect(withHistory.curatedTotalCount).toBe(2);
     expect(withHistory.curatedSeenCount).toBe(0);
     expect(
@@ -153,9 +153,9 @@ describe('Marine Collection guide view model', () => {
       ),
     ).toEqual([custom.id]);
     expect(
-      filterCollectionGuide(withHistory.entries, { discovery: 'not-seen' }).some(
-        (entry) => entry.creature.id === custom.id,
-      ),
+      filterCollectionGuide(withHistory.entries, {
+        discovery: 'not-seen',
+      }).some((entry) => entry.creature.id === custom.id),
     ).toBe(false);
   });
 

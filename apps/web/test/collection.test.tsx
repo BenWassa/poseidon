@@ -17,9 +17,9 @@ describe('Marine Collection full guide', () => {
         name: `0 of ${creatures.length} seen`,
       }),
     ).toBeInTheDocument();
-    expect(
-      screen.getAllByRole('link', { name: /Not yet seen/ }),
-    ).toHaveLength(creatures.length);
+    expect(screen.getAllByRole('link', { name: /Not yet seen/ })).toHaveLength(
+      creatures.length,
+    );
 
     const statusFilters = screen.getByRole('group', {
       name: 'Filter by discovery status',

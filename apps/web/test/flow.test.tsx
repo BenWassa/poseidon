@@ -119,9 +119,9 @@ describe('the representative dive-logging scenario', () => {
     expect(screen.getByText('Green sea turtle')).toBeInTheDocument();
     expect(screen.getByText('Goliath grouper')).toBeInTheDocument();
     expect(
-      within(screen.getByRole('link', { name: /Green sea turtle/ })).queryByText(
-        'Not yet seen',
-      ),
+      within(
+        screen.getByRole('link', { name: /Green sea turtle/ }),
+      ).queryByText('Not yet seen'),
     ).not.toBeInTheDocument();
 
     // Creature detail is grounded in personal encounter history, with sourced

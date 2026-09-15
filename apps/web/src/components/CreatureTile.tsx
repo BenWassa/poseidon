@@ -36,7 +36,7 @@ function TileBody({
           priority={priority}
           className={
             mutedArtwork
-              ? 'saturate-[0.4] contrast-[0.92] brightness-[1.03]'
+              ? 'brightness-[1.03] contrast-[0.92] saturate-[0.4]'
               : ''
           }
         />
