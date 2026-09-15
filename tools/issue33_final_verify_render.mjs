@@ -95,7 +95,7 @@ try {
     const button = page.getByRole('button', { name: new RegExp(name, 'i') }).first();
     await button.scrollIntoViewIfNeeded();
     const image = button.locator('img[data-testid="creature-artwork"]').first();
-    await assertLocatorImageLoaded(image, `/creatures/${id}/thumb.webp`, `Log Dive ${id}`);
+    await assertLocatorImageLoaded(image, `/creatures/${id}/gallery.webp`, `Log Dive ${id}`);
     await button.click();
   }
 
