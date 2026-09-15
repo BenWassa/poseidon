@@ -72,18 +72,19 @@ demo.state.dives.push({
 });
 demo.state.updatedAt = proofStamp;
 
-async function assertImageLoaded(page, selector, expectedFragment, label) {
-  await page.waitForFunction(
-    ([sel, fragment]) => {
-      const target = [...document.querySelectorAll(sel)].find(
-        (node) => node instanceof HTMLImageElement && node.src.includes(fragment),
-      );
-      return Boolean(target && target.complete && target.naturalWidth > 0 && target.naturalHeight > 0);
-    },
-    [selector, expectedFragment],
+async function assertLocatorImageLoaded(image, expectedFragment, label) {
+  await image.waitFor({ state: 'attached' });
+  await image.scrollIntoViewIfNeeded();
+  await image.waitFor({ state: 'visible' });
+  await image.evaluate(async (node) => {
+    if (!(node instanceof HTMLImageElement)) throw new Error('target is not an image');
+    if (!node.complete) await new Promise((resolve) => node.addEventListener('load', resolve, { once: true }));
+  });
+  const loaded = await image.evaluate(
+    (node) => node instanceof HTMLImageElement && node.complete && node.naturalWidth > 0 && node.naturalHeight > 0,
   );
-  const image = page.locator(selector).first();
   const src = await image.getAttribute('src');
+  if (!loaded) throw new Error(`${label}: image failed to render (${src})`);
   if (!src?.includes(expectedFragment)) throw new Error(`${label}: wrong source ${src}`);
   console.log(`[issue33-final] ${label}: ${src}`);
 }
@@ -106,15 +107,20 @@ try {
   const page = await context.newPage();
 
   await page.goto(route('/collection'), { waitUntil: 'networkidle' });
-  for (const [id] of species) {
-    const selector = `img[data-testid="creature-artwork"][src*="/creatures/${id}/gallery.webp"]`;
-    await assertImageLoaded(page, selector, `/creatures/${id}/gallery.webp`, `Collection ${id}`);
+  const collectionSearch = page.getByLabel('Search your collection');
+  for (const [id, name] of species) {
+    await collectionSearch.fill(name);
+    const card = page.getByRole('link', { name: new RegExp(name, 'i') }).first();
+    await card.scrollIntoViewIfNeeded();
+    const image = card.locator('img[data-testid="creature-artwork"]').first();
+    await assertLocatorImageLoaded(image, `/creatures/${id}/gallery.webp`, `Collection ${id}`);
+    await collectionSearch.fill('');
   }
 
   for (const [id] of species) {
     await page.goto(route(`/collection/${id}`), { waitUntil: 'networkidle' });
-    const selector = `img[data-testid="creature-artwork"][src*="/creatures/${id}/hero.webp"]`;
-    await assertImageLoaded(page, selector, `/creatures/${id}/hero.webp`, `Creature Detail ${id}`);
+    const image = page.locator(`img[data-testid="creature-artwork"][src*="/creatures/${id}/hero.webp"]`).first();
+    await assertLocatorImageLoaded(image, `/creatures/${id}/hero.webp`, `Creature Detail ${id}`);
   }
 
   await page.goto(route('/log'), { waitUntil: 'networkidle' });
@@ -129,11 +135,8 @@ try {
   for (const [id, name] of species) {
     const button = page.getByRole('button', { name: new RegExp(name, 'i') }).first();
     await button.scrollIntoViewIfNeeded();
-    const image = button.locator(`img[data-testid="creature-artwork"][src*="/creatures/${id}/thumb.webp"]`).first();
-    await image.waitFor({ state: 'visible' });
-    const loaded = await image.evaluate((node) => node.complete && node.naturalWidth > 0 && node.naturalHeight > 0);
-    if (!loaded) throw new Error(`Log Dive ${id}: thumb failed to render`);
-    console.log(`[issue33-final] Log Dive ${id}: thumb rendered`);
+    const image = button.locator(`img[data-testid="creature-artwork"]`).first();
+    await assertLocatorImageLoaded(image, `/creatures/${id}/thumb.webp`, `Log Dive ${id}`);
   }
 
   await context.close();
