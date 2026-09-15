@@ -101,6 +101,47 @@ async function logDive(page) {
   await page.getByRole('heading', { name: 'Field Reef' }).waitFor();
 }
 
+async function verifyCollectionResponsive(page) {
+  const viewports = [
+    { width: 390, height: 844, label: '390×844 portrait' },
+    { width: 320, height: 568, label: '320px narrow portrait' },
+    { width: 844, height: 390, label: '844×390 landscape' },
+    { width: 1280, height: 900, label: 'desktop sanity' },
+  ];
+
+  await page.goto(route('/collection'), { waitUntil: 'domcontentloaded' });
+  await page.getByRole('heading', { name: /^2 of \d+ seen$/ }).waitFor();
+
+  const statusFilters = page.getByRole('group', {
+    name: 'Filter by discovery status',
+  });
+  assert.equal(
+    await statusFilters.getByRole('button', { name: /^All/ }).getAttribute('aria-pressed'),
+    'true',
+    'Collection All filter should be selected by default',
+  );
+  assert.equal(
+    await statusFilters.getByRole('button', { name: /^Seen/ }).getAttribute('aria-pressed'),
+    'false',
+    'Collection Seen filter should not be selected by default',
+  );
+
+  for (const viewport of viewports) {
+    await page.setViewportSize({ width: viewport.width, height: viewport.height });
+    await assertNoHorizontalOverflow(page, `Collection ${viewport.label}`);
+    assert.ok(
+      await page.getByText('Green sea turtle').first().isVisible(),
+      `${viewport.label}: a seen creature name should remain visible`,
+    );
+    assert.ok(
+      await page.getByText('Not yet seen').first().isVisible(),
+      `${viewport.label}: unseen state text should remain visible`,
+    );
+  }
+
+  await page.setViewportSize({ width: 412, height: 915 });
+}
+
 async function verifyCoherence(page) {
   const nav = page.getByRole('navigation', { name: 'Main' });
 
@@ -113,7 +154,7 @@ async function verifyCoherence(page) {
   await assertNoHorizontalOverflow(page, 'Journal');
 
   await nav.getByRole('link', { name: 'Collection' }).click();
-  await page.getByText('2 creatures').waitFor();
+  await page.getByRole('heading', { name: /^2 of \d+ seen$/ }).waitFor();
   await page.getByText('Spotted eagle ray').first().waitFor();
   await assertNoHorizontalOverflow(page, 'Collection');
 
@@ -187,9 +228,12 @@ try {
 
   await logDive(page);
   await verifyCoherence(page);
+  await verifyCollectionResponsive(page);
   await editDive(page);
   await verifySystemBack(page);
-  console.log('[field] create/edit + Home/Journal/Collection/Atlas + Back: ok');
+  console.log(
+    '[field] create/edit + Home/Journal/Collection/Atlas + Collection viewport matrix + Back: ok',
+  );
 
   await page.goto(route('/data'), { waitUntil: 'domcontentloaded' });
   const backup = await downloadJson(page);
