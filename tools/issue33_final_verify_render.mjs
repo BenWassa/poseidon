@@ -6,7 +6,7 @@ import { chromium } from 'playwright';
 
 import { launchOptions } from './chromium.mjs';
 
-const repoRoot = resolve(import.meta.dirname, '..');
+const webRoot = resolve(import.meta.dirname, '../apps/web');
 const port = 4179;
 const origin = `http://127.0.0.1:${port}`;
 const route = (path = '/') => `${origin}/?mock=0#${path}`;
@@ -60,10 +60,10 @@ async function assertLocatorImageLoaded(image, expectedFragment, label) {
 }
 
 const devServer = spawn(
-  'npm',
-  ['run', 'dev', '--', '--host', '127.0.0.1', '--port', String(port), '--strictPort'],
+  'npx',
+  ['vite', '--host', '127.0.0.1', '--port', String(port), '--strictPort'],
   {
-    cwd: repoRoot,
+    cwd: webRoot,
     env: { ...process.env, POSEIDON_BASE_PATH: '/' },
     stdio: ['ignore', 'pipe', 'pipe'],
   },
