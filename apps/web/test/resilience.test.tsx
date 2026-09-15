@@ -153,7 +153,9 @@ describe('sparse and empty history', () => {
       }),
     ).toBeInTheDocument();
     expect(screen.getByText('Green sea turtle')).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'Log a dive' })).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: 'Log a dive' }),
+    ).toBeInTheDocument();
   });
 
   it('records a dive with no creatures at all, because every dive belongs', async () => {
