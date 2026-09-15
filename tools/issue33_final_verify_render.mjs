@@ -52,6 +52,25 @@ const { port } = server.address();
 const origin = `http://127.0.0.1:${port}`;
 const route = (path) => `${origin}/#${path}`;
 const demo = buildDemoState();
+const proofStamp = '2026-09-15T12:00:00.000Z';
+demo.state.dives.push({
+  id: 'dive_issue33_final_render',
+  date: '2026-09-15',
+  siteName: 'Palancar Gardens',
+  areaName: 'Cozumel',
+  countryCode: 'MX',
+  regionId: 'mx-caribbean-cozumel',
+  maxDepth: { value: 18, unit: 'm' },
+  durationMinutes: 42,
+  sightings: species.map(([id], index) => ({
+    id: `sighting_issue33_final_${index}`,
+    creatureId: id,
+  })),
+  highlightCreatureId: species[0][0],
+  createdAt: proofStamp,
+  updatedAt: proofStamp,
+});
+demo.state.updatedAt = proofStamp;
 
 async function assertImageLoaded(page, selector, expectedFragment, label) {
   await page.waitForFunction(
