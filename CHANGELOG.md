@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.2.0](https://github.com/BenWassa/poseidon/compare/poseidon-v0.1.0...poseidon-v0.2.0) (2026-09-15)
+
+
+### Features
+
+* **assets:** add isolated [#33](https://github.com/BenWassa/poseidon/issues/33) BCDF art batch ([b558371](https://github.com/BenWassa/poseidon/commit/b5583718638401110c8449021de459436e0acced))
+* **assets:** add isolated [#33](https://github.com/BenWassa/poseidon/issues/33) butterfish art batch ([645e0c9](https://github.com/BenWassa/poseidon/commit/645e0c9e7061d05b2ae16488bdd347aae6d9f7e9))
+* **assets:** add isolated [#33](https://github.com/BenWassa/poseidon/issues/33) HD art batch ([595a43b](https://github.com/BenWassa/poseidon/commit/595a43bd903cbcc4124934bf0ffb764807816b49))
+* **assets:** complete [#39](https://github.com/BenWassa/poseidon/issues/39) remake batch B ([bfe0aae](https://github.com/BenWassa/poseidon/commit/bfe0aae0a4cbd00e7f8dd1c1c37f33fd7aa77031))
+
 ## [0.1.0](https://github.com/BenWassa/poseidon/compare/poseidon-v0.1.0...poseidon-v0.1.0) (2026-09-13)
 
 
