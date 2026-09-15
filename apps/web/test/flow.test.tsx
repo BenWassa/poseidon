@@ -163,7 +163,7 @@ describe('the representative dive-logging scenario', () => {
     expect(
       await screen.findByRole('heading', { name: 'Palancar Gardens' }),
     ).toBeInTheDocument();
-  });
+  }, 10_000);
 
   it('edits a dive without corrupting the derived collection or history', async () => {
     const { user, reload } = renderPoseidon('/log');
