@@ -1,25 +1,18 @@
-import { createServer } from 'node:http';
-import { createReadStream } from 'node:fs';
-import { stat } from 'node:fs/promises';
-import { dirname, extname, join, resolve } from 'node:path';
-import { fileURLToPath } from 'node:url';
-import { chromium } from 'playwright';
-import { launchOptions } from './chromium.mjs';
-import { buildDemoState } from '../apps/web/tools/demo-state.mjs';
+import assert from 'node:assert/strict';
+import { resolve } from 'node:path';
 
-const here = dirname(fileURLToPath(import.meta.url));
-const distDir = resolve(here, '../apps/web/dist');
-const BASE_PATH = '/poseidon';
-const MIME = {
-  '.html': 'text/html; charset=utf-8',
-  '.js': 'text/javascript; charset=utf-8',
-  '.css': 'text/css; charset=utf-8',
-  '.json': 'application/json; charset=utf-8',
-  '.webmanifest': 'application/manifest+json',
-  '.webp': 'image/webp',
-  '.png': 'image/png',
-  '.svg': 'image/svg+xml',
-};
+import { chromium } from 'playwright';
+import { createServer as createViteServer } from 'vite';
+
+import { launchOptions } from './chromium.mjs';
+
+const root = resolve(import.meta.dirname, '../apps/web');
+const basePath = normalizeBase(process.env.POSEIDON_BASE_PATH ?? '/');
+
+function normalizeBase(value) {
+  const leading = value.startsWith('/') ? value : `/${value}`;
+  return leading.endsWith('/') ? leading : `${leading}/`;
+}
 
 const species = [
   ['bluehead-wrasse', 'Bluehead wrasse'],
@@ -30,70 +23,44 @@ const species = [
   ['yellowhead-wrasse', 'Yellowhead wrasse'],
 ];
 
-async function resolveFile(pathname) {
-  const appPath = pathname === BASE_PATH || pathname === `${BASE_PATH}/`
-    ? '/index.html'
-    : pathname.startsWith(`${BASE_PATH}/`)
-      ? pathname.slice(BASE_PATH.length)
-      : pathname;
-  const candidate = join(distDir, appPath === '/' ? 'index.html' : decodeURIComponent(appPath));
-  try {
-    const info = await stat(candidate);
-    if (info.isFile()) return candidate;
-  } catch {
-    // SPA fallback below.
-  }
-  return join(distDir, 'index.html');
-}
-
-const server = createServer((request, response) => {
-  const url = new URL(request.url ?? '/', 'http://localhost');
-  void resolveFile(url.pathname).then((file) => {
-    response.writeHead(200, { 'content-type': MIME[extname(file)] ?? 'application/octet-stream' });
-    createReadStream(file).pipe(response);
-  });
-});
-await new Promise((done) => server.listen(0, '127.0.0.1', done));
-const { port } = server.address();
-const origin = `http://127.0.0.1:${port}`;
-const route = (path) => `${origin}${BASE_PATH}/#${path}`;
-const demo = buildDemoState();
-const proofStamp = '2026-09-15T12:00:00.000Z';
-demo.state.dives.push({
-  id: 'dive_issue33_final_render',
-  date: '2026-09-15',
-  siteName: 'Palancar Gardens',
-  areaName: 'Cozumel',
-  countryCode: 'MX',
-  regionId: 'mx-caribbean-cozumel',
-  maxDepth: { value: 18, unit: 'm' },
-  durationMinutes: 42,
-  sightings: species.map(([id], index) => ({
-    id: `sighting_issue33_final_${index}`,
-    creatureId: id,
-  })),
-  highlightCreatureId: species[0][0],
-  createdAt: proofStamp,
-  updatedAt: proofStamp,
-});
-demo.state.updatedAt = proofStamp;
-
 async function assertLocatorImageLoaded(image, expectedFragment, label) {
   await image.waitFor({ state: 'attached' });
   await image.scrollIntoViewIfNeeded();
   await image.waitFor({ state: 'visible' });
   await image.evaluate(async (node) => {
     if (!(node instanceof HTMLImageElement)) throw new Error('target is not an image');
-    if (!node.complete) await new Promise((resolve) => node.addEventListener('load', resolve, { once: true }));
+    if (!node.complete) {
+      await Promise.race([
+        new Promise((done) => node.addEventListener('load', done, { once: true })),
+        new Promise((_, reject) =>
+          node.addEventListener('error', () => reject(new Error(`image failed: ${node.src}`)), { once: true }),
+        ),
+      ]);
+    }
   });
   const loaded = await image.evaluate(
     (node) => node instanceof HTMLImageElement && node.complete && node.naturalWidth > 0 && node.naturalHeight > 0,
   );
   const src = await image.getAttribute('src');
-  if (!loaded) throw new Error(`${label}: image failed to render (${src})`);
-  if (!src?.includes(expectedFragment)) throw new Error(`${label}: wrong source ${src}`);
+  assert.ok(loaded, `${label}: image failed to render (${src})`);
+  assert.ok(src?.includes(expectedFragment), `${label}: wrong source ${src}`);
   console.log(`[issue33-final] ${label}: ${src}`);
 }
+
+const vite = await createViteServer({
+  root,
+  logLevel: 'error',
+  server: {
+    host: '127.0.0.1',
+    port: 0,
+  },
+});
+await vite.listen();
+const address = vite.httpServer?.address();
+assert.ok(address && typeof address !== 'string', 'mock Vite server did not bind');
+const origin = `http://127.0.0.1:${address.port}`;
+const appUrl = `${origin}${basePath}`;
+const route = (path = '/') => `${appUrl}?mock=0#${path}`;
 
 const browser = await chromium.launch(launchOptions());
 try {
@@ -102,53 +69,51 @@ try {
     deviceScaleFactor: 2,
     isMobile: true,
     hasTouch: true,
+    reducedMotion: 'reduce',
   });
-  await context.addInitScript(
-    ([key, state]) => {
-      window.localStorage.clear();
-      window.localStorage.setItem(key, JSON.stringify(state));
-    },
-    [demo.storageKey, demo.state],
-  );
   const page = await context.newPage();
 
-  await page.goto(route('/collection'), { waitUntil: 'networkidle' });
-  const collectionSearch = page.getByLabel('Search your collection');
-  for (const [id, name] of species) {
-    await collectionSearch.fill(name);
-    const card = page.getByRole('link', { name: new RegExp(name, 'i') }).first();
-    await card.scrollIntoViewIfNeeded();
-    const image = card.locator('img[data-testid="creature-artwork"]').first();
-    await assertLocatorImageLoaded(image, `/creatures/${id}/gallery.webp`, `Collection ${id}`);
-    await collectionSearch.fill('');
-  }
-
-  for (const [id] of species) {
-    await page.goto(route(`/collection/${id}`), { waitUntil: 'networkidle' });
-    const image = page.locator(`img[data-testid="creature-artwork"][src*="/creatures/${id}/hero.webp"]`).first();
-    await assertLocatorImageLoaded(image, `/creatures/${id}/hero.webp`, `Creature Detail ${id}`);
-  }
-
-  await page.goto(route('/log'), { waitUntil: 'networkidle' });
+  // Use the supported zero-Firebase mock app and create one real temporary dive
+  // containing all six species. This proves Log Dive thumbnails and makes the
+  // encounter-only Collection on this branch render the same six species.
+  await page.goto(route('/log'), { waitUntil: 'domcontentloaded' });
   await page.getByRole('button', { name: 'Cozumel' }).first().click();
   await page.getByLabel('Dive site').fill('Issue 33 final render check');
-  await page.getByRole('button', { name: 'Continue' }).click();
+  await page.getByRole('button', { name: /Continue/ }).click();
   await page.getByLabel('Max depth').fill('18');
   await page.getByLabel('Duration').fill('42');
-  await page.getByRole('button', { name: 'Choose creatures' }).click();
-  await page.waitForTimeout(300);
+  await page.getByRole('button', { name: /Choose creatures/ }).click();
 
   for (const [id, name] of species) {
     const button = page.getByRole('button', { name: new RegExp(name, 'i') }).first();
     await button.scrollIntoViewIfNeeded();
     const image = button.locator('img[data-testid="creature-artwork"]').first();
     await assertLocatorImageLoaded(image, `/creatures/${id}/thumb.webp`, `Log Dive ${id}`);
+    await button.click();
+  }
+
+  await page.getByRole('button', { name: /Continue/ }).click();
+  await page.getByRole('button', { name: /Save this memory/ }).click();
+  await page.getByRole('heading', { name: 'Issue 33 final render check' }).waitFor();
+
+  await page.goto(route('/collection'), { waitUntil: 'domcontentloaded' });
+  for (const [id, name] of species) {
+    const card = page.getByRole('link', { name: new RegExp(name, 'i') }).first();
+    await card.scrollIntoViewIfNeeded();
+    const image = card.locator('img[data-testid="creature-artwork"]').first();
+    await assertLocatorImageLoaded(image, `/creatures/${id}/gallery.webp`, `Collection ${id}`);
+  }
+
+  for (const [id] of species) {
+    await page.goto(route(`/collection/${id}`), { waitUntil: 'domcontentloaded' });
+    const image = page.locator('img[data-testid="creature-artwork"]').first();
+    await assertLocatorImageLoaded(image, `/creatures/${id}/hero.webp`, `Creature Detail ${id}`);
   }
 
   await context.close();
 } finally {
   await browser.close();
-  server.close();
+  await vite.close();
 }
 
 console.log('[issue33-final] rendered verification passed');
