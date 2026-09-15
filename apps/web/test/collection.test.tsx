@@ -17,19 +17,19 @@ describe('Marine Collection full guide', () => {
         name: `0 of ${creatures.length} seen`,
       }),
     ).toBeInTheDocument();
-    expect(screen.getAllByText('Not yet seen')).toHaveLength(creatures.length);
+    expect(
+      screen.getAllByRole('link', { name: /Not yet seen/ }),
+    ).toHaveLength(creatures.length);
 
     const statusFilters = screen.getByRole('group', {
       name: 'Filter by discovery status',
     });
-    expect(within(statusFilters).getByRole('button', { name: /All/ })).toHaveAttribute(
-      'aria-pressed',
-      'true',
-    );
-    expect(within(statusFilters).getByRole('button', { name: /Seen/ })).toHaveAttribute(
-      'aria-pressed',
-      'false',
-    );
+    expect(
+      within(statusFilters).getByRole('button', { name: /All/ }),
+    ).toHaveAttribute('aria-pressed', 'true');
+    expect(
+      within(statusFilters).getByRole('button', { name: /Seen/ }),
+    ).toHaveAttribute('aria-pressed', 'false');
   });
 
   it('keeps search and discovery filters usable together', async () => {
@@ -47,7 +47,9 @@ describe('Marine Collection full guide', () => {
     );
 
     await user.click(
-      screen.getByRole('button', { name: new RegExp(`^Not yet seen\\s+${creatures.length}$`) }),
+      screen.getByRole('button', {
+        name: new RegExp(`^Not yet seen\\s+${creatures.length}$`),
+      }),
     );
     expect(screen.getByText('Green sea turtle')).toBeInTheDocument();
   });
@@ -83,7 +85,6 @@ describe('Marine Collection full guide', () => {
       name: `0 of ${creatures.length} seen`,
     });
 
-    await user.clear(screen.getByLabelText('Search marine guide'));
     await user.type(
       screen.getByLabelText('Search marine guide'),
       missingArt!.commonName,
@@ -97,6 +98,8 @@ describe('Marine Collection full guide', () => {
     expect(
       await screen.findByRole('heading', { name: missingArt!.commonName }),
     ).toBeInTheDocument();
-    expect(screen.getByText(/Artwork for this creature is still to come/)).toBeInTheDocument();
+    expect(
+      screen.getByText(/Artwork for this creature is still to come/),
+    ).toBeInTheDocument();
   });
 });
