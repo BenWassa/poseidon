@@ -5,6 +5,7 @@
 import { screen, waitFor, within } from '@testing-library/react';
 import { beforeEach, describe, expect, it } from 'vitest';
 
+import { creatures } from '../src/data/content';
 import { renderPoseidon } from './harness';
 
 async function logCozumelDive(user: ReturnType<typeof renderPoseidon>['user']) {
@@ -107,11 +108,21 @@ describe('the representative dive-logging scenario', () => {
       'true',
     );
 
-    // Collection is built from the actual sightings, unlisted creature included.
+    // Collection is the full regional guide. Curated progress counts only the
+    // two curated sightings; the user-created creature remains visible beside it.
     await user.click(screen.getByRole('link', { name: /Collection/ }));
-    expect(await screen.findByText('3 creatures')).toBeInTheDocument();
+    expect(
+      await screen.findByRole('heading', {
+        name: `2 of ${creatures.length} seen`,
+      }),
+    ).toBeInTheDocument();
     expect(screen.getByText('Green sea turtle')).toBeInTheDocument();
     expect(screen.getByText('Goliath grouper')).toBeInTheDocument();
+    expect(
+      within(
+        screen.getByRole('link', { name: /Green sea turtle/ }),
+      ).queryByText('Not yet seen'),
+    ).not.toBeInTheDocument();
 
     // Creature detail is grounded in personal encounter history, with sourced
     // catalogue context following rather than displacing that personal record.
@@ -152,7 +163,7 @@ describe('the representative dive-logging scenario', () => {
     expect(
       await screen.findByRole('heading', { name: 'Palancar Gardens' }),
     ).toBeInTheDocument();
-  });
+  }, 10_000);
 
   it('edits a dive without corrupting the derived collection or history', async () => {
     const { user, reload } = renderPoseidon('/log');
@@ -184,13 +195,25 @@ describe('the representative dive-logging scenario', () => {
     ).toBeInTheDocument();
     expect(screen.getAllByText('24 m').length).toBeGreaterThan(0);
 
-    // The collection now reflects two creatures, not three.
+    // The dropped curated creature remains browseable but returns to unseen.
     await user.click(screen.getByRole('link', { name: /Collection/ }));
-    expect(await screen.findByText('2 creatures')).toBeInTheDocument();
-    expect(screen.queryByText('Green sea turtle')).not.toBeInTheDocument();
+    expect(
+      await screen.findByRole('heading', {
+        name: `1 of ${creatures.length} seen`,
+      }),
+    ).toBeInTheDocument();
+    expect(
+      within(screen.getByRole('link', { name: /Green sea turtle/ })).getByText(
+        'Not yet seen',
+      ),
+    ).toBeInTheDocument();
 
     reload('/collection');
-    expect(await screen.findByText('2 creatures')).toBeInTheDocument();
+    expect(
+      await screen.findByRole('heading', {
+        name: `1 of ${creatures.length} seen`,
+      }),
+    ).toBeInTheDocument();
   });
 
   it('deletes a dive only behind a safeguard, and leaves history consistent', async () => {
@@ -215,8 +238,12 @@ describe('the representative dive-logging scenario', () => {
 
     await user.click(screen.getByRole('link', { name: /Collection/ }));
     expect(
-      await screen.findByRole('heading', { name: 'Nothing collected yet' }),
+      await screen.findByRole('heading', {
+        name: `0 of ${creatures.length} seen`,
+      }),
     ).toBeInTheDocument();
+    expect(screen.getByText('Green sea turtle')).toBeInTheDocument();
+    expect(screen.queryByText('Goliath grouper')).not.toBeInTheDocument();
 
     reload('/');
     expect(

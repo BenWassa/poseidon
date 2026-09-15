@@ -18,7 +18,7 @@ Poseidon should make it easy to:
 
 - record every dive without technical paperwork;
 - remember where it happened and what was seen;
-- build a visual marine-life collection over time;
+- browse a curated regional marine guide and see personal encounters within it;
 - revisit dives as memories rather than database rows;
 - see the geographic shape of a diving life;
 - accumulate meaningful milestones without turning safe diving into a game of optimization.
@@ -163,7 +163,7 @@ A complete chronological record of every dive.
 
 ### Marine Collection
 
-Every creature encountered, linked back to the dives and locations where it was seen.
+A full curated regional field guide with personal discovery layered onto it. Every curated creature remains browseable before it is encountered; `Seen` is derived strictly from logged sightings. User-created creatures join the collection only after they are logged and never change curated-guide progress.
 
 ### Ocean Atlas
 
@@ -175,7 +175,7 @@ A single dive rendered as a memorable artifact: place, date, core stats, highlig
 
 ### Creature Detail
 
-Artwork, common name, first encounter, most recent encounter, locations and dives where the creature was seen.
+Full curated creature information and artwork where available, plus first encounter, most recent encounter, locations and related dives when the creature has been seen. Unseen curated creatures remain fully accessible.
 
 ### Trips
 

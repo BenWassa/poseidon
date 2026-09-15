@@ -11,6 +11,7 @@ interface TileBodyProps {
   variant: CreatureImageVariant;
   selected: boolean;
   highlight: boolean;
+  mutedArtwork: boolean;
   caption?: string;
   showCategory: boolean;
   priority: boolean;
@@ -21,6 +22,7 @@ function TileBody({
   variant,
   selected,
   highlight,
+  mutedArtwork,
   caption,
   showCategory,
   priority,
@@ -32,6 +34,11 @@ function TileBody({
           creature={creature}
           variant={variant}
           priority={priority}
+          className={
+            mutedArtwork
+              ? 'brightness-[1.03] contrast-[0.92] saturate-[0.4]'
+              : ''
+          }
         />
         {selected ? (
           // Selection is carried by the ring, the badge and aria-pressed, so it
@@ -68,6 +75,7 @@ export interface CreatureTileProps {
   variant?: CreatureImageVariant;
   selected?: boolean;
   highlight?: boolean;
+  mutedArtwork?: boolean;
   caption?: string;
   showCategory?: boolean;
   priority?: boolean;
@@ -83,6 +91,7 @@ export function CreatureTile({
   variant = 'gallery',
   selected = false,
   highlight = false,
+  mutedArtwork = false,
   caption,
   showCategory = false,
   priority = false,
@@ -99,6 +108,7 @@ export function CreatureTile({
       variant={variant}
       selected={selected}
       highlight={highlight}
+      mutedArtwork={mutedArtwork}
       {...(caption !== undefined ? { caption } : {})}
       showCategory={showCategory}
       priority={priority}
