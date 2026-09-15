@@ -41,14 +41,19 @@ describe('Marine Collection full guide', () => {
     await user.type(screen.getByLabelText('Search marine guide'), 'Chelonia');
     expect(screen.getByText('Green sea turtle')).toBeInTheDocument();
 
-    await user.click(screen.getByRole('button', { name: /^Seen\s+0$/ }));
+    const statusFilters = screen.getByRole('group', {
+      name: 'Filter by discovery status',
+    });
+    await user.click(
+      within(statusFilters).getByRole('button', { name: /^Seen\s*0$/ }),
+    );
     expect(await screen.findByRole('status')).toHaveTextContent(
       'No creatures match these filters.',
     );
 
     await user.click(
-      screen.getByRole('button', {
-        name: new RegExp(`^Not yet seen\\s+${creatures.length}$`),
+      within(statusFilters).getByRole('button', {
+        name: new RegExp(`^Not yet seen\\s*${creatures.length}$`),
       }),
     );
     expect(screen.getByText('Green sea turtle')).toBeInTheDocument();
