@@ -1,14 +1,14 @@
 # Poseidon — current project status
 
-Last reconciled: **2026-09-14**
+Last reconciled: **2026-09-15**
 
 This is the living programme-status companion to the durable product contracts. It records current implementation and remaining work; it does not replace `PRODUCT.md` or `docs/PRD.md`.
 
 ## Current integrated baseline
 
-Current `main` authority at this reconciliation is:
+Issue #51 implementation started from current `main` authority:
 
-`63a601a36c0d92a11dfea2c1239c4866daed16ae`
+`b5583718638401110c8449021de459436e0acced`
 
 Poseidon is a deployed React/Vite/TypeScript PWA with Firebase-backed approved-user persistence, local/offline shadow persistence, canonical marine content and a guarded creature-asset pipeline.
 
@@ -26,7 +26,7 @@ It covers canonical content/assets, lint/format, typechecks, domain/application 
 
 ## Product baseline
 
-Implemented product capability includes Home, four-step Log Dive, site/context reuse, dive metadata, visual and unlisted creature selection, highlights, Journal/Dive Detail edit/delete, Marine Collection, derived trips and milestones, sourced Creature Detail, Atlas/Places plus evidence-backed map coordinates, derived stats/discoveries, offline persistence and migrations, JSON export/validated restore, accessibility/mobile composition, GitHub Pages deployment and PWA install/update/offline behavior.
+Implemented product capability includes Home, four-step Log Dive, site/context reuse, dive metadata, visual and unlisted creature selection, highlights, Journal/Dive Detail edit/delete, the full curated Marine Collection guide with sighting-derived `Seen / Not yet seen` state and runtime progress, derived trips and milestones, sourced Creature Detail, Atlas/Places plus evidence-backed map coordinates, derived stats/discoveries, offline persistence and migrations, JSON export/validated restore, accessibility/mobile composition, GitHub Pages deployment and PWA install/update/offline behavior.
 
 Core architecture remains:
 
@@ -101,6 +101,12 @@ Derived trip grouping, restrained milestones and richer sourced Creature Detail 
 
 The first truthful map and sourced starter-region coordinates are merged. Coordinate precision is explicit and missing-coordinate sites remain valid.
 
+### #51 — full curated Marine Collection guide — complete in this change
+
+Collection now joins the full curated creature catalogue from `useCreatures()` with sighting-derived history from `useCollection()` instead of treating history as catalogue membership. All curated creatures are visible by default; `Seen` is derived only from logged sightings; `All / Seen / Not yet seen` composes with search/category; unseen cards use a muted artwork-only field-guide treatment while names remain fully legible; unseen Creature Detail remains open and unmuted; progress uses the runtime curated denominator; user-created creatures appear only with actual history and never affect that denominator. No discovery/unlock state or schema change was added.
+
+The #51 matrix covers zero-history guide rendering, repeated sightings, edit/delete reversion to unseen, search/category/status composition, user-created denominator rules, unseen-detail access and missing-art fallback.
+
 ## Active enhancement streams
 
 ### #33 — complete HD starter-library coverage
@@ -129,7 +135,9 @@ Engineering/deployment acceptance is automated. Keep #14 open until physical Pix
 ## Durable boundaries
 
 - The Dive is canonical personal history.
-- Collection, stats, discoveries, trips/milestones and place summaries are derived rather than independently persisted.
+- Collection seen state, stats, discoveries, trips/milestones and place summaries are derived rather than independently persisted.
+- Curated catalogue membership defines the Collection guide; logged sightings define seen state.
+- User-created creatures require actual history and never affect curated guide progress.
 - UI components consume `PoseidonStore`, not persistence internals.
 - Curated marine content is replaceable enrichment, not personal history.
 - `assets/source` is editorial input; `assets/creatures` is canonical runtime output.
