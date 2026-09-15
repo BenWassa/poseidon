@@ -9,6 +9,7 @@ import { buildDemoState } from '../apps/web/tools/demo-state.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const distDir = resolve(here, '../apps/web/dist');
+const BASE_PATH = '/poseidon';
 const MIME = {
   '.html': 'text/html; charset=utf-8',
   '.js': 'text/javascript; charset=utf-8',
@@ -30,7 +31,12 @@ const species = [
 ];
 
 async function resolveFile(pathname) {
-  const candidate = join(distDir, pathname === '/' ? 'index.html' : decodeURIComponent(pathname));
+  const appPath = pathname === BASE_PATH || pathname === `${BASE_PATH}/`
+    ? '/index.html'
+    : pathname.startsWith(`${BASE_PATH}/`)
+      ? pathname.slice(BASE_PATH.length)
+      : pathname;
+  const candidate = join(distDir, appPath === '/' ? 'index.html' : decodeURIComponent(appPath));
   try {
     const info = await stat(candidate);
     if (info.isFile()) return candidate;
@@ -50,7 +56,7 @@ const server = createServer((request, response) => {
 await new Promise((done) => server.listen(0, '127.0.0.1', done));
 const { port } = server.address();
 const origin = `http://127.0.0.1:${port}`;
-const route = (path) => `${origin}/#${path}`;
+const route = (path) => `${origin}${BASE_PATH}/#${path}`;
 const demo = buildDemoState();
 const proofStamp = '2026-09-15T12:00:00.000Z';
 demo.state.dives.push({
@@ -135,7 +141,7 @@ try {
   for (const [id, name] of species) {
     const button = page.getByRole('button', { name: new RegExp(name, 'i') }).first();
     await button.scrollIntoViewIfNeeded();
-    const image = button.locator(`img[data-testid="creature-artwork"]`).first();
+    const image = button.locator('img[data-testid="creature-artwork"]').first();
     await assertLocatorImageLoaded(image, `/creatures/${id}/thumb.webp`, `Log Dive ${id}`);
   }
 
