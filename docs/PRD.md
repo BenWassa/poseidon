@@ -111,9 +111,20 @@ History should make accumulated diving life legible without becoming a dense ana
 
 ## 3.5 Browse the marine collection
 
-The user can see the creatures personally encountered.
+The Collection is the complete curated regional marine guide with the user's encounter history layered onto it.
 
-Each creature can accumulate:
+Requirements:
+
+- every curated creature is visible before the user logs it;
+- `Seen` is derived strictly from logged sightings, never from a persisted unlock/discovery flag;
+- the header reports runtime-derived curated progress such as `12 of 56 seen`;
+- `All`, `Seen`, and `Not yet seen` filters compose with search and category filtering;
+- unseen cards remain identifiable and readable while using a restrained muted/desaturated field-guide treatment;
+- unseen Creature Detail remains fully accessible with all curated information;
+- a final sighting being edited away or deleted returns a curated creature to `Not yet seen`;
+- user-created creatures appear only after they have been logged and never affect the curated denominator.
+
+For creatures with personal history, the product may show:
 
 - first-seen dive/date;
 - most recent sighting;
@@ -184,9 +195,7 @@ Grouped places/regions are valid even when coordinates are incomplete. A map is 
 
 ## Collection
 
-Visual marine-life gallery built from actual encounters.
-
-The user’s seen history remains the main character. Global catalogue completion is not the core framing.
+A full visual field guide for the current curated region, with personal discovery overlaid from the dive log. Curated creatures are always browseable; encounter history determines only whether each one is `Seen` or `Not yet seen` and supplies personal history. Guide completion is informative rather than a score, level, rarity system or gate.
 
 ## Log Dive
 
@@ -282,7 +291,8 @@ An uncurated entry must:
 
 - save immediately;
 - appear on the dive;
-- appear in the personal collection;
+- appear in the personal collection after it is actually logged;
+- never affect the curated guide denominator or create a hypothetical unseen card;
 - use a graceful generic/typographic representation;
 - remain eligible for later normalization without rewriting historical meaning.
 
@@ -391,10 +401,14 @@ The following MVP-A product capabilities are implemented on current `main`:
 - latest dive surfaced on Home.
 
 ### Collection
-- encountered creatures;
-- first/most recent seen;
-- dive history;
-- artwork where available.
+- full curated regional guide visible with zero history;
+- Seen / Not yet seen state derived from dive sightings;
+- runtime curated progress denominator;
+- discovery, category and search filters;
+- first/most recent seen and dive history for encountered creatures;
+- full Creature Detail access for unseen curated creatures;
+- user-created encountered creatures excluded from curated progress;
+- artwork/fallback where available.
 
 ### Lifetime basics
 - total dives;
@@ -508,6 +522,8 @@ From the first build:
 - stable layouts while images load;
 - safe-area-aware mobile composition.
 
+Collection discovery state must be communicated in text (`Seen` / `Not yet seen`), not by desaturation alone. Muting unseen artwork must not reduce creature names or card text below the normal readability contract.
+
 These are ongoing contracts, not one-time acceptance items.
 
 ---
@@ -543,9 +559,9 @@ The automated application suite covers the representative flow:
 9. Save.
 10. Verify Home and Journal.
 11. Open Dive Detail and verify encounters.
-12. Open Collection / Creature Detail.
+12. Open Collection / Creature Detail, including curated seen/unseen state.
 13. Restart and confirm persistence.
-14. Edit without corrupting derived collection/history.
-15. Delete behind a safeguard and confirm derived consistency.
+14. Edit without corrupting derived collection/history or guide progress.
+15. Delete behind a safeguard and confirm curated creatures return to `Not yet seen` while user-created history disappears.
 
 Automated success is necessary but not sufficient for owner-level v0 closeout. Issue #14 adds deployed/standalone Android, offline cold-start, restore and real-device/field validation.
