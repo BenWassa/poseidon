@@ -1,6 +1,8 @@
 import { screen, within } from '@testing-library/react';
 import { beforeEach, describe, expect, it } from 'vitest';
 
+import type { PoseidonContent } from '@poseidon/domain';
+
 import { contentPack, creatures } from '../src/data/content';
 import { renderPoseidon } from './harness';
 
@@ -80,11 +82,15 @@ describe('Marine Collection full guide', () => {
   });
 
   it('keeps a curated missing-art creature browseable through the fallback', async () => {
+    const sourceCreature = creatures[0];
+    expect(sourceCreature).toBeDefined();
+    if (!sourceCreature) throw new Error('Expected a curated fixture creature');
+
     const fallbackCreature = {
-      ...creatures[0],
+      ...sourceCreature,
       artwork: { status: 'missing' as const, aspectRatio: 1 },
     };
-    const fallbackContent = {
+    const fallbackContent: PoseidonContent = {
       ...contentPack,
       creatures: (contentPack.creatures ?? []).map((creature) =>
         creature.id === fallbackCreature.id ? fallbackCreature : creature,
