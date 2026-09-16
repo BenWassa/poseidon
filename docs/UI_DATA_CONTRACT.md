@@ -14,9 +14,11 @@ The TypeScript source in `packages/domain/src/domain.ts` is executable authority
 
 The **Dive** is the canonical historical record.
 
-Marine Collection, lifetime stats, recent discoveries, place summaries, and future derived history views such as trips or milestones should be recomputed from dives + creature/content metadata wherever practical.
+Marine Collection personal state, lifetime stats, recent discoveries, place summaries, and future derived history views such as trips or milestones should be recomputed from dives + creature/content metadata wherever practical.
 
-Avoid competing persisted sources of truth for the same personal history.
+The Collection guide itself is the current curated catalogue. Its `Seen` state is the join between that catalogue and sighting-derived `CreatureHistory`; it is not independently persisted.
+
+Avoid competing persisted sources of truth for the same personal history. In particular, do not add `seen`, `locked`, `unlocked` or `discovered` flags to persistence for Collection browsing.
 
 Curated content is enrichment. It is not canonical personal data.
 
@@ -33,6 +35,7 @@ The UI must not:
 - import a persistence SDK directly;
 - assume cloud/auth is required;
 - treat curated content as user-owned canonical history;
+- persist discovery state that can be derived from dive sightings;
 - assume every dive has coordinates;
 - assume every creature has curated art;
 - assume every user-entered creature is scientifically normalized.
@@ -167,6 +170,27 @@ type PlaceSummary = {
 };
 ```
 
+The Collection adds an application-only derived view model rather than changing these store contracts:
+
+```ts
+type CollectionGuideEntry = {
+  creature: Creature;
+  history?: CreatureHistory;
+  seen: boolean;
+};
+```
+
+Construction rules:
+
+1. `listCreatures()` supplies current catalogue membership.
+2. Curated, non-user-created creatures form the regional-guide denominator and are present even with no history.
+3. `listCreatureCollection()` supplies actual sighting history derived from dives.
+4. History presence for a curated creature means `seen: true`.
+5. A user-created creature is included only when `listCreatureCollection()` contains history for it; it never joins the curated denominator and can never be a hypothetical unseen guide entry.
+6. Editing or deleting the final sighting removes history and therefore returns a curated creature to unseen automatically.
+
+Search, category filtering and `All / Seen / Not yet seen` are presentation-time filters over this view model. No schema or persistence change is required.
+
 New derived views should follow the same rule unless there is a strong reason to persist them.
 
 ---
@@ -202,7 +226,7 @@ interface PoseidonStore {
 }
 ```
 
-Issue #14 is the planned place to add a safe restore/import counterpart to the existing export contract.
+Issue #51 deliberately does not add a guide/discovery method or persisted flag to this boundary. `useCreatures()` plus `useCollection()` are sufficient and keep the canonical-history rule intact.
 
 ---
 
@@ -278,7 +302,7 @@ Application code must not consume source-generation files directly.
 
 The source-art work in #11 / PR #13 introduces an editorial input layer under `assets/source/creatures`; canonical runtime output remains `assets/creatures/<id>/...`.
 
-Missing artwork remains valid product state and must render through a deliberate fallback.
+Missing artwork remains valid product state and must render through a deliberate fallback. Collection guide membership must never depend on artwork availability or #34 transparent-asset work.
 
 ---
 
@@ -289,6 +313,8 @@ Synthetic fixtures remain useful for deterministic development and acceptance te
 Fixture exports are isolated behind the explicit `@poseidon/domain/fixtures` subpath.
 
 Production behavior should be tested against the same `PoseidonStore` boundary used by the app.
+
+The Collection test matrix includes zero-history full-guide rendering, one/multiple sightings, distinct counting across repeated dives, final-sighting removal, search, category + discovery composition, `Seen`/`Not yet seen` exclusion rules, user-created denominator behavior, unseen-detail access and missing-art fallback.
 
 ---
 

@@ -95,11 +95,12 @@ Geometry is reserved from the manifest's `aspectRatio` before anything loads, so
 artwork resolving never shifts the layout. Everything outside the first screen is
 lazily loaded.
 
-**Missing art is a first-class state.** 18 of the 50 creatures in the content
-pack are illustrated. The rest render `CreatureMark`: a deterministic aquatic
-wash with a category glyph, or a typographic monogram for a creature the diver
-typed in themselves. A variant that fails to load falls back to the same mark,
-so a broken image cannot reach the screen.
+**Missing art is a first-class state.** A curated creature without runtime art
+renders `CreatureMark`: a deterministic aquatic wash with a category glyph, or a
+typographic monogram for a creature the diver typed in themselves. A variant
+that fails to load falls back to the same mark, so a broken image cannot reach
+the screen. Collection availability therefore does not depend on #34 or any
+later transparent-asset pass.
 
 Because the artwork is transparent, tiles show it on its own wash — that plate is
 what gives the collection its colour. Surfaces with a background of their own
@@ -125,7 +126,7 @@ uncluttered mobile hierarchy.
 | --- | --- | --- |
 | `32 Dives`, `14 Regions`, `42 species`, `12 Favorites` | Every number derived from the store | Hard-coded totals are not a personal record. |
 | `Favorites` as a core metric | Removed | Not a Poseidon concept. The dive's **highlight creature** is. |
-| `Ocean Explorer · Level 4 · 150 Total Known` with a progress bar | `21 creatures across 2 places and 9 dives` | The collection is what the owner has actually encountered, not a score against a catalogue. No levels, no global denominator, no rarity. |
+| `Ocean Explorer · Level 4 · 150 Total Known` with a progress bar | Full curated regional field guide with runtime `Seen / Not yet seen` progress | The denominator is the current curated regional catalogue, not a level or score. Seen state is derived strictly from logged sightings; user-created creatures never change the curated denominator. |
 | Remote Unsplash photography throughout | Creature artwork, atlas motif, place typography, aquatic colour | See section 3. |
 | Fixture creatures from the wrong ocean (reef manta, clown anemonefish, Moorish idol, blue tang from the Pacific) | The sourced Mexican Caribbean pack | Content is researched and provenanced, not decorative. |
 | Dive detail showing water temperature and clock time, with a hard-coded `18m` | Date, area, site, max depth, duration, highlight, sightings, note, operator, buddies | Water temperature and time of day are not in the domain model. Depth and duration are, and are real. |
@@ -135,6 +136,25 @@ uncluttered mobile hierarchy.
 | No Atlas or Creature Detail surfaces | Both implemented | Required by the PRD. |
 | Back always returned to Home | Real routes and history-aware back | Navigation must preserve origin context. |
 | `<div onClick>` for every control | Semantic buttons and links, labels, `aria-pressed`, 44px targets, visible focus | The prototype is visual inspiration, not an accessibility exemption. |
+
+## Collection derivation
+
+The Collection deliberately joins two existing application reads rather than
+introducing a discovery store:
+
+1. `useCreatures()` supplies the complete current catalogue;
+2. `useCollection()` supplies `CreatureHistory` derived from canonical dives;
+3. the screen joins both by stable creature ID;
+4. curated catalogue membership determines the guide denominator;
+5. history presence determines `Seen`;
+6. user-created creatures enter the view only when a history exists and are
+   excluded from the curated denominator.
+
+`All / Seen / Not yet seen`, category filtering and search are derived view
+filters. No `locked`, `seen`, `unlocked` or `discovered` flag is persisted.
+Unseen presentation is applied only to artwork; names, category labels and state
+text retain normal readability. Creature Detail does not inherit the muted card
+treatment and remains fully available before first encounter.
 
 ## The Atlas, specifically
 
@@ -152,6 +172,8 @@ better than a fake pin map.
 - Every control is a real `button`, `a`, `input` or `textarea` with an accessible name.
 - Creature selection is communicated by the coral ring, a check badge **and**
   `aria-pressed` — never by colour alone.
+- Collection discovery filters use semantic buttons with `aria-pressed`; unseen
+  state is also written as `Not yet seen`, so desaturation is never the sole cue.
 - Touch targets are at least 44px.
 - Focus is visible via a token-coloured outline.
 - `prefers-reduced-motion` collapses every animation and transition; nothing in
@@ -184,5 +206,7 @@ The application suite covers the representative acceptance scenario from
 `docs/PRD.md` §14 end to end — create a Cozumel dive, enter depth and duration,
 select real local creatures, add an unlisted creature, choose a highlight, save,
 verify Home, Journal, Dive Detail, Collection and Creature Detail, restart the
-app, edit the dive, and delete it behind a safeguard — plus empty and sparse
-history, missing and failing artwork, unit memory, and the content/asset seam.
+app, edit the dive, and delete it behind a safeguard — plus the Collection #51
+matrix: zero-history full-guide rendering, runtime curated progress, seen/unseen
+transitions, search/category/status composition, user-created denominator rules,
+unseen detail access and missing-art fallback.
