@@ -7,6 +7,7 @@ import { chromium } from 'playwright';
 import { launchOptions } from './chromium.mjs';
 
 const webRoot = resolve(import.meta.dirname, '../apps/web');
+const viteBin = resolve(import.meta.dirname, '../node_modules/vite/bin/vite.js');
 const port = 4179;
 const origin = `http://127.0.0.1:${port}`;
 const route = (path = '/') => `${origin}/?mock=0#${path}`;
@@ -60,8 +61,8 @@ async function assertLocatorImageLoaded(image, expectedFragment, label) {
 }
 
 const devServer = spawn(
-  'npx',
-  ['vite', '--host', '127.0.0.1', '--port', String(port), '--strictPort'],
+  process.execPath,
+  [viteBin, '--host', '127.0.0.1', '--port', String(port), '--strictPort'],
   {
     cwd: webRoot,
     env: { ...process.env, POSEIDON_BASE_PATH: '/' },
@@ -121,13 +122,9 @@ try {
 } finally {
   await browser.close();
   devServer.kill('SIGTERM');
-  await new Promise((done) => {
-    const timeout = setTimeout(done, 5_000);
-    devServer.once('exit', () => {
-      clearTimeout(timeout);
-      done();
-    });
-  });
+  devServer.stdout.destroy();
+  devServer.stderr.destroy();
+  devServer.unref();
 }
 
 console.log('[issue33-final] rendered verification passed');
