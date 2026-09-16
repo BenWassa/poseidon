@@ -5,8 +5,8 @@ on:
     branches:
       - art/55-realistic-hd
     paths:
-      - 'assets/source/creatures/**/candidate-v*.webp'
       - 'assets/source/creatures/**/candidate-v*.review.json'
+      - 'assets/source/creatures/**/candidate-v*.b64-*'
 
 permissions:
   contents: write
@@ -25,24 +25,23 @@ jobs:
           cache: pip
           cache-dependency-path: tools/creature_assets/requirements.txt
       - run: python -m pip install -r tools/creature_assets/requirements.txt
-      - name: Apply one reviewed replacement to source catalog
+      - name: Reconstruct and register one reviewed replacement
         id: review
         shell: bash
         run: |
           set -euo pipefail
           mapfile -t reviews < <(git diff --name-only HEAD^ HEAD -- 'assets/source/creatures/*/candidate-v*.review.json')
           if [ "${#reviews[@]}" -eq 0 ]; then
-            echo "No #55 review sidecar in this commit; nothing to promote."
             echo 'skip=true' >> "$GITHUB_OUTPUT"
             exit 0
           fi
           if [ "${#reviews[@]}" -ne 1 ]; then
             printf 'Expected exactly one review sidecar, found %s\n' "${#reviews[@]}" >&2
-            printf '%s\n' "${reviews[@]}" >&2
             exit 1
           fi
           review_file="${reviews[0]}"
           python - "$review_file" <<'PY'
+          import base64
           import hashlib
           import json
           import pathlib
@@ -53,16 +52,21 @@ jobs:
           candidate_id = review_path.parent.name
           candidate_name = review['candidate']
           candidate_path = review_path.parent / candidate_name
-          if not candidate_path.is_file():
-              raise SystemExit(f'Missing reviewed candidate: {candidate_path}')
-          data = candidate_path.read_bytes()
+          parts = [review_path.parent / name for name in review.get('candidateBase64Parts', [])]
+          if parts:
+              encoded = ''.join(path.read_text().strip() for path in parts)
+              data = base64.b64decode(encoded, validate=True)
+              candidate_path.write_bytes(data)
+          elif candidate_path.is_file():
+              data = candidate_path.read_bytes()
+          else:
+              raise SystemExit(f'Missing reviewed candidate transfer for {candidate_path}')
 
           catalog_path = pathlib.Path('assets/source/creatures/catalog.json')
           catalog = json.loads(catalog_path.read_text())
           match = next((entry for entry in catalog['assets'] if entry['id'] == candidate_id), None)
           if match is None:
               raise SystemExit(f'No catalog entry for {candidate_id}')
-
           match.update({
               'path': candidate_path.as_posix(),
               'score': review['score'],
@@ -81,6 +85,7 @@ jobs:
           catalog['updatedOn'] = review['generatedOn']
           catalog_path.write_text(json.dumps(catalog, indent=2) + '\n')
           pathlib.Path('.issue55-candidate-id').write_text(candidate_id)
+          pathlib.Path('.issue55-parts').write_text('\n'.join(str(path) for path in parts))
           PY
           echo "candidate_id=$(cat .issue55-candidate-id)" >> "$GITHUB_OUTPUT"
           echo "review_file=$review_file" >> "$GITHUB_OUTPUT"
@@ -99,9 +104,10 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          rm -f '${{ steps.review.outputs.review_file }}' .issue55-candidate-id
+          while IFS= read -r part; do [ -z "$part" ] || rm -f "$part"; done < .issue55-parts
+          rm -f '${{ steps.review.outputs.review_file }}' .issue55-candidate-id .issue55-parts
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add assets/source/creatures/catalog.json assets/source/creatures assets/creatures
+          git add -A assets/source/creatures assets/creatures
           git commit -m "assets(#55): promote realistic ${{ steps.review.outputs.candidate_id }}"
           git push
