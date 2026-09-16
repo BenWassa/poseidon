@@ -2,7 +2,22 @@
 
 This tooling owns canonical runtime creature artwork under `assets/creatures`. Editorial/generated masters live separately under `assets/source/creatures` and are never application inputs.
 
-Poseidon's creature imagery falls into three categories — **source artwork** (`assets/source/creatures`, editorial-only), **approved runtime artwork** (a `keep` source candidate promoted here via `promote-source`), and **fallback artwork** (an older SVG-derived runtime illustration, or the `CreatureMark` placeholder when no runtime art exists at all). See `docs/CONTENT_AND_ASSETS.md` §10 for the full definition; this document only ever produces or validates runtime output, regardless of which category a given directory currently holds.
+Poseidon's creature imagery falls into three operational categories: **source artwork** (`assets/source/creatures`, editorial-only), **approved runtime artwork** (a reviewed `keep` source candidate promoted here via `promote-source`), and **missing-art fallback** (a neutral UI state when no approved runtime art can render).
+
+## Visual-source policy
+
+Creature masters are **realistic HD raster artwork**. Do not create new marine-life SVG/vector masters or use procedural/vector-looking creature illustration as an accepted final visual source.
+
+Important distinctions:
+
+- runtime `.webp` format alone does not prove a source satisfies the realism requirement;
+- legacy SVG-derived/procedural creature work may remain in history or tooling while replacements are produced, but it is not an approved future production path;
+- current #55 replaces the 26 #33 coverage assets with realistic 1024×1024 raster candidates;
+- preserve every superseded source revision as immutable history;
+- generic SVG UI icons remain acceptable outside the creature-art inventory;
+- missing-art behavior remains supported, but a fallback must not masquerade as approved species artwork.
+
+See `docs/CREATURE_ASSET_LIBRARY.md` for the human inventory and production queue. The machine provenance authority remains `assets/source/creatures/catalog.json`.
 
 ## Canonical runtime layout
 
@@ -28,11 +43,13 @@ Both supported source modes produce the same deterministic runtime sizes and byt
 
 Fixed encoder settings and the pinned Pillow toolchain make output deterministic for a given input and mode. Runtime manifests carry source hashes plus the explicit source mode for newly generated art. Existing v1 manifests without `source.mode` remain valid and are interpreted as the legacy transparent/specimen contract.
 
+The source mode describes alpha/composition handling. It does **not** waive the realistic-raster visual policy.
+
 ## Explicit source modes
 
 ### `transparent-specimen`
 
-This is the original/default mode. It requires an alpha channel, retains the contain-and-centre transparent canvas behavior, and keeps existing transparent artwork backward compatible.
+This mode requires an alpha channel, retains the contain-and-centre transparent canvas behavior, and keeps existing transparent artwork backward compatible.
 
 ```bash
 python -m tools.creature_assets ingest \
@@ -43,9 +60,11 @@ python -m tools.creature_assets ingest \
 
 Omitting `--mode` is equivalent to `transparent-specimen` so existing commands keep their meaning.
 
+Issue #34 may derive transparent raster specimens from approved realistic opaque masters. This is background extraction, not vectorization.
+
 ### `opaque-scene`
 
-This mode is for reviewed square scene masters such as the generated sunlit-Caribbean source library. It requires a fully opaque square PNG/WebP, preserves the full composition, and generates opaque 192/512/1024 WebP variants. It does **not** weaken alpha validation for transparent/specimen inputs.
+This mode is for reviewed square scene masters such as the sunlit-Caribbean source library. It requires a fully opaque square PNG/WebP, preserves the full composition, and generates opaque 192/512/1024 WebP variants. It does **not** weaken alpha validation for transparent/specimen inputs.
 
 ```bash
 python -m tools.creature_assets ingest \
@@ -53,6 +72,8 @@ python -m tools.creature_assets ingest \
   --source /path/to/approved-scene.webp \
   --mode opaque-scene
 ```
+
+For new/replacement marine-life art, the opaque source must itself pass the realistic-HD visual gate before promotion.
 
 ## Editorial source library
 
@@ -97,7 +118,8 @@ Promotion requires all of the following:
 - editorial `status` is exactly `keep`;
 - `creatureId` maps to an existing repository content record;
 - the candidate file/hash/mode validate;
-- an existing runtime directory is not replaced unless `--force` is explicitly supplied.
+- an existing runtime directory is not replaced unless `--force` is explicitly supplied;
+- editorial review has confirmed biological identity and the current realistic-HD visual requirement.
 
 `provisional` and `remake` candidates are blocked even with `--force`. Source-only candidates with `creatureId: null` are also blocked so artwork cannot silently create taxonomy. Existing runtime art therefore remains authoritative until a specific reviewed replacement is deliberately promoted.
 
@@ -111,6 +133,18 @@ python -m tools.creature_assets fallback --id unillustrated-creature --status mi
 ```
 
 These manifests keep `aspectRatio: 1.0`, expose null image references and let the UI choose its designed fallback.
+
+Fallbacks are resilience states, not substitute creature artwork. Do not add species-specific SVG creature illustrations to fill a missing-art state. Prefer a neutral aquatic treatment, generic non-species icon or user-created-creature monogram until approved realistic art exists.
+
+## #55 and #34 order
+
+For the 26 #33 species listed in `docs/CREATURE_ASSET_LIBRARY.md`:
+
+1. #55 creates and approves the realistic opaque raster replacement;
+2. the replacement is promoted through this pipeline;
+3. #34 may then derive a transparent raster version where useful.
+
+Do not perform #34 extraction from a vector-derived source that is already scheduled for #55 replacement.
 
 ## Runtime validation
 
