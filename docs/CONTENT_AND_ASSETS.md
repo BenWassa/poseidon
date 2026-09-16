@@ -4,7 +4,9 @@
 
 This is the durable strategy for creature content, regional relevance and artwork.
 
-Current implementation status is tracked in `docs/PROJECT_STATUS.md`. The Mexican Caribbean starter content pack is implemented. #11/#12/PR #13 established the source-art system and original reviewed library; #30/#31/#38/#39 fully resolved the original 30-source batch; #33 then completed HD coverage for the remaining 26 current content creatures. The resulting current baseline is **56 content IDs = 56 mapped `keep` source entries = 56 canonical runtime manifests**. #34 remains the separate later transparent-background derivation pass.
+Current implementation status is tracked in `docs/PROJECT_STATUS.md`. The Mexican Caribbean starter content pack is implemented. #11/#12/PR #13 established the source-art system and original reviewed library; #30/#31/#38/#39 fully resolved the original 30-source batch; #33 then completed technical artwork coverage for the remaining 26 current content creatures. The current baseline is **56 content IDs = 56 mapped `keep` source entries = 56 canonical runtime manifests**.
+
+Technical coverage is not the same as final visual acceptance. Owner direction on 2026-09-16 establishes realistic HD raster imagery as the creature-art target. #55 now replaces the 26 #33 coverage assets with realistic raster masters. #34 transparent-background derivation follows the relevant #55 replacement rather than preceding it.
 
 ---
 
@@ -57,7 +59,9 @@ Initial enrichment is intentionally concentrated on Cozumel, Playa del Carmen an
 
 The implemented pack is useful recreational coverage, not a complete biological catalogue. It contains **56** sourced creature records: the prior 50 plus six defensible Mexican-Caribbean species that were already represented in the original HD source-art batch.
 
-All 56 current curated records now have approved HD runtime artwork. New user-created or future curated records must still remain fully usable if artwork has not yet been reviewed.
+All 56 current curated records have canonical runtime artwork. The original 30-source programme is the current realistic-HD baseline. The 26 #33 coverage records remain technically complete but are queued under #55 for realistic raster replacement.
+
+New user-created or future curated records must remain fully usable if artwork has not yet been reviewed.
 
 New regions should primarily be a content operation rather than a new application implementation.
 
@@ -78,27 +82,38 @@ This is relevance ordering, not a claim that a creature was definitely present o
 
 # 6. Artwork principles
 
-Creature artwork should be immediately recognizable, biologically plausible, consistent as a collection, polished, colourful without becoming childish, readable at gallery-thumbnail scale, compositionally useful at tile and detail scale, free of baked-in labels, and reviewed before production promotion.
+Creature artwork should be immediately recognizable, biologically plausible, consistent as a collection, readable at gallery-thumbnail scale, compositionally useful at tile and detail scale, free of baked-in labels, and reviewed before production promotion.
 
-Aesthetic quality never overrides wrong anatomy, markings or species identity. AI generation is an accepted source-art method, but raw generation output is never automatically production content.
+The visual target is **realistic HD raster imagery**:
+
+- natural underwater lighting, depth and texture;
+- realistic proportions and diagnostic markings;
+- attractive but not stylized into flat/vector/clip-art treatment;
+- clear subject dominance with plausible Caribbean environmental context;
+- no marine-life SVG/vector master as final artwork;
+- no assumption that a WebP runtime file is visually acceptable merely because it is raster encoded.
+
+Aesthetic quality never overrides wrong anatomy, markings or species identity. AI image generation is an accepted source-art method, but raw generation output is never automatically production content. Biological identity and realism are separate acceptance gates.
+
+SVG remains appropriate for generic UI icons, logos, maps and other intentionally graphic non-creature interface elements.
 
 ---
 
 # 7. Source-art treatments
 
-Poseidon supports two deliberate source treatments.
+Poseidon supports two runtime/source-composition treatments, both using reviewed raster creature art.
 
 ## Transparent/specimen source
 
-Transparent specimen art is useful when the creature should float over Poseidon's own tile/hero material.
+Transparent raster specimen art is useful when the creature should float over Poseidon's own tile/hero material.
 
 ## Opaque underwater-scene source
 
-The `poseidon-sunlit-square-v1` family uses square underwater-scene masters. This is a legitimate source family and is the authority for the completed current HD programme.
+The `poseidon-sunlit-square-v1` family uses square underwater-scene raster masters. This is the preferred source treatment for realistic replacement generation because it preserves natural lighting and environmental context.
 
 The two modes remain explicit. Never weaken transparency validation globally just to admit opaque-scene sources.
 
-Issue #34 may later derive transparent raster specimen revisions from the completed approved HD opaque library. That derivation does **not** replace or mutate the opaque originals, and it is not automatic vector tracing. #34 is not part of #33 completion.
+Issue #34 may derive transparent raster specimen revisions from an approved realistic opaque library. That derivation does **not** replace or mutate opaque originals and is not vector tracing. For the 26 #55 targets, realistic replacement comes first; transparent extraction comes afterward where useful.
 
 ---
 
@@ -117,7 +132,7 @@ assets/creatures/<stable-creature-id>/
   hero.webp
 ```
 
-`assets/source` is immutable/versioned editorial input and may contain blocked candidates. `assets/creatures` is canonical runtime output. Application components consume only runtime manifests/variants.
+`assets/source` is immutable/versioned editorial input and may contain blocked or superseded candidates. `assets/creatures` is canonical runtime output. Application components consume only runtime manifests/variants.
 
 ---
 
@@ -125,27 +140,31 @@ assets/creatures/<stable-creature-id>/
 
 Generated source candidates use internal production states:
 
-- `keep` — eligible for deliberate promotion once all other gates pass;
+- `keep` — eligible for deliberate promotion once all current gates pass;
 - `provisional` — requires focused QA and cannot promote;
 - `remake` — known weak/incorrect and cannot promote.
 
 Quality scores and identity confidence are production metadata, not user-facing rarity or ecological confidence.
 
-The current full source catalogue stands at **56 keep / 0 provisional / 0 remake**. The original 30-entry batch remains historically identifiable within that catalogue and is fully resolved. Original source binaries remain immutable; accepted replacements use later candidate revisions.
+The machine catalogue currently stands at **56 keep / 0 provisional / 0 remake** from the completed coverage programme. That historical editorial state does not cancel the later owner decision to replace the 26 #33 assets for visual realism. #55 treats those current files as transitional runtime assets until reviewed realistic replacements are promoted.
+
+Original source binaries remain immutable; accepted replacements use later candidate revisions.
 
 ---
 
-# 10. Three artwork categories
+# 10. Artwork categories
 
-Poseidon's creature imagery falls into three categories:
+Poseidon's creature imagery falls into three operational categories:
 
 - **Source artwork** — `assets/source/creatures/<id>/candidate-vN.webp`; editorial-only input, never loaded directly by the app.
-- **Approved runtime artwork** — `assets/creatures/<id>/{thumb,gallery,hero}.webp`, produced only by explicit guarded promotion of a mapped `keep` source.
-- **Fallback artwork** — older SVG-derived runtime illustration or designed `CreatureMark` when no approved HD promotion exists.
+- **Approved runtime artwork** — `assets/creatures/<id>/{thumb,gallery,hero}.webp`, produced only by explicit guarded promotion of a mapped reviewed source.
+- **Missing-art fallback** — a neutral designed UI state when approved runtime art is absent or fails to render.
 
-All 56 current curated content records are in the approved-runtime category after #33. The fallback contract remains required for user-created creatures and future content that has not yet passed artwork QA.
+Legacy SVG-derived creature tooling and species-like icon fallbacks are not a fourth approved art category. They are deprecated implementation/history and must not be expanded into new marine-life artwork.
 
-Runtime manifests intentionally do not encode editorial quality history. A blocked species keeps correct fallback art until a reviewed replacement is explicitly promoted.
+All 56 current curated content records have runtime art. The fallback contract remains required for user-created creatures and future content that has not yet passed artwork QA.
+
+Runtime manifests intentionally do not encode the complete editorial quality history. `docs/CREATURE_ASSET_LIBRARY.md` is the human inventory and next-work authority; `assets/source/creatures/catalog.json` records machine provenance.
 
 ---
 
@@ -167,9 +186,9 @@ The application reserves geometry before image load, uses the smallest appropria
 
 # 12. Missing-art behavior
 
-No artwork is a first-class supported state even though the current curated pack now has complete coverage. A future or user-created creature without finished art remains fully loggable, visible in the dive and personal collection, and uses the designed aquatic fallback rather than broken image chrome.
+No artwork is a first-class supported state even though the current curated pack has complete runtime coverage. A future or user-created creature without finished art remains fully loggable, visible in the dive and personal collection, and uses a designed neutral fallback rather than broken image chrome.
 
-Do not suppress creatures because production art is incomplete.
+Do not suppress creatures because production art is incomplete. Do not create a species-specific marine-life SVG merely to avoid a missing-art state.
 
 ---
 
@@ -178,10 +197,10 @@ Do not suppress creatures because production art is incomplete.
 For each new/replacement creature asset:
 
 1. choose the stable content ID;
-2. generate/prepare an immutable source candidate in an approved style family;
+2. generate/prepare an immutable **realistic raster** source candidate in an approved style family;
 3. record source/generation provenance;
 4. review diagnostic morphology and markings;
-5. review style consistency and card-scale readability;
+5. review realism, natural lighting, depth, texture, style consistency and card-scale readability;
 6. assign editorial state;
 7. block `provisional` / `remake` from runtime promotion;
 8. ingest an approved source through its explicit source mode;
@@ -196,16 +215,18 @@ Do not generate a large library and review it only at the end. Work in small bat
 
 # 14. Current artwork programme
 
-The staged HD programme is now:
+The staged programme is now:
 
-1. **#30 — complete:** initial mapped `keep` candidates promoted.
-2. **#31 — complete:** all 30 original source entries mapped and the full original batch finished; #38 and #39 supplied immutable reviewed v2 replacements for the eight biological remakes.
-3. **#33 — complete:** the exact 26 formerly uncovered content creatures received reviewed immutable `poseidon-sunlit-square-v1` sources and guarded runtime promotion.
-4. **#34 — separate next phase:** if deliberately started, derive transparent raster specimen revisions from the stable approved HD library. Preserve every opaque original and do not auto-vectorize.
+1. **#30 / #31 / #38 / #39 — complete:** original 30-source HD programme fully mapped, biologically reviewed and promoted; this is the current realistic-HD baseline.
+2. **#33 — technically complete:** 26 previously uncovered creatures received source candidates and canonical runtime promotion, closing coverage at 56/56.
+3. **#55 — next art-production priority:** replace those 26 #33 coverage assets with newly reviewed realistic 1024×1024 raster masters; preserve current candidates as immutable history until replacement.
+4. **#34 — after the relevant #55 replacement:** derive transparent raster specimens from approved realistic opaque masters where useful. Preserve originals and never auto-vectorize.
 
-Current counts are **56 content records**, **56 mapped HD source entries**, **56 approved/live canonical runtime manifests**, **56 keep / 0 provisional / 0 remake**, and **0 current curated content records without HD source coverage**.
+Current technical counts remain **56 content records**, **56 mapped source entries**, **56 live canonical runtime manifests**, and **0 current curated content records without runtime artwork**.
 
-Expansion priority remains useful Mexican-Caribbean coverage and locally distinctive gaps, not ocean-wide completeness.
+Current visual-production count is **30 baseline assets retained + 26 realistic replacements queued under #55**.
+
+Do not expand the creature count before the current 56-creature visual family is coherent unless a separate product decision explicitly changes priority.
 
 ---
 
@@ -223,6 +244,8 @@ Omitting rarity is preferable to weak evidence.
 
 Adding a new region should primarily mean adding structured content: region metadata, sourced sites/places, creature relevance mappings, aliases/provenance and reviewed artwork where useful.
 
-Adding a new creature should primarily be a content/editorial operation once the asset system supports the chosen source family.
+Adding a new creature should primarily be a content/editorial operation once the current 56-creature realistic art baseline is coherent and the asset system supports the chosen source family.
+
+Expansion priority remains useful Mexican-Caribbean coverage and locally distinctive gaps, not ocean-wide completeness.
 
 Coordinates/map work remains separately governed by the existing Atlas/geodata contract so location content never fabricates geographic precision.

@@ -1,41 +1,159 @@
 # Poseidon Creature Asset Library
 
-Last updated: **2026-09-15**
+Last updated: **2026-09-16**
 
-This is the human review ledger for Poseidon creature artwork. The machine-readable authority is [`assets/source/creatures/catalog.json`](../assets/source/creatures/catalog.json). Runtime assets remain under `assets/creatures/` and are produced only through the canonical #11 pipeline.
+This is the human inventory and production-order authority for Poseidon creature artwork. The machine-readable provenance authority is [`assets/source/creatures/catalog.json`](../assets/source/creatures/catalog.json). Runtime assets remain under `assets/creatures/` and are produced only through the canonical #11 pipeline.
 
-## Current state
+## Owner visual authority — realistic HD raster only
 
-The live Mexican-Caribbean content catalogue contains **56 stable creature IDs**. After #33 completes, the source and runtime library is closed at:
+Marine-life artwork is now governed by a simple product rule:
 
-- **56 mapped HD source-catalog entries**;
-- **56 keep**;
-- **0 provisional**;
-- **0 remake**;
+- approved creature artwork should be **realistic HD raster imagery**;
+- new marine-life SVG/vector illustration is not an approved production path;
+- a final `.webp` file is not sufficient if its visual source is procedural/vector-looking;
+- biological accuracy remains mandatory, but realism, natural texture, underwater lighting and depth are also acceptance requirements;
+- legacy SVG creature generators and species-specific vector fallbacks are transitional/deprecated, not inventory to expand;
+- SVG remains acceptable for generic UI icons, logos, map symbols and other non-creature interface graphics.
+
+Do not delete immutable historical sources merely because they are superseded. Replace them by adding a new reviewed raster candidate revision and promoting it through the guarded pipeline.
+
+## Inventory snapshot
+
+The curated Mexican-Caribbean catalogue contains **56 stable creature IDs** and is complete for technical coverage:
+
+- **56 mapped source-catalog entries**;
+- **56 current `keep` entries**;
 - **56 canonical runtime manifests**;
-- **0 current curated content creatures without approved HD runtime art**.
+- each runtime kit contains deterministic `thumb.webp` (192), `gallery.webp` (512) and `hero.webp` (1024);
+- **0 current curated creatures are missing runtime artwork**.
 
-Original source binaries remain immutable. Reviewed replacements create new candidate revisions rather than overwriting earlier source files.
+That technical coverage must now be separated from visual acceptance:
 
-The 56-source library consists of:
+| Inventory group | Count | Current runtime state | Visual direction |
+| --- | ---: | --- | --- |
+| Original HD source programme | 30 | Live canonical WebP variants | Retain as the current realistic-HD baseline unless individual visual QA flags a replacement. |
+| #33 coverage programme | 26 | Live canonical WebP variants | **Replace under #55 with new realistic raster masters.** Current files may remain live until accepted replacements exist. |
+| Legacy SVG creature tooling/fallbacks | Not part of the 56-source inventory | Repository/tooling/fallback only | **Deprecated for marine-life artwork. Do not create new creature SVGs.** |
 
-- the fully resolved original **30-entry** source batch;
-- the **26 #33 coverage entries** generated and reviewed against the locked diagnostic matrix.
+The important distinction is that runtime format and source style are different questions. Some #33 outputs are WebP at runtime but were produced from procedural SVG/vector-assisted workflows. They therefore do not satisfy the current realistic-HD visual direction.
 
-All 56 map deliberately to content authority and are live through guarded promotion.
+## Current 30-asset realistic-HD baseline
 
-## Original 30-entry source batch
+These are the original HD-source programme records. They are **not automatically queued for replacement**; preserve them unless a direct visual review identifies a specific realism or biological problem:
 
-#31 resolved the former six `creatureId: null` entries by adding sourced Mexican-Caribbean content records rather than weakening the promotion gate.
+- queen angelfish (`queen-angelfish`)
+- hawksbill sea turtle (`hawksbill-sea-turtle`)
+- spotted eagle ray (`spotted-eagle-ray`)
+- nurse shark (`nurse-shark`)
+- green moray (`green-moray`)
+- great barracuda (`great-barracuda`)
+- stoplight parrotfish (`stoplight-parrotfish`)
+- Caribbean reef squid (`caribbean-reef-squid`)
+- Caribbean spiny lobster (`caribbean-spiny-lobster`)
+- Caribbean reef octopus (`caribbean-reef-octopus`)
+- French angelfish (`french-angelfish`)
+- spotted trunkfish (`spotted-trunkfish`)
+- queen triggerfish (`queen-triggerfish`)
+- Nassau grouper (`nassau-grouper`)
+- Atlantic blue tang (`blue-tang`)
+- southern stingray (`southern-stingray`)
+- trumpetfish (`trumpetfish`)
+- longsnout seahorse (`longsnout-seahorse`)
+- yellowtail snapper (`yellowtail-snapper`)
+- porcupinefish (`porcupinefish`)
+- longspine sea urchin (`longspine-sea-urchin`)
+- banded coral shrimp (`banded-coral-shrimp`)
+- schoolmaster snapper (`schoolmaster-snapper`)
+- Spanish hogfish (`spanish-hogfish`)
+- Caribbean cushion sea star (`caribbean-cushion-sea-star`)
+- sergeant major (`sergeant-major`)
+- porkfish (`porkfish`)
+- queen conch (`queen-conch`)
+- spotted drum (`spotted-drum`; source presentation is juvenile spotted drum)
+- green sea turtle (`green-sea-turtle`)
 
-Runtime closeout for that original batch was:
+The original batch is fully mapped and live. #38 / PR #42 supplied accepted v2 replacements for spotted eagle ray, spotted trunkfish, Atlantic blue tang and Spanish hogfish. #39 supplied accepted v2 replacements for Caribbean cushion sea star, porkfish, queen conch and Caribbean reef octopus. Earlier source revisions remain immutable history.
 
-- **18** mapped `keep` candidates promoted by #30 / PR #32;
-- **4** formerly source-only `keep` candidates mapped by PR #35 and promoted by PR #36: queen triggerfish, long-spined sea urchin, banded coral shrimp and juvenile spotted-drum artwork mapped to the species-level `spotted-drum` record;
-- **4** biological remakes completed by #38 / PR #42 and promoted through the guarded pipeline: spotted eagle ray, spotted trunkfish, Atlantic blue tang and Spanish hogfish;
-- the final **4** biological remakes completed by #39 and promoted through the same guarded pipeline: Caribbean cushion sea star, porkfish, queen conch and Caribbean reef octopus.
+## What to make next — #55 realistic-HD replacement programme
 
-The original batch is therefore **30 keep / 0 provisional / 0 remake**, with all 30 live as canonical runtime HD artwork.
+The next creature-art production work is **#55 — replace the 26 #33 coverage assets with realistic HD raster masters**.
+
+Do **not** begin by expanding the species count. First bring the current 56-creature catalogue into one coherent realistic visual family.
+
+Recommended isolated production batches preserve the prior ownership split and keep QA manageable:
+
+### Batch A — 7
+
+- banded butterflyfish
+- bar jack
+- blue chromis
+- bluestriped grunt
+- hogfish
+- queen parrotfish
+- sharpnose puffer
+
+### Batch B — 7
+
+- balloonfish
+- black grouper
+- doctorfish
+- foureye butterflyfish
+- princess parrotfish
+- spotted moray
+- yellowtail damselfish
+
+### Batch C — 6
+
+- bicolor damselfish
+- French grunt
+- honeycomb cowfish
+- lionfish
+- mutton snapper
+- redband parrotfish
+
+### Batch D — 6
+
+- bluehead wrasse
+- loggerhead sea turtle
+- ocean surgeonfish
+- rock beauty
+- splendid toadfish
+- yellowhead wrasse
+
+For each target:
+
+1. generate a new **1024×1024 realistic raster** source candidate;
+2. use natural Caribbean underwater lighting, texture and depth rather than flat illustration;
+3. keep the creature immediately identifiable and biologically credible;
+4. check the locked species diagnostics in `docs/CREATURE_ART_QA_REFERENCES.md` at full and card scale;
+5. reject generic/lookalike or vector-looking results immediately;
+6. preserve the old candidate revision unchanged;
+7. register the accepted replacement as a new immutable candidate revision;
+8. promote only reviewed `keep` through the existing guarded pipeline;
+9. verify Collection, Log Dive and Creature Detail rendering;
+10. run `npm run gate`.
+
+Mexican-Caribbean plausibility and species identity outrank aesthetics. Realism is an additional gate, not a substitute for biological QA.
+
+## #34 sequencing — transparency comes after realistic replacement
+
+Issue #34 remains useful, but its order changes under the realistic-HD direction:
+
+1. finish the #55 realistic replacement for a species;
+2. approve/promote the realistic opaque raster master;
+3. only then derive a transparent raster specimen from that approved master where the UI benefits from isolation.
+
+Do not spend background-removal/edge-QA effort on a vector-derived master already scheduled for replacement. #34 is raster extraction only; it must never become vector tracing.
+
+## Legacy SVG status
+
+The repository still contains legacy marine-life SVG assets/tooling under `tools/creature_art/svg/` and procedural creature-art generator code. The application also has a `CreatureMark` fallback that uses generic icon/SVG rendering for missing or failed artwork.
+
+These are **not approved creature-art inventory** and must not be used as the basis for new marine-life assets.
+
+For current curated creatures, approved HD runtime art is the intended surface. Missing-art resilience remains required for future/user-created content, but a neutral placeholder/monogram is preferable to presenting a species-specific SVG illustration as approved art.
+
+Legacy files may remain temporarily for history/tests until a focused cleanup proves they are unused. Their presence does not authorize new SVG production.
 
 ## Content decisions resolved by #31
 
@@ -50,52 +168,13 @@ The original batch is therefore **30 keep / 0 provisional / 0 remake**, with all
 
 Queen conch historical names `Strombus gigas` and `Lobatus gigas` remain provenance/taxonomic synonyms; the canonical content scientific name is `Aliger gigas`.
 
-## Completed remake batch A — #38 / PR #42
-
-| Target | Accepted replacement |
-| --- | --- |
-| Spotted eagle ray | `Aetobatus narinari` silhouette and dorsal spotting corrected; new immutable v2 promoted. |
-| Spotted trunkfish | Adult pale body with dense dark spots; prior inverted treatment removed; new immutable v2 promoted. |
-| Atlantic blue tang | Corrected to Atlantic `Acanthurus coeruleus`, removing Indo-Pacific `Paracanthurus` patterning; new immutable v2 promoted. |
-| Spanish hogfish | Adult `Bodianus rufus` lilac/blue-grey upper and yellow lower-body division restored; new immutable v2 promoted. |
-
-## Completed remake batch B — #39
-
-| Target | Accepted replacement |
-| --- | --- |
-| Caribbean cushion sea star | Thick inflated five-arm `Oreaster reticulatus` cushion form, broad disc and coarse knobbed/reticulated texture restored in immutable v2; promoted. |
-| Porkfish | Deep compressed yellow grunt with exactly two dark head bars and blue/yellow longitudinal striping restored in immutable v2; promoted. |
-| Queen conch | Adult flared shell plus visible living eyestalks/proboscis restored in immutable v2; promoted. |
-| Caribbean reef octopus | Eight long arms, loose webbing, visible paired suckers, dark eyes and green/blue with red-brown mottling restored in immutable v2; promoted. |
-
-Original `candidate-v1.webp` binaries remain immutable and retained alongside accepted later revisions.
-
-## Completed #33 coverage batch
-
-#33 closed the exact 26-species no-source queue:
-
-`balloonfish`, `banded-butterflyfish`, `bar-jack`, `bicolor-damselfish`, `black-grouper`, `blue-chromis`, `bluehead-wrasse`, `bluestriped-grunt`, `doctorfish`, `foureye-butterflyfish`, `french-grunt`, `hogfish`, `honeycomb-cowfish`, `lionfish`, `loggerhead-sea-turtle`, `mutton-snapper`, `ocean-surgeonfish`, `princess-parrotfish`, `queen-parrotfish`, `redband-parrotfish`, `rock-beauty`, `sharpnose-puffer`, `splendid-toadfish`, `spotted-moray`, `yellowhead-wrasse`, `yellowtail-damselfish`.
-
-All 26 now have accepted immutable 1024×1024 `poseidon-sunlit-square-v1` source candidates, `keep` / high-identity catalog records and canonical runtime promotion.
-
-The final six were:
-
-- `bluehead-wrasse`;
-- `loggerhead-sea-turtle`;
-- `ocean-surgeonfish`;
-- `rock-beauty`;
-- `splendid-toadfish`;
-- `yellowhead-wrasse`.
-
-The species-specific generation/review diagnostics remain locked in `docs/CREATURE_ART_QA_REFERENCES.md` and are the authority for reviewing any future replacements.
-
 ## Taxonomy correction discovered during #33 preparation
 
 `honeycomb-cowfish` uses accepted **`Acanthostracion polygonium`**. The former `Acanthostracion polygonius` spelling is treated as unaccepted by current WoRMS/OBIS/FishBase authority. PR #43 corrected content authority before #33 source metadata was created.
 
 ## Review references
 
-Species/content decisions use explicit provenance in `content/mexican-caribbean/manifest.json`. `docs/CREATURE_ART_QA_REFERENCES.md` records the identification authorities and the #33 diagnostic matrix.
+Species/content decisions use explicit provenance in `content/mexican-caribbean/manifest.json`. `docs/CREATURE_ART_QA_REFERENCES.md` records the identification authorities and the #33 diagnostic matrix and remains the species-identification authority for #55 replacements.
 
 Reference material supports identity and regional plausibility only. Poseidon does not convert abundance, density or conservation material into user-facing rarity or encounter probability.
 
@@ -110,18 +189,18 @@ assets/creatures/<stable-id>/                   # canonical runtime only
   hero.webp
 ```
 
-1. Source art is versioned; every replacement or derived transparent master creates a new candidate revision.
-2. Only `keep` may be deliberately promoted.
-3. `remake`, unmapped IDs and missing source binaries are blocked.
-4. Promotion must use #11's explicit ingestion mode and atomic replacement safeguards.
-5. Application code consumes only canonical runtime manifests/variants.
-6. Correct fallback art is preferable to biologically wrong finished art.
-7. Scores/status are internal production metadata, never user-facing rarity or progression.
-8. Original opaque HD masters remain immutable even after #34 derives transparent specimen revisions.
+1. Source art is versioned; every replacement or transparent derivative creates a new candidate revision.
+2. Marine-life source candidates must be realistic raster art; do not create new creature SVG masters.
+3. Only `keep` may be deliberately promoted.
+4. `remake`, unmapped IDs and missing source binaries are blocked.
+5. Promotion must use #11's explicit ingestion mode and atomic replacement safeguards.
+6. Application code consumes only canonical runtime manifests/variants.
+7. Correct neutral fallback is preferable to biologically wrong finished art.
+8. Scores/status are internal production metadata, never user-facing rarity or progression.
+9. Original opaque HD masters remain immutable even after transparent specimen revisions are derived.
 
 ## Work sequence
 
-1. **#33 — complete:** all 56 current content creatures now have mapped reviewed HD sources and canonical runtime manifests.
-2. **#34 — separate next phase:** only when deliberately started, derive transparent raster specimen revisions from approved opaque masters; preserve opaque originals and manually QA difficult alpha edges.
-
-No #34 implementation is part of the #33 closeout. No auto-vector tracing is planned for creature artwork.
+1. **#55 — next:** replace the 26 #33 coverage assets with reviewed realistic HD raster masters in four isolated batches.
+2. **#34 — after the relevant #55 replacements:** derive transparent raster specimen revisions from the approved realistic opaque masters where useful; preserve opaque originals and manually QA difficult alpha edges.
+3. Only after the current 56-creature visual family is coherent should creature-count expansion become the next art-production question.
