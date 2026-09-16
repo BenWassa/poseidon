@@ -1,0 +1,49 @@
+{
+  "artwork": {
+    "aspectRatio": 1.0,
+    "gallery": "gallery.webp",
+    "hero": "hero.webp",
+    "status": "curated",
+    "thumb": "thumb.webp",
+    "variants": {
+      "gallery": {
+        "aspectRatio": 1.0,
+        "bytes": 8844,
+        "height": 512,
+        "mediaType": "image/webp",
+        "path": "gallery.webp",
+        "sha256": "3443f161d2f6f8f1a6c7480e882c5a711397d6e0404e3e8b0525efb9a94a2c02",
+        "width": 512
+      },
+      "hero": {
+        "aspectRatio": 1.0,
+        "bytes": 25536,
+        "height": 1024,
+        "mediaType": "image/webp",
+        "path": "hero.webp",
+        "sha256": "54d7313a898c23f97740ee241b0413c00fdacffaca7e8886b0989d12d30e02bb",
+        "width": 1024
+      },
+      "thumb": {
+        "aspectRatio": 1.0,
+        "bytes": 2280,
+        "height": 192,
+        "mediaType": "image/webp",
+        "path": "thumb.webp",
+        "sha256": "2aa9fb6d288cd925064f14e67f82a2e7c27093eed8deb4d308213cf2227bef80",
+        "width": 192
+      }
+    }
+  },
+  "creatureId": "yellowhead-wrasse",
+  "source": {
+    "aspectRatio": 1.0,
+    "bytes": 32528,
+    "format": "webp",
+    "height": 1024,
+    "mode": "opaque-scene",
+    "sha256": "cab3ec5a4ef5ce64cefe0bda46f2d70e89d8b871787d3b87561fb19a562cccec",
+    "width": 1024
+  },
+  "version": 1
+}

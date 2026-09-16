@@ -1,0 +1,49 @@
+{
+  "artwork": {
+    "aspectRatio": 1.0,
+    "gallery": "gallery.webp",
+    "hero": "hero.webp",
+    "status": "curated",
+    "thumb": "thumb.webp",
+    "variants": {
+      "gallery": {
+        "aspectRatio": 1.0,
+        "bytes": 8294,
+        "height": 512,
+        "mediaType": "image/webp",
+        "path": "gallery.webp",
+        "sha256": "51e0153ee221ad328b33188f43aefa89665f84e5b3e3b8d2e9193a1c75829340",
+        "width": 512
+      },
+      "hero": {
+        "aspectRatio": 1.0,
+        "bytes": 24350,
+        "height": 1024,
+        "mediaType": "image/webp",
+        "path": "hero.webp",
+        "sha256": "c6389fdbd30b297e31f2bfa52e6551bf9e625b2301aef8660faa85823141f525",
+        "width": 1024
+      },
+      "thumb": {
+        "aspectRatio": 1.0,
+        "bytes": 2204,
+        "height": 192,
+        "mediaType": "image/webp",
+        "path": "thumb.webp",
+        "sha256": "42090fd22b6800c0baa6aea17962a140320cb588c41dda04701b828234c7a098",
+        "width": 192
+      }
+    }
+  },
+  "creatureId": "bluehead-wrasse",
+  "source": {
+    "aspectRatio": 1.0,
+    "bytes": 31140,
+    "format": "webp",
+    "height": 1024,
+    "mode": "opaque-scene",
+    "sha256": "d2654690baadbea702dbe5fc89613b071ce5193e1c9b1d715d98b3b25376c79a",
+    "width": 1024
+  },
+  "version": 1
+}
