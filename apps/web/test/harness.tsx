@@ -3,7 +3,10 @@ import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
 
 import { App } from '../src/App';
-import { createPoseidonClient } from '../src/data/client';
+import {
+  createPoseidonClient,
+  type CreateClientOptions,
+} from '../src/data/client';
 import { PoseidonProvider } from '../src/data/provider';
 
 /**
@@ -13,12 +16,15 @@ import { PoseidonProvider } from '../src/data/provider';
  * localStorage, which is exactly what a cold start does — so the persistence
  * assertions in these tests are not simulated.
  */
-export function renderPoseidon(route = '/') {
+export function renderPoseidon(
+  route = '/',
+  clientOptions: CreateClientOptions = {},
+) {
   const user = userEvent.setup();
   let view: RenderResult | null = null;
 
   const mount = (at: string) => {
-    const client = createPoseidonClient();
+    const client = createPoseidonClient(clientOptions);
     view = render(
       <MemoryRouter initialEntries={[at]}>
         <PoseidonProvider client={client}>
