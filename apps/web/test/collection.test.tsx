@@ -106,7 +106,9 @@ describe('Marine Collection full guide', () => {
       name: new RegExp(fallbackCreature.commonName, 'i'),
     });
     expect(link).toHaveTextContent('Not yet seen');
-    expect(within(link).queryByTestId('creature-artwork')).not.toBeInTheDocument();
+    expect(
+      within(link).queryByTestId('creature-artwork'),
+    ).not.toBeInTheDocument();
 
     await user.click(link);
     expect(
