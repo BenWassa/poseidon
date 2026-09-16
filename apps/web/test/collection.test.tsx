@@ -1,7 +1,7 @@
 import { screen, within } from '@testing-library/react';
 import { beforeEach, describe, expect, it } from 'vitest';
 
-import { creatures } from '../src/data/content';
+import { contentPack, creatures } from '../src/data/content';
 import { renderPoseidon } from './harness';
 
 describe('Marine Collection full guide', () => {
@@ -80,28 +80,37 @@ describe('Marine Collection full guide', () => {
   });
 
   it('keeps a curated missing-art creature browseable through the fallback', async () => {
-    const missingArt = creatures.find(
-      (creature) => creature.artwork?.status !== 'curated',
-    );
-    expect(missingArt).toBeDefined();
+    const fallbackCreature = {
+      ...creatures[0],
+      artwork: { status: 'missing' as const, aspectRatio: 1 },
+    };
+    const fallbackContent = {
+      ...contentPack,
+      creatures: (contentPack.creatures ?? []).map((creature) =>
+        creature.id === fallbackCreature.id ? fallbackCreature : creature,
+      ),
+    };
 
-    const { user } = renderPoseidon('/collection');
+    const { user } = renderPoseidon('/collection', {
+      content: fallbackContent,
+    });
     await screen.findByRole('heading', {
       name: `0 of ${creatures.length} seen`,
     });
 
     await user.type(
       screen.getByLabelText('Search marine guide'),
-      missingArt!.commonName,
+      fallbackCreature.commonName,
     );
     const link = screen.getByRole('link', {
-      name: new RegExp(missingArt!.commonName, 'i'),
+      name: new RegExp(fallbackCreature.commonName, 'i'),
     });
     expect(link).toHaveTextContent('Not yet seen');
+    expect(within(link).queryByTestId('creature-artwork')).not.toBeInTheDocument();
 
     await user.click(link);
     expect(
-      await screen.findByRole('heading', { name: missingArt!.commonName }),
+      await screen.findByRole('heading', { name: fallbackCreature.commonName }),
     ).toBeInTheDocument();
     expect(
       screen.getByText(/Artwork for this creature is still to come/),
