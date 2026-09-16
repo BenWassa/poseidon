@@ -7,7 +7,7 @@ import { chromium } from 'playwright';
 import { launchOptions } from './chromium.mjs';
 
 const webRoot = resolve(import.meta.dirname, '../apps/web');
-const viteBin = resolve(import.meta.dirname, '../node_modules/vite/bin/vite.js');
+const viteBin = resolve(webRoot, 'node_modules/vite/bin/vite.js');
 const port = 4179;
 const origin = `http://127.0.0.1:${port}`;
 const route = (path = '/') => `${origin}/?mock=0#${path}`;
