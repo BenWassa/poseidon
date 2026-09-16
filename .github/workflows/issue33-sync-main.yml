@@ -1,0 +1,31 @@
+name: Issue 33 sync current main
+
+on:
+  push:
+    branches:
+      - feat/33-art-batch-bluehead-loggerhead
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/33-art-batch-bluehead-loggerhead
+          fetch-depth: 0
+      - name: Merge current main
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git fetch origin main
+          git merge -X theirs --no-edit origin/main
+      - name: Remove temporary workflow and push
+        run: |
+          rm .github/workflows/issue33-sync-main.yml
+          git add -A
+          git commit -m 'chore: remove temporary #33 sync workflow'
+          git push origin HEAD:feat/33-art-batch-bluehead-loggerhead
