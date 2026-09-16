@@ -1,0 +1,49 @@
+{
+  "artwork": {
+    "aspectRatio": 1.0,
+    "gallery": "gallery.webp",
+    "hero": "hero.webp",
+    "status": "curated",
+    "thumb": "thumb.webp",
+    "variants": {
+      "gallery": {
+        "aspectRatio": 1.0,
+        "bytes": 8938,
+        "height": 512,
+        "mediaType": "image/webp",
+        "path": "gallery.webp",
+        "sha256": "718aa836967ac74c43e7da58cc6dff1a94569ba0128f92669593ec4a97a385bd",
+        "width": 512
+      },
+      "hero": {
+        "aspectRatio": 1.0,
+        "bytes": 25548,
+        "height": 1024,
+        "mediaType": "image/webp",
+        "path": "hero.webp",
+        "sha256": "707d43094b3273cf6ad52c7ae719866180ab0e9ad4de4a02dbcbce6e33fd6582",
+        "width": 1024
+      },
+      "thumb": {
+        "aspectRatio": 1.0,
+        "bytes": 2274,
+        "height": 192,
+        "mediaType": "image/webp",
+        "path": "thumb.webp",
+        "sha256": "ac47eb8ffd6589c8740394dba3bd8c24cc1bbfa6dccc6e7d0655e8359ffc92d1",
+        "width": 192
+      }
+    }
+  },
+  "creatureId": "ocean-surgeonfish",
+  "source": {
+    "aspectRatio": 1.0,
+    "bytes": 32290,
+    "format": "webp",
+    "height": 1024,
+    "mode": "opaque-scene",
+    "sha256": "28fd135ff8844889f6ffe63e247a6e29e14ec8e79ced619e4e2feea7567b3b0f",
+    "width": 1024
+  },
+  "version": 1
+}

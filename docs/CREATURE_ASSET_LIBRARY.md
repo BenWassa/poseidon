@@ -1,35 +1,41 @@
 # Poseidon Creature Asset Library
 
-Last updated: **2026-09-14**
+Last updated: **2026-09-15**
 
 This is the human review ledger for Poseidon creature artwork. The machine-readable authority is [`assets/source/creatures/catalog.json`](../assets/source/creatures/catalog.json). Runtime assets remain under `assets/creatures/` and are produced only through the canonical #11 pipeline.
 
 ## Current state
 
-The original `poseidon-sunlit-square-v1` batch has **30 catalog entries**. Original source binaries remain immutable; reviewed replacements create new candidate revisions rather than overwriting `candidate-v1.webp`.
+The live Mexican-Caribbean content catalogue contains **56 stable creature IDs**. After #33 completes, the source and runtime library is closed at:
 
-Current editorial state:
-
-- **30 keep**;
+- **56 mapped HD source-catalog entries**;
+- **56 keep**;
 - **0 provisional**;
-- **0 remake**.
+- **0 remake**;
+- **56 canonical runtime manifests**;
+- **0 current curated content creatures without approved HD runtime art**.
 
-All **30** catalog entries map deliberately to content authority. #31 resolved the former six `creatureId: null` entries by adding sourced Mexican-Caribbean content records rather than weakening the promotion gate.
+Original source binaries remain immutable. Reviewed replacements create new candidate revisions rather than overwriting earlier source files.
 
-The live content catalogue contains **56 stable creature IDs**. Of those 56:
+The 56-source library consists of:
 
-- **30** have a mapped HD source-catalog entry;
-- **30** mapped candidates are `keep` and are live as canonical runtime HD artwork;
-- **0** mapped candidates remain blocked for remake;
-- **26** content creatures still have no HD source candidate; #33 owns that complete-coverage batch.
+- the fully resolved original **30-entry** source batch;
+- the **26 #33 coverage entries** generated and reviewed against the locked diagnostic matrix.
 
-Runtime status:
+All 56 map deliberately to content authority and are live through guarded promotion.
 
-- **18** mapped `keep` candidates were promoted by #30 / PR #32;
-- **4** formerly source-only `keep` candidates were mapped by PR #35 and promoted by PR #36: queen triggerfish, long-spined sea urchin, banded coral shrimp and the juvenile spotted-drum artwork mapped to the species-level `spotted-drum` record;
-- **4** biological remakes were completed by #38 / PR #42 and promoted through the guarded pipeline: spotted eagle ray, spotted trunkfish, Atlantic blue tang and Spanish hogfish;
-- the final **4** biological remakes were completed by #39 and promoted through the same guarded pipeline: Caribbean cushion sea star, porkfish, queen conch and Caribbean reef octopus;
-- therefore **all 30 original-batch catalog entries are `keep` and live** as canonical runtime HD artwork.
+## Original 30-entry source batch
+
+#31 resolved the former six `creatureId: null` entries by adding sourced Mexican-Caribbean content records rather than weakening the promotion gate.
+
+Runtime closeout for that original batch was:
+
+- **18** mapped `keep` candidates promoted by #30 / PR #32;
+- **4** formerly source-only `keep` candidates mapped by PR #35 and promoted by PR #36: queen triggerfish, long-spined sea urchin, banded coral shrimp and juvenile spotted-drum artwork mapped to the species-level `spotted-drum` record;
+- **4** biological remakes completed by #38 / PR #42 and promoted through the guarded pipeline: spotted eagle ray, spotted trunkfish, Atlantic blue tang and Spanish hogfish;
+- the final **4** biological remakes completed by #39 and promoted through the same guarded pipeline: Caribbean cushion sea star, porkfish, queen conch and Caribbean reef octopus.
+
+The original batch is therefore **30 keep / 0 provisional / 0 remake**, with all 30 live as canonical runtime HD artwork.
 
 ## Content decisions resolved by #31
 
@@ -62,21 +68,30 @@ Queen conch historical names `Strombus gigas` and `Lobatus gigas` remain provena
 | Queen conch | Adult flared shell plus visible living eyestalks/proboscis restored in immutable v2; promoted. |
 | Caribbean reef octopus | Eight long arms, loose webbing, visible paired suckers, dark eyes and green/blue with red-brown mottling restored in immutable v2; promoted. |
 
-Original `candidate-v1.webp` binaries remain immutable and retained alongside the accepted v2 revisions.
+Original `candidate-v1.webp` binaries remain immutable and retained alongside accepted later revisions.
 
-## Existing content still lacking any HD source candidate
+## Completed #33 coverage batch
 
-The exact **26-species** #33 queue is:
+#33 closed the exact 26-species no-source queue:
 
 `balloonfish`, `banded-butterflyfish`, `bar-jack`, `bicolor-damselfish`, `black-grouper`, `blue-chromis`, `bluehead-wrasse`, `bluestriped-grunt`, `doctorfish`, `foureye-butterflyfish`, `french-grunt`, `hogfish`, `honeycomb-cowfish`, `lionfish`, `loggerhead-sea-turtle`, `mutton-snapper`, `ocean-surgeonfish`, `princess-parrotfish`, `queen-parrotfish`, `redband-parrotfish`, `rock-beauty`, `sharpnose-puffer`, `splendid-toadfish`, `spotted-moray`, `yellowhead-wrasse`, `yellowtail-damselfish`.
 
-The species-specific generation/review diagnostics are now locked in `docs/CREATURE_ART_QA_REFERENCES.md` before #33 generation begins.
+All 26 now have accepted immutable 1024×1024 `poseidon-sunlit-square-v1` source candidates, `keep` / high-identity catalog records and canonical runtime promotion.
 
-The six #31 content additions already have source candidates, so expanding the content catalogue from 50 to 56 does **not** enlarge this no-art queue.
+The final six were:
+
+- `bluehead-wrasse`;
+- `loggerhead-sea-turtle`;
+- `ocean-surgeonfish`;
+- `rock-beauty`;
+- `splendid-toadfish`;
+- `yellowhead-wrasse`.
+
+The species-specific generation/review diagnostics remain locked in `docs/CREATURE_ART_QA_REFERENCES.md` and are the authority for reviewing any future replacements.
 
 ## Taxonomy correction discovered during #33 preparation
 
-`honeycomb-cowfish` now uses accepted **`Acanthostracion polygonium`**. The former `Acanthostracion polygonius` spelling is treated as unaccepted by current WoRMS/OBIS/FishBase authority. PR #43 corrected content authority before new source-art metadata is created.
+`honeycomb-cowfish` uses accepted **`Acanthostracion polygonium`**. The former `Acanthostracion polygonius` spelling is treated as unaccepted by current WoRMS/OBIS/FishBase authority. PR #43 corrected content authority before #33 source metadata was created.
 
 ## Review references
 
@@ -106,7 +121,7 @@ assets/creatures/<stable-id>/                   # canonical runtime only
 
 ## Work sequence
 
-1. **#33:** generate, review, ingest and promote the 26 current content creatures with no HD source candidate, using the locked diagnostic matrix.
-2. **#34:** only after HD source coverage is stable, batch-remove backgrounds into transparent raster specimen revisions; preserve opaque originals and manually QA difficult alpha edges.
+1. **#33 — complete:** all 56 current content creatures now have mapped reviewed HD sources and canonical runtime manifests.
+2. **#34 — separate next phase:** only when deliberately started, derive transparent raster specimen revisions from approved opaque masters; preserve opaque originals and manually QA difficult alpha edges.
 
-No auto-vector tracing is planned for the creature artwork. The HD illustrations contain texture, shading and fine anatomy better preserved as raster assets.
+No #34 implementation is part of the #33 closeout. No auto-vector tracing is planned for creature artwork.

@@ -1,0 +1,49 @@
+{
+  "artwork": {
+    "aspectRatio": 1.0,
+    "gallery": "gallery.webp",
+    "hero": "hero.webp",
+    "status": "curated",
+    "thumb": "thumb.webp",
+    "variants": {
+      "gallery": {
+        "aspectRatio": 1.0,
+        "bytes": 13568,
+        "height": 512,
+        "mediaType": "image/webp",
+        "path": "gallery.webp",
+        "sha256": "cb92df84cbbd06833320f2e968e28b22e2d7a4ed4d6a0a24bef6e0d356c7ce3b",
+        "width": 512
+      },
+      "hero": {
+        "aspectRatio": 1.0,
+        "bytes": 37374,
+        "height": 1024,
+        "mediaType": "image/webp",
+        "path": "hero.webp",
+        "sha256": "f914f93e87fafa9adcd5729ea8b6a46633861d9c57d080b771bfaa98da92359e",
+        "width": 1024
+      },
+      "thumb": {
+        "aspectRatio": 1.0,
+        "bytes": 3560,
+        "height": 192,
+        "mediaType": "image/webp",
+        "path": "thumb.webp",
+        "sha256": "9fdf8dc9e55169ca02b9e5de56ba45afa333756533fae4c7b79f0d523d76d15e",
+        "width": 192
+      }
+    }
+  },
+  "creatureId": "splendid-toadfish",
+  "source": {
+    "aspectRatio": 1.0,
+    "bytes": 46972,
+    "format": "webp",
+    "height": 1024,
+    "mode": "opaque-scene",
+    "sha256": "274554caf0821189ce1a70fc61d189a89f78047d9a7ca476585df6bd7b033fb6",
+    "width": 1024
+  },
+  "version": 1
+}

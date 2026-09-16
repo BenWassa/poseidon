@@ -1,0 +1,49 @@
+{
+  "artwork": {
+    "aspectRatio": 1.0,
+    "gallery": "gallery.webp",
+    "hero": "hero.webp",
+    "status": "curated",
+    "thumb": "thumb.webp",
+    "variants": {
+      "gallery": {
+        "aspectRatio": 1.0,
+        "bytes": 9620,
+        "height": 512,
+        "mediaType": "image/webp",
+        "path": "gallery.webp",
+        "sha256": "c3d0355c940e886bacef35436f6c2e3fa406aa61d7da246eb8108efabf9ea30c",
+        "width": 512
+      },
+      "hero": {
+        "aspectRatio": 1.0,
+        "bytes": 27574,
+        "height": 1024,
+        "mediaType": "image/webp",
+        "path": "hero.webp",
+        "sha256": "4b2cc789acca336b360db5fef676df5678adc73f2419112f242a16994c2951f0",
+        "width": 1024
+      },
+      "thumb": {
+        "aspectRatio": 1.0,
+        "bytes": 2570,
+        "height": 192,
+        "mediaType": "image/webp",
+        "path": "thumb.webp",
+        "sha256": "40ff04329fc531afccabf15a80222349204d579bb8490d9c49a03ef1d1a925e2",
+        "width": 192
+      }
+    }
+  },
+  "creatureId": "rock-beauty",
+  "source": {
+    "aspectRatio": 1.0,
+    "bytes": 35152,
+    "format": "webp",
+    "height": 1024,
+    "mode": "opaque-scene",
+    "sha256": "037bcaf0b44c2afbd797da61d37a50255af7c02ad63840143022fcc14c7e8a53",
+    "width": 1024
+  },
+  "version": 1
+}

@@ -1,0 +1,49 @@
+{
+  "artwork": {
+    "aspectRatio": 1.0,
+    "gallery": "gallery.webp",
+    "hero": "hero.webp",
+    "status": "curated",
+    "thumb": "thumb.webp",
+    "variants": {
+      "gallery": {
+        "aspectRatio": 1.0,
+        "bytes": 11856,
+        "height": 512,
+        "mediaType": "image/webp",
+        "path": "gallery.webp",
+        "sha256": "a2de508dd8ac9b0b7499c1446034e375a4b932d41cfc05e7b393fb330581b5d2",
+        "width": 512
+      },
+      "hero": {
+        "aspectRatio": 1.0,
+        "bytes": 34504,
+        "height": 1024,
+        "mediaType": "image/webp",
+        "path": "hero.webp",
+        "sha256": "5a2ec5cf07f0b9cddf9233f54447970a342d077c3e47f0589197a52500f96ae6",
+        "width": 1024
+      },
+      "thumb": {
+        "aspectRatio": 1.0,
+        "bytes": 2898,
+        "height": 192,
+        "mediaType": "image/webp",
+        "path": "thumb.webp",
+        "sha256": "6fb6b23a2d873901e72453561ef89a23a6f442d3e389e473a98e3c7c0da46e30",
+        "width": 192
+      }
+    }
+  },
+  "creatureId": "loggerhead-sea-turtle",
+  "source": {
+    "aspectRatio": 1.0,
+    "bytes": 43986,
+    "format": "webp",
+    "height": 1024,
+    "mode": "opaque-scene",
+    "sha256": "c60af60839c86c5b3525315eb5ccb2831bf52b1835f93851030020c598a389a9",
+    "width": 1024
+  },
+  "version": 1
+}

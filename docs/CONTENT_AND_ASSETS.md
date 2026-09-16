@@ -4,7 +4,7 @@
 
 This is the durable strategy for creature content, regional relevance and artwork.
 
-Current implementation status is tracked in `docs/PROJECT_STATUS.md`. The Mexican Caribbean starter content pack is implemented. #11/#12/PR #13 produced and reviewed the original HD source-art library; #30/#31/#38/#39 have now resolved and promoted all 30 original-batch candidates into canonical runtime artwork. #33 owns complete HD coverage for the remaining 26 content creatures; #34 owns the later transparent-background derivation pass.
+Current implementation status is tracked in `docs/PROJECT_STATUS.md`. The Mexican Caribbean starter content pack is implemented. #11/#12/PR #13 established the source-art system and original reviewed library; #30/#31/#38/#39 fully resolved the original 30-source batch; #33 then completed HD coverage for the remaining 26 current content creatures. The resulting current baseline is **56 content IDs = 56 mapped `keep` source entries = 56 canonical runtime manifests**. #34 remains the separate later transparent-background derivation pass.
 
 ---
 
@@ -57,6 +57,8 @@ Initial enrichment is intentionally concentrated on Cozumel, Playa del Carmen an
 
 The implemented pack is useful recreational coverage, not a complete biological catalogue. It contains **56** sourced creature records: the prior 50 plus six defensible Mexican-Caribbean species that were already represented in the original HD source-art batch.
 
+All 56 current curated records now have approved HD runtime artwork. New user-created or future curated records must still remain fully usable if artwork has not yet been reviewed.
+
 New regions should primarily be a content operation rather than a new application implementation.
 
 ---
@@ -92,11 +94,11 @@ Transparent specimen art is useful when the creature should float over Poseidon'
 
 ## Opaque underwater-scene source
 
-The `poseidon-sunlit-square-v1` family uses square underwater-scene masters. This is a legitimate source family and is the authority for the current HD programme.
+The `poseidon-sunlit-square-v1` family uses square underwater-scene masters. This is a legitimate source family and is the authority for the completed current HD programme.
 
 The two modes remain explicit. Never weaken transparency validation globally just to admit opaque-scene sources.
 
-Issue #34 will later derive transparent raster specimen revisions from the completed approved HD opaque library. That derivation does **not** replace or mutate the opaque originals, and it is not automatic vector tracing.
+Issue #34 may later derive transparent raster specimen revisions from the completed approved HD opaque library. That derivation does **not** replace or mutate the opaque originals, and it is not automatic vector tracing. #34 is not part of #33 completion.
 
 ---
 
@@ -129,7 +131,7 @@ Generated source candidates use internal production states:
 
 Quality scores and identity confidence are production metadata, not user-facing rarity or ecological confidence.
 
-The original source batch is exactly **30 mapped candidates** and now stands at **30 keep / 0 provisional / 0 remake** after the two reviewed remake batches. All 30 are promoted. Original v1 source binaries remain immutable; accepted replacements use later candidate revisions.
+The current full source catalogue stands at **56 keep / 0 provisional / 0 remake**. The original 30-entry batch remains historically identifiable within that catalogue and is fully resolved. Original source binaries remain immutable; accepted replacements use later candidate revisions.
 
 ---
 
@@ -140,6 +142,8 @@ Poseidon's creature imagery falls into three categories:
 - **Source artwork** — `assets/source/creatures/<id>/candidate-vN.webp`; editorial-only input, never loaded directly by the app.
 - **Approved runtime artwork** — `assets/creatures/<id>/{thumb,gallery,hero}.webp`, produced only by explicit guarded promotion of a mapped `keep` source.
 - **Fallback artwork** — older SVG-derived runtime illustration or designed `CreatureMark` when no approved HD promotion exists.
+
+All 56 current curated content records are in the approved-runtime category after #33. The fallback contract remains required for user-created creatures and future content that has not yet passed artwork QA.
 
 Runtime manifests intentionally do not encode editorial quality history. A blocked species keeps correct fallback art until a reviewed replacement is explicitly promoted.
 
@@ -163,7 +167,7 @@ The application reserves geometry before image load, uses the smallest appropria
 
 # 12. Missing-art behavior
 
-No artwork is a first-class state. A creature without finished art remains fully loggable, visible in the dive and personal collection, and uses the designed aquatic fallback rather than broken image chrome.
+No artwork is a first-class supported state even though the current curated pack now has complete coverage. A future or user-created creature without finished art remains fully loggable, visible in the dive and personal collection, and uses the designed aquatic fallback rather than broken image chrome.
 
 Do not suppress creatures because production art is incomplete.
 
@@ -192,14 +196,14 @@ Do not generate a large library and review it only at the end. Work in small bat
 
 # 14. Current artwork programme
 
-The current sequence is deliberately staged:
+The staged HD programme is now:
 
 1. **#30 — complete:** initial mapped `keep` candidates promoted.
 2. **#31 — complete:** all 30 original source entries mapped and the full original batch finished; #38 and #39 supplied immutable reviewed v2 replacements for the eight biological remakes.
-3. **#33 — next:** create and promote HD source art for the exact 26 content creatures that still have no HD candidate.
-4. **#34 — queued after #33:** batch-remove backgrounds from the stable approved HD library to create transparent raster specimen revisions where useful. Preserve every opaque original and do not auto-vectorize.
+3. **#33 — complete:** the exact 26 formerly uncovered content creatures received reviewed immutable `poseidon-sunlit-square-v1` sources and guarded runtime promotion.
+4. **#34 — separate next phase:** if deliberately started, derive transparent raster specimen revisions from the stable approved HD library. Preserve every opaque original and do not auto-vectorize.
 
-Current counts are **56 content records**, **30 mapped original HD source candidates**, **30 approved/live original-batch HD assets**, **0 blocked original-batch remakes**, and **26 content records with no HD source candidate**.
+Current counts are **56 content records**, **56 mapped HD source entries**, **56 approved/live canonical runtime manifests**, **56 keep / 0 provisional / 0 remake**, and **0 current curated content records without HD source coverage**.
 
 Expansion priority remains useful Mexican-Caribbean coverage and locally distinctive gaps, not ocean-wide completeness.
 

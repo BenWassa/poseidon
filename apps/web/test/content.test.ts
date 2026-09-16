@@ -95,12 +95,12 @@ describe('the Mexican Caribbean content pack', () => {
     }
   });
 
-  it('wires asset-pipeline variants onto the creatures that have artwork', () => {
+  it('wires asset-pipeline variants onto every current creature', () => {
     const illustrated = creatures.filter(
       (creature) => creature.artwork?.status === 'curated',
     );
     expect(illustrated.length).toBe(contentMeta.curatedArtworkCount);
-    expect(illustrated.length).toBeGreaterThanOrEqual(12);
+    expect(illustrated).toHaveLength(creatures.length);
 
     for (const creature of illustrated) {
       const artwork = creature.artwork;
@@ -115,11 +115,10 @@ describe('the Mexican Caribbean content pack', () => {
     }
   });
 
-  it('leaves the rest in an explicit no-artwork state rather than a broken link', () => {
+  it('keeps any future non-curated creature in an explicit no-artwork state rather than a broken link', () => {
     const unillustrated = creatures.filter(
       (creature) => creature.artwork?.status !== 'curated',
     );
-    expect(unillustrated.length).toBeGreaterThan(0);
     for (const creature of unillustrated) {
       expect(creature.artwork?.thumb).toBeUndefined();
       expect(creature.artwork?.gallery).toBeUndefined();
