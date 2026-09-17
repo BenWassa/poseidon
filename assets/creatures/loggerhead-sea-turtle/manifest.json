@@ -8,29 +8,29 @@
     "variants": {
       "gallery": {
         "aspectRatio": 1.0,
-        "bytes": 11856,
+        "bytes": 54738,
         "height": 512,
         "mediaType": "image/webp",
         "path": "gallery.webp",
-        "sha256": "a2de508dd8ac9b0b7499c1446034e375a4b932d41cfc05e7b393fb330581b5d2",
+        "sha256": "49447bff09232c43a5c15a8c9d62b1bbd3352a541f4807a6e29176e7e18c8aee",
         "width": 512
       },
       "hero": {
         "aspectRatio": 1.0,
-        "bytes": 34504,
+        "bytes": 206964,
         "height": 1024,
         "mediaType": "image/webp",
         "path": "hero.webp",
-        "sha256": "5a2ec5cf07f0b9cddf9233f54447970a342d077c3e47f0589197a52500f96ae6",
+        "sha256": "14a6a9ddde6d320ac3b65965962ff6b3bde32ccde1571059315e53a88355fcc5",
         "width": 1024
       },
       "thumb": {
         "aspectRatio": 1.0,
-        "bytes": 2898,
+        "bytes": 7066,
         "height": 192,
         "mediaType": "image/webp",
         "path": "thumb.webp",
-        "sha256": "6fb6b23a2d873901e72453561ef89a23a6f442d3e389e473a98e3c7c0da46e30",
+        "sha256": "e16e97fd36850a771ebb28c3921934798e9b8f64ac4268a7621dae6a4ee3e4c5",
         "width": 192
       }
     }
@@ -38,11 +38,11 @@
   "creatureId": "loggerhead-sea-turtle",
   "source": {
     "aspectRatio": 1.0,
-    "bytes": 43986,
+    "bytes": 418394,
     "format": "webp",
     "height": 1024,
     "mode": "opaque-scene",
-    "sha256": "c60af60839c86c5b3525315eb5ccb2831bf52b1835f93851030020c598a389a9",
+    "sha256": "975854688903536a492069168297284b6d805e77b2ced3c33f590c86e0c07c74",
     "width": 1024
   },
   "version": 1
