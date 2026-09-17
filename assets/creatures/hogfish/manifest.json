@@ -8,29 +8,29 @@
     "variants": {
       "gallery": {
         "aspectRatio": 1.0,
-        "bytes": 9962,
+        "bytes": 36796,
         "height": 512,
         "mediaType": "image/webp",
         "path": "gallery.webp",
-        "sha256": "f4945042cefb7750c3e155dd9b6c9a0d3f4afe97ecb420dfe522178166c3f963",
+        "sha256": "45f30ddab75227daaf91f823ec3f8c9d28894c5a36fad970245d10db4c0f5d04",
         "width": 512
       },
       "hero": {
         "aspectRatio": 1.0,
-        "bytes": 26870,
+        "bytes": 186386,
         "height": 1024,
         "mediaType": "image/webp",
         "path": "hero.webp",
-        "sha256": "64e5965f7e518e47e28e03256301da13088eb6e4ee653932c01adc721163217c",
+        "sha256": "26de4cca221a5c05363220fcf88d946f7a431c7b61bd6083760b7bdd23c308f2",
         "width": 1024
       },
       "thumb": {
         "aspectRatio": 1.0,
-        "bytes": 2712,
+        "bytes": 5298,
         "height": 192,
         "mediaType": "image/webp",
         "path": "thumb.webp",
-        "sha256": "c4664c4e41df862cfcd7c50cb20c39d00a77f177cd3024289443928ec155c245",
+        "sha256": "7651ee6cf2112e3651febd2a153520275927d4b67d062d3165f46348962a9a64",
         "width": 192
       }
     }
@@ -38,11 +38,11 @@
   "creatureId": "hogfish",
   "source": {
     "aspectRatio": 1.0,
-    "bytes": 33370,
+    "bytes": 321218,
     "format": "webp",
     "height": 1024,
     "mode": "opaque-scene",
-    "sha256": "6add119d7f2f3da2efae18d3c18a588a9b7ef7a4dc63226a0ddbe7f9be1bf6f1",
+    "sha256": "76adc7ddf1d20001ccf8ad3b78828bc48d7aa50189b297304fa454ae5eea8f00",
     "width": 1024
   },
   "version": 1
