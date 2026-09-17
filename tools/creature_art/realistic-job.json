@@ -1,0 +1,14 @@
+{
+  "id": "mutton-snapper",
+  "scientificName": "Lutjanus analis",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Lutjanus_analis_332942911.jpg",
+  "sourcePage": "https://commons.wikimedia.org/wiki/File:Lutjanus_analis_332942911.jpg",
+  "author": "Dan Schofield",
+  "license": "CC BY 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+  "generator": "licensed underwater photograph",
+  "score": 9.4,
+  "identity": "high",
+  "sourceQuality": 94,
+  "qaNote": "Issue #55 realistic replacement: licensed underwater photograph of Lutjanus analis from Grand Cayman. The red iris and reddish fins, blue facial lines below the eye, and characteristic dark spot high on the flank remain visible in the photographic source, satisfying the locked mutton-snapper diagnostics while replacing the former vector-derived source."
+}
