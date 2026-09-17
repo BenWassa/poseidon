@@ -1073,18 +1073,28 @@
       "id": "yellowhead-wrasse",
       "creatureId": "yellowhead-wrasse",
       "name": "Yellowhead wrasse",
-      "path": "assets/source/creatures/yellowhead-wrasse/candidate-v1.webp",
-      "score": 8.6,
+      "path": "assets/source/creatures/yellowhead-wrasse/candidate-v2.webp",
+      "score": 9.6,
       "status": "keep",
       "identity": "high",
       "ingestMode": "opaque-scene",
-      "qaNote": "Issue #33 reviewed keep: terminal-phase elongated wrasse preserves a yellow head/front body and prominent dark T/bar beneath the dorsal-origin area, remaining distinct from bluehead and yellowcheek wrasses at card scale.",
-      "generator": "ChatGPT procedural SVG renderer",
-      "generatedOn": "2026-09-15",
-      "generationBatch": "issue-33-final-six-2026-09-15",
+      "qaNote": "Issue #55 realistic replacement: Smithsonian Belize field photograph explicitly documenting terminal-phase Halichoeres garnoti. The yellow head/front body and diagnostic dark bar beneath the anterior dorsal region match the locked yellowhead-wrasse diagnostics while replacing the former vector-derived source.",
+      "generator": "archival field photograph",
+      "generatedOn": "2026-09-17",
+      "generationBatch": "issue-55-realistic-one-by-one",
       "styleFamily": "poseidon-sunlit-square-v1",
-      "bytes": 32528,
-      "sha256": "cab3ec5a4ef5ce64cefe0bda46f2d70e89d8b871787d3b87561fb19a562cccec"
+      "bytes": 192412,
+      "sha256": "72b1797179d71970063f5d3a3670809cc5999991857866f6f506d2750a7f61aa",
+      "scientificName": "Halichoeres garnoti",
+      "provenance": {
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Halichoeres_Garnoti,_Terminal_Phase_(Yellowhead_Wrasse)_(3059637868).jpg",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Halichoeres_Garnoti,_Terminal_Phase_(Yellowhead_Wrasse)_(3059637868).jpg",
+        "author": "Smithsonian Institution / Belize Larval-Fish Group 2004",
+        "license": "No known copyright restrictions (Flickr Commons)",
+        "licenseUrl": "https://www.flickr.com/commons/usage/",
+        "transformation": "square crop, resize to 1024x1024, WebP encode; no generative anatomy edits",
+        "styleFamily": "poseidon-sunlit-square-v1"
+      }
     }
   ]
 }
