@@ -8,29 +8,29 @@
     "variants": {
       "gallery": {
         "aspectRatio": 1.0,
-        "bytes": 9620,
+        "bytes": 54942,
         "height": 512,
         "mediaType": "image/webp",
         "path": "gallery.webp",
-        "sha256": "c3d0355c940e886bacef35436f6c2e3fa406aa61d7da246eb8108efabf9ea30c",
+        "sha256": "c938f0c2129f43266e90ec0131af7d85e4baebc8e42f66e0395f0ce5ef794750",
         "width": 512
       },
       "hero": {
         "aspectRatio": 1.0,
-        "bytes": 27574,
+        "bytes": 182182,
         "height": 1024,
         "mediaType": "image/webp",
         "path": "hero.webp",
-        "sha256": "4b2cc789acca336b360db5fef676df5678adc73f2419112f242a16994c2951f0",
+        "sha256": "85d5fed845222bc29b720f51f0714a2554ba0878c218a27a5e83b45827a0fb58",
         "width": 1024
       },
       "thumb": {
         "aspectRatio": 1.0,
-        "bytes": 2570,
+        "bytes": 8998,
         "height": 192,
         "mediaType": "image/webp",
         "path": "thumb.webp",
-        "sha256": "40ff04329fc531afccabf15a80222349204d579bb8490d9c49a03ef1d1a925e2",
+        "sha256": "621fe1599c363c88c141e16af6b4859227daa38927bb0d7abda146456822eaa3",
         "width": 192
       }
     }
@@ -38,11 +38,11 @@
   "creatureId": "rock-beauty",
   "source": {
     "aspectRatio": 1.0,
-    "bytes": 35152,
+    "bytes": 261550,
     "format": "webp",
     "height": 1024,
     "mode": "opaque-scene",
-    "sha256": "037bcaf0b44c2afbd797da61d37a50255af7c02ad63840143022fcc14c7e8a53",
+    "sha256": "c3bfd87576408a6315ceded5cbbe271114a5e375b0c5c8a73ef80ca53b7b460c",
     "width": 1024
   },
   "version": 1
