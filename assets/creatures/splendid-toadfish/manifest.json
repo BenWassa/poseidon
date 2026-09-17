@@ -8,29 +8,29 @@
     "variants": {
       "gallery": {
         "aspectRatio": 1.0,
-        "bytes": 13568,
+        "bytes": 58678,
         "height": 512,
         "mediaType": "image/webp",
         "path": "gallery.webp",
-        "sha256": "cb92df84cbbd06833320f2e968e28b22e2d7a4ed4d6a0a24bef6e0d356c7ce3b",
+        "sha256": "750778b86eddd5704ae43461eb2ad03b1ea83032e755c1c2065cdefa916ce8a1",
         "width": 512
       },
       "hero": {
         "aspectRatio": 1.0,
-        "bytes": 37374,
+        "bytes": 174984,
         "height": 1024,
         "mediaType": "image/webp",
         "path": "hero.webp",
-        "sha256": "f914f93e87fafa9adcd5729ea8b6a46633861d9c57d080b771bfaa98da92359e",
+        "sha256": "c7ef63c3526ace977670b28192f15fd830a166d8414d7d68ed147ca71adb3732",
         "width": 1024
       },
       "thumb": {
         "aspectRatio": 1.0,
-        "bytes": 3560,
+        "bytes": 10602,
         "height": 192,
         "mediaType": "image/webp",
         "path": "thumb.webp",
-        "sha256": "9fdf8dc9e55169ca02b9e5de56ba45afa333756533fae4c7b79f0d523d76d15e",
+        "sha256": "5273756df34cde44471dc265e308542b8af2cce9284e48937aaa3a1562217478",
         "width": 192
       }
     }
@@ -38,11 +38,11 @@
   "creatureId": "splendid-toadfish",
   "source": {
     "aspectRatio": 1.0,
-    "bytes": 46972,
+    "bytes": 293182,
     "format": "webp",
     "height": 1024,
     "mode": "opaque-scene",
-    "sha256": "274554caf0821189ce1a70fc61d189a89f78047d9a7ca476585df6bd7b033fb6",
+    "sha256": "0db025ffdfff375fc999e71b4c7e5421bac496d505d8458594a5b093511533fe",
     "width": 1024
   },
   "version": 1
