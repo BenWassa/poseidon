@@ -8,29 +8,29 @@
     "variants": {
       "gallery": {
         "aspectRatio": 1.0,
-        "bytes": 14372,
+        "bytes": 29256,
         "height": 512,
         "mediaType": "image/webp",
         "path": "gallery.webp",
-        "sha256": "cfb4027e27e63cb86f3659ab17183d0bd7964f02000883e156ae3fbaa95c82cf",
+        "sha256": "ff1981f851875b5ebd3d487fc640fe0a9dc61625fc7ba6e0c8437b09767a6ede",
         "width": 512
       },
       "hero": {
         "aspectRatio": 1.0,
-        "bytes": 39910,
+        "bytes": 87078,
         "height": 1024,
         "mediaType": "image/webp",
         "path": "hero.webp",
-        "sha256": "ca78ec18b2a964cafc4b710aa0ada7787682d6541142bc73d9ef42e8aab51dec",
+        "sha256": "3a8854e840fb60841fef7f3dda18cbd2d7ef7c1a86cc1f82deedd0c1985d5cee",
         "width": 1024
       },
       "thumb": {
         "aspectRatio": 1.0,
-        "bytes": 3818,
+        "bytes": 6822,
         "height": 192,
         "mediaType": "image/webp",
         "path": "thumb.webp",
-        "sha256": "2d85499232390928b09dcc41d0891bbfa23aa91864b7858601980acea7ddadbe",
+        "sha256": "b0167fc70ab37350aac9ac97ae14a9330c614d83a80d31fd99d2e1222fe5784a",
         "width": 192
       }
     }
@@ -38,11 +38,11 @@
   "creatureId": "balloonfish",
   "source": {
     "aspectRatio": 1.0,
-    "bytes": 48750,
+    "bytes": 141042,
     "format": "webp",
     "height": 1024,
     "mode": "opaque-scene",
-    "sha256": "1ca90a9fe951d98df678f1880cde06a74c82c8d0c7ceb489e573e1e0f2d85aad",
+    "sha256": "09e9163823a45df49a3e272c218236dcd43da1ac926a5e8b8d08af6e3e7c9dff",
     "width": 1024
   },
   "version": 1
