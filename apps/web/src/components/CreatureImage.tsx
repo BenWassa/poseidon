@@ -29,6 +29,41 @@ const VARIANT_PIXELS: Record<CreatureImageVariant, number> = {
   hero: 1024,
 };
 
+/**
+ * These 26 files are temporary coverage exports from the legacy vector/SVG
+ * programme. They remain in the canonical asset pipeline for editorial
+ * history, but are intentionally never presented as finished creature art.
+ * They will leave this list as reviewed HD raster replacements are promoted.
+ */
+const LEGACY_VECTOR_ART_IDS = new Set([
+  'banded-butterflyfish',
+  'bar-jack',
+  'bicolor-damselfish',
+  'black-grouper',
+  'blue-chromis',
+  'bluehead-wrasse',
+  'bluestriped-grunt',
+  'balloonfish',
+  'doctorfish',
+  'foureye-butterflyfish',
+  'french-grunt',
+  'hogfish',
+  'honeycomb-cowfish',
+  'lionfish',
+  'loggerhead-sea-turtle',
+  'mutton-snapper',
+  'ocean-surgeonfish',
+  'princess-parrotfish',
+  'queen-parrotfish',
+  'redband-parrotfish',
+  'rock-beauty',
+  'sharpnose-puffer',
+  'splendid-toadfish',
+  'spotted-moray',
+  'yellowhead-wrasse',
+  'yellowtail-damselfish',
+]);
+
 export interface CreatureImageProps {
   creature: Creature;
   variant?: CreatureImageVariant;
@@ -65,7 +100,8 @@ export function CreatureImage({
     artwork?.aspectRatio && artwork.aspectRatio > 0 ? artwork.aspectRatio : 1;
   const edge = VARIANT_PIXELS[variant];
 
-  const showArtwork = Boolean(source) && !failed;
+  const showArtwork =
+    Boolean(source) && !failed && !LEGACY_VECTOR_ART_IDS.has(creature.id);
   const showMark = !showArtwork || plate;
   const resolvedShape = shape ?? (variant === 'thumb' ? 'circle' : 'tile');
   const mask = resolvedShape === 'circle' ? 'rounded-full' : 'rounded-tile';

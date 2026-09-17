@@ -7,15 +7,6 @@
  * washes as the rest of the collection so an unillustrated encounter still
  * belongs on the shelf.
  */
-import {
-  Fish,
-  FishSymbol,
-  Shell,
-  Shrimp,
-  Snail,
-  Turtle,
-  Waves,
-} from 'lucide-react';
 import type { Creature } from '@poseidon/domain';
 
 type Wash = { from: string; to: string; foreground: string };
@@ -43,15 +34,15 @@ const WASHES: Wash[] = [
   },
 ];
 
-const CATEGORY_ICON = {
-  'reef-fish': Fish,
-  shark: FishSymbol,
-  ray: Waves,
-  'sea-turtle': Turtle,
-  eel: Snail,
-  cephalopod: Shell,
-  crustacean: Shrimp,
-  seahorse: Snail,
+const CATEGORY_SILHOUETTE = {
+  'reef-fish': 'fish',
+  shark: 'shark',
+  ray: 'ray',
+  'sea-turtle': 'turtle',
+  eel: 'eel',
+  cephalopod: 'octopus',
+  crustacean: 'crustacean',
+  seahorse: 'seahorse',
 } as const;
 
 /** Stable per-creature wash so the same species always looks the same. */
@@ -82,10 +73,12 @@ export function CreatureMark({
   className = '',
 }: CreatureMarkProps) {
   const { from, to, foreground } = washFor(creature.id);
-  const Icon = creature.category
-    ? (CATEGORY_ICON[creature.category as keyof typeof CATEGORY_ICON] ?? Fish)
-    : Fish;
-  const glyphSize = size === 'sm' ? 22 : size === 'lg' ? 92 : 44;
+  const silhouette = creature.category
+    ? (CATEGORY_SILHOUETTE[
+        creature.category as keyof typeof CATEGORY_SILHOUETTE
+      ] ?? 'fish')
+    : 'fish';
+  const glyphSize = size === 'sm' ? 30 : size === 'lg' ? 116 : 62;
 
   return (
     <div
@@ -102,19 +95,12 @@ export function CreatureMark({
           {monogram(creature.commonName)}
         </span>
       ) : (
-        <Icon size={glyphSize} strokeWidth={1.6} className={foreground} />
-      )}
-      {/* A shared swell across every fallback keeps the set coherent. */}
-      <svg
-        viewBox="0 0 100 24"
-        preserveAspectRatio="none"
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-1/4 w-full text-white/25"
-      >
-        <path
-          d="M0 16 C 18 4, 34 4, 50 12 C 66 20, 82 20, 100 10 L 100 24 L 0 24 Z"
-          fill="currentColor"
+        <span
+          className={`creature-silhouette creature-silhouette--${silhouette} ${foreground}`}
+          style={{ fontSize: glyphSize }}
         />
-      </svg>
+      )}
+      <span className="creature-mark-swell pointer-events-none absolute inset-x-0 bottom-0 h-1/4" />
     </div>
   );
 }
