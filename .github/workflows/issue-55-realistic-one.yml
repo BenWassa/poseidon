@@ -1,0 +1,49 @@
+name: Issue 55 realistic creature one-by-one
+
+on:
+  push:
+    branches: [assets/55-realistic-hd-one-by-one]
+    paths:
+      - tools/creature_art/realistic-job.json
+
+permissions:
+  contents: write
+
+concurrency:
+  group: issue-55-realistic-one
+  cancel-in-progress: false
+
+jobs:
+  process:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: tools/creature_assets/requirements.txt
+      - name: Install image pipeline dependencies
+        run: python -m pip install -r tools/creature_assets/requirements.txt
+      - name: Read job id
+        run: echo "CREATURE_ID=$(python -c 'import json; print(json.load(open("tools/creature_art/realistic-job.json"))["id"])')" >> "$GITHUB_ENV"
+      - name: Build immutable realistic source
+        run: python tools/creature_art/import_realistic_photo.py tools/creature_art/realistic-job.json
+      - name: Validate source catalog
+        run: python -m tools.creature_assets validate-source
+      - name: Promote reviewed replacement
+        run: python -m tools.creature_assets promote-source --candidate "$CREATURE_ID" --force
+      - name: Validate canonical runtime assets
+        run: python -m tools.creature_assets validate
+      - name: Commit one species
+        run: |
+          rm tools/creature_art/realistic-job.json
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/source/creatures assets/creatures tools/creature_art/realistic-job.json
+          git commit -m "assets: replace ${CREATURE_ID} with realistic HD source"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
