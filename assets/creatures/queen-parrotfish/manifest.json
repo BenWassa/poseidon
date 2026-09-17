@@ -8,29 +8,29 @@
     "variants": {
       "gallery": {
         "aspectRatio": 1.0,
-        "bytes": 8736,
+        "bytes": 60596,
         "height": 512,
         "mediaType": "image/webp",
         "path": "gallery.webp",
-        "sha256": "f7a4779000c90f1c34e4dd1338a67df19234f22b70ca9e317592386cae932c18",
+        "sha256": "e5363e5fe9217790594e101db4fdbe140ec65d2721e607da47a42e1f33162c43",
         "width": 512
       },
       "hero": {
         "aspectRatio": 1.0,
-        "bytes": 24788,
+        "bytes": 206680,
         "height": 1024,
         "mediaType": "image/webp",
         "path": "hero.webp",
-        "sha256": "43549dec610c70da7a830cd98ee4dde0fb3c9ad25d5e5e389186cf95144ee842",
+        "sha256": "6abd8409c0c09eb53d5b7bf3b7a88d098669ac5887778873eb98b6d263e411cc",
         "width": 1024
       },
       "thumb": {
         "aspectRatio": 1.0,
-        "bytes": 2206,
+        "bytes": 9902,
         "height": 192,
         "mediaType": "image/webp",
         "path": "thumb.webp",
-        "sha256": "edb12bd1f17d4e33f08534ff173aa96fb217dc523be3a934e58780555e907454",
+        "sha256": "ed6405500126fc57f14cbe186536246eeada9de8231501fdfa95768f40fe80e8",
         "width": 192
       }
     }
@@ -38,11 +38,11 @@
   "creatureId": "queen-parrotfish",
   "source": {
     "aspectRatio": 1.0,
-    "bytes": 31654,
+    "bytes": 304450,
     "format": "webp",
     "height": 1024,
     "mode": "opaque-scene",
-    "sha256": "e83a85794a71516f0a5fdacaef1ad49975e09756364fa05726f52c6f9c403f0a",
+    "sha256": "bb8d7cc972403385463987758c43dad56f930c51f5e2859e9c6d121eb9a318f1",
     "width": 1024
   },
   "version": 1
