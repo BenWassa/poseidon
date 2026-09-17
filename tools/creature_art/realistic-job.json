@@ -1,0 +1,14 @@
+{
+  "id": "lionfish",
+  "scientificName": "Pterois volitans",
+  "sourceUrl": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Pterois_volitans_(Lionfish_-_Caribbean_invasive).jpg",
+  "sourcePage": "https://commons.wikimedia.org/wiki/File:Pterois_volitans_(Lionfish_-_Caribbean_invasive).jpg",
+  "author": "Nick Hobgood (Nhobgood)",
+  "license": "CC BY-SA 3.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+  "generator": "licensed underwater photograph",
+  "score": 9.5,
+  "identity": "high",
+  "sourceQuality": 95,
+  "qaNote": "Issue #55 realistic replacement: licensed underwater photograph of Pterois volitans in Caribbean reef habitat. Red-and-white zebra striping, long unbranched pectoral rays and dorsal spines, and spotted soft fins are visible at source scale, satisfying the locked lionfish diagnostics while replacing the former vector-derived source."
+}
