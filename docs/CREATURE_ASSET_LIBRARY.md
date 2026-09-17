@@ -32,10 +32,10 @@ That technical coverage must now be separated from visual acceptance:
 | Inventory group | Count | Current runtime state | Visual direction |
 | --- | ---: | --- | --- |
 | Original HD source programme | 30 | Live canonical WebP variants | Retain as the current realistic-HD baseline unless individual visual QA flags a replacement. |
-| #33 coverage programme | 26 | Live canonical WebP variants | **Replace under #55 with new realistic raster masters.** Current files may remain live until accepted replacements exist. |
+| #33 coverage programme | 26 | **7 realistic replacements promoted; 19 vector-derived assets remain** | Continue #55 one species at a time until all 26 use realistic raster masters. |
 | Legacy SVG creature tooling/fallbacks | Not part of the 56-source inventory | Repository/tooling/fallback only | **Deprecated for marine-life artwork. Do not create new creature SVGs.** |
 
-The important distinction is that runtime format and source style are different questions. Some #33 outputs are WebP at runtime but were produced from procedural SVG/vector-assisted workflows. They therefore do not satisfy the current realistic-HD visual direction.
+The important distinction is that runtime format and source style are different questions. Some #33 outputs are WebP at runtime but were produced from procedural SVG/vector-assisted workflows. They therefore do not satisfy the current realistic-HD visual direction until replaced.
 
 ## Current 30-asset realistic-HD baseline
 
@@ -74,15 +74,15 @@ These are the original HD-source programme records. They are **not automatically
 
 The original batch is fully mapped and live. #38 / PR #42 supplied accepted v2 replacements for spotted eagle ray, spotted trunkfish, Atlantic blue tang and Spanish hogfish. #39 supplied accepted v2 replacements for Caribbean cushion sea star, porkfish, queen conch and Caribbean reef octopus. Earlier source revisions remain immutable history.
 
-## What to make next — #55 realistic-HD replacement programme
+## #55 realistic-HD replacement programme
 
-The next creature-art production work is **#55 — replace the 26 #33 coverage assets with realistic HD raster masters**.
+The active creature-art production work is **#55 — replace the 26 #33 coverage assets with realistic HD raster masters**.
 
 Do **not** begin by expanding the species count. First bring the current 56-creature catalogue into one coherent realistic visual family.
 
-Recommended isolated production batches preserve the prior ownership split and keep QA manageable:
+### Completed — Batch A — 7
 
-### Batch A — 7
+The following replacements are now reviewed, immutable source revisions and promoted canonical runtime art:
 
 - banded butterflyfish
 - bar jack
@@ -92,7 +92,9 @@ Recommended isolated production batches preserve the prior ownership split and k
 - queen parrotfish
 - sharpnose puffer
 
-### Batch B — 7
+Each uses a licensed underwater photograph transformed only by square crop, 1024×1024 resize and WebP encoding; provenance and license are recorded in the source catalog. No generative anatomy edits or vector source path are involved.
+
+### Next — Batch B — 7
 
 - balloonfish
 - black grouper
@@ -122,7 +124,7 @@ Recommended isolated production batches preserve the prior ownership split and k
 
 For each target:
 
-1. generate a new **1024×1024 realistic raster** source candidate;
+1. generate or source a new **1024×1024 realistic raster** source candidate;
 2. use natural Caribbean underwater lighting, texture and depth rather than flat illustration;
 3. keep the creature immediately identifiable and biologically credible;
 4. check the locked species diagnostics in `docs/CREATURE_ART_QA_REFERENCES.md` at full and card scale;
@@ -201,6 +203,6 @@ assets/creatures/<stable-id>/                   # canonical runtime only
 
 ## Work sequence
 
-1. **#55 — next:** replace the 26 #33 coverage assets with reviewed realistic HD raster masters in four isolated batches.
+1. **#55 — active:** 7 of 26 realistic replacements are promoted; 19 remain. Continue one species at a time beginning with Batch B.
 2. **#34 — after the relevant #55 replacements:** derive transparent raster specimen revisions from the approved realistic opaque masters where useful; preserve opaque originals and manually QA difficult alpha edges.
 3. Only after the current 56-creature visual family is coherent should creature-count expansion become the next art-production question.
