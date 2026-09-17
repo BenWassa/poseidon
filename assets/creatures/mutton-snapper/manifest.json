@@ -8,29 +8,29 @@
     "variants": {
       "gallery": {
         "aspectRatio": 1.0,
-        "bytes": 9260,
+        "bytes": 59258,
         "height": 512,
         "mediaType": "image/webp",
         "path": "gallery.webp",
-        "sha256": "0ce3b1f8544b8949f937fd67303da5185b6047f1f99896567c91c641161fac3b",
+        "sha256": "9805d5e6589b1ea80815a645824c1e2e78573bf4cd7a4cb047b36990c98a95dc",
         "width": 512
       },
       "hero": {
         "aspectRatio": 1.0,
-        "bytes": 25774,
+        "bytes": 369958,
         "height": 1024,
         "mediaType": "image/webp",
         "path": "hero.webp",
-        "sha256": "c4ed988a10ac2b9ae8f6d54a2bf95884e41d2f40c1b4c3bc4edccfab80bdfad4",
+        "sha256": "b729260941ebdda48a795522d253dd18680f076df5bb1da33660054ce65c772e",
         "width": 1024
       },
       "thumb": {
         "aspectRatio": 1.0,
-        "bytes": 2562,
+        "bytes": 7548,
         "height": 192,
         "mediaType": "image/webp",
         "path": "thumb.webp",
-        "sha256": "dc0aac2d1ab9f1846d8ff8358826ad4a946888d4e610e48b61d35195e5644117",
+        "sha256": "1236bd9334b35480f66a63fba6000bb3ea1390f950e68d80809bb8d04dbd41c7",
         "width": 192
       }
     }
@@ -38,11 +38,11 @@
   "creatureId": "mutton-snapper",
   "source": {
     "aspectRatio": 1.0,
-    "bytes": 32904,
+    "bytes": 576182,
     "format": "webp",
     "height": 1024,
     "mode": "opaque-scene",
-    "sha256": "e03b654c4b219502ce512d54f3ed2f823e1d9fe8ed8113c2094b5296aec60cd6",
+    "sha256": "266e2b37f68c6a28870bf20f3bc5d420d34d4902dcfb86db7d821e74c1832a85",
     "width": 1024
   },
   "version": 1

@@ -8,29 +8,29 @@
     "variants": {
       "gallery": {
         "aspectRatio": 1.0,
-        "bytes": 19194,
+        "bytes": 66294,
         "height": 512,
         "mediaType": "image/webp",
         "path": "gallery.webp",
-        "sha256": "924538d3bccf04f8385599620fa40e5708a7c6655e83d77601247f7cfdd81dd6",
+        "sha256": "f714941201669166515bc41e185876eac2466a2a3648812f2bb078af57b194ab",
         "width": 512
       },
       "hero": {
         "aspectRatio": 1.0,
-        "bytes": 52576,
+        "bytes": 289410,
         "height": 1024,
         "mediaType": "image/webp",
         "path": "hero.webp",
-        "sha256": "6cb71475c98c20d7e9c4e6489e255ea42b94c54dc7d11fd3f33e8f2fa7a98b15",
+        "sha256": "e1c16e98297ca983077235ea9fd993d206382e3d2663bd7b3dc1f4bcb192fa47",
         "width": 1024
       },
       "thumb": {
         "aspectRatio": 1.0,
-        "bytes": 4116,
+        "bytes": 10638,
         "height": 192,
         "mediaType": "image/webp",
         "path": "thumb.webp",
-        "sha256": "8311b784412c675a8934966fe5e0918673b24716409132dca8620b004d6a07a5",
+        "sha256": "2fffe433018794b215bf0da0a38cac0038eefe5904f0ecbd9cba41cf4f333e98",
         "width": 192
       }
     }
@@ -38,11 +38,11 @@
   "creatureId": "honeycomb-cowfish",
   "source": {
     "aspectRatio": 1.0,
-    "bytes": 65444,
+    "bytes": 417342,
     "format": "webp",
     "height": 1024,
     "mode": "opaque-scene",
-    "sha256": "0f71353cf6faf99ef17abb7d9682f92dd5d5ff92fdbdd656a36d71824520df48",
+    "sha256": "8db24eef3a680f0e612b2357ce6314e5cda5cadba7ccc659f63847fa1495468b",
     "width": 1024
   },
   "version": 1

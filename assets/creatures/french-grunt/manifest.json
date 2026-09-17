@@ -8,29 +8,29 @@
     "variants": {
       "gallery": {
         "aspectRatio": 1.0,
-        "bytes": 12304,
+        "bytes": 72980,
         "height": 512,
         "mediaType": "image/webp",
         "path": "gallery.webp",
-        "sha256": "823b758479671289226d9f3d4d7aba153c244776d29530433c3ce317c7efe1cb",
+        "sha256": "48d549e3380a5712107478e357ffa85d592a464fad4635153304e5ff9c140d0a",
         "width": 512
       },
       "hero": {
         "aspectRatio": 1.0,
-        "bytes": 35646,
+        "bytes": 284964,
         "height": 1024,
         "mediaType": "image/webp",
         "path": "hero.webp",
-        "sha256": "634d0a151c529c56362da5eab98ead4b29ea9de63e086ab3ac049ee5eafd249c",
+        "sha256": "e77a5a4aef03c0bc70fb50798dc25aaf6578753f9d2db531600228f27aba2a17",
         "width": 1024
       },
       "thumb": {
         "aspectRatio": 1.0,
-        "bytes": 3196,
+        "bytes": 10236,
         "height": 192,
         "mediaType": "image/webp",
         "path": "thumb.webp",
-        "sha256": "cd7dc727a5af8c02501ca600ba558ec913c6788fafee3c872b97f81f7a0e0433",
+        "sha256": "2f7ae772fd77758ad38cf1a4af24d7cb4a6ca196fc3a0a357c12cd9d8e3790c9",
         "width": 192
       }
     }
@@ -38,11 +38,11 @@
   "creatureId": "french-grunt",
   "source": {
     "aspectRatio": 1.0,
-    "bytes": 45090,
+    "bytes": 395678,
     "format": "webp",
     "height": 1024,
     "mode": "opaque-scene",
-    "sha256": "f5796fce5ce7970f2f47c6b0b8f79588ed1b8fbcb88bac163d6aedaaaeee1573",
+    "sha256": "8fed290a41e712a4339409b753aac191cca89cd740177dc85ca01a7528d9f8b4",
     "width": 1024
   },
   "version": 1

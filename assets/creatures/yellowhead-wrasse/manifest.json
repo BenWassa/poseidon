@@ -8,29 +8,29 @@
     "variants": {
       "gallery": {
         "aspectRatio": 1.0,
-        "bytes": 8844,
+        "bytes": 18862,
         "height": 512,
         "mediaType": "image/webp",
         "path": "gallery.webp",
-        "sha256": "3443f161d2f6f8f1a6c7480e882c5a711397d6e0404e3e8b0525efb9a94a2c02",
+        "sha256": "85ca7e7e0280efb79ad8d89d32b5eff83aa691e1b7da7b35026be81c59bec02d",
         "width": 512
       },
       "hero": {
         "aspectRatio": 1.0,
-        "bytes": 25536,
+        "bytes": 78844,
         "height": 1024,
         "mediaType": "image/webp",
         "path": "hero.webp",
-        "sha256": "54d7313a898c23f97740ee241b0413c00fdacffaca7e8886b0989d12d30e02bb",
+        "sha256": "b6eda2cb30b1d44de22712d40629cc17d20e1e9a71eb42917f0467813c05fa11",
         "width": 1024
       },
       "thumb": {
         "aspectRatio": 1.0,
-        "bytes": 2280,
+        "bytes": 3094,
         "height": 192,
         "mediaType": "image/webp",
         "path": "thumb.webp",
-        "sha256": "2aa9fb6d288cd925064f14e67f82a2e7c27093eed8deb4d308213cf2227bef80",
+        "sha256": "e3ac07f99965f05f0c7c08903363adb34732b15ef6f5b47ce7c7b665aa6ae034",
         "width": 192
       }
     }
@@ -38,11 +38,11 @@
   "creatureId": "yellowhead-wrasse",
   "source": {
     "aspectRatio": 1.0,
-    "bytes": 32528,
+    "bytes": 192412,
     "format": "webp",
     "height": 1024,
     "mode": "opaque-scene",
-    "sha256": "cab3ec5a4ef5ce64cefe0bda46f2d70e89d8b871787d3b87561fb19a562cccec",
+    "sha256": "72b1797179d71970063f5d3a3670809cc5999991857866f6f506d2750a7f61aa",
     "width": 1024
   },
   "version": 1

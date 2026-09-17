@@ -8,29 +8,29 @@
     "variants": {
       "gallery": {
         "aspectRatio": 1.0,
-        "bytes": 8890,
+        "bytes": 26796,
         "height": 512,
         "mediaType": "image/webp",
         "path": "gallery.webp",
-        "sha256": "578dbde557abe6dce85036f01c3f7ea093bf2507c9b98bd890e353f4c4f95257",
+        "sha256": "5e6489260921b36ab76b8a74c0d5430129706275ca1d611c769daa75db1e1b04",
         "width": 512
       },
       "hero": {
         "aspectRatio": 1.0,
-        "bytes": 23982,
+        "bytes": 151914,
         "height": 1024,
         "mediaType": "image/webp",
         "path": "hero.webp",
-        "sha256": "61e23fb3c170884a4b7f2c0b83eb53740f272b321a2c4baa9085a8a0bbc68282",
+        "sha256": "ab74330be0cbab588f6ff0dbaa7b5c4cfa9d7e202111edf5b8272835b0da88ac",
         "width": 1024
       },
       "thumb": {
         "aspectRatio": 1.0,
-        "bytes": 2398,
+        "bytes": 5646,
         "height": 192,
         "mediaType": "image/webp",
         "path": "thumb.webp",
-        "sha256": "2c3e167b5699b66c6658d094837aae25629ad0ede8251af0e7aec5a5e196be5a",
+        "sha256": "6c07018bf38257193d1ac48828ae68951e82e2e2b3babde9a35098e89a339cf9",
         "width": 192
       }
     }
@@ -38,11 +38,11 @@
   "creatureId": "bicolor-damselfish",
   "source": {
     "aspectRatio": 1.0,
-    "bytes": 30704,
+    "bytes": 223030,
     "format": "webp",
     "height": 1024,
     "mode": "opaque-scene",
-    "sha256": "7a2f298ee05b3b280825616ebef9296e394e1f0dc1e04e8565fee6117e2260d8",
+    "sha256": "34c8b21b9cf6daa8b50c6e2b1138d09604d255e3597ebc153d121e56e068d19e",
     "width": 1024
   },
   "version": 1

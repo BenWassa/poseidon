@@ -8,29 +8,29 @@
     "variants": {
       "gallery": {
         "aspectRatio": 1.0,
-        "bytes": 9540,
+        "bytes": 26388,
         "height": 512,
         "mediaType": "image/webp",
         "path": "gallery.webp",
-        "sha256": "c02311e27453c22e216dc6ab1371680ffeb747de83f5f283e927373b731d70af",
+        "sha256": "1d104da95049be77b895e563935814d7248e53d5083ea3060c7999218cc1acd4",
         "width": 512
       },
       "hero": {
         "aspectRatio": 1.0,
-        "bytes": 27142,
+        "bytes": 100876,
         "height": 1024,
         "mediaType": "image/webp",
         "path": "hero.webp",
-        "sha256": "0decb17f7add2ea58fd588236378b33f629ee068efb5c1df26e160dcb6bebd7a",
+        "sha256": "532db1d0051e8f17c776e6433ab5be41012414ad8c5d86d9d3db0275eb049139",
         "width": 1024
       },
       "thumb": {
         "aspectRatio": 1.0,
-        "bytes": 2588,
+        "bytes": 5634,
         "height": 192,
         "mediaType": "image/webp",
         "path": "thumb.webp",
-        "sha256": "71afcd9b66d8d5783a8f86299b39593ebde8e8454b6f9a42493de639373d729e",
+        "sha256": "42de168253773c259e885999ee0454c8eda01c81030f7455df4cf143a2a0f7cc",
         "width": 192
       }
     }
@@ -38,11 +38,11 @@
   "creatureId": "yellowtail-damselfish",
   "source": {
     "aspectRatio": 1.0,
-    "bytes": 35894,
+    "bytes": 160114,
     "format": "webp",
     "height": 1024,
     "mode": "opaque-scene",
-    "sha256": "413edefd98528854536d2529d0bb30072e51706d3db633b5e3b3312ae7943fc6",
+    "sha256": "2d52e53a34c3177867a3b047f5c76ef260c0b3ed2b8c5d37d3a0f26df62ca1e6",
     "width": 1024
   },
   "version": 1

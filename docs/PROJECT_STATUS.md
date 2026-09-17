@@ -8,7 +8,7 @@ This is the living programme-status companion to the durable product contracts. 
 
 Current merged `main` authority at this reconciliation:
 
-`198fb486f57ab7cbe30a2026415e713227b432b8`
+`327333d18cfe74a96ba1464d620f89cf2362a8bc`
 
 Poseidon is a deployed React/Vite/TypeScript PWA with Firebase-backed approved-user persistence, local/offline shadow persistence, canonical marine content and a guarded creature-asset pipeline.
 
@@ -43,25 +43,26 @@ Do not restart stack selection or recreate the former external prototype archite
 
 ## Content and artwork baseline
 
-Technical artwork coverage after #33 is complete:
+Technical and current visual artwork coverage is complete:
 
 - Mexican-Caribbean content pack: **3 regions, 24 dive sites/areas, 56 creatures**;
-- **56 mapped source-catalog entries**;
+- **56 mapped current `keep` source-catalog entries**;
 - machine editorial state: **56 keep / 0 provisional / 0 remake**;
 - **56 canonical runtime manifests**, each with deterministic 192/512/1024 WebP variants;
-- **0 current content species** without runtime artwork.
+- **0 current content species** without runtime artwork;
+- **26/26 former #33 vector/procedural coverage masters replaced under #55 with reviewed realistic raster revisions**.
 
-Technical coverage no longer implies final visual acceptance. Owner direction on 2026-09-16 is **realistic HD raster marine-life imagery only**: no new creature SVG/vector art and no acceptance of vector-looking artwork merely because its runtime output is WebP.
+Owner direction on 2026-09-16 is **realistic HD raster marine-life imagery only**: no new creature SVG/vector art and no acceptance of vector-looking artwork merely because its runtime output is WebP.
 
 The current human visual inventory is therefore:
 
-- **30 original HD-source programme assets** — retained as the current realistic-HD baseline unless individual visual QA flags a specific problem;
-- **26 #33 coverage assets** — technically live, but queued under #55 for new realistic 1024×1024 raster replacement masters;
+- **30 original HD-source programme assets** — retained as the realistic-HD baseline unless individual visual QA flags a specific problem;
+- **26 former #33 coverage assets** — replaced under #55 with reviewed realistic 1024×1024 raster masters and promoted canonical runtime variants;
 - legacy marine-life SVG tooling/fallbacks — deprecated and not part of the approved creature-art inventory.
 
-Original source revisions remain immutable. #38 / PR #42 supplied and promoted four accepted v2 replacements (spotted eagle ray, spotted trunkfish, Atlantic blue tang and Spanish hogfish). #39 completed the final four immutable v2 replacements (Caribbean cushion sea star, porkfish, queen conch and Caribbean reef octopus). The original 30-entry batch is **30/30 keep and live**.
+Original source revisions remain immutable. #38 / PR #42 supplied and promoted four accepted v2 replacements (spotted eagle ray, spotted trunkfish, Atlantic blue tang and Spanish hogfish). #39 completed the final four immutable v2 replacements (Caribbean cushion sea star, porkfish, queen conch and Caribbean reef octopus). The original 30-entry batch remains **30/30 keep and live**.
 
-#33 added the 26 previously uncovered content creatures in isolated reviewed batches and closed technical coverage at 56/56. PR #43 locked species-specific generation/review diagnostics for all 26 targets and corrected `honeycomb-cowfish` to accepted **`Acanthostracion polygonium`**. Those diagnostic references now carry forward into #55 replacement QA.
+#33 added the 26 previously uncovered content creatures in isolated reviewed batches and closed technical coverage at 56/56. PR #43 locked species-specific generation/review diagnostics for all 26 targets and corrected `honeycomb-cowfish` to accepted **`Acanthostracion polygonium`**. #55 then reused those diagnostic references while replacing every former #33 vector/procedural master with realistic raster art.
 
 Human art inventory and production order: `docs/CREATURE_ASSET_LIBRARY.md`.
 Machine provenance authority: `assets/source/creatures/catalog.json`.
@@ -97,7 +98,13 @@ The final Caribbean cushion sea star, porkfish, queen conch and Caribbean reef o
 
 All 26 formerly uncovered Mexican-Caribbean content creatures received immutable 1024×1024 source candidates and canonical runtime variants. Completion is defined as **56 content IDs = 56 mapped source entries = 56 canonical runtime manifests**. Biological identity and full/card-scale QA were promotion requirements.
 
-The later owner realism direction does not reopen #33's coverage result; it creates the separate #55 visual replacement programme.
+The later owner realism direction did not reopen #33's coverage result; it created the separate #55 visual replacement programme.
+
+### #55 — realistic HD replacement programme — complete on PR #57
+
+All 26 former #33 vector/procedural coverage masters now have reviewed realistic 1024×1024 raster replacement revisions. Each accepted source was preserved as a later immutable candidate, recorded with source/author/license provenance, and promoted one species at a time through strict source validation, guarded runtime promotion and canonical 192/512/1024 validation.
+
+The current curated 56-creature visual baseline no longer depends on vector-derived masters. Legacy creature SVG/procedural tooling remains historical/deprecated only. #34 may now derive transparent raster specimens from these approved realistic opaque masters where useful.
 
 ### #11 — source-art system — complete
 
@@ -123,19 +130,9 @@ The #51 matrix covers zero-history guide rendering, repeated sightings, edit/del
 
 ## Active enhancement streams
 
-### #55 — realistic HD replacement programme
-
-This is the next creature-art production priority.
-
-Replace the 26 #33 coverage assets with new reviewed realistic 1024×1024 raster masters. Preserve current candidates as immutable history and keep current runtime art live until each replacement passes biological and visual QA.
-
-The replacement queue is maintained in `docs/CREATURE_ASSET_LIBRARY.md` as four isolated batches. Acceptance requires natural underwater lighting, texture and depth, species-specific diagnostic accuracy, Mexican-Caribbean plausibility and no flat/procedural/vector appearance.
-
-Do not create new marine-life SVGs. Legacy `tools/creature_art/svg/` and species-like SVG/icon fallbacks are deprecated rather than an art-production path.
-
 ### #34 — derive transparent creature masters
 
-Transparent raster derivation remains valid, but for the 26 #55 targets it now follows realistic replacement. First approve/promote the realistic opaque raster master; only then derive a transparent raster specimen where the UI benefits from isolation.
+Transparent raster derivation remains valid and may now start from the approved realistic raster masters where the UI benefits from isolation.
 
 Preserve original masters and manually QA fins, antennae, spines, tentacles, translucent margins and other high-risk edges. Never auto-trace creature illustrations to SVG.
 
@@ -145,11 +142,11 @@ Engineering/deployment acceptance is automated. Keep #14 open until physical Pix
 
 ## Intended sequence
 
-1. execute #55 realistic-HD replacements in isolated batches;
+1. merge/close #55 after PR #57 final gate and review are clean;
 2. perform #34 transparent-raster derivation only from approved realistic masters where useful;
 3. perform/record #14 physical Pixel acceptance when desired;
 4. close parent/status items as appropriate;
-5. consider creature-count expansion only after the current 56-creature visual family is coherent.
+5. consider creature-count expansion as a separate product decision.
 
 ## Durable boundaries
 

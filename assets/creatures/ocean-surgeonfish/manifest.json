@@ -8,29 +8,29 @@
     "variants": {
       "gallery": {
         "aspectRatio": 1.0,
-        "bytes": 8938,
+        "bytes": 34624,
         "height": 512,
         "mediaType": "image/webp",
         "path": "gallery.webp",
-        "sha256": "718aa836967ac74c43e7da58cc6dff1a94569ba0128f92669593ec4a97a385bd",
+        "sha256": "74129cb54ce40951d34fa0aeead100aa9a8cb75c5d6af6fcc31be6f73db6010f",
         "width": 512
       },
       "hero": {
         "aspectRatio": 1.0,
-        "bytes": 25548,
+        "bytes": 151632,
         "height": 1024,
         "mediaType": "image/webp",
         "path": "hero.webp",
-        "sha256": "707d43094b3273cf6ad52c7ae719866180ab0e9ad4de4a02dbcbce6e33fd6582",
+        "sha256": "564031f1b68292b8a812400703a6d3f39e3540410fb14d1db5d6df1689647969",
         "width": 1024
       },
       "thumb": {
         "aspectRatio": 1.0,
-        "bytes": 2274,
+        "bytes": 5098,
         "height": 192,
         "mediaType": "image/webp",
         "path": "thumb.webp",
-        "sha256": "ac47eb8ffd6589c8740394dba3bd8c24cc1bbfa6dccc6e7d0655e8359ffc92d1",
+        "sha256": "cc1bbbc128f05f70cae5414710c7c29855e70a4c486fb0cb44ea7cbd9b2c1370",
         "width": 192
       }
     }
@@ -38,11 +38,11 @@
   "creatureId": "ocean-surgeonfish",
   "source": {
     "aspectRatio": 1.0,
-    "bytes": 32290,
+    "bytes": 361820,
     "format": "webp",
     "height": 1024,
     "mode": "opaque-scene",
-    "sha256": "28fd135ff8844889f6ffe63e247a6e29e14ec8e79ced619e4e2feea7567b3b0f",
+    "sha256": "d6b53a919e0736617398b96c69521848e51c06b7520132f5f844660a694802f5",
     "width": 1024
   },
   "version": 1

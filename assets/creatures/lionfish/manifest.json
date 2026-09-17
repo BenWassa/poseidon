@@ -8,29 +8,29 @@
     "variants": {
       "gallery": {
         "aspectRatio": 1.0,
-        "bytes": 16440,
+        "bytes": 65244,
         "height": 512,
         "mediaType": "image/webp",
         "path": "gallery.webp",
-        "sha256": "bd6875eb2984ffe85339b24fdd71e4b404117130c4c1ca70f93d7708f85bb679",
+        "sha256": "7971f1477a5c2777e96c9c591cd6d9a24b942bf14cef4ed231fd9b0ecdb1e464",
         "width": 512
       },
       "hero": {
         "aspectRatio": 1.0,
-        "bytes": 43984,
+        "bytes": 227540,
         "height": 1024,
         "mediaType": "image/webp",
         "path": "hero.webp",
-        "sha256": "0d59ddbe20314ee48af8865bc0004b21a198c2044d79aee5b63fcb6e9310223e",
+        "sha256": "333df7f17092ac91fecdccf9a841d3752a1a6611858fc45858224200dda2a24d",
         "width": 1024
       },
       "thumb": {
         "aspectRatio": 1.0,
-        "bytes": 4030,
+        "bytes": 10514,
         "height": 192,
         "mediaType": "image/webp",
         "path": "thumb.webp",
-        "sha256": "d05808559688cee8e3df301bb94bb31539e3819862c6e0789e4ff8b3742b0dce",
+        "sha256": "8fa3ecf815e6f2400f37cd4ae2510cd617c5ffa597f4545ec4118ed9a74fc635",
         "width": 192
       }
     }
@@ -38,11 +38,11 @@
   "creatureId": "lionfish",
   "source": {
     "aspectRatio": 1.0,
-    "bytes": 55546,
+    "bytes": 423816,
     "format": "webp",
     "height": 1024,
     "mode": "opaque-scene",
-    "sha256": "014acc4d85ceaa6e68a395c0b0696325267daaa40cce4794f97153bd62b6007d",
+    "sha256": "83b82102ce65efe328a86fc0bc0f012c777a66aecf4c552eebe921a50d5e1935",
     "width": 1024
   },
   "version": 1

@@ -9,14 +9,14 @@ import { chromium } from 'playwright';
 import { launchOptions } from '../../../tools/chromium.mjs';
 
 const distDir = resolve(import.meta.dirname, '../dist');
-// The HD-art promotion (#30) replaced flat SVG-derived illustrations with
-// richer opaque-scene thumb/gallery variants, raising the legitimate
-// precached footprint for cold-start browsing. `hero.webp` (the largest
-// variant) is deliberately excluded from precache via `globIgnores` in
-// vite.config.ts and runtime-cached on first view instead, so this budget
-// covers the shell plus thumb/gallery art only, with headroom for the
-// remaining starter-catalog promotions tracked in #31.
-const MAX_PRECACHE_BYTES = 3 * 1024 * 1024;
+// The completed realistic-art programme (#55) replaced the remaining flat
+// vector/procedural sources with richer raster imagery. Core browsing must
+// still cold-start offline, so the shell plus thumb/gallery creature variants
+// remain deliberately precached. `hero.webp` stays excluded via `globIgnores`
+// in vite.config.ts and runtime-cached on first detail view. The full reviewed
+// 56-creature library currently lands below 4 MiB, so this is a bounded final
+// catalogue budget rather than permission for unbounded precache growth.
+const MAX_PRECACHE_BYTES = 4 * 1024 * 1024;
 const MIME = {
   '.css': 'text/css; charset=utf-8',
   '.html': 'text/html; charset=utf-8',
