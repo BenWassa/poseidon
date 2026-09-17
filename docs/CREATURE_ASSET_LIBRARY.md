@@ -19,23 +19,22 @@ Do not delete immutable historical sources merely because they are superseded. R
 
 ## Inventory snapshot
 
-The curated Mexican-Caribbean catalogue contains **56 stable creature IDs** and is complete for technical coverage:
+The curated Mexican-Caribbean catalogue contains **56 stable creature IDs** and is complete for technical and current visual coverage:
 
 - **56 mapped source-catalog entries**;
 - **56 current `keep` entries**;
 - **56 canonical runtime manifests**;
 - each runtime kit contains deterministic `thumb.webp` (192), `gallery.webp` (512) and `hero.webp` (1024);
-- **0 current curated creatures are missing runtime artwork**.
-
-That technical coverage must now be separated from visual acceptance:
+- **0 current curated creatures are missing runtime artwork**;
+- all **26 former #33 vector/procedural coverage assets now have reviewed realistic raster replacements** under #55.
 
 | Inventory group | Count | Current runtime state | Visual direction |
 | --- | ---: | --- | --- |
 | Original HD source programme | 30 | Live canonical WebP variants | Retain as the current realistic-HD baseline unless individual visual QA flags a replacement. |
-| #33 coverage programme | 26 | **14 realistic replacements promoted; 12 vector-derived assets remain** | Continue #55 one species at a time until all 26 use realistic raster masters. |
+| #33 coverage programme | 26 | **26 realistic replacements promoted; 0 vector-derived masters remain live** | #55 complete. Preserve the approved opaque raster masters as the source authority for any later #34 transparency work. |
 | Legacy SVG creature tooling/fallbacks | Not part of the 56-source inventory | Repository/tooling/fallback only | **Deprecated for marine-life artwork. Do not create new creature SVGs.** |
 
-The important distinction is that runtime format and source style are different questions. Some #33 outputs are WebP at runtime but were produced from procedural SVG/vector-assisted workflows. They therefore do not satisfy the current realistic-HD visual direction until replaced.
+Runtime format and source style remain separate questions. The former #33 outputs were technically valid WebP runtime assets but originated from procedural SVG/vector-assisted workflows; #55 replaced all 26 with reviewed realistic raster source revisions.
 
 ## Current 30-asset realistic-HD baseline
 
@@ -74,11 +73,9 @@ These are the original HD-source programme records. They are **not automatically
 
 The original batch is fully mapped and live. #38 / PR #42 supplied accepted v2 replacements for spotted eagle ray, spotted trunkfish, Atlantic blue tang and Spanish hogfish. #39 supplied accepted v2 replacements for Caribbean cushion sea star, porkfish, queen conch and Caribbean reef octopus. Earlier source revisions remain immutable history.
 
-## #55 realistic-HD replacement programme
+## #55 realistic-HD replacement programme — complete
 
-The active creature-art production work is **#55 — replace the 26 #33 coverage assets with realistic HD raster masters**.
-
-Do **not** begin by expanding the species count. First bring the current 56-creature catalogue into one coherent realistic visual family.
+Issue **#55** replaced all **26 #33 coverage assets** with reviewed realistic HD raster masters. Every replacement preserves the prior source revision as immutable history, records source/author/license provenance in the machine catalog, and promotes through the guarded canonical runtime pipeline.
 
 ### Completed — Batch A — 7
 
@@ -100,9 +97,7 @@ Do **not** begin by expanding the species count. First bring the current 56-crea
 - spotted moray
 - yellowtail damselfish
 
-These 14 replacements are reviewed immutable source revisions and promoted canonical runtime art. They use licensed or public-domain underwater photography transformed only by square crop, 1024×1024 resize and WebP encoding; provenance and license are recorded in the source catalog. No generative anatomy edits or vector source path are involved.
-
-### Next — Batch C — 6
+### Completed — Batch C — 6
 
 - bicolor damselfish
 - French grunt
@@ -111,7 +106,7 @@ These 14 replacements are reviewed immutable source revisions and promoted canon
 - mutton snapper
 - redband parrotfish
 
-### Batch D — 6
+### Completed — Batch D — 6
 
 - bluehead wrasse
 - loggerhead sea turtle
@@ -120,30 +115,31 @@ These 14 replacements are reviewed immutable source revisions and promoted canon
 - splendid toadfish
 - yellowhead wrasse
 
-For each target:
+The 26 replacements use licensed, public-domain, or no-known-copyright-restriction real photography, with provenance and usage status recorded per source in `assets/source/creatures/catalog.json`. Transformations are limited to editorial square crop, 1024×1024 resize and WebP encoding; no generative anatomy edits or new vector source path are involved.
 
-1. generate or source a new **1024×1024 realistic raster** source candidate;
-2. use natural Caribbean underwater lighting, texture and depth rather than flat illustration;
-3. keep the creature immediately identifiable and biologically credible;
-4. check the locked species diagnostics in `docs/CREATURE_ART_QA_REFERENCES.md` at full and card scale;
-5. reject generic/lookalike or vector-looking results immediately;
-6. preserve the old candidate revision unchanged;
-7. register the accepted replacement as a new immutable candidate revision;
-8. promote only reviewed `keep` through the existing guarded pipeline;
-9. verify Collection, Log Dive and Creature Detail rendering;
-10. run `npm run gate`.
+For each replacement, the production contract was:
+
+1. source a biologically credible realistic raster candidate;
+2. preserve natural Caribbean or regionally plausible underwater context where available;
+3. keep the creature immediately identifiable against the locked diagnostics in `docs/CREATURE_ART_QA_REFERENCES.md`;
+4. reject generic/lookalike or vector-looking results;
+5. preserve the old candidate revision unchanged;
+6. register the accepted replacement as a new immutable candidate revision;
+7. promote only reviewed `keep` through the existing guarded pipeline;
+8. regenerate and validate canonical 192/512/1024 runtime variants.
 
 Mexican-Caribbean plausibility and species identity outrank aesthetics. Realism is an additional gate, not a substitute for biological QA.
 
 ## #34 sequencing — transparency comes after realistic replacement
 
-Issue #34 remains useful, but its order changes under the realistic-HD direction:
+Issue #34 is now the next creature-art production phase where isolated specimens improve the UI:
 
-1. finish the #55 realistic replacement for a species;
-2. approve/promote the realistic opaque raster master;
-3. only then derive a transparent raster specimen from that approved master where the UI benefits from isolation.
+1. use the approved #55 realistic opaque raster master as source authority;
+2. derive a transparent raster specimen revision without vector tracing;
+3. preserve the approved opaque original unchanged;
+4. manually QA difficult alpha edges and diagnostic anatomy before promotion.
 
-Do not spend background-removal/edge-QA effort on a vector-derived master already scheduled for replacement. #34 is raster extraction only; it must never become vector tracing.
+#34 is raster extraction only; it must never become vector tracing.
 
 ## Legacy SVG status
 
@@ -174,7 +170,7 @@ Queen conch historical names `Strombus gigas` and `Lobatus gigas` remain provena
 
 ## Review references
 
-Species/content decisions use explicit provenance in `content/mexican-caribbean/manifest.json`. `docs/CREATURE_ART_QA_REFERENCES.md` records the identification authorities and the #33 diagnostic matrix and remains the species-identification authority for #55 replacements.
+Species/content decisions use explicit provenance in `content/mexican-caribbean/manifest.json`. `docs/CREATURE_ART_QA_REFERENCES.md` records the identification authorities and the #33 diagnostic matrix and remains the species-identification authority for #55 replacements and later derivatives.
 
 Reference material supports identity and regional plausibility only. Poseidon does not convert abundance, density or conservation material into user-facing rarity or encounter probability.
 
@@ -201,6 +197,6 @@ assets/creatures/<stable-id>/                   # canonical runtime only
 
 ## Work sequence
 
-1. **#55 — active:** 14 of 26 realistic replacements are promoted; 12 remain. Continue one species at a time beginning with Batch C.
-2. **#34 — after the relevant #55 replacements:** derive transparent raster specimen revisions from the approved realistic opaque masters where useful; preserve opaque originals and manually QA difficult alpha edges.
-3. Only after the current 56-creature visual family is coherent should creature-count expansion become the next art-production question.
+1. **#55 — complete:** all 26 former #33 coverage assets now have reviewed realistic raster masters and validated canonical runtime variants.
+2. **#34 — next where useful:** derive transparent raster specimen revisions from the approved realistic opaque masters; preserve opaque originals and manually QA difficult alpha edges.
+3. Creature-count expansion can be considered separately after the current 56-creature visual family and any desired #34 extraction work are accepted.
