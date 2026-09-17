@@ -11,13 +11,13 @@ Creature masters are **realistic HD raster artwork**. Do not create new marine-l
 Important distinctions:
 
 - runtime `.webp` format alone does not prove a source satisfies the realism requirement;
-- legacy SVG-derived/procedural creature work may remain in history or tooling while replacements are produced, but it is not an approved future production path;
-- current #55 replaces the 26 #33 coverage assets with realistic 1024×1024 raster candidates;
+- legacy SVG-derived/procedural creature work may remain in history or tooling, but it is not an approved future production path;
+- #55 replaced all 26 former #33 coverage assets with reviewed realistic 1024×1024 raster candidates;
 - preserve every superseded source revision as immutable history;
 - generic SVG UI icons remain acceptable outside the creature-art inventory;
 - missing-art behavior remains supported, but a fallback must not masquerade as approved species artwork.
 
-See `docs/CREATURE_ASSET_LIBRARY.md` for the human inventory and production queue. The machine provenance authority remains `assets/source/creatures/catalog.json`.
+See `docs/CREATURE_ASSET_LIBRARY.md` for the human inventory and production order. The machine provenance authority remains `assets/source/creatures/catalog.json`.
 
 ## Canonical runtime layout
 
@@ -138,13 +138,13 @@ Fallbacks are resilience states, not substitute creature artwork. Do not add spe
 
 ## #55 and #34 order
 
-For the 26 #33 species listed in `docs/CREATURE_ASSET_LIBRARY.md`:
+For the 26 former #33 coverage species listed in `docs/CREATURE_ASSET_LIBRARY.md`:
 
-1. #55 creates and approves the realistic opaque raster replacement;
-2. the replacement is promoted through this pipeline;
-3. #34 may then derive a transparent raster version where useful.
+1. #55 has created, reviewed and promoted the realistic opaque raster replacements;
+2. those replacements are now canonical runtime art;
+3. #34 may derive transparent raster versions from those approved masters where useful.
 
-Do not perform #34 extraction from a vector-derived source that is already scheduled for #55 replacement.
+Do not derive #34 transparency from superseded vector/procedural source revisions.
 
 ## Runtime validation
 
