@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "libraryId": "poseidon-creature-source-art",
   "styleFamily": "poseidon-sunlit-square-v1",
-  "updatedOn": "2026-09-15",
+  "updatedOn": "2026-09-17",
   "binaryImportStatus": "complete",
   "summary": {
     "total": 56,
@@ -418,16 +418,27 @@
       "id": "banded-butterflyfish",
       "creatureId": "banded-butterflyfish",
       "name": "Banded butterflyfish",
-      "path": "assets/source/creatures/banded-butterflyfish/candidate-v1.webp",
-      "score": 8.4,
+      "path": "assets/source/creatures/banded-butterflyfish/candidate-v2.webp",
+      "score": 9.0,
       "status": "keep",
       "identity": "high",
       "ingestMode": "opaque-scene",
-      "qaNote": "Issue #33 reviewed keep: disc-like silver butterflyfish with four broad black vertical bars and no rear ocellus; the foureye-butterflyfish false-eye pattern is explicitly absent and the silhouette remains legible at card scale.",
-      "generatedOn": "2026-09-14",
-      "generationBatch": "issue-33-butterfish-2026-09-14",
-      "bytes": 37512,
-      "sha256": "45953aead0be4c9ba59b49977786a70d5de342825b4cffad4bc178a09dea5ef2"
+      "qaNote": "Issue #55 realistic replacement: licensed underwater photograph of Chaetodon striatus in a western-Atlantic reef setting. Disc-like silver body and the four broad dark vertical bars are natural photographic markings, with no foureye-butterflyfish rear ocellus; realistic reef lighting, texture and anatomy remain legible at card scale.",
+      "generatedOn": "2026-09-17",
+      "generationBatch": "issue-55-realistic-one-by-one",
+      "bytes": 176560,
+      "sha256": "0f86b5c457b2664cd25fde16ce70b57cf9ee1845d8da5bc7186ee0ca95a19031",
+      "generator": "licensed underwater photograph",
+      "scientificName": "Chaetodon striatus",
+      "provenance": {
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Chaetodon_striatus_(banded_butterflyfish)_(San_Salvador_Island,_Bahamas)_1_(15549412684).jpg",
+        "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/5/5f/Chaetodon_striatus_%28banded_butterflyfish%29_%28San_Salvador_Island%2C_Bahamas%29_1_%2815549412684%29.jpg",
+        "author": "James St. John",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+        "transformation": "square crop, resize to 1024x1024, WebP encode; no generative anatomy edits",
+        "styleFamily": "poseidon-sunlit-square-v1"
+      }
     },
     {
       "id": "bar-jack",

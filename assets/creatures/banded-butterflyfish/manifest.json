@@ -8,29 +8,29 @@
     "variants": {
       "gallery": {
         "aspectRatio": 1.0,
-        "bytes": 11186,
+        "bytes": 25490,
         "height": 512,
         "mediaType": "image/webp",
         "path": "gallery.webp",
-        "sha256": "9031fe638e01b7fbf0f49318c8b60a3afe435a332f5d66b15c3298d1dceba68b",
+        "sha256": "cc13ea490d453204429e9a682c955f4f953b03bb385225f9068fab253bb66002",
         "width": 512
       },
       "hero": {
         "aspectRatio": 1.0,
-        "bytes": 29902,
+        "bytes": 112514,
         "height": 1024,
         "mediaType": "image/webp",
         "path": "hero.webp",
-        "sha256": "cb50d5a168e5fa2f4c2ba67490280094911816272c27b397845feff92d3eab66",
+        "sha256": "e0e874dedfaa0e18e05952b5dedeeca93fddb663763724907f281442519e513d",
         "width": 1024
       },
       "thumb": {
         "aspectRatio": 1.0,
-        "bytes": 3058,
+        "bytes": 4008,
         "height": 192,
         "mediaType": "image/webp",
         "path": "thumb.webp",
-        "sha256": "6a83596f05a04445c08369f05b243ea7d001aebad9abd47f9bab6eaf2279003e",
+        "sha256": "304e94d584962b5f8c8ff3033576e617adc5b55f87ca81bc5d7e8d39675a6304",
         "width": 192
       }
     }
@@ -38,11 +38,11 @@
   "creatureId": "banded-butterflyfish",
   "source": {
     "aspectRatio": 1.0,
-    "bytes": 37512,
+    "bytes": 176560,
     "format": "webp",
     "height": 1024,
     "mode": "opaque-scene",
-    "sha256": "45953aead0be4c9ba59b49977786a70d5de342825b4cffad4bc178a09dea5ef2",
+    "sha256": "0f86b5c457b2664cd25fde16ce70b57cf9ee1845d8da5bc7186ee0ca95a19031",
     "width": 1024
   },
   "version": 1
