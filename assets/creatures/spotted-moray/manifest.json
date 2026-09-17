@@ -8,29 +8,29 @@
     "variants": {
       "gallery": {
         "aspectRatio": 1.0,
-        "bytes": 11846,
+        "bytes": 57880,
         "height": 512,
         "mediaType": "image/webp",
         "path": "gallery.webp",
-        "sha256": "545ca337c09320312d6d255039597ad4f1441298407b566a6e3a994a80b40a61",
+        "sha256": "d0ab049fbd63dc40e04ed0be0624d661e39be10916a635e4496f7df1ba386bcd",
         "width": 512
       },
       "hero": {
         "aspectRatio": 1.0,
-        "bytes": 32930,
+        "bytes": 252284,
         "height": 1024,
         "mediaType": "image/webp",
         "path": "hero.webp",
-        "sha256": "27073005d41961bcb4b00076b63d689ef9e82b98f86873f4f42d9b8a5ba22b7e",
+        "sha256": "0d21a4871058adc5375cb3f02e1c5175d93740d7313feb06ebd45b4658a49a69",
         "width": 1024
       },
       "thumb": {
         "aspectRatio": 1.0,
-        "bytes": 3220,
+        "bytes": 9078,
         "height": 192,
         "mediaType": "image/webp",
         "path": "thumb.webp",
-        "sha256": "0ec6340ed39045d140e4b621450a00387b0ddab5608412fd2a5fea1827ba00fa",
+        "sha256": "66145fed4783ab1017f29ba00b2a3558a47f8963ac4458460d842b61e8b7b826",
         "width": 192
       }
     }
@@ -38,11 +38,11 @@
   "creatureId": "spotted-moray",
   "source": {
     "aspectRatio": 1.0,
-    "bytes": 41876,
+    "bytes": 370440,
     "format": "webp",
     "height": 1024,
     "mode": "opaque-scene",
-    "sha256": "2697d4ede69ada17acc73ef00a487ae5ffca05ab66127202035754150f90bf89",
+    "sha256": "15ad0bb5ddcb5b086f4dff32c04c184d9d0fcf581c0e204c0b3b0b380dcde185",
     "width": 1024
   },
   "version": 1
