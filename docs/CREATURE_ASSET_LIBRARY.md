@@ -32,7 +32,7 @@ That technical coverage must now be separated from visual acceptance:
 | Inventory group | Count | Current runtime state | Visual direction |
 | --- | ---: | --- | --- |
 | Original HD source programme | 30 | Live canonical WebP variants | Retain as the current realistic-HD baseline unless individual visual QA flags a replacement. |
-| #33 coverage programme | 26 | **7 realistic replacements promoted; 19 vector-derived assets remain** | Continue #55 one species at a time until all 26 use realistic raster masters. |
+| #33 coverage programme | 26 | **14 realistic replacements promoted; 12 vector-derived assets remain** | Continue #55 one species at a time until all 26 use realistic raster masters. |
 | Legacy SVG creature tooling/fallbacks | Not part of the 56-source inventory | Repository/tooling/fallback only | **Deprecated for marine-life artwork. Do not create new creature SVGs.** |
 
 The important distinction is that runtime format and source style are different questions. Some #33 outputs are WebP at runtime but were produced from procedural SVG/vector-assisted workflows. They therefore do not satisfy the current realistic-HD visual direction until replaced.
@@ -82,8 +82,6 @@ Do **not** begin by expanding the species count. First bring the current 56-crea
 
 ### Completed — Batch A — 7
 
-The following replacements are now reviewed, immutable source revisions and promoted canonical runtime art:
-
 - banded butterflyfish
 - bar jack
 - blue chromis
@@ -92,9 +90,7 @@ The following replacements are now reviewed, immutable source revisions and prom
 - queen parrotfish
 - sharpnose puffer
 
-Each uses a licensed underwater photograph transformed only by square crop, 1024×1024 resize and WebP encoding; provenance and license are recorded in the source catalog. No generative anatomy edits or vector source path are involved.
-
-### Next — Batch B — 7
+### Completed — Batch B — 7
 
 - balloonfish
 - black grouper
@@ -104,7 +100,9 @@ Each uses a licensed underwater photograph transformed only by square crop, 1024
 - spotted moray
 - yellowtail damselfish
 
-### Batch C — 6
+These 14 replacements are reviewed immutable source revisions and promoted canonical runtime art. They use licensed or public-domain underwater photography transformed only by square crop, 1024×1024 resize and WebP encoding; provenance and license are recorded in the source catalog. No generative anatomy edits or vector source path are involved.
+
+### Next — Batch C — 6
 
 - bicolor damselfish
 - French grunt
@@ -203,6 +201,6 @@ assets/creatures/<stable-id>/                   # canonical runtime only
 
 ## Work sequence
 
-1. **#55 — active:** 7 of 26 realistic replacements are promoted; 19 remain. Continue one species at a time beginning with Batch B.
+1. **#55 — active:** 14 of 26 realistic replacements are promoted; 12 remain. Continue one species at a time beginning with Batch C.
 2. **#34 — after the relevant #55 replacements:** derive transparent raster specimen revisions from the approved realistic opaque masters where useful; preserve opaque originals and manually QA difficult alpha edges.
 3. Only after the current 56-creature visual family is coherent should creature-count expansion become the next art-production question.
