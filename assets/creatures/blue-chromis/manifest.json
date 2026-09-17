@@ -8,29 +8,29 @@
     "variants": {
       "gallery": {
         "aspectRatio": 1.0,
-        "bytes": 8226,
+        "bytes": 38862,
         "height": 512,
         "mediaType": "image/webp",
         "path": "gallery.webp",
-        "sha256": "31e88f0cca2195942f8026eece3007ec5fef6fe01cc0c47771717362c2d4cd35",
+        "sha256": "f2bc43867639a9b17ab01a9a74d30307acb92c90bd4dc1e1ce39d6249785e72b",
         "width": 512
       },
       "hero": {
         "aspectRatio": 1.0,
-        "bytes": 23340,
+        "bytes": 176210,
         "height": 1024,
         "mediaType": "image/webp",
         "path": "hero.webp",
-        "sha256": "2a6284fc520bad95df540cd267a4f1154d3ad66543105be1c95e8d18893a5e88",
+        "sha256": "de6652fd0283688a8442a871a3493cc13f97807170677c9312b7b1b4e0a1efef",
         "width": 1024
       },
       "thumb": {
         "aspectRatio": 1.0,
-        "bytes": 2082,
+        "bytes": 6634,
         "height": 192,
         "mediaType": "image/webp",
         "path": "thumb.webp",
-        "sha256": "e7e43cb0ab9bc54897a26d26f4577ac73a8e065d8add47e88e8df232c9249f40",
+        "sha256": "093d62137293df6efe1b84c85f90b3d5c548118e2c6781b276aeeb134179ba85",
         "width": 192
       }
     }
@@ -38,11 +38,11 @@
   "creatureId": "blue-chromis",
   "source": {
     "aspectRatio": 1.0,
-    "bytes": 30088,
+    "bytes": 266850,
     "format": "webp",
     "height": 1024,
     "mode": "opaque-scene",
-    "sha256": "e66ac6fbc9e5a74a4b1dd96ad5189edd6c4a6d4c251bb24be77f90fa1824f005",
+    "sha256": "64d65505a3332251ab7a98ba01c9a7f6d27294d5d6c31b8aa2cb869184353ad3",
     "width": 1024
   },
   "version": 1
