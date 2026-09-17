@@ -6,7 +6,7 @@ This is the durable strategy for creature content, regional relevance and artwor
 
 Current implementation status is tracked in `docs/PROJECT_STATUS.md`. The Mexican Caribbean starter content pack is implemented. #11/#12/PR #13 established the source-art system and original reviewed library; #30/#31/#38/#39 fully resolved the original 30-source batch; #33 then completed technical artwork coverage for the remaining 26 current content creatures. The current baseline is **56 content IDs = 56 mapped `keep` source entries = 56 canonical runtime manifests**.
 
-Technical coverage is not the same as final visual acceptance. Owner direction on 2026-09-16 establishes realistic HD raster imagery as the creature-art target. #55 now replaces the 26 #33 coverage assets with realistic raster masters. #34 transparent-background derivation follows the relevant #55 replacement rather than preceding it.
+Owner direction on 2026-09-16 established realistic HD raster imagery as the creature-art target. #55 has now replaced all 26 former #33 vector/procedural coverage assets with reviewed realistic raster masters. #34 transparent-background derivation may follow from those approved raster masters where useful.
 
 ---
 
@@ -59,7 +59,7 @@ Initial enrichment is intentionally concentrated on Cozumel, Playa del Carmen an
 
 The implemented pack is useful recreational coverage, not a complete biological catalogue. It contains **56** sourced creature records: the prior 50 plus six defensible Mexican-Caribbean species that were already represented in the original HD source-art batch.
 
-All 56 current curated records have canonical runtime artwork. The original 30-source programme is the current realistic-HD baseline. The 26 #33 coverage records remain technically complete but are queued under #55 for realistic raster replacement.
+All 56 current curated records have canonical runtime artwork. The original 30-source programme remains the first realistic-HD baseline, and #55 has now replaced all 26 former #33 vector/procedural coverage masters with reviewed realistic raster revisions.
 
 New user-created or future curated records must remain fully usable if artwork has not yet been reviewed.
 
@@ -113,7 +113,7 @@ The `poseidon-sunlit-square-v1` family uses square underwater-scene raster maste
 
 The two modes remain explicit. Never weaken transparency validation globally just to admit opaque-scene sources.
 
-Issue #34 may derive transparent raster specimen revisions from an approved realistic opaque library. That derivation does **not** replace or mutate opaque originals and is not vector tracing. For the 26 #55 targets, realistic replacement comes first; transparent extraction comes afterward where useful.
+Issue #34 may derive transparent raster specimen revisions from the approved realistic opaque library. That derivation does **not** replace or mutate opaque originals and is not vector tracing. For the 26 #55 targets, the realistic replacements are already approved and promoted, so any later transparent extraction starts from those raster masters.
 
 ---
 
@@ -146,7 +146,7 @@ Generated source candidates use internal production states:
 
 Quality scores and identity confidence are production metadata, not user-facing rarity or ecological confidence.
 
-The machine catalogue currently stands at **56 keep / 0 provisional / 0 remake** from the completed coverage programme. That historical editorial state does not cancel the later owner decision to replace the 26 #33 assets for visual realism. #55 treats those current files as transitional runtime assets until reviewed realistic replacements are promoted.
+The machine catalogue stands at **56 keep / 0 provisional / 0 remake** for the current mapped creature inventory. #55 added later immutable realistic raster candidate revisions for all 26 former #33 coverage species and promoted them as the current `keep` sources; superseded vector/procedural revisions remain historical only.
 
 Original source binaries remain immutable; accepted replacements use later candidate revisions.
 
@@ -217,16 +217,16 @@ Do not generate a large library and review it only at the end. Work in small bat
 
 The staged programme is now:
 
-1. **#30 / #31 / #38 / #39 — complete:** original 30-source HD programme fully mapped, biologically reviewed and promoted; this is the current realistic-HD baseline.
+1. **#30 / #31 / #38 / #39 — complete:** original 30-source HD programme fully mapped, biologically reviewed and promoted.
 2. **#33 — technically complete:** 26 previously uncovered creatures received source candidates and canonical runtime promotion, closing coverage at 56/56.
-3. **#55 — next art-production priority:** replace those 26 #33 coverage assets with newly reviewed realistic 1024×1024 raster masters; preserve current candidates as immutable history until replacement.
-4. **#34 — after the relevant #55 replacement:** derive transparent raster specimens from approved realistic opaque masters where useful. Preserve originals and never auto-vectorize.
+3. **#55 — complete:** all 26 former #33 vector/procedural coverage masters were replaced by reviewed realistic 1024×1024 raster revisions and promoted through the guarded pipeline.
+4. **#34 — next where useful:** derive transparent raster specimens from approved realistic opaque masters. Preserve originals and never auto-vectorize.
 
-Current technical counts remain **56 content records**, **56 mapped source entries**, **56 live canonical runtime manifests**, and **0 current curated content records without runtime artwork**.
+Current counts are **56 content records**, **56 mapped current `keep` source entries**, **56 live canonical runtime manifests**, and **0 current curated content records without runtime artwork**.
 
-Current visual-production count is **30 baseline assets retained + 26 realistic replacements queued under #55**.
+The current visual-production baseline is **56/56 curated creatures backed by reviewed realistic raster masters**. Superseded vector/procedural revisions remain immutable history, not approved current art.
 
-Do not expand the creature count before the current 56-creature visual family is coherent unless a separate product decision explicitly changes priority.
+Creature-count expansion is a separate product decision; it is no longer blocked by #55 visual-family completion.
 
 ---
 
@@ -244,7 +244,7 @@ Omitting rarity is preferable to weak evidence.
 
 Adding a new region should primarily mean adding structured content: region metadata, sourced sites/places, creature relevance mappings, aliases/provenance and reviewed artwork where useful.
 
-Adding a new creature should primarily be a content/editorial operation once the current 56-creature realistic art baseline is coherent and the asset system supports the chosen source family.
+Adding a new creature should primarily be a content/editorial operation using the established realistic-raster art and fallback contracts.
 
 Expansion priority remains useful Mexican-Caribbean coverage and locally distinctive gaps, not ocean-wide completeness.
 
