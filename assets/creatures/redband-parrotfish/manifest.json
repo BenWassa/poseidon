@@ -8,29 +8,29 @@
     "variants": {
       "gallery": {
         "aspectRatio": 1.0,
-        "bytes": 8838,
+        "bytes": 13112,
         "height": 512,
         "mediaType": "image/webp",
         "path": "gallery.webp",
-        "sha256": "666fc150a5f805730ec18dbefd14464acd469993aa3c0032ff672146b4b5cb70",
+        "sha256": "94a64d2df4355b92d464a03ddd81f140576b001a24840efd5326377878a16a0b",
         "width": 512
       },
       "hero": {
         "aspectRatio": 1.0,
-        "bytes": 24772,
+        "bytes": 49604,
         "height": 1024,
         "mediaType": "image/webp",
         "path": "hero.webp",
-        "sha256": "2be9b0e32a8becbd95d751253d7b773fea8c39ab837e6f0bd040b3f89e6e1124",
+        "sha256": "37d75cd64d8f5b8285b4863a4a062447f075698b42b7de3a14cc84b4cdb9a1c7",
         "width": 1024
       },
       "thumb": {
         "aspectRatio": 1.0,
-        "bytes": 2444,
+        "bytes": 2568,
         "height": 192,
         "mediaType": "image/webp",
         "path": "thumb.webp",
-        "sha256": "81da6ceef7ffb470d92f1a3999a5ba6ca037377c75f6c71bf82f89467fdb0b2a",
+        "sha256": "7ac59db62935babe84ef5c1a546bf8b03dba5eda10a3983e98482747836ce098",
         "width": 192
       }
     }
@@ -38,11 +38,11 @@
   "creatureId": "redband-parrotfish",
   "source": {
     "aspectRatio": 1.0,
-    "bytes": 31532,
+    "bytes": 119318,
     "format": "webp",
     "height": 1024,
     "mode": "opaque-scene",
-    "sha256": "94dafc8b330bccf00045bf8fde03f4fd319edfe4d216141113256f722e5c66a2",
+    "sha256": "1692afc28d18ae636e0464921b6982f8ad961d4dd4ab5a71e8ea0a73e3a875cf",
     "width": 1024
   },
   "version": 1
