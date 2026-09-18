@@ -39,20 +39,43 @@ Source format remains 1024×1024 opaque raster art.
 
 ### 1. Style authority
 
-The owner's pinned Design References from the development source-art review establish:
+`CLAUDE.md` already establishes the 22 current `keep` candidates as the durable design-reference set. These are the style authority for #60:
+
+- banded coral shrimp
+- Caribbean reef squid
+- Caribbean spiny lobster
+- French angelfish
+- great barracuda
+- green moray
+- green sea turtle
+- hawksbill sea turtle
+- juvenile spotted drum
+- longsnout seahorse
+- longspine sea urchin
+- Nassau grouper
+- nurse shark
+- porcupinefish
+- queen angelfish
+- queen triggerfish
+- schoolmaster snapper
+- sergeant major
+- southern stingray
+- stoplight parrotfish
+- trumpetfish
+- yellowtail snapper
+
+Together they establish:
 
 - realism level;
 - water/light treatment;
-- background simplicity;
+- clean underwater background treatment;
 - framing and subject scale;
 - environmental density;
+- texture;
+- card-scale readability;
 - collection cohesion.
 
-These IDs must be persisted in this document before final production acceptance.
-
-**Owner design-reference IDs:** pending durable export from the existing browser review state.
-
-The development review page exports a single JSON review snapshot containing both `designReferences` and all owner verdicts. Once captured, the selected IDs become durable repository authority here.
+The development review page may still export a JSON review snapshot containing browser-pinned references and verdicts for convenience, but those local pins are not a production blocker and do not supersede this 22-image reference set.
 
 ### 2. Biological authority
 
@@ -133,7 +156,7 @@ Each generated candidate must pass all four dimensions.
 
 ### Style
 
-- consistent with the pinned owner design references;
+- consistent with the 22-image owner design-reference set in `CLAUDE.md`;
 - realistic without becoming an unrelated stock photograph;
 - same clean underwater visual family as accepted Poseidon sources.
 
@@ -153,7 +176,7 @@ Each generated candidate must pass all four dimensions.
 
 ## Production workflow
 
-1. lock the owner's exact Design Reference IDs in repo authority;
+1. use the 22 `keep` candidates in `CLAUDE.md` as shared style authority;
 2. dispatch four isolated generation lanes;
 3. each lane generates and rejects/remakes failures against species diagnostics;
 4. collect all 34 accepted lane candidates without promoting them;
@@ -179,7 +202,7 @@ Each generated candidate must pass all four dimensions.
 
 #60 is complete only when:
 
-- owner design references are durable repository authority;
+- the 22-image design-reference set remains durable repository authority;
 - all 34 remakes have human-accepted replacements;
 - catalog reports 56 keep / 0 provisional / 0 remake;
 - every replacement is preserved as an immutable source revision;
