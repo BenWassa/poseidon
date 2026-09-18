@@ -25,6 +25,27 @@ function isIosDevice(): boolean {
 }
 
 /**
+ * Dive logging keeps this tab open for long, backgrounded stretches (surface
+ * interval, a full trip), so the browser's own "check for a new worker on
+ * navigation" is not enough — nobody navigates. Poll the registration while
+ * open, and re-check the moment the tab regains visibility (foregrounded
+ * after being backgrounded, screen woken up), so a release made while the
+ * app was idle still surfaces the "Update available" prompt promptly instead
+ * of waiting for the next cold start.
+ */
+const UPDATE_CHECK_INTERVAL_MS = 60 * 60 * 1000;
+
+function watchForServiceWorkerUpdates(registration: ServiceWorkerRegistration) {
+  const checkForUpdate = () => void registration.update();
+
+  window.setInterval(checkForUpdate, UPDATE_CHECK_INTERVAL_MS);
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') checkForUpdate();
+  });
+}
+
+/**
  * Development never wants a service worker, and one left over from a production
  * build, `npm run preview`, the PWA probes or an installed PWA on the same
  * origin does real damage: it keeps serving its precached production bundle on
@@ -70,6 +91,12 @@ export function registerPoseidonServiceWorker() {
       },
       onOfflineReady() {
         announceOfflineReady();
+      },
+      onRegisteredSW(_swScriptUrl, registration) {
+        if (registration) watchForServiceWorkerUpdates(registration);
+      },
+      onRegisterError(error) {
+        console.error('Poseidon service worker registration failed', error);
       },
     });
   }
