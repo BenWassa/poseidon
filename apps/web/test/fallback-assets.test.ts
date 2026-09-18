@@ -1,5 +1,6 @@
 import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
+import { join, resolve } from 'node:path';
 
 import { describe, expect, it } from 'vitest';
 
@@ -18,14 +19,14 @@ interface SilhouetteManifest {
   assets: Record<string, SilhouetteAsset>;
 }
 
-const assetRoot = new URL(
-  '../../../assets/fallbacks/marine-life/',
-  import.meta.url,
+const assetRoot = resolve(
+  process.cwd(),
+  '../../assets/fallbacks/marine-life',
 );
 
 async function readManifest(): Promise<SilhouetteManifest> {
   return JSON.parse(
-    await readFile(new URL('manifest.json', assetRoot), 'utf8'),
+    await readFile(join(assetRoot, 'manifest.json'), 'utf8'),
   ) as SilhouetteManifest;
 }
 
@@ -50,7 +51,7 @@ describe('marine fallback silhouette assets', () => {
       if (!entry) throw new Error(`Missing silhouette manifest entry: ${kind}`);
 
       expect(entry.path, kind).toBe(`${kind}.webp`);
-      const bytes = await readFile(new URL(entry.path, assetRoot));
+      const bytes = await readFile(join(assetRoot, entry.path));
       expect(bytes.length, kind).toBe(entry.bytes);
       expect(bytes.subarray(0, 4).toString('ascii'), kind).toBe('RIFF');
       expect(bytes.subarray(8, 12).toString('ascii'), kind).toBe('WEBP');
