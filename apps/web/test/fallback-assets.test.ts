@@ -47,8 +47,9 @@ describe('marine fallback silhouette assets', () => {
     for (const kind of SILHOUETTE_KINDS) {
       const entry = manifest.assets[kind];
       expect(entry, kind).toBeDefined();
-      expect(entry.path, kind).toBe(`${kind}.webp`);
+      if (!entry) throw new Error(`Missing silhouette manifest entry: ${kind}`);
 
+      expect(entry.path, kind).toBe(`${kind}.webp`);
       const bytes = await readFile(new URL(entry.path, assetRoot));
       expect(bytes.length, kind).toBe(entry.bytes);
       expect(bytes.subarray(0, 4).toString('ascii'), kind).toBe('RIFF');
