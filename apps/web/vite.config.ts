@@ -140,6 +140,13 @@ export default defineConfig({
     },
   },
   server: {
+    // The development host exposes Poseidon on 5174. Keep HMR on that same
+    // browser-facing port when the host proxies HTTP to an internal port.
+    port: 5174,
+    strictPort: true,
+    hmr: {
+      clientPort: 5174,
+    },
     fs: { allow: [workspaceRoot] },
   },
 });
