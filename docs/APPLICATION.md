@@ -72,58 +72,65 @@ welcome surface.
 
 ---
 
-# 3. No photography
+# 3. Repository-owned visual media
 
-The prototype leaned on remote Unsplash imagery for its hero, journal rows,
-dive detail and creature tiles. Poseidon is explicitly not a photo-management
-product, and a product that needs stock photography to look finished is not
-finished.
+Poseidon has no network dependency for its core visual language. Creature
+imagery and brand media are repository-owned and available through the offline
+PWA.
 
-Every large surface is therefore built from:
+Large surfaces are built from:
 
-- **creature artwork** — transparent WebP, from the repository's own pipeline;
-- **the atlas motif** — a bathymetric contour drawing used behind heroes and
-  place cards, rendered as inline SVG, deterministic per record;
-- **place typography** — the site name is the loudest thing on a dive;
-- **aquatic colour** — deep ocean gradients carry the memory surfaces.
+- **approved creature artwork** — realistic HD raster sources promoted to
+  canonical WebP runtime variants through the guarded asset pipeline;
+- **the atlas motif** — deterministic bathymetric contour drawing used behind
+  heroes and place cards;
+- **place typography** — the site name remains the loudest thing on a dive;
+- **aquatic colour** — deep ocean gradients carry memory surfaces.
 
-There is no network dependency anywhere in the product's core visual language.
+Remote stock photography is not required at runtime.
 
 ---
 
-# 4. Creature artwork
+# 4. Creature artwork and fallback rendering
 
-Artwork is authored as hand-written SVG in `tools/creature_art`, rasterised
-with Chromium, and ingested through the existing `tools/creature_assets`
-pipeline. The application only ever consumes the pipeline's output.
-
-```bash
-node tools/creature_art/build.mjs            # all creatures
-node tools/creature_art/build.mjs lionfish   # one creature
-```
-
-The full asset contract is exercised in the product:
+Canonical creature artwork lives under `assets/creatures/<stable-id>/` and is
+produced only from reviewed raster source candidates through
+`tools/creature_assets`. The realistic-HD direction established by #55 forbids
+new marine-life SVG/vector masters. Historical SVG tooling may remain in the
+repository but is not an approved production path.
 
 | Surface | Variant | Size |
 | --- | --- | ---: |
-| journal creature dots, place grids, review rows | `thumb` | 192px, ~4.7 KiB |
-| gallery tiles, journal leads | `gallery` | 512px, ~14.6 KiB |
-| dive hero, creature detail | `hero` | 1024px, ~22.6 KiB |
+| journal creature dots, place grids, review rows | `thumb` | 192px |
+| gallery tiles, journal leads | `gallery` | 512px |
+| dive hero, creature detail | `hero` | 1024px |
 
-Geometry is reserved from the manifest's `aspectRatio` before anything loads, so
-artwork resolving never shifts the layout. Everything outside the first screen is
-lazily loaded.
+Geometry is reserved from the manifest `aspectRatio` before anything loads, so
+artwork resolving never shifts the layout. Everything outside the first screen
+is lazily loaded.
 
-**Missing art is a first-class state.** A curated creature without runtime art
-renders `CreatureMark`: a deterministic aquatic wash with a category glyph, or a
-typographic monogram for a creature the diver typed in themselves. A variant
-that fails to load falls back to the same mark, so a broken image cannot reach
-the screen. Collection availability therefore does not depend on #34 or any
-later transparent-asset pass.
+**Approved art always wins.** `CreatureImage` no longer contains the temporary
+legacy-vector species-ID blacklist. The 26 species replaced under #55 therefore
+render their reviewed HD raster variants normally.
 
-Because the artwork is transparent, tiles show it on its own wash — that plate is
-what gives the collection its colour. Surfaces with a background of their own
-(the dive hero) pass `plate={false}` so the artwork floats instead.
+**Missing art is a first-class state.** If a requested canonical variant is
+missing or fails to load, `CreatureMark` renders a neutral generated raster
+silhouette selected by broad morphology. User-created creatures use a
+typographic monogram. The silhouette family lives under
+`assets/fallbacks/marine-life/`, outside both the source creature catalog and
+canonical per-species manifests, so it cannot affect art coverage or Collection
+progress.
+
+The generated silhouettes are committed directly as hashed lossless WebP files.
+`apps/web/scripts/sync-assets.mjs` copies those ordinary raster
+WebP files for dev, tests and production builds. `CreatureMark` uses those
+raster WebPs as masks so the mark inherits the existing foreground treatment;
+no creature SVG path is rendered.
+
+Fallback URLs use Vite's `BASE_URL`, so they work both at root in development
+and under the GitHub Pages `/poseidon/` base path.
+
+See `docs/CREATURE_FALLBACK_SILHOUETTES.md` for the full #58 contract.
 
 ---
 

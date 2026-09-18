@@ -2,12 +2,14 @@
  * The deliberate treatment for a creature with no finished artwork.
  *
  * Missing art is a first-class state in Poseidon, never an error: a curated
- * species without a painting gets its category mark, and a creature the diver
- * typed themselves gets a typographic monogram. Both sit on the same aquatic
- * washes as the rest of the collection so an unillustrated encounter still
- * belongs on the shelf.
+ * species without usable runtime art gets a neutral generated raster
+ * silhouette, and a creature the diver typed themselves gets a typographic
+ * monogram. Neither fallback is species artwork or part of the curated art
+ * inventory.
  */
 import type { Creature } from '@poseidon/domain';
+
+import { silhouetteForCreature, silhouetteUrl } from './creatureSilhouettes';
 
 type Wash = { from: string; to: string; foreground: string };
 
@@ -34,17 +36,6 @@ const WASHES: Wash[] = [
   },
 ];
 
-const CATEGORY_SILHOUETTE = {
-  'reef-fish': 'fish',
-  shark: 'shark',
-  ray: 'ray',
-  'sea-turtle': 'turtle',
-  eel: 'eel',
-  cephalopod: 'octopus',
-  crustacean: 'crustacean',
-  seahorse: 'seahorse',
-} as const;
-
 /** Stable per-creature wash so the same species always looks the same. */
 function washFor(id: string): Wash {
   let hash = 0;
@@ -57,12 +48,14 @@ function monogram(name: string): string {
   const words = name.trim().split(/\s+/).filter(Boolean);
   if (words.length === 0) return '?';
   if (words.length === 1) return (words[0] as string).slice(0, 2).toUpperCase();
-  return `${(words[0] as string)[0] ?? ''}${(words[1] as string)[0] ?? ''}`.toUpperCase();
+  return `${(words[0] as string)[0] ?? ''}${
+    (words[1] as string)[0] ?? ''
+  }`.toUpperCase();
 }
 
 export interface CreatureMarkProps {
   creature: Pick<Creature, 'id' | 'commonName' | 'category' | 'userCreated'>;
-  /** Roughly the rendered edge in pixels; drives glyph scale, not layout. */
+  /** Roughly the rendered edge in pixels; drives mark scale, not layout. */
   size?: 'sm' | 'md' | 'lg';
   className?: string;
 }
@@ -73,12 +66,9 @@ export function CreatureMark({
   className = '',
 }: CreatureMarkProps) {
   const { from, to, foreground } = washFor(creature.id);
-  const silhouette = creature.category
-    ? (CATEGORY_SILHOUETTE[
-        creature.category as keyof typeof CATEGORY_SILHOUETTE
-      ] ?? 'fish')
-    : 'fish';
-  const glyphSize = size === 'sm' ? 30 : size === 'lg' ? 116 : 62;
+  const silhouette = silhouetteForCreature(creature);
+  const url = silhouetteUrl(silhouette);
+  const glyphSize = size === 'sm' ? 34 : size === 'lg' ? 148 : 78;
 
   return (
     <div
@@ -96,8 +86,23 @@ export function CreatureMark({
         </span>
       ) : (
         <span
-          className={`creature-silhouette creature-silhouette--${silhouette} ${foreground}`}
-          style={{ fontSize: glyphSize }}
+          className={`pointer-events-none block ${foreground}`}
+          style={{
+            width: glyphSize,
+            height: glyphSize,
+            backgroundColor: 'currentColor',
+            WebkitMaskImage: `url("${url}")`,
+            maskImage: `url("${url}")`,
+            WebkitMaskRepeat: 'no-repeat',
+            maskRepeat: 'no-repeat',
+            WebkitMaskPosition: 'center',
+            maskPosition: 'center',
+            WebkitMaskSize: 'contain',
+            maskSize: 'contain',
+          }}
+          data-testid="creature-silhouette"
+          data-silhouette-kind={silhouette}
+          data-silhouette-src={url}
         />
       )}
       <span className="creature-mark-swell pointer-events-none absolute inset-x-0 bottom-0 h-1/4" />

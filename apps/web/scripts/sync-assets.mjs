@@ -1,6 +1,8 @@
 // Mounts canonical repository asset trees into the web application's static
 // directory. Creature assets remain owned by their guarded pipeline; brand
-// media is kept alongside them so generated public files are never authoritative.
+// media and neutral fallback silhouettes stay separate so generated public
+// files are never authoritative and fallbacks can never enter the curated art
+// inventory.
 import { cp, rm, mkdir, access } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -14,6 +16,10 @@ const mounts = [
   {
     source: resolve(here, '../../../assets/brand'),
     target: resolve(here, '../public/assets/brand'),
+  },
+  {
+    source: resolve(here, '../../../assets/fallbacks/marine-life'),
+    target: resolve(here, '../public/assets/fallbacks/marine-life'),
   },
 ];
 

@@ -134,6 +134,12 @@ The #51 matrix covers zero-history guide rendering, repeated sightings, edit/del
 
 ## Active enhancement streams
 
+### #58 — raster marine fallback silhouettes — implemented on PR #59
+
+Approved canonical HD raster art remains first priority. Genuine missing/failed curated art now resolves to one of 13 committed broad-morphology WebP silhouettes; user-created creatures retain monograms.
+
+The fallback family lives under `assets/fallbacks/marine-life/` with a hash manifest, is BASE_URL-safe for GitHub Pages, remains outside curated art inventory, and is covered by mapping/hash/runtime tests. Marine-life fallback rendering no longer depends on SVG, Lucide creature icons or CSS-drawn animal geometry.
+
 ### #34 — derive transparent creature masters
 
 Transparent raster derivation remains valid and may now start from the approved realistic raster masters where the UI benefits from isolation.
@@ -146,7 +152,7 @@ Engineering/deployment acceptance is automated. Keep #14 open until physical Pix
 
 ## Intended sequence
 
-1. merge/close #55 after PR #57 final gate and review are clean;
+1. merge/close #58 after PR #59 final gate and review are clean;
 2. perform #34 transparent-raster derivation only from approved realistic masters where useful;
 3. perform/record #14 physical Pixel acceptance when desired;
 4. close parent/status items as appropriate;
@@ -163,7 +169,7 @@ Engineering/deployment acceptance is automated. Keep #14 open until physical Pix
 - `assets/source` is editorial input; `assets/creatures` is canonical runtime output.
 - Marine-life artwork uses realistic HD raster masters; no new creature SVG/vector artwork.
 - Content availability never prevents logging.
-- Missing artwork remains a first-class supported state for future/user-created content and uses neutral fallback rather than pretending a generic species graphic is approved art.
+- Missing artwork remains a first-class supported state: curated missing/failed art uses neutral generated raster silhouettes, while user-created creatures use monograms; neither is approved species art.
 - Common names dominate the primary UX.
 - No fake rarity.
 - Never gamify unsafe diving or wildlife interaction.

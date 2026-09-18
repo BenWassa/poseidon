@@ -11,6 +11,7 @@ import { beforeEach, describe, expect, it } from 'vitest';
 import type { Creature } from '@poseidon/domain';
 
 import { CreatureImage } from '../src/components/CreatureImage';
+import { silhouetteForCreature } from '../src/components/creatureSilhouettes';
 import { creatures } from '../src/data/content';
 import { renderPoseidon } from './harness';
 
@@ -89,10 +90,65 @@ describe('creature artwork', () => {
     );
   });
 
-  it('renders a considered mark instead of a broken image when art is missing', () => {
+  it('renders a generated raster silhouette instead of a broken image when art is missing', () => {
     render(<CreatureImage creature={unillustrated} />);
     expect(screen.queryByTestId('creature-artwork')).not.toBeInTheDocument();
     expect(screen.getByTestId('creature-mark')).toBeInTheDocument();
+    expect(screen.getByTestId('creature-silhouette')).toHaveAttribute(
+      'data-silhouette-kind',
+      'fish-general',
+    );
+    expect(screen.getByTestId('creature-silhouette')).toHaveAttribute(
+      'data-silhouette-src',
+      '/assets/fallbacks/marine-life/fish-general.webp',
+    );
+  });
+
+  it('never suppresses a reviewed HD replacement because its ID used to be vector-derived', () => {
+    const replacementArt: Creature = {
+      ...unillustrated,
+      artwork: {
+        status: 'curated',
+        aspectRatio: 1,
+        thumb: '/assets/creatures/splendid-toadfish/thumb.webp',
+        gallery: '/assets/creatures/splendid-toadfish/gallery.webp',
+        hero: '/assets/creatures/splendid-toadfish/hero.webp',
+      },
+    };
+
+    render(
+      <CreatureImage
+        creature={replacementArt}
+        variant="gallery"
+        plate={false}
+      />,
+    );
+
+    expect(screen.getByTestId('creature-artwork')).toHaveAttribute(
+      'src',
+      '/assets/creatures/splendid-toadfish/gallery.webp',
+    );
+    expect(screen.queryByTestId('creature-mark')).not.toBeInTheDocument();
+  });
+
+  it('maps fallback silhouettes by broad morphology without pretending species specificity', () => {
+    const kind = (id: string, category?: string) =>
+      silhouetteForCreature({ id, category });
+
+    expect(kind('nurse-shark', 'shark')).toBe('shark');
+    expect(kind('green-sea-turtle', 'sea-turtle')).toBe('sea-turtle');
+    expect(kind('spotted-eagle-ray', 'ray')).toBe('ray');
+    expect(kind('green-moray', 'eel')).toBe('eel');
+    expect(kind('caribbean-reef-octopus', 'cephalopod')).toBe('octopus');
+    expect(kind('caribbean-reef-squid', 'cephalopod')).toBe('squid');
+    expect(kind('banded-coral-shrimp', 'crustacean')).toBe('crustacean');
+    expect(kind('longsnout-seahorse', 'seahorse')).toBe('seahorse');
+    expect(kind('caribbean-cushion-sea-star', 'echinoderm')).toBe('sea-star');
+    expect(kind('longspine-sea-urchin', 'echinoderm')).toBe('sea-urchin');
+    expect(kind('queen-conch', 'mollusk')).toBe('conch');
+    expect(kind('great-barracuda', 'reef-fish')).toBe('long-fish');
+    expect(kind('trumpetfish', 'reef-fish')).toBe('long-fish');
+    expect(kind('unknown-curated', 'future-category')).toBe('fish-general');
   });
 
   it('gives a creature the diver typed in a typographic mark', () => {
@@ -113,6 +169,10 @@ describe('creature artwork', () => {
       expect(screen.getByTestId('creature-mark')).toBeInTheDocument(),
     );
     expect(screen.queryByTestId('creature-artwork')).not.toBeInTheDocument();
+    expect(screen.getByTestId('creature-silhouette')).toHaveAttribute(
+      'data-silhouette-kind',
+      'ray',
+    );
   });
 });
 
