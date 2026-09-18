@@ -141,40 +141,33 @@ Issue #34 is now the next creature-art production phase where isolated specimens
 
 #34 is raster extraction only; it must never become vector tracing.
 
-## #58 — raster silhouette fallbacks (blocked, not started)
+## #58 — raster silhouette fallbacks — implemented on PR #59
 
-Issue **#58** (open) extends the realistic-HD-only rule to the *fallback* surface: `CreatureMark` currently draws missing/failed-art placeholders as CSS `border-radius` blob shapes (`.creature-silhouette--*` in `apps/web/src/index.css`), not real artwork, but they are not the clean raster silhouettes the owner wants either. Code for the replacement exists on branch `issue-58-raster-silhouette-fallbacks` (3 commits: `ffb55cf`, `e53a6dd`, `e7b1def`), but it is **not merged and not runnable as-is** — it references a `assets/fallbacks/marine-life/*.webp` source tree that was never committed to any branch. The 10 silhouette images described below need to be produced before that branch can land.
+Issue **#58** moves the missing/failed-art surface fully off marine-life SVG/vector/CSS shapes.
 
-### Required silhouette family — 10 assets, 0 present
+The implementation commits **13 transparent lossless WebP fallback silhouettes** directly under `assets/fallbacks/marine-life/`, each recorded in a SHA-256 manifest:
 
-Transparent raster (WebP acceptable), solid/neutral fill (owner wants them "totally black"), one per broad morphology group. None of these are species art — they must stay out of `assets/source/creatures/catalog.json` and out of `assets/creatures/`.
+- general fish;
+- shark;
+- sea turtle;
+- ray;
+- eel;
+- octopus;
+- squid;
+- crustacean;
+- seahorse;
+- sea star;
+- sea urchin;
+- conch;
+- long-bodied fish.
 
-| Silhouette kind | Used for (category / override) | Status |
-| --- | --- | --- |
-| `fish-general` | default `reef-fish`; fallback for any unmapped category | ❌ not created |
-| `shark` | `shark` | ❌ not created |
-| `sea-turtle` | `sea-turtle` | ❌ not created |
-| `ray` | `ray` | ❌ not created |
-| `eel` | `eel` | ❌ not created |
-| `octopus` | `cephalopod` | ❌ not created |
-| `seahorse` | `seahorse` | ❌ not created |
-| `sea-star` | override: `caribbean-cushion-sea-star` | ❌ not created |
-| `conch` | `mollusk`; override: `queen-conch` | ❌ not created |
-| `long-fish` | override: `great-barracuda`, `trumpetfish` | ❌ not created |
+These are broad neutral fallback marks, not species art. They remain outside both `assets/source/creatures/` and `assets/creatures/`, cannot enter the 56-creature art inventory, and never replace approved canonical HD art. User-created creatures continue to use typographic monograms.
 
-Target path once produced: `assets/fallbacks/marine-life/<kind>.webp`, mounted to `apps/web/public/assets/fallbacks/marine-life/` by the updated `sync-assets.mjs` on that branch.
+`CreatureMark` selects a family deterministically by category, with narrow morphology overrides for Caribbean reef squid, Caribbean cushion sea star, great barracuda and trumpetfish. The raster file is applied as a CSS mask so Poseidon's existing wash/foreground treatment remains intact without reconstructing the animal as SVG or CSS geometry.
 
-Today, `echinoderm` (`caribbean-cushion-sea-star`) and `mollusk` (`queen-conch`) have no entry in `CATEGORY_SILHOUETTE`, so both silently render the generic fish blob; `great-barracuda` and `trumpetfish` are plain `reef-fish` and get the same generic blob as every other reef fish. The `sea-star`, `conch` and `long-fish` kinds above fix those three mismatches — they are not cosmetic additions.
+The application asset sync copies the committed files into the static tree; tests verify family coverage, file presence, byte counts, SHA-256 hashes, WebP signatures, missing/failed-art fallback and canonical-art precedence.
 
-An interactive tracker for the new-vs-tweak decision on each of the 10, with an image preview per kind (the closest legacy SVG recolored solid black, or the current CSS blob where no legacy reference exists): https://claude.ai/artifact/XgrYxqU6X47syKnDKUBwXZ — decisions saved there export to JSON.
-
-### What to make next
-
-1. Produce the 10 silhouette rasters (solid black/near-black fill, transparent background, square canvas, generous padding so they read at `sm`/`md`/`lg` mark sizes).
-2. Commit them under `assets/fallbacks/marine-life/` on (or rebased onto) the `issue-58-raster-silhouette-fallbacks` branch.
-3. Verify `CreatureMark.tsx`'s `CREATURE_SILHOUETTE_OVERRIDE` / `CATEGORY_SILHOUETTE` maps still match current creature categories (the branch was cut before any category renames since).
-4. Run `npm run gate` on that branch and open/refresh the PR against #58's acceptance criteria.
-5. Once merged, delete the now-dead `.creature-silhouette--*` CSS in `apps/web/src/index.css`.
+See `docs/CREATURE_FALLBACK_SILHOUETTES.md`, issue #58 and PR #59.
 
 ## Legacy SVG status
 
