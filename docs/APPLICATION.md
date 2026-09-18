@@ -15,6 +15,8 @@ packages/domain/     framework-independent domain, persistence, derived history,
 apps/web/            the mobile-first application
 content/             marine content pack (creatures, sites, regions, provenance)
 assets/creatures/    generated creature artwork variants + manifests
+assets/brand/        canonical runtime brand media, including startup film/still
+assets/source/brand/ original editorial brand-media masters
 tools/creature_art/  hand-authored SVG source art and its build
 tools/creature_assets/  the ingestion/validation pipeline that owns assets/creatures
 tools/brand/         application icon generation
@@ -50,6 +52,23 @@ Components never import persistence. They read through `useStoreQuery` and write
 through `useMutation`, both of which go through the `PoseidonStore` boundary
 defined in [`UI_DATA_CONTRACT.md`](UI_DATA_CONTRACT.md). A committed mutation
 bumps a revision that reloads every open query.
+
+## Startup and sign-in
+
+The HTML shell paints Poseidon's name immediately on a deep-ocean field before
+React or Firebase has loaded. On a signed-out user's first launch in a browser
+session, `StartupScreen` then plays the muted portrait startup film and
+crossfades to its HD still, with Google sign-in placed over the lower image.
+The intro is remembered for the session, has a twelve-second failure fallback,
+and is skipped when reduced motion is requested. Approved returning users are
+never held behind the film: the authenticated application replaces startup as
+soon as approval resolves.
+
+The runtime film and optimized still live under `assets/brand/startup` and are
+copied into Vite's ignored/generated public tree by `sync-assets.mjs`. The
+original lossless still remains under `assets/source/brand/startup`. Both runtime
+files are PWA-precached so an offline signed-out launch still reaches a coherent
+welcome surface.
 
 ---
 

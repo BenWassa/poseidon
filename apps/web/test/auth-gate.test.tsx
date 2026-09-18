@@ -3,7 +3,7 @@
  * "not approved". Only a server-confirmed negative may demote a previously
  * approved diver.
  */
-import { render, screen, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import type { DocumentSnapshot } from 'firebase/firestore';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
@@ -57,6 +57,7 @@ const diver = { uid: 'uid-1', email: 'diver@example.com' };
 describe('AuthGate', () => {
   beforeEach(() => {
     window.localStorage.clear();
+    window.sessionStorage.clear();
     authStateListeners.clear();
     vi.mocked(getDocFromServer).mockReset();
   });
@@ -71,7 +72,12 @@ describe('AuthGate', () => {
     );
     emitUser(null);
 
-    expect(await screen.findByText('Your underwater life')).toBeInTheDocument();
+    const welcome = await screen.findByLabelText('Poseidon welcome');
+    fireEvent.ended(welcome.querySelector('video')!);
+
+    expect(
+      await screen.findByRole('heading', { name: 'Your underwater life' }),
+    ).toBeInTheDocument();
   });
 
   it('shows the pending screen for a signed-in user the server confirms is not approved', async () => {

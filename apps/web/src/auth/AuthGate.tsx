@@ -10,19 +10,7 @@ import { PoseidonProvider } from '../data/provider';
 import { FirestorePersistence } from '../firebase/FirestorePersistence';
 import { useAuth } from './AuthProvider';
 import { PendingApprovalScreen } from './PendingApprovalScreen';
-import { SignInScreen } from './SignInScreen';
-
-function LoadingScreen() {
-  return (
-    <div className="flex h-[100dvh] w-full items-center justify-center bg-frame">
-      <div
-        className="h-10 w-10 animate-spin rounded-full border-4 border-border border-t-marine"
-        role="status"
-        aria-label="Loading"
-      />
-    </div>
-  );
-}
+import { StartupScreen } from './StartupScreen';
 
 function ApprovedApp({ uid, children }: { uid: string; children: ReactNode }) {
   const client = useMemo(
@@ -39,6 +27,8 @@ export function AuthGate({ children }: { children: ReactNode }) {
     return <ApprovedApp uid={user.uid}>{children}</ApprovedApp>;
   }
   if (status === 'pending') return <PendingApprovalScreen />;
-  if (status === 'signed-out' || status === 'error') return <SignInScreen />;
-  return <LoadingScreen />;
+  if (status === 'signed-out' || status === 'error') {
+    return <StartupScreen authReady />;
+  }
+  return <StartupScreen authReady={false} />;
 }

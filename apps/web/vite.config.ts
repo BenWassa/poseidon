@@ -82,7 +82,7 @@ export default defineConfig({
       // creature's own Detail view, so it is cached on first view instead
       // of bloating every cold install/update with every hero image.
       workbox: {
-        globPatterns: ['**/*.{js,css,html,webp,png,svg,woff2}'],
+        globPatterns: ['**/*.{js,css,html,webp,png,svg,woff2,mp4}'],
         globIgnores: ['**/assets/creatures/*/hero.webp'],
         maximumFileSizeToCacheInBytes: 4 * 1024 * 1024,
         cleanupOutdatedCaches: true,
