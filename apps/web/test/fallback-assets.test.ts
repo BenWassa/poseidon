@@ -19,10 +19,7 @@ interface SilhouetteManifest {
   assets: Record<string, SilhouetteAsset>;
 }
 
-const assetRoot = resolve(
-  process.cwd(),
-  '../../assets/fallbacks/marine-life',
-);
+const assetRoot = resolve(process.cwd(), '../../assets/fallbacks/marine-life');
 
 async function readManifest(): Promise<SilhouetteManifest> {
   return JSON.parse(
