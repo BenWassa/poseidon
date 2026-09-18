@@ -134,6 +134,16 @@ The #51 matrix covers zero-history guide rendering, repeated sightings, edit/del
 
 ## Active enhancement streams
 
+### #60 — coherent creature-art remake programme
+
+The 2026-09-18 owner review establishes **22 keep / 0 provisional / 34 remake** as current visual authority. #60 rebuilds those 34 sources into one realistic, clean underwater Poseidon field-guide family.
+
+Style authority is the 22 current `keep` candidates explicitly listed in `CLAUDE.md`; biological authority remains `docs/CREATURE_ART_QA_REFERENCES.md` plus high-confidence species imagery. Four isolated production lanes generate candidates, followed by one cross-library consistency review and one guarded integration/promotion stream.
+
+The development source-art review also exports one snapshot containing browser verdicts and optional pinned reference IDs for review convenience; those local pins do not supersede the 22-image style authority.
+
+Programme authority: `docs/CREATURE_ART_REMAKE_PROGRAMME.md`.
+
 ### #34 — derive transparent creature masters
 
 Transparent raster derivation remains valid and may now start from the approved realistic raster masters where the UI benefits from isolation.
@@ -146,11 +156,12 @@ Engineering/deployment acceptance is automated. Keep #14 open until physical Pix
 
 ## Intended sequence
 
-1. merge/close #55 after PR #57 final gate and review are clean;
-2. perform #34 transparent-raster derivation only from approved realistic masters where useful;
-3. perform/record #14 physical Pixel acceptance when desired;
-4. close parent/status items as appropriate;
-5. consider creature-count expansion as a separate product decision.
+1. use the 22 `keep` design-reference set from `CLAUDE.md` and complete #60's four parallel remake lanes;
+2. perform one cross-library QA pass, integrate accepted immutable replacements and return the catalog to 56 keep / 0 provisional / 0 remake;
+3. perform #34 transparent-raster derivation only from the newly approved coherent realistic masters where useful;
+4. perform/record #14 physical Pixel acceptance when desired;
+5. close parent/status items as appropriate;
+6. consider creature-count expansion as a separate product decision.
 
 ## Durable boundaries
 
