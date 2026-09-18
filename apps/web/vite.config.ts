@@ -1,3 +1,5 @@
+import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import react from '@vitejs/plugin-react';
@@ -63,6 +65,50 @@ self.addEventListener('activate', (event) => {
   };
 }
 
+/**
+ * Serves the editorial source library to the local review surface without
+ * copying it into `public/` or allowing it into a production build. The route
+ * is deliberately narrow: it exposes only the catalog and immutable WebP
+ * candidates below the source-creature root.
+ */
+function developmentSourceAssetReview(): Plugin {
+  const sourceRoot = fileURLToPath(
+    new URL('../../assets/source/creatures/', import.meta.url),
+  );
+  const reviewPrefix = '/__poseidon-source-assets/';
+
+  return {
+    name: 'poseidon-development-source-asset-review',
+    apply: 'serve',
+    configureServer(server) {
+      server.middlewares.use((request, response, next) => {
+        const pathname = request.url?.split('?')[0] ?? '';
+        if (!pathname.startsWith(reviewPrefix)) return next();
+
+        const requested = decodeURIComponent(
+          pathname.slice(reviewPrefix.length),
+        );
+        const permitted =
+          requested === 'catalog.json' ||
+          /^[a-z0-9-]+\/candidate-v\d+\.webp$/.test(requested);
+        if (!permitted) {
+          response.statusCode = 404;
+          response.end();
+          return;
+        }
+
+        const file = resolve(sourceRoot, requested);
+        response.setHeader(
+          'Content-Type',
+          requested.endsWith('.json') ? 'application/json' : 'image/webp',
+        );
+        response.setHeader('Cache-Control', 'no-store');
+        response.end(readFileSync(file));
+      });
+    },
+  };
+}
+
 export default defineConfig({
   base,
   define: {
@@ -71,6 +117,7 @@ export default defineConfig({
   },
   plugins: [
     developmentServiceWorkerReset(`${base}sw.js`),
+    developmentSourceAssetReview(),
     react(),
     tailwindcss(),
     VitePWA({

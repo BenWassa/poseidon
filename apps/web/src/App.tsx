@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
 import { AppShell } from './components/AppShell';
@@ -11,7 +12,7 @@ import { Journal } from './screens/Journal';
 import { LogDive } from './screens/LogDive';
 import { PlaceDetail } from './screens/PlaceDetail';
 
-export function App() {
+export function App({ devAssetReview }: { devAssetReview?: ReactNode }) {
   return (
     <AppShell>
       <Routes>
@@ -25,6 +26,9 @@ export function App() {
         <Route path="/collection" element={<Collection />} />
         <Route path="/collection/:creatureId" element={<CreatureDetail />} />
         <Route path="/data" element={<DataAndBackup />} />
+        {devAssetReview ? (
+          <Route path="/dev/assets" element={devAssetReview} />
+        ) : null}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </AppShell>

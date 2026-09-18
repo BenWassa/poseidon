@@ -13,18 +13,22 @@ async function bootstrap(): Promise<void> {
 
   let application: ReactNode = null;
   let devBadge: ReactNode = null;
+  let devAssetReview: ReactNode = null;
 
   // Keep this guard inline: Vite replaces DEV at build time, which makes the
   // entire development block unreachable and removable from production output.
   // Nothing inside it — the selection, the badge, the seed — can be reached by
   // a stored preference or a `?mock=` parameter in a production build.
   if (import.meta.env.DEV) {
-    const [{ readDevSelection }, { DevModeBadge }] = await Promise.all([
-      import('./dev/selection'),
-      import('./dev/DevModeBadge'),
-    ]);
+    const [{ readDevSelection }, { DevModeBadge }, { DevAssetReview }] =
+      await Promise.all([
+        import('./dev/selection'),
+        import('./dev/DevModeBadge'),
+        import('./dev/DevAssetReview'),
+      ]);
     const selection = readDevSelection(window.location.search);
     devBadge = <DevModeBadge selection={selection} />;
+    devAssetReview = <DevAssetReview />;
 
     if (selection.kind === 'mock') {
       const [{ App }, { PoseidonProvider }, mock] = await Promise.all([
@@ -35,7 +39,7 @@ async function bootstrap(): Promise<void> {
       const client = await mock.createMockPoseidonClient(selection.preset);
       application = (
         <PoseidonProvider client={client}>
-          <App />
+          <App devAssetReview={devAssetReview} />
         </PoseidonProvider>
       );
     }
@@ -50,7 +54,7 @@ async function bootstrap(): Promise<void> {
     application = (
       <AuthProvider>
         <AuthGate>
-          <App />
+          <App devAssetReview={devAssetReview} />
         </AuthGate>
       </AuthProvider>
     );

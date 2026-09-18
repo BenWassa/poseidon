@@ -134,6 +134,16 @@ const STYLES = `
   line-height: 1.4;
   opacity: 0.45;
 }
+.poseidon-dev-badge__link {
+  display: block;
+  margin: 2px 4px 4px;
+  padding: 8px 10px;
+  border-radius: 9px;
+  color: #9fe2d6;
+  letter-spacing: 0;
+  text-decoration: none;
+}
+.poseidon-dev-badge__link:hover { background: rgba(255, 255, 255, 0.08); }
 `;
 
 export function DevModeBadge({ selection }: { selection: DevSelection }) {
@@ -184,6 +194,9 @@ export function DevModeBadge({ selection }: { selection: DevSelection }) {
           <p className="poseidon-dev-badge__note">
             Mock history is in memory only. Reloading re-seeds it.
           </p>
+          <a className="poseidon-dev-badge__link" href="#/dev/assets">
+            Review source art
+          </a>
         </div>
       ) : null}
       <button

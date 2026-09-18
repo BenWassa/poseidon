@@ -81,16 +81,25 @@ export function BottomNav() {
 
 /** Routes that own the whole screen and hide the navigation. */
 function isImmersive(pathname: string): boolean {
-  return pathname === '/log' || pathname.endsWith('/edit');
+  return (
+    pathname === '/log' ||
+    pathname.endsWith('/edit') ||
+    pathname === '/dev/assets'
+  );
 }
 
 export function AppShell({ children }: { children: ReactNode }) {
   const { pathname } = useLocation();
   const immersive = isImmersive(pathname);
+  const reviewStudio = pathname === '/dev/assets';
 
   return (
     <div className="flex h-[100dvh] w-full justify-center bg-frame">
-      <div className="relative flex h-full w-full max-w-md flex-col overflow-hidden bg-canvas sm:shadow-2xl">
+      <div
+        className={`relative flex h-full w-full flex-col overflow-hidden bg-canvas ${
+          reviewStudio ? 'max-w-[90rem]' : 'max-w-md sm:shadow-2xl'
+        }`}
+      >
         <PwaNotice />
         <main
           id="main"
