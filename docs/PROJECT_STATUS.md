@@ -138,9 +138,9 @@ The #51 matrix covers zero-history guide rendering, repeated sightings, edit/del
 
 The 2026-09-18 owner review establishes **22 keep / 0 provisional / 34 remake** as current visual authority. #60 rebuilds those 34 sources into one realistic, clean underwater Poseidon field-guide family.
 
-Style authority comes from the owner's pinned Design References; biological authority remains `docs/CREATURE_ART_QA_REFERENCES.md` plus high-confidence species imagery. Four isolated production lanes generate candidates, followed by one cross-library consistency review and one guarded integration/promotion stream.
+Style authority is the 22 current `keep` candidates explicitly listed in `CLAUDE.md`; biological authority remains `docs/CREATURE_ART_QA_REFERENCES.md` plus high-confidence species imagery. Four isolated production lanes generate candidates, followed by one cross-library consistency review and one guarded integration/promotion stream.
 
-The development source-art review now exports one snapshot containing both owner verdicts and pinned design-reference IDs so those references can become durable repository authority.
+The development source-art review also exports one snapshot containing browser verdicts and optional pinned reference IDs for review convenience; those local pins do not supersede the 22-image style authority.
 
 Programme authority: `docs/CREATURE_ART_REMAKE_PROGRAMME.md`.
 
@@ -156,7 +156,7 @@ Engineering/deployment acceptance is automated. Keep #14 open until physical Pix
 
 ## Intended sequence
 
-1. lock the owner's exact design-reference IDs and complete #60's four parallel remake lanes;
+1. use the 22 `keep` design-reference set from `CLAUDE.md` and complete #60's four parallel remake lanes;
 2. perform one cross-library QA pass, integrate accepted immutable replacements and return the catalog to 56 keep / 0 provisional / 0 remake;
 3. perform #34 transparent-raster derivation only from the newly approved coherent realistic masters where useful;
 4. perform/record #14 physical Pixel acceptance when desired;
