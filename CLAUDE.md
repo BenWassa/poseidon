@@ -34,4 +34,8 @@ Key product laws:
 
 Current residual work is tracked under issue #5 and the child issues listed in `docs/PROJECT_STATUS.md`. Preserve completed #2/#3/#4/#6 work unless the active issue explicitly requires a compatible extension.
 
+## Current creature-art editorial review
+
+The 2026-09-18 owner review is the current source-art authority: **22 keep / 34 remake** in `assets/source/creatures/catalog.json`. `remake` means the current source candidate cannot be promoted or replaced until a new immutable candidate has passed review. Existing canonical runtime art remains live so art work never removes a creature from logging or browsing. Do not overwrite existing source revisions; add `candidate-vN.webp` revisions and update the catalog only after review.
+
 `BenWassa/liebestraum` remains the strongest product ancestor for memory-first hierarchy and accumulated-history UX. Learn from it selectively; do not clone its visual design or assume its Firebase/photo architecture belongs here.

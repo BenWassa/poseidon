@@ -46,8 +46,8 @@ Do not restart stack selection or recreate the former external prototype archite
 Technical and current visual artwork coverage is complete:
 
 - Mexican-Caribbean content pack: **3 regions, 24 dive sites/areas, 56 creatures**;
-- **56 mapped current `keep` source-catalog entries**;
-- machine editorial state: **56 keep / 0 provisional / 0 remake**;
+- **56 mapped source-catalog entries**;
+- current owner editorial state: **22 keep / 0 provisional / 34 remake**;
 - **56 canonical runtime manifests**, each with deterministic 192/512/1024 WebP variants;
 - **0 current content species** without runtime artwork;
 - **26/26 former #33 vector/procedural coverage masters replaced under #55 with reviewed realistic raster revisions**.
@@ -60,7 +60,7 @@ The current human visual inventory is therefore:
 - **26 former #33 coverage assets** — replaced under #55 with reviewed realistic 1024×1024 raster masters and promoted canonical runtime variants;
 - legacy marine-life SVG tooling/fallbacks — deprecated and not part of the approved creature-art inventory.
 
-Original source revisions remain immutable. #38 / PR #42 supplied and promoted four accepted v2 replacements (spotted eagle ray, spotted trunkfish, Atlantic blue tang and Spanish hogfish). #39 completed the final four immutable v2 replacements (Caribbean cushion sea star, porkfish, queen conch and Caribbean reef octopus). The original 30-entry batch remains **30/30 keep and live**.
+Original source revisions remain immutable. #38 / PR #42 supplied and promoted four accepted v2 replacements (spotted eagle ray, spotted trunkfish, Atlantic blue tang and Spanish hogfish). #39 completed the final four immutable v2 replacements (Caribbean cushion sea star, porkfish, queen conch and Caribbean reef octopus). That original batch was historically **30/30 keep and live**; the current 2026-09-18 owner review supersedes its editorial states above.
 
 #33 added the 26 previously uncovered content creatures in isolated reviewed batches and closed technical coverage at 56/56. PR #43 locked species-specific generation/review diagnostics for all 26 targets and corrected `honeycomb-cowfish` to accepted **`Acanthostracion polygonium`**. #55 then reused those diagnostic references while replacing every former #33 vector/procedural master with realistic raster art.
 
@@ -84,7 +84,7 @@ PR #32 promoted the 18 already-mapped `keep` source candidates through the guard
 
 ### #31 — original source mapping and closeout — complete
 
-PR #35 resolved every former `creatureId: null` candidate through explicit sourced content authority. PR #36 promoted the four newly mapped `keep` sources. #38 and #39 then supplied the eight required biological replacements, leaving the original batch fully resolved at **30 keep / 0 provisional / 0 remake**.
+PR #35 resolved every former `creatureId: null` candidate through explicit sourced content authority. PR #36 promoted the four newly mapped `keep` sources. #38 and #39 then supplied the eight required biological replacements, leaving the original batch historically resolved at **30 keep / 0 provisional / 0 remake**. The 2026-09-18 owner review is the current editorial authority.
 
 ### #38 — remake batch A — complete
 
@@ -104,7 +104,11 @@ The later owner realism direction did not reopen #33's coverage result; it creat
 
 All 26 former #33 vector/procedural coverage masters now have reviewed realistic 1024×1024 raster replacement revisions. Each accepted source was preserved as a later immutable candidate, recorded with source/author/license provenance, and promoted one species at a time through strict source validation, guarded runtime promotion and canonical 192/512/1024 validation.
 
-The current curated 56-creature visual baseline no longer depends on vector-derived masters. Legacy creature SVG/procedural tooling remains historical/deprecated only. #34 may now derive transparent raster specimens from these approved realistic opaque masters where useful.
+The current curated 56-creature visual baseline no longer depends on vector-derived masters. Legacy creature SVG/procedural tooling remains historical/deprecated only. #34 may now derive transparent raster specimens from approved realistic opaque masters where useful.
+
+### 2026-09-18 owner source-art review
+
+The owner completed a fresh visual review of all 56 source candidates. The catalog now records **22 keep / 34 remake**. `remake` is a source-art production queue, not a runtime rollback: the existing canonical artwork stays live, while source promotion correctly blocks those candidates until an immutable replacement has been reviewed. The complete machine-readable list is `assets/source/creatures/catalog.json`.
 
 ### #11 — source-art system — complete
 

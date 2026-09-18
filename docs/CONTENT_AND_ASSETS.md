@@ -146,7 +146,7 @@ Generated source candidates use internal production states:
 
 Quality scores and identity confidence are production metadata, not user-facing rarity or ecological confidence.
 
-The machine catalogue stands at **56 keep / 0 provisional / 0 remake** for the current mapped creature inventory. #55 added later immutable realistic raster candidate revisions for all 26 former #33 coverage species and promoted them as the current `keep` sources; superseded vector/procedural revisions remain historical only.
+The machine catalogue stands at **22 keep / 0 provisional / 34 remake** for the current mapped creature inventory, following the owner review on 2026-09-18. #55 added later immutable realistic raster candidate revisions for all 26 former #33 coverage species; superseded vector/procedural revisions remain historical only. Existing runtime assets remain live while `remake` sources await reviewed immutable replacements.
 
 Original source binaries remain immutable; accepted replacements use later candidate revisions.
 
@@ -222,7 +222,7 @@ The staged programme is now:
 3. **#55 — complete:** all 26 former #33 vector/procedural coverage masters were replaced by reviewed realistic 1024×1024 raster revisions and promoted through the guarded pipeline.
 4. **#34 — next where useful:** derive transparent raster specimens from approved realistic opaque masters. Preserve originals and never auto-vectorize.
 
-Current counts are **56 content records**, **56 mapped current `keep` source entries**, **56 live canonical runtime manifests**, and **0 current curated content records without runtime artwork**.
+Current counts are **56 content records**, **56 mapped source entries (22 keep / 34 remake)**, **56 live canonical runtime manifests**, and **0 current curated content records without runtime artwork**.
 
 The current visual-production baseline is **56/56 curated creatures backed by reviewed realistic raster masters**. Superseded vector/procedural revisions remain immutable history, not approved current art.
 
