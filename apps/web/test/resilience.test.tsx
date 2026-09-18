@@ -133,7 +133,7 @@ describe('creature artwork', () => {
 
   it('maps fallback silhouettes by broad morphology without pretending species specificity', () => {
     const kind = (id: string, category?: string) =>
-      silhouetteForCreature({ id, category });
+      silhouetteForCreature(category === undefined ? { id } : { id, category });
 
     expect(kind('nurse-shark', 'shark')).toBe('shark');
     expect(kind('green-sea-turtle', 'sea-turtle')).toBe('sea-turtle');
