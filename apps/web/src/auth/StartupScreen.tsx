@@ -5,6 +5,7 @@ import { useAuth } from './AuthProvider';
 
 const INTRO_SEEN_KEY = 'poseidon.startup.seen';
 const STARTUP_ASSET_ROOT = `${import.meta.env.BASE_URL}assets/brand/startup`;
+const BRAND_HOLD_MS = 1_400;
 
 function shouldSkipMotion(): boolean {
   if (typeof window === 'undefined') return true;
@@ -31,6 +32,7 @@ function rememberIntro(): void {
 export function StartupScreen({ authReady }: { authReady: boolean }) {
   const { signInWithGoogle, error } = useAuth();
   const [introComplete, setIntroComplete] = useState(shouldSkipMotion);
+  const [brandHoldComplete, setBrandHoldComplete] = useState(shouldSkipMotion);
   const [videoReady, setVideoReady] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -46,6 +48,15 @@ export function StartupScreen({ authReady }: { authReady: boolean }) {
   }, [finishIntro, introComplete]);
 
   useEffect(() => {
+    if (brandHoldComplete || introComplete) return;
+    const hold = window.setTimeout(
+      () => setBrandHoldComplete(true),
+      BRAND_HOLD_MS,
+    );
+    return () => window.clearTimeout(hold);
+  }, [brandHoldComplete, introComplete]);
+
+  useEffect(() => {
     if (introComplete) return;
     const video = videoRef.current;
     if (!video) return;
@@ -55,7 +66,10 @@ export function StartupScreen({ authReady }: { authReady: boolean }) {
 
   return (
     <main className="startup" aria-label="Poseidon welcome">
-      <div className="startup__brand" aria-hidden={introComplete || videoReady}>
+      <div
+        className="startup__brand"
+        aria-hidden={introComplete || brandHoldComplete}
+      >
         <span className="startup__wordmark">Poseidon</span>
         <span className="startup__rule" />
         <span className="startup__tagline">Your underwater life</span>

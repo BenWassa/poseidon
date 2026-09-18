@@ -80,6 +80,25 @@ describe('AuthGate', () => {
     ).toBeInTheDocument();
   });
 
+  it('keeps the opening title visible when cached video becomes ready immediately', async () => {
+    render(
+      <AuthProvider>
+        <AuthGate>
+          <div>secret dive log</div>
+        </AuthGate>
+      </AuthProvider>,
+    );
+    emitUser(null);
+
+    const welcome = await screen.findByLabelText('Poseidon welcome');
+    const brand = screen.getByText('Poseidon', {
+      selector: '.startup__wordmark',
+    }).parentElement;
+    fireEvent.canPlay(welcome.querySelector('video')!);
+
+    expect(brand).toHaveAttribute('aria-hidden', 'false');
+  });
+
   it('shows the pending screen for a signed-in user the server confirms is not approved', async () => {
     vi.mocked(getDocFromServer).mockResolvedValue(missing());
     render(
