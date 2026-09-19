@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "generatedOn": "2026-09-18",
+  "pixelSize": 384,
+  "format": "webp",
+  "assets": {
+    "conch": {
+      "path": "conch.webp",
+      "bytes": 23812,
+      "sha256": "eff8cb7aea0fd042a5073e7a39098fe375b555a1a83bf09d5e755a048918f886"
+    },
+    "crustacean": {
+      "path": "crustacean.webp",
+      "bytes": 33350,
+      "sha256": "c18777e335e9893b04414692ad9a90f6c94a3f09278b008b2ca24ff4420071ae"
+    },
+    "eel": {
+      "path": "eel.webp",
+      "bytes": 18948,
+      "sha256": "0148f57095376d37076dde12cf98260b82eeb716fe6e9148391109d3e027bb18"
+    },
+    "fish-general": {
+      "path": "fish-general.webp",
+      "bytes": 25336,
+      "sha256": "46ca79e4d1efad759aa3c178d3b81a0a9f95db30a3357a9afd53a509cae86574"
+    },
+    "long-fish": {
+      "path": "long-fish.webp",
+      "bytes": 10142,
+      "sha256": "24744efa53ff74c25e083f022e70b1d2c86474ee0fbeef09220345fd2dac4681"
+    },
+    "octopus": {
+      "path": "octopus.webp",
+      "bytes": 31734,
+      "sha256": "1a7ce565809de341d762786753b404bdd4348cc9264a415d4124deba8a09744e"
+    },
+    "ray": {
+      "path": "ray.webp",
+      "bytes": 17700,
+      "sha256": "62e16013280514e8e457eff53e99a6e44d0c4663de80dc082987526adf2800a4"
+    },
+    "sea-star": {
+      "path": "sea-star.webp",
+      "bytes": 21652,
+      "sha256": "56aeeb97ddd5fdd2151308a0c950bf9dcc073779e6b166ef311bf31d8efe8c60"
+    },
+    "sea-turtle": {
+      "path": "sea-turtle.webp",
+      "bytes": 26126,
+      "sha256": "f11b664724ad8426fc24ec8e7653396277a3bf18cc743987f5457608fc152833"
+    },
+    "sea-urchin": {
+      "path": "sea-urchin.webp",
+      "bytes": 26080,
+      "sha256": "4fe13128bf97234acf416a43bfbbb510b2bbc46f928ee63ffeaa00587e397a64"
+    },
+    "seahorse": {
+      "path": "seahorse.webp",
+      "bytes": 19870,
+      "sha256": "02830a5c6b7401b799ad3f9d6b1e2543d1990b6bf8abc414c797f68d334c6a2b"
+    },
+    "shark": {
+      "path": "shark.webp",
+      "bytes": 15404,
+      "sha256": "e790f473cba7e119fc1490788454b90395660930f40d52a2cf371ad6b4cca2e4"
+    },
+    "squid": {
+      "path": "squid.webp",
+      "bytes": 14710,
+      "sha256": "00a197eae2daa5ba6230ed0e63585bffa996ee8b8d814f968bcc4c0217f560dc"
+    }
+  }
+}
