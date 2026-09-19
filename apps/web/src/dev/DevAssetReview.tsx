@@ -338,19 +338,25 @@ export function DevAssetReview() {
     });
   };
 
-  async function exportQuality(): Promise<void> {
-    const rows = Object.entries(quality)
+  async function exportReviewSnapshot(): Promise<void> {
+    const verdicts = Object.entries(quality)
       .map(([id, verdict]) => ({ id, verdict }))
       .sort((a, b) => a.id.localeCompare(b.id));
-    const json = JSON.stringify(rows, null, 2);
+    const snapshot = {
+      schemaVersion: 1,
+      exportedOn: new Date().toISOString(),
+      designReferences: [...references],
+      verdicts,
+    };
+    const json = JSON.stringify(snapshot, null, 2);
     try {
       await navigator.clipboard.writeText(json);
       setToast(
-        `Copied ${rows.length} review verdict${rows.length === 1 ? '' : 's'} as JSON`,
+        `Copied review snapshot · ${references.length} reference${references.length === 1 ? '' : 's'} · ${verdicts.length} verdict${verdicts.length === 1 ? '' : 's'}`,
       );
     } catch {
-      console.log('[poseidon] asset quality review:', json);
-      setToast('Clipboard blocked — logged JSON to the console instead');
+      console.log('[poseidon] asset review snapshot:', json);
+      setToast('Clipboard blocked — logged review snapshot to the console');
     }
   }
 
@@ -406,7 +412,9 @@ export function DevAssetReview() {
               <p className="mt-1 text-xs text-abyss/65">
                 Your own call per candidate, stored locally in this browser. It
                 never edits <code>catalog.json</code> or promotes anything —
-                export it and apply changes by hand when you're ready.
+                export one snapshot containing both verdicts and pinned design
+                references, then apply catalog changes by hand when you're
+                ready.
               </p>
             </div>
             <div className="flex items-center gap-2">
@@ -421,12 +429,15 @@ export function DevAssetReview() {
               </button>
               <button
                 type="button"
-                onClick={() => void exportQuality()}
-                disabled={counts.total - counts.undecided === 0}
+                onClick={() => void exportReviewSnapshot()}
+                disabled={
+                  counts.total - counts.undecided === 0 &&
+                  references.length === 0
+                }
                 className="flex items-center gap-1.5 rounded-full border border-marine/40 bg-aqua-soft px-3 py-2 text-xs font-bold text-marine disabled:cursor-not-allowed disabled:opacity-45"
               >
                 <ClipboardCopy size={14} aria-hidden="true" />
-                Export review
+                Export review snapshot
               </button>
             </div>
           </div>
@@ -484,8 +495,10 @@ export function DevAssetReview() {
                 Design references
               </h2>
               <p className="mt-1 text-xs text-abyss/65">
-                Stored locally in this browser. Pinning one also counts it as a
-                Keep above.
+                Stored locally in this browser and included in the exported
+                review snapshot. Pinning one also counts it as a Keep above;
+                design references do not otherwise alter editorial status or
+                runtime promotion.
               </p>
             </div>
             {references.length ? (
