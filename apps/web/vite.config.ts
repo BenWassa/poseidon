@@ -133,10 +133,32 @@ export default defineConfig({
         globIgnores: ['**/assets/creatures/*/hero.webp'],
         maximumFileSizeToCacheInBytes: 4 * 1024 * 1024,
         cleanupOutdatedCaches: true,
+        /*
+         * A precache entry with a null revision tells Workbox the URL is
+         * immutable, so it is never re-fetched again on any later update.
+         * That is true of Vite's own bundles, whose filenames carry a content
+         * hash, and false of everything `scripts/sync-assets.mjs` mounts:
+         * `assets/creatures/<id>/gallery.webp` keeps its name for the life of
+         * the species while its bytes change every time art is promoted or
+         * remade.
+         *
+         * vite-plugin-pwa defaults this to the whole `assets/` directory,
+         * which is where both kinds of file live, so a device that had
+         * precached a creature's old artwork kept serving it forever — the
+         * grids read from the precache, while Detail looked correct because
+         * `hero.webp` is runtime-cached instead. Match only the hashed build
+         * output at the root of `assets/`, so the mounted art trees are
+         * revisioned by content and a promoted asset actually lands.
+         */
+        dontCacheBustURLsMatching: /^assets\/[^/]+-[\w-]{8}\.(?:js|css)$/,
         runtimeCaching: [
           {
             urlPattern: ({ url }) => url.pathname.endsWith('/hero.webp'),
-            handler: 'CacheFirst',
+            // Stale-while-revalidate, not cache-first: a hero keeps rendering
+            // instantly and offline from cache, but a hero whose art has been
+            // replaced since it was cached is refreshed in the background
+            // rather than pinned for its full year.
+            handler: 'StaleWhileRevalidate',
             options: {
               cacheName: 'poseidon-creature-hero',
               expiration: {

@@ -45,12 +45,54 @@ async function readPrecacheManifest() {
   assert.ok(match, 'Could not locate the precacheAndRoute manifest in sw.js.');
   const entries = new Function(`return ${match[1]};`)();
   return entries.map((entry) =>
-    typeof entry === 'string' ? entry : entry.url,
+    typeof entry === 'string' ? { url: entry, revision: null } : entry,
+  );
+}
+
+/**
+ * A precache entry with a null revision is a promise that the URL's bytes can
+ * never change, and workbox keeps that promise absolutely: it will not
+ * re-fetch the file on any later update, for the life of the installed
+ * application. Only Vite's own output can make that promise, because its
+ * filenames carry a content hash.
+ *
+ * Everything `scripts/sync-assets.mjs` mounts is the opposite: stable names
+ * whose bytes change whenever art is promoted or remade. vite-plugin-pwa's
+ * default exempts the whole `assets/` directory, where both kinds of file
+ * live, so creature art was pinned on installed devices and a promoted
+ * asset could never reach them. `dontCacheBustURLsMatching` in
+ * vite.config.ts narrows that to the hashed bundles; this proves it, because
+ * the failure is invisible in a fresh install and only appears as art that
+ * silently refuses to update.
+ */
+async function checkPrecacheRevisions() {
+  const entries = await readPrecacheManifest();
+  const unrevisioned = entries.filter((entry) => entry.revision === null);
+  const selfVersioning = /^assets\/[^/]+-[\w-]{8}\.(?:js|css)$/;
+
+  const pinned = unrevisioned
+    .map((entry) => entry.url)
+    .filter((url) => !selfVersioning.test(url));
+  assert.deepEqual(
+    pinned,
+    [],
+    `Precached with no revision, so these can never be updated on an installed device: ${pinned.join(', ')}`,
+  );
+
+  const media = entries.filter((entry) =>
+    /^assets\/(creatures|fallbacks|brand)\//.test(entry.url),
+  );
+  assert.ok(
+    media.length > 0 && media.every((entry) => Boolean(entry.revision)),
+    'Mounted creature, fallback and brand media must be precached with a content revision.',
+  );
+  console.log(
+    `[pwa] precache revisions: ${media.length} mounted media files are content-revisioned`,
   );
 }
 
 async function checkPrecacheBudget() {
-  const precached = await readPrecacheManifest();
+  const precached = (await readPrecacheManifest()).map((entry) => entry.url);
   const sizes = await Promise.all(
     precached.map(async (url) => (await stat(join(distDir, url))).size),
   );
@@ -89,6 +131,7 @@ async function resolveFile(pathname) {
 }
 
 await checkPrecacheBudget();
+await checkPrecacheRevisions();
 
 const server = createServer((request, response) => {
   const url = new URL(request.url ?? '/', 'http://localhost');
