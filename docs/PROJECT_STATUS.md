@@ -49,7 +49,8 @@ Technical and current visual artwork coverage is complete:
 - **56 mapped source-catalog entries**;
 - current owner editorial state: **22 keep / 0 provisional / 34 remake**;
 - **56 canonical runtime manifests**, each with deterministic 192/512/1024 WebP variants;
-- **0 current content species** without runtime artwork;
+- **0 current content species** without a runtime manifest;
+- the 34 `remake`-flagged species render the shared fallback silhouette in the app rather than their manifest art — see #60 below;
 - **26/26 former #33 vector/procedural coverage masters replaced under #55 with reviewed realistic raster revisions**.
 
 Owner direction on 2026-09-16 is **realistic HD raster marine-life imagery only**: no new creature SVG/vector art and no acceptance of vector-looking artwork merely because its runtime output is WebP.
@@ -128,7 +129,7 @@ The first truthful map and sourced starter-region coordinates are merged. Coordi
 
 ### #51 — full curated Marine Collection guide — complete
 
-Collection joins the full curated creature catalogue from `useCreatures()` with sighting-derived history from `useCollection()` instead of treating history as catalogue membership. All curated creatures are visible by default; `Seen` is derived only from logged sightings; `All / Seen / Not yet seen` composes with search/category; unseen cards use a muted artwork-only field-guide treatment while names remain fully legible; unseen Creature Detail remains open and unmuted; progress uses the runtime curated denominator; user-created creatures appear only with actual history and never affect that denominator. No discovery/unlock state or schema change was added.
+Collection joins the full curated creature catalogue from `useCreatures()` with sighting-derived history from `useCollection()` instead of treating history as catalogue membership. All curated creatures are visible by default with full-brightness artwork regardless of seen state; `Seen` is derived only from logged sightings and shown as a small marine "seen" badge on the tile rather than a muted/dimmed treatment, so the mark is never mistaken for a Pokédex-style unlock; `All / Seen / Not yet seen` composes with search/category; unseen Creature Detail remains open and unmuted; progress uses the runtime curated denominator; user-created creatures appear only with actual history and never affect that denominator. No discovery/unlock state or schema change was added.
 
 The #51 matrix covers zero-history guide rendering, repeated sightings, edit/delete reversion to unseen, search/category/status composition, user-created denominator rules, unseen-detail access and missing-art fallback.
 
@@ -143,6 +144,8 @@ The fallback family lives under `assets/fallbacks/marine-life/` with a hash mani
 ### #60 — coherent creature-art remake programme
 
 The 2026-09-18 owner review establishes **22 keep / 0 provisional / 34 remake** as current visual authority. #60 rebuilds those 34 sources into one realistic, clean underwater Poseidon field-guide family.
+
+Runtime display already reflects the review: `apps/web/src/data/content.ts` cross-references the catalog and renders the shared `assets/fallbacks/marine-life/` family silhouette (#58) for any `remake`-flagged creature instead of its rejected art, even though the underlying `assets/creatures/<id>/manifest.json` is untouched and still says `curated`. This is a display-only downgrade to `placeholder`; the guarded promotion pipeline and its manifests are unaffected, so accepting a lane's replacement and promoting it to `keep` is what brings the real artwork back.
 
 Style authority is the 22 current `keep` candidates explicitly listed in `CLAUDE.md`; biological authority remains `docs/CREATURE_ART_QA_REFERENCES.md` plus high-confidence species imagery. Four isolated production lanes generate candidates, followed by one cross-library consistency review and one guarded integration/promotion stream.
 

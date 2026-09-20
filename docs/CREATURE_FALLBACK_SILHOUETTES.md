@@ -33,6 +33,15 @@ but `CreatureImage` still suppressed those replacements.
 4. Curated `CreatureMark` uses a broad generated raster silhouette.
 5. User-created `CreatureMark` remains a typographic monogram.
 6. No fallback state is persisted.
+7. A creature currently flagged `remake` in
+   `assets/source/creatures/catalog.json` renders the fallback silhouette even
+   though its on-disk `assets/creatures/<id>/manifest.json` still says
+   `curated`. `apps/web/src/data/content.ts` cross-references the catalog at
+   load time and downgrades that creature's runtime `artwork.status` to
+   `placeholder` before the app ever sees it. This means the owner never has
+   to look at art they have already rejected while a replacement is in
+   production; it is a display decision only; the pipeline/manifest stay
+   untouched and promotion to `keep` restores the real artwork automatically.
 
 ## Family mapping
 

@@ -4,6 +4,7 @@
  */
 import { describe, expect, it } from 'vitest';
 
+import catalogJson from '../../../assets/source/creatures/catalog.json';
 import {
   contentMeta,
   contentPack,
@@ -95,12 +96,11 @@ describe('the Mexican Caribbean content pack', () => {
     }
   });
 
-  it('wires asset-pipeline variants onto every current creature', () => {
+  it('wires asset-pipeline variants onto every keep-status creature', () => {
     const illustrated = creatures.filter(
       (creature) => creature.artwork?.status === 'curated',
     );
     expect(illustrated.length).toBe(contentMeta.curatedArtworkCount);
-    expect(illustrated).toHaveLength(creatures.length);
 
     for (const creature of illustrated) {
       const artwork = creature.artwork;
@@ -124,6 +124,29 @@ describe('the Mexican Caribbean content pack', () => {
       expect(creature.artwork?.gallery).toBeUndefined();
       expect(creature.artwork?.hero).toBeUndefined();
     }
+  });
+
+  it('renders the fallback silhouette for every remake-flagged creature instead of its rejected art', () => {
+    const remakeIds = new Set(
+      (catalogJson.assets as { creatureId: string; status: string }[])
+        .filter((asset) => asset.status === 'remake')
+        .map((asset) => asset.creatureId),
+    );
+    expect(remakeIds.size).toBeGreaterThan(0);
+
+    for (const creature of creatures) {
+      if (!remakeIds.has(creature.id)) continue;
+      expect(creature.artwork?.status, creature.id).toBe('placeholder');
+      expect(creature.artwork?.thumb, creature.id).toBeUndefined();
+      expect(creature.artwork?.gallery, creature.id).toBeUndefined();
+      expect(creature.artwork?.hero, creature.id).toBeUndefined();
+    }
+
+    const keepAndCurated = creatures.filter(
+      (creature) =>
+        !remakeIds.has(creature.id) && creature.artwork?.status === 'curated',
+    );
+    expect(keepAndCurated.length).toBe(creatures.length - remakeIds.size);
   });
 
   it('never references a remote host for anything the product needs', () => {

@@ -218,7 +218,7 @@ export function Collection() {
                     creature={entry.creature}
                     to={`/collection/${entry.creature.id}`}
                     showCategory
-                    mutedArtwork={!entry.seen}
+                    seen={entry.seen}
                     priority={position < 4}
                     caption={
                       entry.history

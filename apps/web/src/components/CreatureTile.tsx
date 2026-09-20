@@ -11,7 +11,7 @@ interface TileBodyProps {
   variant: CreatureImageVariant;
   selected: boolean;
   highlight: boolean;
-  mutedArtwork: boolean;
+  seen: boolean | undefined;
   caption?: string;
   showCategory: boolean;
   priority: boolean;
@@ -22,7 +22,7 @@ function TileBody({
   variant,
   selected,
   highlight,
-  mutedArtwork,
+  seen,
   caption,
   showCategory,
   priority,
@@ -34,11 +34,6 @@ function TileBody({
           creature={creature}
           variant={variant}
           priority={priority}
-          className={
-            mutedArtwork
-              ? 'brightness-[1.03] contrast-[0.92] saturate-[0.4]'
-              : ''
-          }
         />
         {selected ? (
           // Selection is carried by the ring, the badge and aria-pressed, so it
@@ -50,6 +45,16 @@ function TileBody({
         {highlight ? (
           <span className="absolute top-2 left-2 flex h-8 w-8 items-center justify-center rounded-full bg-sun text-abyss shadow-card">
             <Star size={16} strokeWidth={3} fill="currentColor" />
+          </span>
+        ) : null}
+        {!selected && seen ? (
+          // A quiet mark that this creature has been logged before — never a
+          // gate on the artwork itself, just a fact about personal history.
+          <span
+            className="absolute top-2 right-2 flex h-7 w-7 items-center justify-center rounded-full bg-marine text-white shadow-card"
+            title="Seen"
+          >
+            <Check size={14} strokeWidth={3.5} />
           </span>
         ) : null}
       </div>
@@ -75,7 +80,7 @@ export interface CreatureTileProps {
   variant?: CreatureImageVariant;
   selected?: boolean;
   highlight?: boolean;
-  mutedArtwork?: boolean;
+  seen?: boolean;
   caption?: string;
   showCategory?: boolean;
   priority?: boolean;
@@ -91,7 +96,7 @@ export function CreatureTile({
   variant = 'gallery',
   selected = false,
   highlight = false,
-  mutedArtwork = false,
+  seen,
   caption,
   showCategory = false,
   priority = false,
@@ -108,7 +113,7 @@ export function CreatureTile({
       variant={variant}
       selected={selected}
       highlight={highlight}
-      mutedArtwork={mutedArtwork}
+      seen={seen}
       {...(caption !== undefined ? { caption } : {})}
       showCategory={showCategory}
       priority={priority}

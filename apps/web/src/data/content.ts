@@ -15,6 +15,7 @@ import type {
   Region,
 } from '@poseidon/domain';
 
+import catalogJson from '../../../../assets/source/creatures/catalog.json';
 import manifestJson from '../../../../content/mexican-caribbean/manifest.json';
 import sitesJson from '../../../../content/mexican-caribbean/sites.json';
 
@@ -74,6 +75,23 @@ interface AssetManifest {
   };
 }
 
+interface CatalogAsset {
+  creatureId: string;
+  status: 'keep' | 'provisional' | 'remake';
+}
+
+/**
+ * A `remake`-flagged source candidate is blocked from promotion, but its
+ * older canonical manifest is still marked `curated` on disk. Rendering it
+ * anyway would show art the owner has already rejected, so the app treats
+ * these ids as placeholder here rather than waiting on a pipeline re-run.
+ */
+const remakeCreatureIds = new Set(
+  (catalogJson.assets as CatalogAsset[])
+    .filter((asset) => asset.status === 'remake')
+    .map((asset) => asset.creatureId),
+);
+
 const creatureFiles = import.meta.glob<{ creatures: PackCreature[] }>(
   '../../../../content/mexican-caribbean/creatures/*.json',
   { eager: true, import: 'default' },
@@ -97,7 +115,9 @@ function buildArtworkIndex(): Map<string, CreatureArtwork> {
   const index = new Map<string, CreatureArtwork>();
   for (const manifest of Object.values(assetManifests)) {
     const { creatureId, artwork } = manifest;
+    const editorialRemake = remakeCreatureIds.has(creatureId);
     if (
+      editorialRemake ||
       artwork.status !== 'curated' ||
       !artwork.thumb ||
       !artwork.gallery ||
@@ -105,8 +125,10 @@ function buildArtworkIndex(): Map<string, CreatureArtwork> {
     ) {
       // A placeholder/missing manifest is a deliberate state, not an error. The
       // UI renders the same considered fallback it uses for unmanifested IDs.
+      // A `remake` editorial verdict forces the same treatment even though
+      // the on-disk manifest still says `curated`.
       index.set(creatureId, {
-        status: artwork.status,
+        status: editorialRemake ? 'placeholder' : artwork.status,
         aspectRatio: artwork.aspectRatio,
       });
       continue;
