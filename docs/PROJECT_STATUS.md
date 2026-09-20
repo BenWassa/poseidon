@@ -1,6 +1,6 @@
 # Poseidon — current project status
 
-Last reconciled: **2026-09-16**
+Last reconciled: **2026-09-19**
 
 This is the living programme-status companion to the durable product contracts. It records current implementation and remaining work; it does not replace `PRODUCT.md` or `docs/PRD.md`.
 
@@ -8,7 +8,7 @@ This is the living programme-status companion to the durable product contracts. 
 
 Current merged `main` authority at this reconciliation:
 
-`327333d18cfe74a96ba1464d620f89cf2362a8bc`
+`a0687aecb38dd771acce0855aa37fdaed211fbfb`
 
 Poseidon is a deployed React/Vite/TypeScript PWA with Firebase-backed approved-user persistence, local/offline shadow persistence, canonical marine content and a guarded creature-asset pipeline.
 
@@ -52,6 +52,12 @@ Technical and current visual artwork coverage is complete:
 - **0 current content species** without a runtime manifest;
 - the 34 `remake`-flagged species render the shared fallback silhouette in the app rather than their manifest art — see #60 below;
 - **26/26 former #33 vector/procedural coverage masters replaced under #55 with reviewed realistic raster revisions**.
+
+#60 production status at this reconciliation:
+- lane A / #62: 8/8 still require first-pass generation;
+- lane B / #63: 9/9 new immutable candidates already merged by PR #66, awaiting QA/acceptance;
+- lane C / #64: 9/9 generated review images merged by PR #67, but they still need QA and final immutable `candidate-vN` source placement;
+- lane D / #65: 8/8 still require first-pass generation.
 
 Owner direction on 2026-09-16 is **realistic HD raster marine-life imagery only**: no new creature SVG/vector art and no acceptance of vector-looking artwork merely because its runtime output is WebP.
 
@@ -149,6 +155,8 @@ Runtime display already reflects the review: `apps/web/src/data/content.ts` cros
 
 Style authority is the 22 current `keep` candidates explicitly listed in `CLAUDE.md`; biological authority remains `docs/CREATURE_ART_QA_REFERENCES.md` plus high-confidence species imagery. Four isolated production lanes generate candidates, followed by one cross-library consistency review and one guarded integration/promotion stream.
 
+Execution is now mixed rather than four untouched lanes. PR #66 already landed lane B's nine immutable candidate revisions. PR #67 landed lane C's nine review-stage images under `assets/review/issue-64/`, which still need final source naming after QA. Lane A and lane D have no unique work beyond current `main`; their old branches are behind and contain zero commits ahead. Production agents should therefore work from fresh `main`, and after each species passes lane QA they should push the next immutable `candidate-vN.webp` revision for that species. Catalog/runtime promotion remains centralized after cross-library and human acceptance.
+
 The development source-art review also exports one snapshot containing browser verdicts and optional pinned reference IDs for review convenience; those local pins do not supersede the 22-image style authority.
 
 Programme authority: `docs/CREATURE_ART_REMAKE_PROGRAMME.md`.
@@ -165,9 +173,9 @@ Engineering/deployment acceptance is automated. Keep #14 open until physical Pix
 
 ## Intended sequence
 
-1. merge/close #58 after PR #59 final gate and review are clean;
-2. use the 22 `keep` design-reference set from `CLAUDE.md` and complete #60's four parallel remake lanes;
-3. perform one cross-library QA pass, integrate accepted immutable replacements and return the catalog to 56 keep / 0 provisional / 0 remake;
+1. finish #60 production from fresh `main`: generate lane A and D, audit/remake lane B only where needed, and QA/finalize lane C from review staging into immutable source revisions;
+2. perform one cross-library QA pass over all 34 proposed replacements and send outliers back to their owning lane;
+3. after human acceptance, integrate accepted immutable replacements, update catalog/runtime state in one guarded stream and return the catalog to 56 keep / 0 provisional / 0 remake;
 4. perform #34 transparent-raster derivation only from the newly approved coherent realistic masters where useful;
 5. perform/record #14 physical Pixel acceptance when desired;
 6. close parent/status items as appropriate;

@@ -15,6 +15,17 @@ The curated Mexican-Caribbean library contains 56 creatures.
 
 The 34 remake decisions are visual/editorial decisions. Existing runtime art remains valid until a reviewed replacement is promoted.
 
+### 2026-09-19 execution snapshot
+
+The catalog still correctly reports **22 keep / 0 provisional / 34 remake**. That catalog state is the acceptance state, not the remaining-generation count.
+
+- **Lane A / #62 — 8 species:** no unique candidate work exists beyond current `main`; the old branch `art/issue-62-distinctive-form-remakes` is stale/behind and has zero commits ahead of `main`. Full generation remains.
+- **Lane B / #63 — 9 species:** PR #66 is merged. All nine new immutable source revisions are already on `main` as `candidate-v3.webp`, except redband parrotfish at `candidate-v4.webp`. They remain unaccepted and unpromoted; this lane now needs visual/species QA and remakes only where required.
+- **Lane C / #64 — 9 species:** PR #67 is merged. Nine generated images exist under `assets/review/issue-64/`. They are review-stage files, not final immutable source revisions. This lane must QA each image, remake failures, and push each accepted species under the next `assets/source/creatures/<id>/candidate-vN.webp` name.
+- **Lane D / #65 — 8 species:** no unique candidate work exists beyond current `main`; the old branch `art/issue-65-larger-reef-fish-remakes` is stale/behind and has zero commits ahead of `main`. Full generation remains.
+
+Therefore **16 species still require first-pass generation (A + D)**, **9 require review/finalization from review staging (C)**, and **9 already have immutable candidate revisions awaiting collection QA (B)**. Any B/C image that fails biology, realism, composition or collection cohesion returns to generation.
+
 ## Target visual family
 
 Poseidon creature art is realistic field-guide artwork, not vector illustration and not an unrelated stock-photo collection.
@@ -93,7 +104,7 @@ A current photograph can therefore be excellent biological evidence and still re
 
 ## Parallel production lanes
 
-Production agents own generation and visual/species QA only. They must not edit catalog/runtime state, overwrite source history, promote assets, or touch another lane.
+Production agents own generation plus visual/species QA and may add **new immutable source revisions for their owned species**. Once a species is fully generated and passes lane QA, the agent should commit and push it under its final next `candidate-vN.webp` name. Agents must not edit catalog/runtime state, overwrite source history, promote assets, change taxonomy/docs, or touch another lane.
 
 ### Lane A — distinctive forms
 
@@ -177,17 +188,17 @@ Each generated candidate must pass all four dimensions.
 ## Production workflow
 
 1. use the 22 `keep` candidates in `CLAUDE.md` as shared style authority;
-2. dispatch four isolated generation lanes;
-3. each lane generates and rejects/remakes failures against species diagnostics;
-4. collect all 34 accepted lane candidates without promoting them;
-5. review the complete 34-image set together for collection consistency;
-6. send visual outliers back for another generation even if individually attractive;
-7. add accepted outputs as new immutable `candidate-vN` source revisions;
-8. update catalog status only after human acceptance;
-9. promote through the existing guarded pipeline;
-10. verify full-size and card-scale runtime rendering;
-11. run the full repository gate;
-12. reconcile catalog, asset-library and project-status documentation.
+2. start every lane from fresh current `main` on an isolated branch; stale empty #62/#65 branches are not evidence of completed work;
+3. inspect any existing lane output before generating: #63 already has immutable v3/v4 candidates and #64 already has review-stage images;
+4. generate or remake each owned species until it passes the locked biological diagnostics plus full-size/card-scale visual QA;
+5. when one species is complete, save it directly as the next immutable `assets/source/creatures/<id>/candidate-vN.webp`, then commit and push that species; do not wait to rename files later;
+6. for #63, preserve the already-merged v3/v4 revisions and create a later revision only if QA requires a remake;
+7. for #64, do not leave accepted work only under `assets/review/issue-64/`; copy/remake accepted outputs into the next immutable source revision before considering that species complete;
+8. production lanes do not edit `catalog.json`, runtime manifests/assets, taxonomy, shared docs, or another lane;
+9. after all 34 species have a lane-approved immutable candidate, review the complete set together for collection consistency;
+10. send biological failures or visual outliers back to the owning lane even if individually attractive;
+11. after human acceptance, update catalog status and paths in one integration stream;
+12. promote through the existing guarded pipeline, verify full-size/card-scale runtime rendering, run the full repository gate, and reconcile status documentation.
 
 ## Integration rules
 
