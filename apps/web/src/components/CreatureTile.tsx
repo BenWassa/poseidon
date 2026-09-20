@@ -48,14 +48,18 @@ function TileBody({
           </span>
         ) : null}
         {!selected && seen ? (
-          // A quiet mark that this creature has been logged before — never a
-          // gate on the artwork itself, just a fact about personal history.
-          <span
-            className="absolute top-2 right-2 flex h-7 w-7 items-center justify-center rounded-full bg-marine text-white shadow-card"
-            title="Seen"
-          >
-            <Check size={14} strokeWidth={3.5} />
-          </span>
+          // A flat icon, not a chip: no fill, ring or shadow, so it reads as
+          // an information mark rather than a tappable control. It is just a
+          // fact about personal history, never a gate on the artwork itself.
+          <>
+            <Check
+              size={18}
+              strokeWidth={3}
+              className="pointer-events-none absolute top-2 right-2 text-white drop-shadow-[0_1px_2px_rgba(4,20,26,0.65)]"
+              aria-hidden="true"
+            />
+            <span className="sr-only">Seen before</span>
+          </>
         ) : null}
       </div>
       <div className="px-2 pt-2.5 pb-1 text-left">
