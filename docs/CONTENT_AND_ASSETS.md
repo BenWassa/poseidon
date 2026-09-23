@@ -4,9 +4,9 @@
 
 This is the durable strategy for creature content, regional relevance and artwork.
 
-Current implementation status is tracked in `docs/PROJECT_STATUS.md`. The Mexican Caribbean starter content pack is implemented. #11/#12/PR #13 established the source-art system and original reviewed library; #30/#31/#38/#39 fully resolved the original 30-source batch; #33 then completed technical artwork coverage for the remaining 26 current content creatures. The current baseline is **56 content IDs = 56 mapped `keep` source entries = 56 canonical runtime manifests**.
+Current implementation status is tracked in `docs/PROJECT_STATUS.md`. The Mexican Caribbean starter content pack is implemented. #11/#12/PR #13 established the source-art system and original reviewed library; #30/#31/#38/#39 fully resolved the original 30-source batch; #33 then completed technical artwork coverage for the remaining 26 current content creatures. The current baseline is **56 content IDs = 56 mapped source entries = 56 canonical runtime manifests**, with the source catalog currently at **22 `keep` / 0 `provisional` / 34 `remake`**.
 
-Owner direction on 2026-09-16 established realistic HD raster imagery as the creature-art target. #55 has now replaced all 26 former #33 vector/procedural coverage assets with reviewed realistic raster masters. #34 transparent-background derivation may follow from those approved raster masters where useful.
+Owner direction on 2026-09-16 established realistic HD raster imagery as the creature-art target. #55 replaced all 26 former #33 vector/procedural coverage assets with reviewed realistic raster masters. #34 transparent-background derivation may follow only from a source that remains currently approved (`keep`).
 
 ---
 
@@ -59,7 +59,7 @@ Initial enrichment is intentionally concentrated on Cozumel, Playa del Carmen an
 
 The implemented pack is useful recreational coverage, not a complete biological catalogue. It contains **56** sourced creature records: the prior 50 plus six defensible Mexican-Caribbean species that were already represented in the original HD source-art batch.
 
-All 56 current curated records have canonical runtime artwork. The original 30-source programme remains the first realistic-HD baseline, and #55 has now replaced all 26 former #33 vector/procedural coverage masters with reviewed realistic raster revisions.
+All 56 current curated records have canonical runtime artwork. The app displays canonical artwork for the 22 `keep` records; it displays a neutral fallback for the 34 `remake` records rather than showing art rejected in the current review. The original 30-source programme and #55 replacements remain immutable runtime/source history, not proof of present display approval.
 
 New user-created or future curated records must remain fully usable if artwork has not yet been reviewed.
 
@@ -113,7 +113,7 @@ The `poseidon-sunlit-square-v1` family uses square underwater-scene raster maste
 
 The two modes remain explicit. Never weaken transparency validation globally just to admit opaque-scene sources.
 
-Issue #34 may derive transparent raster specimen revisions from the approved realistic opaque library. That derivation does **not** replace or mutate opaque originals and is not vector tracing. For the 26 #55 targets, the realistic replacements are already approved and promoted, so any later transparent extraction starts from those raster masters.
+Issue #34 may derive transparent raster specimen revisions from the currently approved realistic opaque library. That derivation does **not** replace or mutate opaque originals and is not vector tracing. A `remake` source cannot be used for this work merely because an older #55 runtime file remains; it first needs an accepted immutable replacement and `keep` status.
 
 ---
 
@@ -220,11 +220,12 @@ The staged programme is now:
 1. **#30 / #31 / #38 / #39 — complete:** original 30-source HD programme fully mapped, biologically reviewed and promoted.
 2. **#33 — technically complete:** 26 previously uncovered creatures received source candidates and canonical runtime promotion, closing coverage at 56/56.
 3. **#55 — complete:** all 26 former #33 vector/procedural coverage masters were replaced by reviewed realistic 1024×1024 raster revisions and promoted through the guarded pipeline.
-4. **#34 — next where useful:** derive transparent raster specimens from approved realistic opaque masters. Preserve originals and never auto-vectorize.
+4. **#60 — active:** replace and review the 34 `remake` candidates, promoting only accepted immutable revisions.
+5. **#34 — next where useful:** derive transparent raster specimens only from currently approved realistic opaque masters. Preserve originals and never auto-vectorize.
 
-Current counts are **56 content records**, **56 mapped source entries (22 keep / 34 remake)**, **56 live canonical runtime manifests**, and **0 current curated content records without runtime artwork**.
+Current counts are **56 content records**, **56 mapped source entries (22 keep / 34 remake)**, **56 live canonical runtime manifests**, and **0 current curated content records without runtime artwork**. The application currently presents **22 canonical artworks and 34 neutral fallbacks**; a runtime file does not override the current editorial verdict.
 
-The current visual-production baseline is **56/56 curated creatures backed by reviewed realistic raster masters**. Superseded vector/procedural revisions remain immutable history, not approved current art.
+The current visual-production baseline is **22/56 approved-and-displayed creature artworks**. All 56 have realistic raster runtime/source history after #55, but 34 require an accepted immutable replacement before their artwork can return to the UI. Superseded vector/procedural revisions remain immutable history, not approved current art.
 
 Creature-count expansion is a separate product decision; it is no longer blocked by #55 visual-family completion.
 

@@ -121,7 +121,7 @@ Promotion requires all of the following:
 - an existing runtime directory is not replaced unless `--force` is explicitly supplied;
 - editorial review has confirmed biological identity and the current realistic-HD visual requirement.
 
-`provisional` and `remake` candidates are blocked even with `--force`. Source-only candidates with `creatureId: null` are also blocked so artwork cannot silently create taxonomy. Existing runtime art therefore remains authoritative until a specific reviewed replacement is deliberately promoted.
+`provisional` and `remake` candidates are blocked even with `--force`. Source-only candidates with `creatureId: null` are also blocked so artwork cannot silently create taxonomy. Existing runtime art therefore remains authoritative pipeline output until a specific reviewed replacement is deliberately promoted. The application may still choose its neutral fallback for an editorially `remake`-flagged ID; see `apps/web/src/data/content.ts`.
 
 ## Missing art and placeholders
 

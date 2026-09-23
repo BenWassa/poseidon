@@ -13,7 +13,7 @@ The curated Mexican-Caribbean library contains 56 creatures.
 - 56 mapped source entries
 - 56 canonical runtime manifests
 
-The 34 remake decisions are visual/editorial decisions. Existing runtime art remains valid until a reviewed replacement is promoted.
+The 34 remake decisions are visual/editorial decisions. Existing runtime files remain valid pipeline/history artifacts until a reviewed replacement is promoted, but the application deliberately renders the neutral fallback for these records rather than displaying rejected art.
 
 ## Target visual family
 

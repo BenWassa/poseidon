@@ -1,6 +1,6 @@
 # Poseidon — current project status
 
-Last reconciled: **2026-09-16**
+Last reconciled: **2026-09-18**
 
 This is the living programme-status companion to the durable product contracts. It records current implementation and remaining work; it does not replace `PRODUCT.md` or `docs/PRD.md`.
 
@@ -43,7 +43,7 @@ Do not restart stack selection or recreate the former external prototype archite
 
 ## Content and artwork baseline
 
-Technical and current visual artwork coverage is complete:
+Technical runtime coverage is complete; current visual approval and display coverage are partial:
 
 - Mexican-Caribbean content pack: **3 regions, 24 dive sites/areas, 56 creatures**;
 - **56 mapped source-catalog entries**;
@@ -55,10 +55,10 @@ Technical and current visual artwork coverage is complete:
 
 Owner direction on 2026-09-16 is **realistic HD raster marine-life imagery only**: no new creature SVG/vector art and no acceptance of vector-looking artwork merely because its runtime output is WebP.
 
-The current human visual inventory is therefore:
+The historical human visual inventory is:
 
-- **30 original HD-source programme assets** — retained as the realistic-HD baseline unless individual visual QA flags a specific problem;
-- **26 former #33 coverage assets** — replaced under #55 with reviewed realistic 1024×1024 raster masters and promoted canonical runtime variants;
+- **30 original HD-source programme assets** — canonical runtime variants exist; the current review retains 22 as `keep` and flags 8 as `remake`;
+- **26 former #33 coverage assets** — realistic raster replacements were promoted under #55, then all 26 current entries were marked `remake` by the later cross-library review;
 - legacy marine-life SVG tooling/fallbacks — deprecated and not part of the approved creature-art inventory.
 
 Original source revisions remain immutable. #38 / PR #42 supplied and promoted four accepted v2 replacements (spotted eagle ray, spotted trunkfish, Atlantic blue tang and Spanish hogfish). #39 completed the final four immutable v2 replacements (Caribbean cushion sea star, porkfish, queen conch and Caribbean reef octopus). That original batch was historically **30/30 keep and live**; the current 2026-09-18 owner review supersedes its editorial states above.
@@ -109,7 +109,7 @@ The current curated 56-creature visual baseline no longer depends on vector-deri
 
 ### 2026-09-18 owner source-art review
 
-The owner completed a fresh visual review of all 56 source candidates. The catalog now records **22 keep / 34 remake**. `remake` is a source-art production queue, not a runtime rollback: the existing canonical artwork stays live, while source promotion correctly blocks those candidates until an immutable replacement has been reviewed. The complete machine-readable list is `assets/source/creatures/catalog.json`.
+The owner completed a fresh visual review of all 56 source candidates. The catalog now records **22 keep / 34 remake**. `remake` is a source-art production queue, not a destructive runtime rollback: canonical files remain available to the guarded pipeline, while application display deliberately downgrades those 34 records to the shared fallback until an immutable replacement has been reviewed and promoted. The complete machine-readable list is `assets/source/creatures/catalog.json`.
 
 ### #11 — source-art system — complete
 

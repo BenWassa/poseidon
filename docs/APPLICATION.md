@@ -109,9 +109,12 @@ Geometry is reserved from the manifest `aspectRatio` before anything loads, so
 artwork resolving never shifts the layout. Everything outside the first screen
 is lazily loaded.
 
-**Approved art always wins.** `CreatureImage` no longer contains the temporary
-legacy-vector species-ID blacklist. The 26 species replaced under #55 therefore
-render their reviewed HD raster variants normally.
+**Current editorial approval always wins.** The application cross-references the
+source catalog at load time. A `keep` record renders its canonical runtime
+variant; a `remake` record renders the neutral fallback even though an older
+canonical manifest and WebP variants remain on disk. This prevents rejected art
+from reaching the UI while preserving immutable runtime/source history for the
+guarded replacement workflow.
 
 **Missing art is a first-class state.** If a requested canonical variant is
 missing or fails to load, `CreatureMark` renders a neutral generated raster
