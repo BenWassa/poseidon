@@ -397,8 +397,10 @@ On 2026-09-24, the app had already advanced to version 0.1.2 at commit
 Release Please therefore fell back to the merged 0.1.0 release PR and proposed
 an invalid downgrade. The top-level `last-release-sha` in
 `release-please-config.json` temporarily anchors the current patch proposal at
-the existing 0.1.2 version commit. Remove that override after the 0.1.3 release
-PR is merged so later proposals use the newly merged release PR as their base.
+the existing 0.1.2 version commit. This requested patch release is pinned to
+0.1.3 with a one-time `release-as` override. Remove both temporary overrides
+from the release PR so later proposals use the newly merged release PR and
+normal conventional-commit version selection.
 
 ## Git tag and GitHub Release rules
 
