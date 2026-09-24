@@ -395,12 +395,11 @@ Bootstrap completed on **2026-09-13**. Release Please created the first named re
 On 2026-09-24, the app had already advanced to version 0.1.2 at commit
 `106bbeb`, but no matching `poseidon-v0.1.2` release/tag had been published.
 Release Please therefore fell back to the merged 0.1.0 release PR and proposed
-an invalid downgrade. The top-level `last-release-sha` in
-`release-please-config.json` temporarily anchors the current patch proposal at
-the existing 0.1.2 version commit. This requested patch release is pinned to
-0.1.3 with a one-time `release-as` override. Remove both temporary overrides
-from the release PR so later proposals use the newly merged release PR and
-normal conventional-commit version selection.
+an invalid downgrade. For the 0.1.3 patch, the top-level `last-release-sha`
+temporarily anchored the release history at the existing 0.1.2 version commit,
+and a one-time `release-as` override pinned the proposal to 0.1.3. Both settings
+were removed in the merged release PR; future proposals use the merged release
+PR and normal conventional-commit version selection.
 
 ## Git tag and GitHub Release rules
 
