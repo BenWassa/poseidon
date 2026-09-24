@@ -1,12 +1,10 @@
 {
   "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
-  "last-release-sha": "106bbeb1febc7a7a80742675bdabe975e223d315",
   "bump-minor-pre-major": true,
   "bump-patch-for-minor-pre-major": false,
   "packages": {
     ".": {
       "release-type": "node",
-      "release-as": "0.1.3",
       "package-name": "poseidon",
       "changelog-path": "CHANGELOG.md",
       "extra-files": ["apps/web/package.json", "packages/domain/package.json"]

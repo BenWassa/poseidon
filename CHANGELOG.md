@@ -1,5 +1,25 @@
 # Changelog
 
+## [0.1.3](https://github.com/BenWassa/poseidon/compare/poseidon-v0.1.2...poseidon-v0.1.3) (2026-09-24)
+
+
+### Features
+
+* add raster marine fallback silhouettes ([#58](https://github.com/BenWassa/poseidon/issues/58)) ([8a73698](https://github.com/BenWassa/poseidon/commit/8a73698491a511ad3dde8a0f62212222eed61d00))
+* export creature art review references ([838477c](https://github.com/BenWassa/poseidon/commit/838477c2e50356869a87ab9101d03c2d27c26968))
+* **web:** add one-at-a-time review queue with undo ([0ed4733](https://github.com/BenWassa/poseidon/commit/0ed47333fba9faadbccb12f135dc03da1d0c8ef1))
+* **web:** add source art review surface ([0a491b7](https://github.com/BenWassa/poseidon/commit/0a491b7cb7b8a357fd2ab53b5e15b9f2b17d53ed))
+
+
+### Bug Fixes
+
+* **release:** anchor release please at v0.1.2 ([c239717](https://github.com/BenWassa/poseidon/commit/c2397174bff5723611714a139941a1896e09ef94))
+* **release:** request v0.1.3 patch proposal ([d101a07](https://github.com/BenWassa/poseidon/commit/d101a07dd0bce0bcf4f258218a759567b9dc58b8))
+* **web:** fallback silhouettes for remake-flagged creatures, seen badge over muting ([4bcedaa](https://github.com/BenWassa/poseidon/commit/4bcedaa78c55f9793b1d48f7dbd92893b65ad865))
+* **web:** flatten seen mark to a plain icon, not a tappable-looking badge ([a0687ae](https://github.com/BenWassa/poseidon/commit/a0687aecb38dd771acce0855aa37fdaed211fbfb))
+* **web:** retire rejected squid art and refresh creature caches ([56157b1](https://github.com/BenWassa/poseidon/commit/56157b1d7d33c09e3ac45b3f4633778af79df690))
+* **web:** revision precached art so promoted assets reach installed devices ([88f241c](https://github.com/BenWassa/poseidon/commit/88f241c1789c93a1f7b108e26a5023d5f0081236))
+
 ## [0.1.0](https://github.com/BenWassa/poseidon/compare/poseidon-v0.1.0...poseidon-v0.1.0) (2026-09-13)
 
 
