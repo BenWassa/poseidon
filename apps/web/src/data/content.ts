@@ -72,6 +72,9 @@ interface AssetManifest {
     thumb: string | null;
     gallery: string | null;
     hero: string | null;
+    variants?: Partial<
+      Record<'thumb' | 'gallery' | 'hero', { sha256: string }>
+    >;
   };
 }
 
@@ -107,8 +110,9 @@ const assetManifests = import.meta.glob<AssetManifest>(
 
 const base = import.meta.env.BASE_URL ?? '/';
 
-function assetUrl(creatureId: string, file: string): string {
-  return `${base.replace(/\/$/, '')}/assets/creatures/${creatureId}/${file}`;
+function assetUrl(creatureId: string, file: string, sha256?: string): string {
+  const path = `${base.replace(/\/$/, '')}/assets/creatures/${creatureId}/${file}`;
+  return sha256 ? `${path}?v=${sha256.slice(0, 16)}` : path;
 }
 
 function buildArtworkIndex(): Map<string, CreatureArtwork> {
@@ -136,9 +140,17 @@ function buildArtworkIndex(): Map<string, CreatureArtwork> {
     index.set(creatureId, {
       status: 'curated',
       aspectRatio: artwork.aspectRatio,
-      thumb: assetUrl(creatureId, artwork.thumb),
-      gallery: assetUrl(creatureId, artwork.gallery),
-      hero: assetUrl(creatureId, artwork.hero),
+      thumb: assetUrl(
+        creatureId,
+        artwork.thumb,
+        artwork.variants?.thumb?.sha256,
+      ),
+      gallery: assetUrl(
+        creatureId,
+        artwork.gallery,
+        artwork.variants?.gallery?.sha256,
+      ),
+      hero: assetUrl(creatureId, artwork.hero, artwork.variants?.hero?.sha256),
     });
   }
   return index;

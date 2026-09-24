@@ -67,15 +67,15 @@ try {
     'mock mode unexpectedly rendered sign-in UI',
   );
 
-  await page.goto(`${appUrl}?mock=5#/data`, {
+  await page.goto(`${appUrl}?mock=5#/profile`, {
     waitUntil: 'domcontentloaded',
   });
-  await page.getByRole('heading', { name: 'Data & backup' }).waitFor();
+  await page.getByRole('heading', { name: 'Profile' }).waitFor();
   await page
     .getByRole('button', { name: 'Export everything as JSON' })
     .waitFor();
 
-  console.log('[mock] auth bypass + seeded app + Data & Backup: ok');
+  console.log('[mock] auth bypass + seeded app + Profile: ok');
 
   // The in-app switcher is the supported way to change history without
   // restarting the server or hand-editing the URL.

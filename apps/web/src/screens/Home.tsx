@@ -5,7 +5,7 @@
  * discoveries and places are invitations into the deeper surfaces. Every
  * number here comes from the store — there are no decorative totals.
  */
-import { ArrowRight, Sparkles, Waves } from 'lucide-react';
+import { ArrowRight, Waves } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 import {
@@ -18,7 +18,9 @@ import {
 import { formatDate, pluralize } from '../lib/format';
 import { CreatureTile } from '../components/CreatureTile';
 import { DiveHero } from '../components/DiveHero';
+import { ProfileAvatar } from '../components/ProfileAvatar';
 import { ACTION_PRIMARY, Card, Eyebrow, SectionHeader } from '../components/ui';
+import { useOptionalAuth } from '../auth/AuthContext';
 
 function SeeAll({ to, children }: { to: string; children: string }) {
   return (
@@ -55,6 +57,7 @@ function FirstDiveInvitation() {
 }
 
 export function Home() {
+  const auth = useOptionalAuth();
   const { data: dives, loading } = useDives();
   const { index } = useCreatureIndex();
   const { data: stats } = useLifetimeStats();
@@ -67,7 +70,16 @@ export function Home() {
   return (
     <div className="animate-rise">
       <header className="safe-top px-6 pb-7">
-        <Eyebrow>Poseidon</Eyebrow>
+        <div className="flex items-start justify-between gap-4">
+          <Eyebrow>Poseidon</Eyebrow>
+          <Link
+            to="/profile"
+            aria-label="Open profile"
+            className="press-ring flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-full border border-marine/15 bg-aqua-soft text-marine shadow-sm"
+          >
+            <ProfileAvatar photoURL={auth?.user?.photoURL} />
+          </Link>
+        </div>
         <h1 className="mt-1 max-w-[12ch] text-[2.25rem] leading-[1.04] font-black tracking-[-0.035em] text-abyss">
           Your underwater life
         </h1>
@@ -181,16 +193,6 @@ export function Home() {
               </ul>
             </section>
           ) : null}
-
-          <section className="px-6 pb-12">
-            <Link
-              to="/data"
-              className="flex items-center justify-center gap-2 text-sm font-bold text-abyss/50"
-            >
-              <Sparkles size={15} aria-hidden="true" />
-              Data &amp; backup
-            </Link>
-          </section>
         </>
       ) : null}
     </div>

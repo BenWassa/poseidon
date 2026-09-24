@@ -5,8 +5,8 @@ import { buildInfo } from '../src/lib/buildInfo';
 import { renderPoseidon } from './harness';
 
 describe('build info support surface', () => {
-  it('shows the restrained version/build string on Data & backup', () => {
-    renderPoseidon('/data');
+  it('shows the restrained version/build string on Profile', () => {
+    renderPoseidon('/profile');
     expect(screen.getByText(buildInfo.display)).toBeInTheDocument();
   });
 });

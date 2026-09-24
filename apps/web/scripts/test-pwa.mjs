@@ -178,7 +178,7 @@ try {
 
   await page.close();
   page = await context.newPage();
-  await page.goto(route('/data'), { waitUntil: 'domcontentloaded' });
+  await page.goto(route('/profile'), { waitUntil: 'domcontentloaded' });
   await page.getByRole('heading', { name: 'Your underwater life' }).waitFor();
 
   console.log(

@@ -47,17 +47,17 @@ Technical runtime coverage is complete; current visual approval and display cove
 
 - Mexican-Caribbean content pack: **3 regions, 24 dive sites/areas, 56 creatures**;
 - **56 mapped source-catalog entries**;
-- current owner editorial state: **22 keep / 0 provisional / 34 remake**;
+- current owner editorial state: **21 keep / 0 provisional / 35 remake**;
 - **56 canonical runtime manifests**, each with deterministic 192/512/1024 WebP variants;
 - **0 current content species** without a runtime manifest;
-- the 34 `remake`-flagged species render the shared fallback silhouette in the app rather than their manifest art — see #60 below;
+- the 35 `remake`-flagged species render the shared fallback silhouette in the app rather than their manifest art — see #60 below;
 - **26/26 former #33 vector/procedural coverage masters replaced under #55 with reviewed realistic raster revisions**.
 
 Owner direction on 2026-09-16 is **realistic HD raster marine-life imagery only**: no new creature SVG/vector art and no acceptance of vector-looking artwork merely because its runtime output is WebP.
 
 The historical human visual inventory is:
 
-- **30 original HD-source programme assets** — canonical runtime variants exist; the current review retains 22 as `keep` and flags 8 as `remake`;
+- **30 original HD-source programme assets** — canonical runtime variants exist; the current review retains 21 as `keep` and flags 9 as `remake`;
 - **26 former #33 coverage assets** — realistic raster replacements were promoted under #55, then all 26 current entries were marked `remake` by the later cross-library review;
 - legacy marine-life SVG tooling/fallbacks — deprecated and not part of the approved creature-art inventory.
 
@@ -109,7 +109,7 @@ The current curated 56-creature visual baseline no longer depends on vector-deri
 
 ### 2026-09-18 owner source-art review
 
-The owner completed a fresh visual review of all 56 source candidates. The catalog now records **22 keep / 34 remake**. `remake` is a source-art production queue, not a destructive runtime rollback: canonical files remain available to the guarded pipeline, while application display deliberately downgrades those 34 records to the shared fallback until an immutable replacement has been reviewed and promoted. The complete machine-readable list is `assets/source/creatures/catalog.json`.
+The owner completed a fresh visual review of all 56 source candidates. The catalog now records **21 keep / 35 remake**. `remake` is a source-art production queue, not a destructive runtime rollback: canonical files remain available to the guarded pipeline, while application display deliberately downgrades those 35 records to the shared fallback until an immutable replacement has been reviewed and promoted. The complete machine-readable list is `assets/source/creatures/catalog.json`.
 
 ### #11 — source-art system — complete
 
@@ -143,13 +143,13 @@ The fallback family lives under `assets/fallbacks/marine-life/` with a hash mani
 
 ### #60 — coherent creature-art remake programme
 
-The 2026-09-18 owner review establishes **22 keep / 0 provisional / 34 remake** as current visual authority. #60 rebuilds those 34 sources into one realistic, clean underwater Poseidon field-guide family.
+The 2026-09-18 owner review, updated by the 2026-09-24 squid reclassification, establishes **21 keep / 0 provisional / 35 remake** as current visual authority. #60 rebuilds those 35 sources into one realistic, clean underwater Poseidon field-guide family.
 
 Runtime display already reflects the review: `apps/web/src/data/content.ts` cross-references the catalog and renders the shared `assets/fallbacks/marine-life/` family silhouette (#58) for any `remake`-flagged creature instead of its rejected art, even though the underlying `assets/creatures/<id>/manifest.json` is untouched and still says `curated`. This is a display-only downgrade to `placeholder`; the guarded promotion pipeline and its manifests are unaffected, so accepting a lane's replacement and promoting it to `keep` is what brings the real artwork back.
 
-Style authority is the 22 current `keep` candidates explicitly listed in `CLAUDE.md`; biological authority remains `docs/CREATURE_ART_QA_REFERENCES.md` plus high-confidence species imagery. Four isolated production lanes generate candidates, followed by one cross-library consistency review and one guarded integration/promotion stream.
+Style authority is the 21 current `keep` candidates explicitly listed in `CLAUDE.md`; biological authority remains `docs/CREATURE_ART_QA_REFERENCES.md` plus high-confidence species imagery. Four isolated production lanes generate candidates, followed by one cross-library consistency review and one guarded integration/promotion stream.
 
-The development source-art review also exports one snapshot containing browser verdicts and optional pinned reference IDs for review convenience; those local pins do not supersede the 22-image style authority.
+The development source-art review also exports one snapshot containing browser verdicts and optional pinned reference IDs for review convenience; those local pins do not supersede the 21-image style authority.
 
 Programme authority: `docs/CREATURE_ART_REMAKE_PROGRAMME.md`.
 
@@ -166,7 +166,7 @@ Engineering/deployment acceptance is automated. Keep #14 open until physical Pix
 ## Intended sequence
 
 1. merge/close #58 after PR #59 final gate and review are clean;
-2. use the 22 `keep` design-reference set from `CLAUDE.md` and complete #60's four parallel remake lanes;
+2. use the 21 `keep` design-reference set from `CLAUDE.md` and complete #60's four parallel remake lanes;
 3. perform one cross-library QA pass, integrate accepted immutable replacements and return the catalog to 56 keep / 0 provisional / 0 remake;
 4. perform #34 transparent-raster derivation only from the newly approved coherent realistic masters where useful;
 5. perform/record #14 physical Pixel acceptance when desired;

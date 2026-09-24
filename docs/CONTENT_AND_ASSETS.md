@@ -4,7 +4,7 @@
 
 This is the durable strategy for creature content, regional relevance and artwork.
 
-Current implementation status is tracked in `docs/PROJECT_STATUS.md`. The Mexican Caribbean starter content pack is implemented. #11/#12/PR #13 established the source-art system and original reviewed library; #30/#31/#38/#39 fully resolved the original 30-source batch; #33 then completed technical artwork coverage for the remaining 26 current content creatures. The current baseline is **56 content IDs = 56 mapped source entries = 56 canonical runtime manifests**, with the source catalog currently at **22 `keep` / 0 `provisional` / 34 `remake`**.
+Current implementation status is tracked in `docs/PROJECT_STATUS.md`. The Mexican Caribbean starter content pack is implemented. #11/#12/PR #13 established the source-art system and original reviewed library; #30/#31/#38/#39 fully resolved the original 30-source batch; #33 then completed technical artwork coverage for the remaining 26 current content creatures. The current baseline is **56 content IDs = 56 mapped source entries = 56 canonical runtime manifests**, with the source catalog currently at **21 `keep` / 0 `provisional` / 35 `remake`**.
 
 Owner direction on 2026-09-16 established realistic HD raster imagery as the creature-art target. #55 replaced all 26 former #33 vector/procedural coverage assets with reviewed realistic raster masters. #34 transparent-background derivation may follow only from a source that remains currently approved (`keep`).
 
@@ -59,7 +59,7 @@ Initial enrichment is intentionally concentrated on Cozumel, Playa del Carmen an
 
 The implemented pack is useful recreational coverage, not a complete biological catalogue. It contains **56** sourced creature records: the prior 50 plus six defensible Mexican-Caribbean species that were already represented in the original HD source-art batch.
 
-All 56 current curated records have canonical runtime artwork. The app displays canonical artwork for the 22 `keep` records; it displays a neutral fallback for the 34 `remake` records rather than showing art rejected in the current review. The original 30-source programme and #55 replacements remain immutable runtime/source history, not proof of present display approval.
+All 56 current curated records have canonical runtime artwork. The app displays canonical artwork for the 21 `keep` records; it displays a neutral fallback for the 35 `remake` records rather than showing art rejected in the current review. The original 30-source programme and #55 replacements remain immutable runtime/source history, not proof of present display approval.
 
 New user-created or future curated records must remain fully usable if artwork has not yet been reviewed.
 
@@ -146,7 +146,7 @@ Generated source candidates use internal production states:
 
 Quality scores and identity confidence are production metadata, not user-facing rarity or ecological confidence.
 
-The machine catalogue stands at **22 keep / 0 provisional / 34 remake** for the current mapped creature inventory, following the owner review on 2026-09-18. #55 added later immutable realistic raster candidate revisions for all 26 former #33 coverage species; superseded vector/procedural revisions remain historical only. Existing runtime assets remain live while `remake` sources await reviewed immutable replacements.
+The machine catalogue stands at **21 keep / 0 provisional / 35 remake** for the current mapped creature inventory, following the 2026-09-18 owner review and the 2026-09-24 squid reclassification. #55 added later immutable realistic raster candidate revisions for all 26 former #33 coverage species; superseded vector/procedural revisions remain historical only. Existing runtime assets remain live while `remake` sources await reviewed immutable replacements.
 
 Original source binaries remain immutable; accepted replacements use later candidate revisions.
 
@@ -220,12 +220,12 @@ The staged programme is now:
 1. **#30 / #31 / #38 / #39 — complete:** original 30-source HD programme fully mapped, biologically reviewed and promoted.
 2. **#33 — technically complete:** 26 previously uncovered creatures received source candidates and canonical runtime promotion, closing coverage at 56/56.
 3. **#55 — complete:** all 26 former #33 vector/procedural coverage masters were replaced by reviewed realistic 1024×1024 raster revisions and promoted through the guarded pipeline.
-4. **#60 — active:** replace and review the 34 `remake` candidates, promoting only accepted immutable revisions.
+4. **#60 — active:** replace and review the 35 `remake` candidates, promoting only accepted immutable revisions.
 5. **#34 — next where useful:** derive transparent raster specimens only from currently approved realistic opaque masters. Preserve originals and never auto-vectorize.
 
-Current counts are **56 content records**, **56 mapped source entries (22 keep / 34 remake)**, **56 live canonical runtime manifests**, and **0 current curated content records without runtime artwork**. The application currently presents **22 canonical artworks and 34 neutral fallbacks**; a runtime file does not override the current editorial verdict.
+Current counts are **56 content records**, **56 mapped source entries (21 keep / 35 remake)**, **56 live canonical runtime manifests**, and **0 current curated content records without runtime artwork**. The application currently presents **21 canonical artworks and 35 neutral fallbacks**; a runtime file does not override the current editorial verdict.
 
-The current visual-production baseline is **22/56 approved-and-displayed creature artworks**. All 56 have realistic raster runtime/source history after #55, but 34 require an accepted immutable replacement before their artwork can return to the UI. Superseded vector/procedural revisions remain immutable history, not approved current art.
+The current visual-production baseline is **21/56 approved-and-displayed creature artworks**. All 56 have realistic raster runtime/source history after #55, but 35 require an accepted immutable replacement before their artwork can return to the UI. Superseded vector/procedural revisions remain immutable history, not approved current art.
 
 Creature-count expansion is a separate product decision; it is no longer blocked by #55 visual-family completion.
 

@@ -36,13 +36,18 @@ function isIosDevice(): boolean {
 const UPDATE_CHECK_INTERVAL_MS = 60 * 60 * 1000;
 
 function watchForServiceWorkerUpdates(registration: ServiceWorkerRegistration) {
-  const checkForUpdate = () => void registration.update();
+  const checkForUpdate = () => {
+    if (navigator.onLine) void registration.update().catch(() => {});
+  };
 
+  checkForUpdate();
   window.setInterval(checkForUpdate, UPDATE_CHECK_INTERVAL_MS);
 
   document.addEventListener('visibilitychange', () => {
     if (document.visibilityState === 'visible') checkForUpdate();
   });
+  window.addEventListener('online', checkForUpdate);
+  window.addEventListener('focus', checkForUpdate);
 }
 
 /**

@@ -1,6 +1,6 @@
 # Poseidon Creature Asset Library
 
-Last updated: **2026-09-18**
+Last updated: **2026-09-24**
 
 This is the human inventory and production-order authority for Poseidon creature artwork. The machine-readable provenance authority is [`assets/source/creatures/catalog.json`](../assets/source/creatures/catalog.json). Runtime assets remain under `assets/creatures/` and are produced only through the canonical #11 pipeline.
 
@@ -22,16 +22,17 @@ Do not delete immutable historical sources merely because they are superseded. R
 The curated Mexican-Caribbean catalogue contains **56 stable creature IDs**. Runtime-file coverage is complete; current visual approval and application display are not:
 
 - **56 mapped source-catalog entries**;
-- **22 current `keep` entries / 0 `provisional` / 34 `remake`**;
+- **21 current `keep` entries / 0 `provisional` / 35 `remake`**;
 - **56 canonical runtime manifests**;
 - each runtime kit contains deterministic `thumb.webp` (192), `gallery.webp` (512) and `hero.webp` (1024);
 - **0 current curated creatures are missing runtime artwork**;
-- the application displays canonical artwork for the 22 `keep` records and a shared neutral raster silhouette for each of the 34 `remake` records;
+- the application displays canonical artwork for the 21 `keep` records and a shared neutral raster silhouette for each of the 35 `remake` records;
+- Caribbean reef squid moved to `remake` on 2026-09-24 after the owner flagged its vector-like deployed image; its existing WebP source and runtime variants remain immutable history while the UI shows the squid silhouette;
 - #55 replaced the former #33 vector/procedural masters with realistic raster revisions, but the later cross-library review remains the authority for their current `remake` status.
 
 | Inventory group | Count | Current runtime state | Visual direction |
 | --- | ---: | --- | --- |
-| Original HD source programme | 30 | Canonical WebP variants exist; 22 currently display as approved art and 8 are suppressed as remakes | The current cross-library review, rather than historical promotion, determines display approval. |
+| Original HD source programme | 30 | Canonical WebP variants exist; 21 currently display as approved art and 9 are suppressed as remakes | The current cross-library review, rather than historical promotion, determines display approval. |
 | #33 coverage programme | 26 | Realistic raster replacements were promoted under #55, then all 26 were marked `remake` in the current review and render fallbacks | Preserve immutable raster revisions as history; replace and re-review before any future display approval or #34 derivation. |
 | Legacy SVG creature tooling/fallbacks | Not part of the 56-source inventory | Repository/tooling/fallback only | **Deprecated for marine-life artwork. Do not create new creature SVGs.** |
 
@@ -39,7 +40,7 @@ Runtime format and source style remain separate questions. The former #33 output
 
 ## Historical 30-asset realistic-HD programme
 
-These are the original HD-source programme records. The later 2026-09-18 cross-library review is the current authority: 22 remain `keep` and 8 are now `remake`. Preserve every immutable source revision; do not infer current approval from this historical programme list.
+These are the original HD-source programme records. The later 2026-09-18 cross-library review is the current authority: 21 remain `keep` and 9 are now `remake`. Preserve every immutable source revision; do not infer current approval from this historical programme list.
 
 - queen angelfish (`queen-angelfish`)
 - hawksbill sea turtle (`hawksbill-sea-turtle`)
@@ -226,6 +227,6 @@ assets/creatures/<stable-id>/                   # canonical runtime only
 
 ## Work sequence
 
-1. **#60 — active:** replace and review the 34 `remake` candidates, promoting only accepted immutable revisions until the catalogue returns to 56 `keep`.
+1. **#60 — active:** replace and review the 35 `remake` candidates, promoting only accepted immutable revisions until the catalogue returns to 56 `keep`.
 2. **#34 — next where useful:** derive transparent raster specimen revisions only from currently approved realistic opaque masters; preserve originals and manually QA difficult alpha edges.
 3. Creature-count expansion can be considered separately after the current 56-creature visual family and any desired #34 extraction work are accepted.

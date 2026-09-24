@@ -185,7 +185,7 @@ export class FirestorePersistence implements PersistenceAdapter {
     const bytes = new TextEncoder().encode(JSON.stringify(state)).length;
     if (bytes > SOFT_SIZE_LIMIT_BYTES) {
       throw new PoseidonPersistenceError(
-        `Poseidon's cloud record is ${Math.round(bytes / 1024)} KB, approaching Firestore's 1 MB document limit. Export a backup (Data & backup) before logging more dives.`,
+        `Poseidon's cloud record is ${Math.round(bytes / 1024)} KB, approaching Firestore's 1 MB document limit. Export a backup from Profile before logging more dives.`,
       );
     }
   }

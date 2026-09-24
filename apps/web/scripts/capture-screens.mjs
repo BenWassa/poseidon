@@ -75,7 +75,7 @@ const SCREENS = [
   { file: '07-creature-detail.jpg', path: '/collection/spotted-eagle-ray' },
   { file: '08-atlas.jpg', path: '/atlas' },
   { file: '09-place-detail.jpg', path: '/atlas/area%3AMX%3Acozumel' },
-  { file: '10-data-backup.jpg', path: '/data' },
+  { file: '10-profile.jpg', path: '/profile' },
 ];
 
 await mkdir(outputDir, { recursive: true });

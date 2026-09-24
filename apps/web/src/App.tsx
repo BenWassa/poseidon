@@ -25,7 +25,8 @@ export function App({ devAssetReview }: { devAssetReview?: ReactNode }) {
         <Route path="/atlas/:placeKey" element={<PlaceDetail />} />
         <Route path="/collection" element={<Collection />} />
         <Route path="/collection/:creatureId" element={<CreatureDetail />} />
-        <Route path="/data" element={<DataAndBackup />} />
+        <Route path="/profile" element={<DataAndBackup />} />
+        <Route path="/data" element={<Navigate to="/profile" replace />} />
         {devAssetReview ? (
           <Route path="/dev/assets" element={devAssetReview} />
         ) : null}

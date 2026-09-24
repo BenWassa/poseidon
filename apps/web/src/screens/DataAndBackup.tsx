@@ -23,6 +23,7 @@ import { useNavigate } from 'react-router-dom';
 import type { RestoreMode, RestorePreview } from '@poseidon/domain';
 
 import { useOptionalAuth } from '../auth/AuthContext';
+import { ProfileAvatar } from '../components/ProfileAvatar';
 import {
   ACTION_QUIET,
   Card,
@@ -141,7 +142,25 @@ export function DataAndBackup() {
 
   return (
     <div className="animate-rise pb-10">
-      <TopBar title="Data & backup" onBack={() => navigate(-1)} />
+      <TopBar title="Profile" onBack={() => navigate(-1)} />
+
+      <section className="px-5 pb-2">
+        <div className="flex items-center gap-4 py-3">
+          <span className="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-full bg-aqua-soft text-marine">
+            <ProfileAvatar photoURL={auth?.user?.photoURL} size={28} />
+          </span>
+          <div className="min-w-0">
+            <p className="truncate text-lg font-black text-abyss">
+              {auth?.user?.displayName || 'Your profile'}
+            </p>
+            {auth?.user?.email ? (
+              <p className="truncate text-sm text-abyss/60">
+                {auth.user.email}
+              </p>
+            ) : null}
+          </div>
+        </div>
+      </section>
 
       <section className="px-5">
         <SectionHeader title="Your record" />

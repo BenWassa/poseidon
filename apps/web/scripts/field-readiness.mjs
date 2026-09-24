@@ -203,7 +203,7 @@ async function restoreIntoCleanState(page, backup) {
     .getByRole('heading', { name: 'Your atlas starts here' })
     .waitFor();
 
-  await clean.goto(route('/data'), { waitUntil: 'domcontentloaded' });
+  await clean.goto(route('/profile'), { waitUntil: 'domcontentloaded' });
   await clean.locator('#poseidon-restore-file').setInputFiles({
     name: 'poseidon-field-backup.json',
     mimeType: 'application/json',
@@ -242,7 +242,7 @@ try {
     '[field] create/edit + Home/Journal/Collection/Atlas + Collection viewport matrix + Back: ok',
   );
 
-  await page.goto(route('/data'), { waitUntil: 'domcontentloaded' });
+  await page.goto(route('/profile'), { waitUntil: 'domcontentloaded' });
   const backup = await downloadJson(page);
   assert.equal(backup.personal.dives.length, 1);
   assert.equal(backup.personal.dives[0].siteName, 'Field Reef North');

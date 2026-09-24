@@ -133,6 +133,7 @@ export default defineConfig({
         globIgnores: ['**/assets/creatures/*/hero.webp'],
         maximumFileSizeToCacheInBytes: 4 * 1024 * 1024,
         cleanupOutdatedCaches: true,
+        ignoreURLParametersMatching: [/^v$/],
         /*
          * A precache entry with a null revision tells Workbox the URL is
          * immutable, so it is never re-fetched again on any later update.

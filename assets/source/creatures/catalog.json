@@ -121,10 +121,10 @@
       "name": "Caribbean reef squid",
       "path": "assets/source/creatures/caribbean-reef-squid/candidate-v1.webp",
       "score": 7.8,
-      "status": "keep",
+      "status": "remake",
       "identity": "high",
       "ingestMode": "opaque-scene",
-      "qaNote": "Resolved: elongate mantle, full-length lateral fins and reef-squid posture are recognizable; multi-animal composition is acceptable editorially.",
+      "qaNote": "Owner rejected the vector-like appearance seen in the deployed app. Keep this immutable source as history and show the squid raster silhouette until a realistic replacement is reviewed.",
       "bytes": 107806,
       "sha256": "c8285bd1b4ba7f7bb7960ea2a325a3ed93a52965d8e5ff68df2841ebef52d4be"
     },

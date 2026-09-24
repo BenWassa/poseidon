@@ -104,13 +104,21 @@ describe('the Mexican Caribbean content pack', () => {
 
     for (const creature of illustrated) {
       const artwork = creature.artwork;
-      expect(artwork?.thumb).toBe(
-        `/assets/creatures/${creature.id}/thumb.webp`,
+      expect(artwork?.thumb).toMatch(
+        new RegExp(
+          `^/assets/creatures/${creature.id}/thumb\\.webp\\?v=[a-f0-9]{16}$`,
+        ),
       );
-      expect(artwork?.gallery).toBe(
-        `/assets/creatures/${creature.id}/gallery.webp`,
+      expect(artwork?.gallery).toMatch(
+        new RegExp(
+          `^/assets/creatures/${creature.id}/gallery\\.webp\\?v=[a-f0-9]{16}$`,
+        ),
       );
-      expect(artwork?.hero).toBe(`/assets/creatures/${creature.id}/hero.webp`);
+      expect(artwork?.hero).toMatch(
+        new RegExp(
+          `^/assets/creatures/${creature.id}/hero\\.webp\\?v=[a-f0-9]{16}$`,
+        ),
+      );
       expect(artwork?.aspectRatio).toBe(1);
     }
   });
@@ -133,6 +141,7 @@ describe('the Mexican Caribbean content pack', () => {
         .map((asset) => asset.creatureId),
     );
     expect(remakeIds.size).toBeGreaterThan(0);
+    expect(remakeIds.has('caribbean-reef-squid')).toBe(true);
 
     for (const creature of creatures) {
       if (!remakeIds.has(creature.id)) continue;
