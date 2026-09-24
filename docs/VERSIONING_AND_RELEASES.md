@@ -390,6 +390,16 @@ The repository policy above remains authority until the owner explicitly chooses
 
 Bootstrap completed on **2026-09-13**. Release Please created the first named release, **Poseidon 0.1.0**, from commit `63a601a36c0d92a11dfea2c1239c4866daed16ae`. The published tag is `poseidon-v0.1.0`, matching Release Please's component-aware repository convention. No fictional historical releases were created. Future releases follow the same reviewable release-PR flow.
 
+### Release Please history recovery
+
+On 2026-09-24, the app had already advanced to version 0.1.2 at commit
+`106bbeb`, but no matching `poseidon-v0.1.2` release/tag had been published.
+Release Please therefore fell back to the merged 0.1.0 release PR and proposed
+an invalid downgrade. The top-level `last-release-sha` in
+`release-please-config.json` temporarily anchors the current patch proposal at
+the existing 0.1.2 version commit. Remove that override after the 0.1.3 release
+PR is merged so later proposals use the newly merged release PR as their base.
+
 ## Git tag and GitHub Release rules
 
 For every named release:
