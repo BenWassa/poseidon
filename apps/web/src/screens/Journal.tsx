@@ -4,7 +4,13 @@
  */
 import { useState } from 'react';
 
-import { ArrowRight, BookOpen, Clock, Gauge, Waves } from 'lucide-react';
+import {
+  ArrowDownToLine,
+  ArrowRight,
+  BookOpen,
+  Clock,
+  Waves,
+} from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 import {
@@ -180,7 +186,7 @@ export function Journal() {
                             </p>
                             <div className="mt-auto flex items-center gap-3 pt-3 text-[13px] font-bold text-abyss/50">
                               <span className="flex items-center gap-1.5">
-                                <Gauge size={14} aria-hidden="true" />
+                                <ArrowDownToLine size={14} aria-hidden="true" />
                                 {formatDepth(dive.maxDepth)}
                               </span>
                               <span className="flex items-center gap-1.5">

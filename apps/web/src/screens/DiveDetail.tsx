@@ -6,7 +6,15 @@
  * clock time are not part of Poseidon's model and are deliberately absent.
  */
 import { useEffect, useState } from 'react';
-import { Check, Clock, Gauge, Pencil, Ship, Trash2, Users } from 'lucide-react';
+import {
+  ArrowDownToLine,
+  Check,
+  Clock,
+  Pencil,
+  Ship,
+  Trash2,
+  Users,
+} from 'lucide-react';
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 
 import { CreatureTile } from '../components/CreatureTile';
@@ -75,7 +83,7 @@ export function DiveDetail() {
       <div>
         <TopBar title="Dive" onBack={() => navigate('/journal')} />
         <EmptyState
-          icon={<Gauge size={32} aria-hidden="true" />}
+          icon={<ArrowDownToLine size={32} aria-hidden="true" />}
           title="This dive is no longer here"
           body="It may have been deleted. Your other dives are safe in the journal."
         />
@@ -125,7 +133,7 @@ export function DiveDetail() {
 
       <div className="mt-5 flex gap-3 px-5">
         <Metric
-          icon={<Gauge size={22} aria-hidden="true" />}
+          icon={<ArrowDownToLine size={22} aria-hidden="true" />}
           label="Max depth"
           value={formatDepth(dive.maxDepth)}
         />
