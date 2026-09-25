@@ -15,6 +15,22 @@ The curated Mexican-Caribbean library contains 56 creatures.
 
 The 34 remake decisions are visual/editorial decisions. Existing runtime files remain valid pipeline/history artifacts until a reviewed replacement is promoted, but the application deliberately renders the neutral fallback for these records rather than displaying rejected art.
 
+### 2026-09-24 lane B / #63 approved-candidate snapshot
+
+Lane B has completed its species audit and owner-approved correction pass. Immutable source history is preserved.
+
+- blue tang — **PASS**, retain `assets/source/creatures/blue-tang/candidate-v3.webp`;
+- doctorfish — **REMADE**, `assets/source/creatures/doctorfish/candidate-v4.webp`;
+- ocean surgeonfish — **REMADE**, `assets/source/creatures/ocean-surgeonfish/candidate-v4.webp`;
+- Spanish hogfish — **REMADE**, `assets/source/creatures/spanish-hogfish/candidate-v4.webp`;
+- bluehead wrasse — **REMADE**, `assets/source/creatures/bluehead-wrasse/candidate-v4.webp`;
+- yellowhead wrasse — **REMADE**, `assets/source/creatures/yellowhead-wrasse/candidate-v4.webp`;
+- queen parrotfish — **REMADE**, `assets/source/creatures/queen-parrotfish/candidate-v4.webp`;
+- princess parrotfish — **REMADE**, `assets/source/creatures/princess-parrotfish/candidate-v4.webp`;
+- redband parrotfish — **REMADE**, `assets/source/creatures/redband-parrotfish/candidate-v5.webp`.
+
+These are source candidates only. `catalog.json`, runtime assets/manifests, taxonomy and promotion state remain unchanged. Final catalog/runtime promotion stays centralized after cross-library review.
+
 ## Target visual family
 
 Poseidon creature art is realistic field-guide artwork, not vector illustration and not an unrelated stock-photo collection.
