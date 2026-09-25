@@ -7,13 +7,13 @@ Owner review authority: 2026-09-18
 
 The curated Mexican-Caribbean library contains 56 creatures.
 
-- 22 keep
+- 21 keep
 - 0 provisional
-- 34 remake
+- 35 remake
 - 56 mapped source entries
 - 56 canonical runtime manifests
 
-The 34 remake decisions are visual/editorial decisions. Existing runtime files remain valid pipeline/history artifacts until a reviewed replacement is promoted, but the application deliberately renders the neutral fallback for these records rather than displaying rejected art.
+The 35 remake decisions are visual/editorial decisions. Existing runtime files remain valid pipeline/history artifacts until a reviewed replacement is promoted, but the application deliberately renders the neutral fallback for these records rather than displaying rejected art.
 
 ## Target visual family
 
@@ -39,10 +39,9 @@ Source format remains 1024×1024 opaque raster art.
 
 ### 1. Style authority
 
-`CLAUDE.md` already establishes the 22 current `keep` candidates as the durable design-reference set. These are the style authority for #60:
+`CLAUDE.md` establishes the 21 current `keep` candidates as the durable design-reference set. These are the style authority for #60:
 
 - banded coral shrimp
-- Caribbean reef squid
 - Caribbean spiny lobster
 - French angelfish
 - great barracuda
@@ -106,6 +105,24 @@ Production agents own generation and visual/species QA only. They must not edit 
 7. black grouper
 8. splendid toadfish
 
+#### Lane A production status — 2026-09-24
+
+Five owned species now have owner-approved first-pass HD replacements preserved as new immutable `candidate-v3.webp` revisions on `art/issue-62-distinctive-form-remakes`:
+
+- loggerhead sea turtle
+- Caribbean reef octopus
+- spotted moray
+- black grouper
+- splendid toadfish
+
+Three generated candidates were deliberately **not** committed after comparison with historical source revisions:
+
+- spotted eagle ray — new render was too close to the existing v1 visual treatment;
+- Caribbean cushion sea star — new render repeated the v1 concept and remained too flat for the required inflated cushion morphology;
+- queen conch — new render repeated the v1 composition too closely.
+
+These five v3 files are source candidates only. They remain unpromoted and the machine-readable catalog is unchanged pending the cross-library/human integration step.
+
 ### Lane B — wrasse / surgeon / parrotfish
 
 1. blue tang
@@ -141,7 +158,13 @@ Production agents own generation and visual/species QA only. They must not edit 
 7. mutton snapper
 8. rock beauty
 
-Total: 34 species, no overlap.
+Original four-lane total: 34 species, no overlap.
+
+### Supplemental remake added 2026-09-24
+
+- Caribbean reef squid
+
+The owner re-review on 2026-09-24 moved Caribbean reef squid from `keep` to `remake` because its deployed image still read as vector-like. This raises the current programme to 35 remakes without changing the original four-lane ownership.
 
 ## Per-candidate acceptance
 
@@ -179,7 +202,7 @@ Each generated candidate must pass all four dimensions.
 1. use the 22 `keep` candidates in `CLAUDE.md` as shared style authority;
 2. dispatch four isolated generation lanes;
 3. each lane generates and rejects/remakes failures against species diagnostics;
-4. collect all 34 accepted lane candidates without promoting them;
+4. collect all 35 accepted remake candidates without promoting them;
 5. review the complete 34-image set together for collection consistency;
 6. send visual outliers back for another generation even if individually attractive;
 7. add accepted outputs as new immutable `candidate-vN` source revisions;
@@ -202,8 +225,8 @@ Each generated candidate must pass all four dimensions.
 
 #60 is complete only when:
 
-- the 22-image design-reference set remains durable repository authority;
-- all 34 remakes have human-accepted replacements;
+- the 21-image design-reference set remains durable repository authority;
+- all 35 remakes have human-accepted replacements;
 - catalog reports 56 keep / 0 provisional / 0 remake;
 - every replacement is preserved as an immutable source revision;
 - canonical runtime variants are promoted and verified;
