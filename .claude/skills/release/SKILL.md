@@ -17,13 +17,17 @@ description: Release Poseidon using Release Please and publish Firebase Hosting.
 5. Confirm Release Please published the matching `poseidon-vX.Y.Z` tag and
    GitHub Release. GitHub Pages deploys automatically from `main` via
    `.github/workflows/deploy-pages.yml`.
+6. An explicit request to run a release includes publishing Firebase Hosting
+   as part of that release. Do not stop after GitHub Pages or ask the user
+   whether Firebase should also be deployed.
 
 ## Firebase Hosting
 
 Firebase Hosting is a separate production target configured in `firebase.json`.
 The project default is `poseidon-e1e34` in `.firebaserc`.
 
-After the release source is committed and pushed, run:
+After the release source is committed and pushed (and, for Release Please,
+after the release PR has been merged), verify the configured project and run:
 
 ```bash
 npm run release:hosting
@@ -31,7 +35,8 @@ npm run release:hosting
 
 This builds the app and deploys only Firebase Hosting. Firebase CLI uses the
 configured project; verify `npx -y firebase-tools@latest use` before deployment.
-Do not assume the GitHub Pages deployment also updated Firebase Hosting.
+Always run this Hosting deploy during an explicitly requested release. A
+GitHub Pages deployment does not update Firebase Hosting.
 The Hosting config disables browser caching for the app shell, service worker,
 and creature assets so phones fetch the current release; preserve these headers
 when changing `firebase.json`.
