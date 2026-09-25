@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.1](https://github.com/BenWassa/poseidon/compare/poseidon-v0.2.0...poseidon-v0.2.1) (2026-09-25)
+
+
+### Bug Fixes
+
+* **pwa:** snooze dismissed install prompts ([1168a22](https://github.com/BenWassa/poseidon/commit/1168a22d9cadea15f91656fecb13b695841d71ee))
+
 ## [0.2.0](https://github.com/BenWassa/poseidon/compare/poseidon-v0.1.3...poseidon-v0.2.0) (2026-09-25)
 
 
