@@ -63,7 +63,9 @@ Schema versions are not product versions. They exist only where migration/valida
 
 ### Deployment
 
-A built revision published to GitHub Pages.
+A built revision published to a configured production target. Poseidon currently
+publishes to GitHub Pages on pushes to `main` and Firebase Hosting through
+`npm run release:hosting`.
 
 The current repository deploys `main` continuously. A deployment therefore does not automatically create a named product release.
 
@@ -226,7 +228,13 @@ The implementation should make the version/build string easy to report or copy w
 
 ## Continuous deployment versus releases
 
-Poseidon currently deploys GitHub Pages on every push to `main`.
+Poseidon currently deploys GitHub Pages on every push to `main`. Firebase Hosting
+is a separate target and must be published explicitly with `npm run
+release:hosting` after building the current source. That script deploys Hosting
+only. If `firestore.rules` or `firestore.indexes.json` changes, review and deploy
+the changed Firestore configuration as part of the release with
+`npx -y firebase-tools@latest deploy --only firestore:rules,firestore:indexes`
+(add `hosting` to the target list when deploying both in one operation).
 
 That model remains valid.
 

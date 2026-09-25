@@ -10,6 +10,7 @@
   ],
   "scripts": {
     "build": "npm run build --workspace @poseidon/domain && npm run build --workspace @poseidon/web",
+    "release:hosting": "npm run build && npx -y firebase-tools@latest deploy --only hosting",
     "check": "npm run lint && npm run format:check && npm run typecheck && npm run test",
     "check:assets": "npm run validate:content && npm run validate:assets && npm run test:assets",
     "lint": "eslint . --max-warnings=0",
