@@ -8,7 +8,8 @@ Before implementation, read:
 4. `docs/APPLICATION.md`
 5. `docs/CONTENT_AND_ASSETS.md`
 6. `AGENTS.md`
-7. the GitHub issue you are executing
+7. for any creature-art generation/replacement work: `docs/CREATURE_ART_PRODUCTION_WORKFLOW.md`
+8. the GitHub issue you are executing
 
 Poseidon is primarily a **personal-use recreational dive journal**, not a public-growth startup product.
 
@@ -35,6 +36,8 @@ Key product laws:
 Current residual work is tracked under issue #5 and the child issues listed in `docs/PROJECT_STATUS.md`. Preserve completed #2/#3/#4/#6 work unless the active issue explicitly requires a compatible extension.
 
 ## Current creature-art editorial review
+
+For any new or replacement creature artwork, `docs/CREATURE_ART_PRODUCTION_WORKFLOW.md` is mandatory execution authority. Its generate/review -> publish/document separation, independent-file rule, owner approval gate, immutable revisions, per-species commits and lane-branch model apply even when older issue text says otherwise.
 
 The 2026-09-18 owner review is the current source-art authority: **21 keep / 35 remake** in `assets/source/creatures/catalog.json`. `remake` means the current source candidate cannot be promoted or replaced until a new immutable candidate has passed review. The app (`apps/web/src/data/content.ts`) cross-references this catalog at load time and renders the neutral family-morphology fallback silhouette for any `remake`-flagged creature instead of its rejected art, even though the on-disk `assets/creatures/<id>/manifest.json` still says `curated`; the creature itself is never removed from logging or browsing. Do not overwrite existing source revisions; add `candidate-vN.webp` revisions and update the catalog only after review.
 
