@@ -38,6 +38,23 @@ The curated Mexican-Caribbean catalogue contains **56 stable creature IDs**. Run
 
 Runtime format and source style remain separate questions. The former #33 outputs were technically valid WebP runtime assets but originated from procedural SVG/vector-assisted workflows; #55 replaced all 26 with reviewed realistic raster source revisions.
 
+## #62 Lane A remake production — 2026-09-24
+
+Lane A was checked against every existing v1/v2 source revision before new files were added.
+
+| Creature | New source state | Notes |
+| --- | --- | --- |
+| Loggerhead sea turtle | `candidate-v3.webp` committed | New HD composition; source candidate only, not promoted. |
+| Caribbean reef octopus | `candidate-v3.webp` committed | New reef-context HD composition; source candidate only, not promoted. |
+| Spotted moray | `candidate-v3.webp` committed | New bright reef-context HD composition; source candidate only, not promoted. |
+| Black grouper | `candidate-v3.webp` committed | New HD composition; source candidate only, not promoted. |
+| Splendid toadfish | `candidate-v3.webp` committed | New HD composition retaining the locked dark-head/pale-line/orange-fin diagnostic direction; source candidate only, not promoted. |
+| Spotted eagle ray | Pending fresh generation | Latest render was withheld because it repeated the historical v1 visual treatment too closely. |
+| Caribbean cushion sea star | Pending fresh generation | Latest render was withheld because it repeated v1 and remained too flat for the inflated cushion form. |
+| Queen conch | Pending fresh generation | Latest render was withheld because its composition repeated v1 too closely. |
+
+No catalog status, runtime manifest, taxonomy or promoted asset changed in this production step. The five committed v3 files remain immutable source candidates for the later collection-level review.
+
 ## Historical 30-asset realistic-HD programme
 
 These are the original HD-source programme records. The later 2026-09-18 cross-library review is the current authority: 21 remain `keep` and 9 are now `remake`. Preserve every immutable source revision; do not infer current approval from this historical programme list.
