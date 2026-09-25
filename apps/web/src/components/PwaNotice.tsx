@@ -43,7 +43,7 @@ export function PwaNotice() {
   return (
     <aside
       aria-live="polite"
-      className="safe-top absolute inset-x-4 top-0 z-50 rounded-card border border-border bg-surface p-4 shadow-float"
+      className="safe-top absolute inset-x-4 top-0 z-50 rounded-card border border-border bg-surface/96 p-4 shadow-float backdrop-blur-xl"
     >
       <div className="flex items-start gap-3">
         <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-aqua-soft text-marine">

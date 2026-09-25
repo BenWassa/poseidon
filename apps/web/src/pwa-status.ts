@@ -24,6 +24,9 @@ const INITIAL_STATUS: PwaStatus = {
   installPromptMode: null,
 };
 
+const INSTALL_DISMISSED_KEY = 'poseidon.pwa.install-dismissed-until';
+const INSTALL_REMINDER_DELAY_MS = 7 * 24 * 60 * 60 * 1000;
+
 let status = INITIAL_STATUS;
 let updateServiceWorker: UpdateServiceWorker | null = null;
 let deferredInstallPrompt: DeferredInstallPrompt | null = null;
@@ -58,12 +61,26 @@ export function announceUpdateAvailable(update: UpdateServiceWorker) {
 
 export function announceInstallAvailable(prompt: DeferredInstallPrompt) {
   deferredInstallPrompt = prompt;
-  emit({ ...status, installPromptMode: 'native' });
+  emit({
+    ...status,
+    installPromptMode: canShowInstallPrompt() ? 'native' : null,
+  });
 }
 
 export function announceIosInstallAvailable() {
   if (status.installPromptMode === 'native') return;
-  emit({ ...status, installPromptMode: 'ios' });
+  emit({ ...status, installPromptMode: canShowInstallPrompt() ? 'ios' : null });
+}
+
+function canShowInstallPrompt(): boolean {
+  try {
+    return (
+      Number(window.localStorage.getItem(INSTALL_DISMISSED_KEY) ?? 0) <=
+      Date.now()
+    );
+  } catch {
+    return true;
+  }
 }
 
 export function clearInstallPrompt() {
@@ -72,6 +89,14 @@ export function clearInstallPrompt() {
 }
 
 export function dismissInstallPrompt() {
+  try {
+    window.localStorage.setItem(
+      INSTALL_DISMISSED_KEY,
+      String(Date.now() + INSTALL_REMINDER_DELAY_MS),
+    );
+  } catch {
+    // Installation guidance must remain usable when storage is unavailable.
+  }
   clearInstallPrompt();
 }
 
@@ -86,9 +111,16 @@ export function dismissUpdate() {
 export async function requestInstall() {
   const prompt = deferredInstallPrompt;
   if (!prompt) return;
-  await prompt.prompt();
-  await prompt.userChoice;
-  clearInstallPrompt();
+  try {
+    await prompt.prompt();
+    const choice = await prompt.userChoice;
+    if (choice.outcome === 'dismissed') {
+      dismissInstallPrompt();
+      return;
+    }
+  } finally {
+    clearInstallPrompt();
+  }
 }
 
 export async function applyUpdate() {
@@ -100,5 +132,10 @@ export function resetPwaStatus() {
   status = INITIAL_STATUS;
   updateServiceWorker = null;
   deferredInstallPrompt = null;
+  try {
+    window.localStorage.removeItem(INSTALL_DISMISSED_KEY);
+  } catch {
+    // Tests can reset module state even if storage is disabled.
+  }
   for (const listener of listeners) listener();
 }
