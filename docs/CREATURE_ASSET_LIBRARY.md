@@ -1,6 +1,6 @@
 # Poseidon Creature Asset Library
 
-Last updated: **2026-09-24**
+Last updated: **2026-09-25**
 
 This is the human inventory and production-order authority for Poseidon creature artwork. The machine-readable provenance authority is [`assets/source/creatures/catalog.json`](../assets/source/creatures/catalog.json). Runtime assets remain under `assets/creatures/` and are produced only through the canonical #11 pipeline.
 
@@ -37,6 +37,24 @@ The curated Mexican-Caribbean catalogue contains **56 stable creature IDs**. Run
 | Original HD source programme | 30 | Canonical WebP variants exist; 21 currently display as approved art and 9 are suppressed as remakes | The current cross-library review, rather than historical promotion, determines display approval. |
 | #33 coverage programme | 26 | Realistic raster replacements were promoted under #55, then all 26 were marked `remake` in the current review and render fallbacks | Preserve immutable raster revisions as history; replace and re-review before any future display approval or #34 derivation. |
 | Legacy SVG creature tooling/fallbacks | Not part of the 56-source inventory | Repository/tooling/fallback only | **Deprecated for marine-life artwork. Do not create new creature SVGs.** |
+
+## Issue #64 Lane C finalization — immutable source revisions complete
+
+The PR #67 review-stage batch has been audited against current biological diagnostics, the keep-set visual family and card-scale readability. All nine Lane C species now have an approved next immutable source revision, `candidate-v3.webp`, on the focused Lane C finalization branch.
+
+| Species | Finalization result | `candidate-v3` source |
+| --- | --- | --- |
+| spotted trunkfish | PASS | exact PR #67 review-stage image preserved unchanged |
+| banded butterflyfish | PASS | exact PR #67 review-stage image preserved unchanged |
+| foureye butterflyfish | PASS | exact PR #67 review-stage image preserved unchanged |
+| blue chromis | REMAKE | new approved replacement with stronger forked/dark-margined caudal identity |
+| yellowtail damselfish | PASS | exact PR #67 review-stage image preserved unchanged |
+| bicolor damselfish | PASS | exact PR #67 review-stage image preserved unchanged |
+| honeycomb cowfish | PASS | exact PR #67 review-stage image preserved unchanged |
+| sharpnose puffer | REMAKE | new approved replacement with corrected pointed-snout/body and characteristic tail treatment |
+| balloonfish | REMAKE | new approved replacement with long erectile spines, dark eye-bar/body blotches and normal swimming form |
+
+Every previous source candidate remains intact. These Lane C revisions are **source-finalization only**: `assets/source/creatures/catalog.json`, runtime assets/manifests, taxonomy, application content and promotion state were intentionally not changed. Those belong to the later centralized full-library integration pass after cross-library review.
 
 Runtime format and source style remain separate questions. The former #33 outputs were technically valid WebP runtime assets but originated from procedural SVG/vector-assisted workflows; #55 replaced all 26 with reviewed realistic raster source revisions.
 
@@ -229,6 +247,6 @@ assets/creatures/<stable-id>/                   # canonical runtime only
 
 ## Work sequence
 
-1. **#60 — active:** replace and review the 35 `remake` candidates, promoting only accepted immutable revisions until the catalogue returns to 56 `keep`.
+1. **#60 — active:** replace and review the 35 `remake` candidates, promoting only accepted immutable revisions until the catalogue returns to 56 `keep`. Lane C / issue #64 source finalization is complete; catalog/runtime integration remains deferred to the centralized cross-library pass.
 2. **#34 — next where useful:** derive transparent raster specimen revisions only from currently approved realistic opaque masters; preserve originals and manually QA difficult alpha edges.
 3. Creature-count expansion can be considered separately after the current 56-creature visual family and any desired #34 extraction work are accepted.
