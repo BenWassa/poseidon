@@ -8,29 +8,29 @@
     "variants": {
       "gallery": {
         "aspectRatio": 1.0,
-        "bytes": 43972,
+        "bytes": 26632,
         "height": 512,
         "mediaType": "image/webp",
         "path": "gallery.webp",
-        "sha256": "370fe8b45a2575efa86eb4ee36b89ef124ee2e5f6235a060c282786f18213333",
+        "sha256": "feadbbe09d24bf9bdae48de1f6134284897b68b6c684479189a5f54d7d13deb9",
         "width": 512
       },
       "hero": {
         "aspectRatio": 1.0,
-        "bytes": 166920,
+        "bytes": 87658,
         "height": 1024,
         "mediaType": "image/webp",
         "path": "hero.webp",
-        "sha256": "ef3ff3014e780496219bfbfb2fc8f58b85e6b929015f91dcb78773438aaedaaf",
+        "sha256": "954b81eec6d3a74e6d91068819e8a1cb336af3c8594ed01584a51b265e7f7136",
         "width": 1024
       },
       "thumb": {
         "aspectRatio": 1.0,
-        "bytes": 6080,
+        "bytes": 4442,
         "height": 192,
         "mediaType": "image/webp",
         "path": "thumb.webp",
-        "sha256": "5f516cec15cb869d806f56e22439ac06efbc3d19e816b1b234c0d9516eaca79b",
+        "sha256": "9378236917b8d43ffef01eb10a6a38c2217ba31bbca87a0224b1cee5cace7b17",
         "width": 192
       }
     }
@@ -38,11 +38,11 @@
   "creatureId": "bluehead-wrasse",
   "source": {
     "aspectRatio": 1.0,
-    "bytes": 386094,
+    "bytes": 79774,
     "format": "webp",
     "height": 1024,
     "mode": "opaque-scene",
-    "sha256": "dc0189a788fb63466bb0a4dd2fd759d587aedf032d7cba4e01a21fdbbaf884a2",
+    "sha256": "31c9cfc14488d14590dabd96fcee3b854fdefab34ae303a8b6c9a8bc3943f029",
     "width": 1024
   },
   "version": 1

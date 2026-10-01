@@ -6,9 +6,9 @@
   "binaryImportStatus": "complete",
   "summary": {
     "total": 56,
-    "keep": 25,
+    "keep": 26,
     "provisional": 0,
-    "remake": 31
+    "remake": 30
   },
   "provenance": {
     "generator": "ChatGPT image generation",
@@ -998,27 +998,47 @@
       "id": "bluehead-wrasse",
       "creatureId": "bluehead-wrasse",
       "name": "Bluehead wrasse",
-      "path": "assets/source/creatures/bluehead-wrasse/candidate-v2.webp",
+      "path": "assets/source/creatures/bluehead-wrasse/candidate-v4.webp",
       "score": 9.6,
-      "status": "remake",
+      "status": "keep",
       "identity": "high",
       "ingestMode": "opaque-scene",
-      "qaNote": "Issue #55 realistic replacement: licensed Caribbean underwater photograph explicitly documenting terminal-phase Thalassoma bifasciatum. The vivid blue head and green body are separated by the diagnostic black-and-white vertical bars, giving strong species identity at full and card scale while replacing the former vector-derived source.",
-      "generator": "licensed underwater photograph",
-      "generatedOn": "2026-09-17",
-      "generationBatch": "issue-55-realistic-one-by-one",
-      "styleFamily": "poseidon-sunlit-square-v1",
-      "bytes": 386094,
-      "sha256": "dc0189a788fb63466bb0a4dd2fd759d587aedf032d7cba4e01a21fdbbaf884a2",
+      "qaNote": "Issue #60 integration: recorded owner-approved candidate v4; visually inspected for diagnostic identity, natural underwater treatment, source/card readability and collection cohesion. Approval/publication evidence: https://github.com/BenWassa/poseidon/pull/69. Historical numeric editorial score is retained; no new numeric score was assigned.",
+      "bytes": 79774,
+      "sha256": "31c9cfc14488d14590dabd96fcee3b854fdefab34ae303a8b6c9a8bc3943f029",
       "scientificName": "Thalassoma bifasciatum",
+      "previousCandidateMetadata": {
+        "path": "assets/source/creatures/bluehead-wrasse/candidate-v2.webp",
+        "score": 9.6,
+        "status": "remake",
+        "identity": "high",
+        "ingestMode": "opaque-scene",
+        "qaNote": "Issue #55 realistic replacement: licensed Caribbean underwater photograph explicitly documenting terminal-phase Thalassoma bifasciatum. The vivid blue head and green body are separated by the diagnostic black-and-white vertical bars, giving strong species identity at full and card scale while replacing the former vector-derived source.",
+        "generator": "licensed underwater photograph",
+        "generatedOn": "2026-09-17",
+        "generationBatch": "issue-55-realistic-one-by-one",
+        "styleFamily": "poseidon-sunlit-square-v1",
+        "bytes": 386094,
+        "sha256": "dc0189a788fb63466bb0a4dd2fd759d587aedf032d7cba4e01a21fdbbaf884a2",
+        "provenance": {
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:Bluehead_Thalassoma_bifasciatum_terminal_phase_(3474436593).jpg",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Bluehead_Thalassoma_bifasciatum_terminal_phase_(3474436593).jpg",
+          "author": "Paul Asman and Jill Lenoble",
+          "license": "CC BY 2.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+          "transformation": "square crop, resize to 1024x1024, WebP encode; no generative anatomy edits",
+          "styleFamily": "poseidon-sunlit-square-v1"
+        }
+      },
+      "generator": "Owner-published AI-generated artwork",
+      "generationBatch": "issue-60-approved-integration",
+      "publishedOn": "2026-10-01",
       "provenance": {
-        "sourcePage": "https://commons.wikimedia.org/wiki/File:Bluehead_Thalassoma_bifasciatum_terminal_phase_(3474436593).jpg",
-        "sourceUrl": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Bluehead_Thalassoma_bifasciatum_terminal_phase_(3474436593).jpg",
-        "author": "Paul Asman and Jill Lenoble",
-        "license": "CC BY 2.0",
-        "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
-        "transformation": "square crop, resize to 1024x1024, WebP encode; no generative anatomy edits",
-        "styleFamily": "poseidon-sunlit-square-v1"
+        "sourceRevision": "assets/source/creatures/bluehead-wrasse/candidate-v4.webp",
+        "approvalEvidence": "https://github.com/BenWassa/poseidon/pull/69",
+        "integrationOn": "2026-10-01",
+        "transformation": "Exact immutable opaque 1024x1024 WebP input; deterministic canonical pipeline only.",
+        "rightsNote": "Owner-published generated source. Superseded photograph attribution is retained only in previousCandidateMetadata."
       }
     },
     {
