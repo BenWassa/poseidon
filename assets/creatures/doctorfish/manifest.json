@@ -8,29 +8,29 @@
     "variants": {
       "gallery": {
         "aspectRatio": 1.0,
-        "bytes": 22882,
+        "bytes": 30754,
         "height": 512,
         "mediaType": "image/webp",
         "path": "gallery.webp",
-        "sha256": "196436eb921dc2960bfffed3938b92effe5ee54530a7132f5bf78f4b5811fd21",
+        "sha256": "58f890a861acc57c589c740976f7ba6e539935e222a60c98cf3e46e2f4ad1cb1",
         "width": 512
       },
       "hero": {
         "aspectRatio": 1.0,
-        "bytes": 85770,
+        "bytes": 118704,
         "height": 1024,
         "mediaType": "image/webp",
         "path": "hero.webp",
-        "sha256": "e0e83fd277964309d18d2924f94f6c909e865a28110ec053c41ba42b9f74ac37",
+        "sha256": "3dc30996d5479d6f656ebb1b01ba8b424c8647964f706a87609569c693c38327",
         "width": 1024
       },
       "thumb": {
         "aspectRatio": 1.0,
-        "bytes": 4464,
+        "bytes": 4776,
         "height": 192,
         "mediaType": "image/webp",
         "path": "thumb.webp",
-        "sha256": "527afb0b81dd81382238c9103e18587984c29b25999962397a8846fb2f187e7a",
+        "sha256": "8c4934ae2a407f8b5a720581d75366ec5774ddec500c6fa6b009926a7a4d878c",
         "width": 192
       }
     }
@@ -38,11 +38,11 @@
   "creatureId": "doctorfish",
   "source": {
     "aspectRatio": 1.0,
-    "bytes": 132452,
+    "bytes": 106780,
     "format": "webp",
     "height": 1024,
     "mode": "opaque-scene",
-    "sha256": "625d04d0417cc47539ae238e2fcafcc4c102aa77e9ae44bfb2bb5f8268bf5afd",
+    "sha256": "1104655d6915352d150a6882ec79669b6fecf9584a17d96f2813162a1af6e885",
     "width": 1024
   },
   "version": 1

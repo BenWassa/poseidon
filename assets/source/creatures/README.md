@@ -10,7 +10,7 @@ Application code must never import from `assets/source`. The React/Vite app cont
 
 ## Current batch
 
-The original 2026-09-07 `poseidon-sunlit-square-v1` library has 30 mapped 1024×1024 opaque-scene entries. That batch previously reached **30 keep / 0 provisional / 0 remake** after focused QA and immutable replacement revisions. The current cross-library owner review, including the 2026-09-24 Caribbean reef squid reclassification, is recorded in `catalog.json`: **21 keep / 0 provisional / 35 remake**. Four entries from #38 and four from #39 use accepted `candidate-v2.webp` revisions; every original `candidate-v1.webp` remains immutable on disk.
+The original 2026-09-07 `poseidon-sunlit-square-v1` library has 30 mapped 1024×1024 opaque-scene entries. That batch previously reached **30 keep / 0 provisional / 0 remake** after focused QA and immutable replacement revisions. The current cross-library owner review, including the 2026-09-24 Caribbean reef squid reclassification, established a 21 keep / 35 remake baseline. The 2026-10-01 partial integration selected and promoted 19 recorded approved replacements; `catalog.json` now records **40 keep / 0 provisional / 16 remake**. Historically four entries from #38 and four from #39 used accepted `candidate-v2.webp` revisions; every original `candidate-v1.webp` remains immutable on disk.
 
 Every catalog entry records:
 

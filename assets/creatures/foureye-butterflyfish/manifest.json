@@ -8,29 +8,29 @@
     "variants": {
       "gallery": {
         "aspectRatio": 1.0,
-        "bytes": 52568,
+        "bytes": 45812,
         "height": 512,
         "mediaType": "image/webp",
         "path": "gallery.webp",
-        "sha256": "596c9f4127fa33930470c4f6830b661d44c6aa2a2280be2be8faeb2c569470b8",
+        "sha256": "2808c8f78ee8fbd037eaa74ec6e0d0692f6758d6f0df624574ed351f017f72cc",
         "width": 512
       },
       "hero": {
         "aspectRatio": 1.0,
-        "bytes": 203524,
+        "bytes": 109338,
         "height": 1024,
         "mediaType": "image/webp",
         "path": "hero.webp",
-        "sha256": "b88f79422666fb49ec59ee9b0fc88977f8ce6b2483605a20423643593c0e2c09",
+        "sha256": "170338c376284548af7da855a037871b44da9c957b5db89b6abc449505dd3579",
         "width": 1024
       },
       "thumb": {
         "aspectRatio": 1.0,
-        "bytes": 8862,
+        "bytes": 9660,
         "height": 192,
         "mediaType": "image/webp",
         "path": "thumb.webp",
-        "sha256": "eb70f30a788e3138cc5df2fb5509e938f14c9d38a01917c937e52f4b294d9452",
+        "sha256": "c197a914691de2c84e2584a1405a477b1b6d68a3bb297bcc046ab3771ca2efb1",
         "width": 192
       }
     }
@@ -38,11 +38,11 @@
   "creatureId": "foureye-butterflyfish",
   "source": {
     "aspectRatio": 1.0,
-    "bytes": 311728,
+    "bytes": 57626,
     "format": "webp",
     "height": 1024,
     "mode": "opaque-scene",
-    "sha256": "8329667e225fb04b3d3a7e53e4ffd016942e1fdb008a87cb1014e79a76d5940f",
+    "sha256": "9b75ca5d1caf336db9b8832e97b41e065b82be79586fe496150c0272a800bfe0",
     "width": 1024
   },
   "version": 1

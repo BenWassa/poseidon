@@ -8,29 +8,29 @@
     "variants": {
       "gallery": {
         "aspectRatio": 1.0,
-        "bytes": 9164,
+        "bytes": 51812,
         "height": 512,
         "mediaType": "image/webp",
         "path": "gallery.webp",
-        "sha256": "29233e1e5372238342c199beb44ab527bb0588fd64721ff2cb23d9c119cf3c78",
+        "sha256": "4c36ac508f8e1360e1cebe4c3e3cb18f4e90df1ea5bbbe02e77a5a58a1727c9d",
         "width": 512
       },
       "hero": {
         "aspectRatio": 1.0,
-        "bytes": 26034,
+        "bytes": 186782,
         "height": 1024,
         "mediaType": "image/webp",
         "path": "hero.webp",
-        "sha256": "a658badf906ad406768568c7ee234477cdf7627f2c85bc1317f740942ddad324",
+        "sha256": "5d1e05dbd0074516d45c16a839631f54eb7f948d2a2348b0ede3e202d13b727d",
         "width": 1024
       },
       "thumb": {
         "aspectRatio": 1.0,
-        "bytes": 2332,
+        "bytes": 7704,
         "height": 192,
         "mediaType": "image/webp",
         "path": "thumb.webp",
-        "sha256": "9d01885c1f2175ad361dcce6930e5ea30124293fab2da0bc31c869dd78ae7e09",
+        "sha256": "87be105dea93999a72e990c46bb7d0f03bb252bbd5d0d83db3cb6a14338dca92",
         "width": 192
       }
     }
@@ -38,11 +38,11 @@
   "creatureId": "queen-conch",
   "source": {
     "aspectRatio": 1.0,
-    "bytes": 33046,
+    "bytes": 1277824,
     "format": "webp",
     "height": 1024,
     "mode": "opaque-scene",
-    "sha256": "233c2b04d43ad5ba3bfe426f0cc29b2b692ec4fd11e406c6df9ab3a412a24c95",
+    "sha256": "756e5aeae72cd459363ad9ac9edd9ebec557a20fd72af66c7d3a05f703d75616",
     "width": 1024
   },
   "version": 1

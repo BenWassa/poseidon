@@ -8,29 +8,29 @@
     "variants": {
       "gallery": {
         "aspectRatio": 1.0,
-        "bytes": 11314,
+        "bytes": 29672,
         "height": 512,
         "mediaType": "image/webp",
         "path": "gallery.webp",
-        "sha256": "c22fb9c4edada5477f6c354db6f162d5cd039e95bc629011d7981ac0c2e987cb",
+        "sha256": "fa35d5c1635b61b94f3c3055c8f313add19652e72dbf42a52977fcf5fa0f29ad",
         "width": 512
       },
       "hero": {
         "aspectRatio": 1.0,
-        "bytes": 28442,
+        "bytes": 99946,
         "height": 1024,
         "mediaType": "image/webp",
         "path": "hero.webp",
-        "sha256": "6fc54f19339e451bd41bbc92a0c51ae93a8e027cecd32b8789c7e3832659dbe5",
+        "sha256": "1b9cb1b85e1cefb880f25c429b7ff6f7cdc1f670c6fff70314938101c440062d",
         "width": 1024
       },
       "thumb": {
         "aspectRatio": 1.0,
-        "bytes": 2838,
+        "bytes": 4830,
         "height": 192,
         "mediaType": "image/webp",
         "path": "thumb.webp",
-        "sha256": "4bfcee26d56ebba9c4347a3e5b2fa07b38d2453f25f5973fed845f126509c7fa",
+        "sha256": "045c16925363946f921f395a56040dd371fc0868bb074eea06e777febf551861",
         "width": 192
       }
     }
@@ -38,11 +38,11 @@
   "creatureId": "spanish-hogfish",
   "source": {
     "aspectRatio": 1.0,
-    "bytes": 12248,
+    "bytes": 90662,
     "format": "webp",
     "height": 1024,
     "mode": "opaque-scene",
-    "sha256": "4403f5fcf8ea21d2c91a161b23fd9c534e28b2171d5a8f66a90be597f0bd0ba3",
+    "sha256": "f98ba85b30717a826744ed768a11d995948f93a773feade1ecb485d295f7687e",
     "width": 1024
   },
   "version": 1

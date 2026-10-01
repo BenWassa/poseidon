@@ -8,29 +8,29 @@
     "variants": {
       "gallery": {
         "aspectRatio": 1.0,
-        "bytes": 6882,
+        "bytes": 42058,
         "height": 512,
         "mediaType": "image/webp",
         "path": "gallery.webp",
-        "sha256": "650038939d30423ea2d5f1c1a5a1e941929827868a96f96faf6653ab2ee4707c",
+        "sha256": "e05e99a06ca3c611e64fb2c2ce3cc0a195dbb35c51e369598b556a8138654c3e",
         "width": 512
       },
       "hero": {
         "aspectRatio": 1.0,
-        "bytes": 18192,
+        "bytes": 109284,
         "height": 1024,
         "mediaType": "image/webp",
         "path": "hero.webp",
-        "sha256": "c434e9e37987563e06426c450758ed497636320464ef141261cb878c9dae56bf",
+        "sha256": "899727fbf7890215d7a44dd711f7107e0191d1ace777cc814906500a2fa2e612",
         "width": 1024
       },
       "thumb": {
         "aspectRatio": 1.0,
-        "bytes": 1752,
+        "bytes": 7250,
         "height": 192,
         "mediaType": "image/webp",
         "path": "thumb.webp",
-        "sha256": "8ac078b4f915d836c866546444095980da1e023963ececb52e6293ad01f04d5b",
+        "sha256": "56ba55c7699c6b8c6248fe325f700db7c992f7a827ffc2e62278079da1025aee",
         "width": 192
       }
     }
@@ -38,11 +38,11 @@
   "creatureId": "blue-tang",
   "source": {
     "aspectRatio": 1.0,
-    "bytes": 7924,
+    "bytes": 79256,
     "format": "webp",
     "height": 1024,
     "mode": "opaque-scene",
-    "sha256": "95a78123f860742551754c0b896accbf3c14c20c87cd8f283ab696766b80b540",
+    "sha256": "4e4db0196aa5ab6ea71a7e20d04bb985d014954f7addae6fb3ea23f098472925",
     "width": 1024
   },
   "version": 1

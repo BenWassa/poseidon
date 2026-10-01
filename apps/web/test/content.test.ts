@@ -140,8 +140,7 @@ describe('the Mexican Caribbean content pack', () => {
         .filter((asset) => asset.status === 'remake')
         .map((asset) => asset.creatureId),
     );
-    expect(remakeIds.size).toBeGreaterThan(0);
-    expect(remakeIds.has('caribbean-reef-squid')).toBe(true);
+    expect(remakeIds.size).toBe(catalogJson.summary.remake);
 
     for (const creature of creatures) {
       if (!remakeIds.has(creature.id)) continue;
