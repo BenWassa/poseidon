@@ -151,6 +151,27 @@ Production agents own generation and visual/species QA only. They must not edit 
 8. sharpnose puffer
 9. balloonfish
 
+#### Lane C finalization — issue #64
+
+The PR #67 audit accepted six review-stage candidates unchanged. Their next immutable `candidate-v3.webp` source revisions are valid and preserved on the focused Lane C finalization branch:
+
+- spotted trunkfish
+- banded butterflyfish
+- foureye butterflyfish
+- yellowtail damselfish
+- bicolor damselfish
+- honeycomb cowfish
+
+Three species required remakes because the PR #67 review-stage images missed locked diagnostics:
+
+- blue chromis — stronger deeply forked, dark-margined caudal identity;
+- sharpnose puffer — corrected pointed-snout/body treatment and characteristic yellow/dark tail treatment;
+- balloonfish — corrected long erectile spines, dark eye-bar/body blotches and normal swimming presentation.
+
+The approved replacement image bytes for those three are unavailable in a decodable form. Their committed 31/34/31-byte blobs were removed from the current branch tree; the rejected PR #67 review-stage files were not substituted. Publication of those three immutable revisions remains blocked until the exact approved bytes are recovered. Earlier source candidates remain intact.
+
+This lane is therefore **partially published**: six valid immutable candidates are present, three replacements remain pending. Catalog verdicts remain at the current 21 keep / 35 remake baseline; runtime assets/manifests, taxonomy and application content are unchanged pending centralized full-library integration and cross-library review.
+
 ### Lane D — larger reef fish
 
 1. porkfish
