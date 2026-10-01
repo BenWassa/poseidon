@@ -8,29 +8,29 @@
     "variants": {
       "gallery": {
         "aspectRatio": 1.0,
-        "bytes": 12614,
+        "bytes": 67280,
         "height": 512,
         "mediaType": "image/webp",
         "path": "gallery.webp",
-        "sha256": "d40b6b5cedea91a8c79a8e6835c83105ed736b65232742cab2191a5fac396ba4",
+        "sha256": "b55cd048292db99b0061e0bfc8fac35e7b554cb11f5eccd5458557514beff763",
         "width": 512
       },
       "hero": {
         "aspectRatio": 1.0,
-        "bytes": 34592,
+        "bytes": 246622,
         "height": 1024,
         "mediaType": "image/webp",
         "path": "hero.webp",
-        "sha256": "8fdba32308dc311c9c565a6da99209bec7c4062609ca6f489e6a0725fce496b1",
+        "sha256": "de2c697f4bf8a04909dc5bacac544df291d9ed18b6048db0075dea952b871079",
         "width": 1024
       },
       "thumb": {
         "aspectRatio": 1.0,
-        "bytes": 3190,
+        "bytes": 9978,
         "height": 192,
         "mediaType": "image/webp",
         "path": "thumb.webp",
-        "sha256": "8bf69818716efc3ac8481f7f694eb3aa58a78d0ab8d78294f41756fb1b3f47b2",
+        "sha256": "ae623587c06ce37d765553b21bc4d12fffbb8208c164dfe0163a75bc8f1e7585",
         "width": 192
       }
     }
@@ -38,11 +38,11 @@
   "creatureId": "caribbean-cushion-sea-star",
   "source": {
     "aspectRatio": 1.0,
-    "bytes": 43466,
+    "bytes": 1450178,
     "format": "webp",
     "height": 1024,
     "mode": "opaque-scene",
-    "sha256": "f0d7f763d4fdea22d7a43712b074c44e010bea95a02e80e167fd2baa46d3a517",
+    "sha256": "bd0e853113a82d72e26e2985d5b4f155bebd64edae36e005161274c6cf5c0479",
     "width": 1024
   },
   "version": 1

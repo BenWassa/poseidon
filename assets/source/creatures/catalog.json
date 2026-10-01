@@ -6,9 +6,9 @@
   "binaryImportStatus": "complete",
   "summary": {
     "total": 56,
-    "keep": 31,
+    "keep": 32,
     "provisional": 0,
-    "remake": 25
+    "remake": 24
   },
   "provenance": {
     "generator": "ChatGPT image generation",
@@ -400,14 +400,34 @@
       "id": "caribbean-cushion-sea-star",
       "creatureId": "caribbean-cushion-sea-star",
       "name": "Caribbean cushion sea star",
-      "path": "assets/source/creatures/caribbean-cushion-sea-star/candidate-v2.webp",
+      "path": "assets/source/creatures/caribbean-cushion-sea-star/candidate-v3.webp",
       "score": 8.0,
-      "status": "remake",
+      "status": "keep",
       "identity": "high",
       "ingestMode": "opaque-scene",
-      "qaNote": "Replacement v2: reference-guided opaque scene restores the thick inflated five-armed cushion form, broad central disc, robust tapering arms and coarse knobbed/reticulated dorsal texture; the flat generic-star geometry failure is removed.",
-      "bytes": 43466,
-      "sha256": "f0d7f763d4fdea22d7a43712b074c44e010bea95a02e80e167fd2baa46d3a517"
+      "qaNote": "Issue #60 integration: recorded owner-approved candidate v3; visually inspected for diagnostic identity, natural underwater treatment, source/card readability and collection cohesion. Approval/publication evidence: https://github.com/BenWassa/poseidon/commit/5f2b27e. Historical numeric editorial score is retained; no new numeric score was assigned.",
+      "bytes": 1450178,
+      "sha256": "bd0e853113a82d72e26e2985d5b4f155bebd64edae36e005161274c6cf5c0479",
+      "previousCandidateMetadata": {
+        "path": "assets/source/creatures/caribbean-cushion-sea-star/candidate-v2.webp",
+        "score": 8.0,
+        "status": "remake",
+        "identity": "high",
+        "ingestMode": "opaque-scene",
+        "qaNote": "Replacement v2: reference-guided opaque scene restores the thick inflated five-armed cushion form, broad central disc, robust tapering arms and coarse knobbed/reticulated dorsal texture; the flat generic-star geometry failure is removed.",
+        "bytes": 43466,
+        "sha256": "f0d7f763d4fdea22d7a43712b074c44e010bea95a02e80e167fd2baa46d3a517"
+      },
+      "generator": "Owner-published AI-generated artwork",
+      "generationBatch": "issue-60-approved-integration",
+      "publishedOn": "2026-10-01",
+      "provenance": {
+        "sourceRevision": "assets/source/creatures/caribbean-cushion-sea-star/candidate-v3.webp",
+        "approvalEvidence": "https://github.com/BenWassa/poseidon/commit/5f2b27e",
+        "integrationOn": "2026-10-01",
+        "transformation": "Exact immutable opaque 1024x1024 WebP input; deterministic canonical pipeline only.",
+        "rightsNote": "Owner-published generated source. Superseded photograph attribution is retained only in previousCandidateMetadata."
+      }
     },
     {
       "id": "sergeant-major",
