@@ -8,29 +8,29 @@
     "variants": {
       "gallery": {
         "aspectRatio": 1.0,
-        "bytes": 21862,
+        "bytes": 60360,
         "height": 512,
         "mediaType": "image/webp",
         "path": "gallery.webp",
-        "sha256": "b335e9c95a91f11356d96532ad7ee4448f582acc7189018bbbe96b8b582a6e86",
+        "sha256": "24f012d25d5c0b18862a181ff4a56be2d561dd86c4e72bbe7b862379f808847b",
         "width": 512
       },
       "hero": {
         "aspectRatio": 1.0,
-        "bytes": 44668,
+        "bytes": 126542,
         "height": 1024,
         "mediaType": "image/webp",
         "path": "hero.webp",
-        "sha256": "53bc829f4fb7abe9ad5aaa8a6a673af57c55706cd4e7c10490378563db514c22",
+        "sha256": "0de1355f98eacd5ed30c77e652d275dd60ad7c05ab9071cafc5de1aec51431e2",
         "width": 1024
       },
       "thumb": {
         "aspectRatio": 1.0,
-        "bytes": 5104,
+        "bytes": 12144,
         "height": 192,
         "mediaType": "image/webp",
         "path": "thumb.webp",
-        "sha256": "9a0a17962f1ce7da4d26d526a2cf41c7af516fa8bffb6d1baebf3411af3c35cb",
+        "sha256": "4f2f644aa0c1b3dff31a5c3c69785a3ef93f90c811c2a412c623450ab710c59e",
         "width": 192
       }
     }
@@ -38,11 +38,11 @@
   "creatureId": "spotted-trunkfish",
   "source": {
     "aspectRatio": 1.0,
-    "bytes": 20562,
+    "bytes": 72236,
     "format": "webp",
     "height": 1024,
     "mode": "opaque-scene",
-    "sha256": "c5c802f813bc181341a7b9a71b64edd7f70cc8e505c3b62d179e4e7a30982968",
+    "sha256": "2143e32b448bedd585ee59bddce39af1bfa78fe056eefbb858cd18c02ae84b11",
     "width": 1024
   },
   "version": 1

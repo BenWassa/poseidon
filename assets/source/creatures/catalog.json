@@ -6,9 +6,9 @@
   "binaryImportStatus": "complete",
   "summary": {
     "total": 56,
-    "keep": 34,
+    "keep": 35,
     "provisional": 0,
-    "remake": 22
+    "remake": 21
   },
   "provenance": {
     "generator": "ChatGPT image generation",
@@ -211,14 +211,34 @@
       "id": "spotted-trunkfish",
       "creatureId": "spotted-trunkfish",
       "name": "Spotted trunkfish",
-      "path": "assets/source/creatures/spotted-trunkfish/candidate-v2.webp",
+      "path": "assets/source/creatures/spotted-trunkfish/candidate-v3.webp",
       "score": 7.6,
-      "status": "remake",
+      "status": "keep",
       "identity": "high",
       "ingestMode": "opaque-scene",
-      "qaNote": "Replacement v2: adult reads pale/whitish with dense dark spots and no pre-eye horns; the prior inverted dark-body/white-spot failure is removed. AI-generated specimen was pattern-corrected and isolated into the established sunlit Caribbean scene treatment.",
-      "bytes": 20562,
-      "sha256": "c5c802f813bc181341a7b9a71b64edd7f70cc8e505c3b62d179e4e7a30982968"
+      "qaNote": "Issue #60 integration: recorded owner-approved candidate v3; visually inspected for diagnostic identity, natural underwater treatment, source/card readability and collection cohesion. Approval/publication evidence: https://github.com/BenWassa/poseidon/pull/73. Historical numeric editorial score is retained; no new numeric score was assigned.",
+      "bytes": 72236,
+      "sha256": "2143e32b448bedd585ee59bddce39af1bfa78fe056eefbb858cd18c02ae84b11",
+      "previousCandidateMetadata": {
+        "path": "assets/source/creatures/spotted-trunkfish/candidate-v2.webp",
+        "score": 7.6,
+        "status": "remake",
+        "identity": "high",
+        "ingestMode": "opaque-scene",
+        "qaNote": "Replacement v2: adult reads pale/whitish with dense dark spots and no pre-eye horns; the prior inverted dark-body/white-spot failure is removed. AI-generated specimen was pattern-corrected and isolated into the established sunlit Caribbean scene treatment.",
+        "bytes": 20562,
+        "sha256": "c5c802f813bc181341a7b9a71b64edd7f70cc8e505c3b62d179e4e7a30982968"
+      },
+      "generator": "Owner-published AI-generated artwork",
+      "generationBatch": "issue-60-approved-integration",
+      "publishedOn": "2026-10-01",
+      "provenance": {
+        "sourceRevision": "assets/source/creatures/spotted-trunkfish/candidate-v3.webp",
+        "approvalEvidence": "https://github.com/BenWassa/poseidon/pull/73",
+        "integrationOn": "2026-10-01",
+        "transformation": "Exact immutable opaque 1024x1024 WebP input; deterministic canonical pipeline only.",
+        "rightsNote": "Owner-published generated source. Superseded photograph attribution is retained only in previousCandidateMetadata."
+      }
     },
     {
       "id": "queen-triggerfish",
