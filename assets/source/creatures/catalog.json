@@ -2,13 +2,13 @@
   "schemaVersion": 1,
   "libraryId": "poseidon-creature-source-art",
   "styleFamily": "poseidon-sunlit-square-v1",
-  "updatedOn": "2026-09-18",
+  "updatedOn": "2026-10-01",
   "binaryImportStatus": "complete",
   "summary": {
     "total": 56,
-    "keep": 21,
+    "keep": 22,
     "provisional": 0,
-    "remake": 35
+    "remake": 34
   },
   "provenance": {
     "generator": "ChatGPT image generation",
@@ -210,14 +210,34 @@
       "id": "blue-tang",
       "creatureId": "blue-tang",
       "name": "Blue tang",
-      "path": "assets/source/creatures/blue-tang/candidate-v2.webp",
+      "path": "assets/source/creatures/blue-tang/candidate-v3.webp",
       "score": 7.6,
-      "status": "remake",
+      "status": "keep",
       "identity": "high",
       "ingestMode": "opaque-scene",
-      "qaNote": "Replacement v2: Atlantic Acanthurus coeruleus presentation with a deep compressed blue surgeonfish body, fine flank lines and blue tail; the Indo-Pacific Paracanthurus black/yellow palette is explicitly removed. AI-generated specimen was identity-corrected and isolated into the established scene treatment.",
-      "bytes": 7924,
-      "sha256": "95a78123f860742551754c0b896accbf3c14c20c87cd8f283ab696766b80b540"
+      "qaNote": "Issue #60 integration: recorded owner-approved candidate v3; visually inspected for diagnostic identity, natural underwater treatment, source/card readability and collection cohesion. Approval/publication evidence: https://github.com/BenWassa/poseidon/pull/69. Historical numeric editorial score is retained; no new numeric score was assigned.",
+      "bytes": 79256,
+      "sha256": "4e4db0196aa5ab6ea71a7e20d04bb985d014954f7addae6fb3ea23f098472925",
+      "previousCandidateMetadata": {
+        "path": "assets/source/creatures/blue-tang/candidate-v2.webp",
+        "score": 7.6,
+        "status": "remake",
+        "identity": "high",
+        "ingestMode": "opaque-scene",
+        "qaNote": "Replacement v2: Atlantic Acanthurus coeruleus presentation with a deep compressed blue surgeonfish body, fine flank lines and blue tail; the Indo-Pacific Paracanthurus black/yellow palette is explicitly removed. AI-generated specimen was identity-corrected and isolated into the established scene treatment.",
+        "bytes": 7924,
+        "sha256": "95a78123f860742551754c0b896accbf3c14c20c87cd8f283ab696766b80b540"
+      },
+      "generator": "Owner-published AI-generated artwork",
+      "generationBatch": "issue-60-approved-integration",
+      "publishedOn": "2026-10-01",
+      "provenance": {
+        "sourceRevision": "assets/source/creatures/blue-tang/candidate-v3.webp",
+        "approvalEvidence": "https://github.com/BenWassa/poseidon/pull/69",
+        "integrationOn": "2026-10-01",
+        "transformation": "Exact immutable opaque 1024x1024 WebP input; deterministic canonical pipeline only.",
+        "rightsNote": "Owner-published generated source. Superseded photograph attribution is retained only in previousCandidateMetadata."
+      }
     },
     {
       "id": "southern-stingray",
