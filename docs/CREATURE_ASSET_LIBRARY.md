@@ -1,6 +1,6 @@
 # Poseidon Creature Asset Library
 
-Last updated: **2026-09-24**
+Last updated: **2026-10-01**
 
 This is the human inventory and production-order authority for Poseidon creature artwork. The machine-readable provenance authority is [`assets/source/creatures/catalog.json`](../assets/source/creatures/catalog.json). Runtime assets remain under `assets/creatures/` and are produced only through the canonical #11 pipeline.
 
@@ -133,6 +133,21 @@ For each replacement, the production contract was:
 8. regenerate and validate canonical 192/512/1024 runtime variants.
 
 Mexican-Caribbean plausibility and species identity outrank aesthetics. Realism is an additional gate, not a substitute for biological QA.
+
+## #60 current source-art production — 2026-10-01
+
+The final owner-reviewed batch from the current generation pass is now preserved on `main` as immutable 1024×1024 opaque WebP source revisions:
+
+- spotted eagle ray — `assets/source/creatures/spotted-eagle-ray/candidate-v3.webp`;
+- Caribbean cushion sea star — `assets/source/creatures/caribbean-cushion-sea-star/candidate-v3.webp`;
+- queen conch — `assets/source/creatures/queen-conch/candidate-v3.webp`;
+- Caribbean reef squid — `assets/source/creatures/caribbean-reef-squid/candidate-v2.webp`.
+
+The exact owner-approved PNG uploads from commit `9fd77d1` were SHA-256 verified before conversion, resized to the required 1024×1024 source dimensions and encoded as lossless WebP without regenerating the artwork. The temporary root uploads were removed after successful conversion.
+
+These are **source candidates only**. This publication did not change `assets/source/creatures/catalog.json`, runtime assets/manifests, taxonomy, application content or promotion state. All four records therefore retain their existing `remake` verdict until the centralized cross-library integration/acceptance step explicitly changes them.
+
+Lane A's earlier branch `art/issue-62-distinctive-form-remakes` separately preserves new v3 candidates for loggerhead sea turtle, Caribbean reef octopus, spotted moray, black grouper and splendid toadfish. Do not regenerate or overwrite those files when the lane is reconciled. Caribbean reef squid was added to #60 after the original Lane A map and is tracked here with the remaining generation batch rather than retroactively changing the lane ownership map.
 
 ## #34 sequencing — transparency follows current approval
 

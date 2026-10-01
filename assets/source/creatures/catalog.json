@@ -6,9 +6,9 @@
   "binaryImportStatus": "complete",
   "summary": {
     "total": 56,
-    "keep": 22,
+    "keep": 21,
     "provisional": 0,
-    "remake": 34
+    "remake": 35
   },
   "provenance": {
     "generator": "ChatGPT image generation",
