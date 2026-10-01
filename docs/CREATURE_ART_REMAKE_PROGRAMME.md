@@ -11,15 +11,15 @@ All generation/replacement work under this programme must follow `docs/CREATURE_
 
 The curated Mexican-Caribbean library contains 56 creatures.
 
-- 21 keep
+- 40 keep
 - 0 provisional
-- 35 remake
+- 16 remake
 - 56 mapped source entries
 - 56 canonical runtime manifests
 
-The 35 remake decisions are visual/editorial decisions. Existing runtime files remain valid pipeline/history artifacts until a reviewed replacement is promoted, but the application deliberately renders the neutral fallback for these records rather than displaying rejected art.
+The 16 remaining remake decisions are visual/editorial decisions. Existing runtime files remain valid pipeline/history artifacts until a reviewed replacement is promoted, but the application deliberately renders the neutral fallback for these records rather than displaying rejected art.
 
-The original four #60 production lanes contain 34 species. Caribbean reef squid was reclassified from `keep` to `remake` on 2026-09-24 after owner review of its vector-like deployed image, bringing the active remake total to 35. It is a follow-up outside the original four-lane partition rather than a retroactive lane reassignment.
+The original four #60 production lanes contain 34 species. Caribbean reef squid was reclassified from `keep` to `remake` on 2026-09-24 after owner review of its vector-like deployed image, bringing the original remake programme to 35 targets before the partial integration checkpoint below. It is a follow-up outside the original four-lane partition rather than a retroactive lane reassignment.
 
 ### 2026-09-24 lane B / #63 approved-candidate snapshot
 
@@ -35,7 +35,21 @@ Lane B has completed its species audit and owner-approved correction pass. Immut
 - princess parrotfish — **REMADE**, `assets/source/creatures/princess-parrotfish/candidate-v4.webp`;
 - redband parrotfish — **REMADE**, `assets/source/creatures/redband-parrotfish/candidate-v5.webp`.
 
-These are source candidates only. `catalog.json`, runtime assets/manifests, taxonomy and promotion state remain unchanged. Final catalog/runtime promotion stays centralized after cross-library review.
+All nine Lane B candidates were subsequently selected as `keep` and promoted through the guarded runtime pipeline in the 2026-10-01 integration checkpoint. Taxonomy remains unchanged.
+
+## 2026-10-01 partial integration checkpoint
+
+Recorded owner-approved artwork was inspected at source and card scale and promoted one species at a time through `promote-source --force`. The catalog now selects 40 keep / 16 remake; 56 runtime manifests remain valid.
+
+The 19 promoted replacements are Lane B's nine (including retained blue tang v3), Lane C's six valid v3 revisions, and spotted eagle ray v3, Caribbean cushion sea star v3, queen conch v3 and Caribbean reef squid v2. Per-entry provenance records approval/publication evidence, exact SHA-256 and previous-candidate metadata.
+
+Remaining work is explicit:
+
+- Lane A: loggerhead sea turtle, Caribbean reef octopus, spotted moray, black grouper and splendid toadfish are recovered v3 review inputs (1254×1254). Owner acceptance and an immutable 1024×1024 normalization revision are pending.
+- Lane C: blue chromis, sharpnose puffer and balloonfish require recovery of the exact approved replacements. Their published tiny blobs did not decode and are excluded from the current tree; rejected review-stage art is not a substitute.
+- Lane D: all eight final approved images are recorded in issue #65 but their exact bytes are unavailable locally or on the lane branch. Recover those files without regeneration.
+
+The full-library completion/review remains pending. #60 is not complete and #34 remains deferred. Historical branches/commits are retained; stale coordination PR #68 is superseded by this checkpoint.
 
 ## Target visual family
 
@@ -61,7 +75,7 @@ Source format remains 1024×1024 opaque raster art.
 
 ### 1. Style authority
 
-`CLAUDE.md` establishes the 21 current `keep` candidates as the durable design-reference set. These are the style authority for #60:
+`CLAUDE.md` establishes the original 21 retained design-reference candidates as the durable design-reference set. These are the style authority for #60:
 
 - banded coral shrimp
 - Caribbean spiny lobster
@@ -170,7 +184,7 @@ Three species required remakes because the PR #67 review-stage images missed loc
 
 The approved replacement image bytes for those three are unavailable in a decodable form. Their committed 31/34/31-byte blobs were removed from the current branch tree; the rejected PR #67 review-stage files were not substituted. Publication of those three immutable revisions remains blocked until the exact approved bytes are recovered. Earlier source candidates remain intact.
 
-This lane is therefore **partially published**: six valid immutable candidates are present, three replacements remain pending. Catalog verdicts remain at the current 21 keep / 35 remake baseline; runtime assets/manifests, taxonomy and application content are unchanged pending centralized full-library integration and cross-library review.
+This lane is therefore **partially published**: six valid immutable candidates are present, three replacements remain pending. The six valid candidates were subsequently selected as `keep` and promoted in the 2026-10-01 integration checkpoint. The three missing replacements retain `remake`; taxonomy remains unchanged.
 
 ### Lane D — larger reef fish
 
@@ -183,7 +197,7 @@ This lane is therefore **partially published**: six valid immutable candidates a
 7. mutton snapper
 8. rock beauty
 
-The original four lanes total 34 species with no overlap. Caribbean reef squid is the additional follow-up remake described above, bringing the active #60 remake set to 35.
+The original four lanes total 34 species with no overlap. Caribbean reef squid is the additional follow-up remake described above, bringing the original #60 production set to 35 targets.
 
 ## Per-candidate acceptance
 

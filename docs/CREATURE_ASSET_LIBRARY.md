@@ -24,11 +24,11 @@ Do not delete immutable historical sources merely because they are superseded. R
 The curated Mexican-Caribbean catalogue contains **56 stable creature IDs**. Runtime-file coverage is complete; current visual approval and application display are not:
 
 - **56 mapped source-catalog entries**;
-- **21 current `keep` entries / 0 `provisional` / 35 `remake`**;
+- **40 current `keep` entries / 0 `provisional` / 16 `remake`**;
 - **56 canonical runtime manifests**;
 - each runtime kit contains deterministic `thumb.webp` (192), `gallery.webp` (512) and `hero.webp` (1024);
 - **0 current curated creatures are missing runtime artwork**;
-- the application displays canonical artwork for the 21 `keep` records and a shared neutral raster silhouette for each of the 35 `remake` records;
+- the application displays canonical artwork for the 40 `keep` records and a shared neutral raster silhouette for each of the 16 `remake` records;
 - Caribbean reef squid moved to `remake` on 2026-09-24 after the owner flagged its vector-like deployed image; its existing WebP source and runtime variants remain immutable history while the UI shows the squid silhouette;
 - #55 replaced the former #33 vector/procedural masters with realistic raster revisions, but the later cross-library review remains the authority for their current `remake` status.
 
@@ -163,7 +163,7 @@ The final owner-reviewed batch from the current generation pass is now preserved
 
 The exact owner-approved PNG uploads from commit `9fd77d1` were SHA-256 verified before conversion, resized to the required 1024×1024 source dimensions and encoded as lossless WebP without regenerating the artwork. The temporary root uploads were removed after successful conversion.
 
-These are **source candidates only**. This publication did not change `assets/source/creatures/catalog.json`, runtime assets/manifests, taxonomy, application content or promotion state. All four records therefore retain their existing `remake` verdict until the centralized cross-library integration/acceptance step explicitly changes them.
+At publication these were **source candidates only**. That publication did not change `assets/source/creatures/catalog.json`, runtime assets/manifests, taxonomy, application content or promotion state. The 2026-10-01 integration checkpoint subsequently selected all four as `keep` and promoted their canonical runtime variants.
 
 Lane A's earlier branch `art/issue-62-distinctive-form-remakes` separately preserves new v3 candidates for loggerhead sea turtle, Caribbean reef octopus, spotted moray, black grouper and splendid toadfish. Do not regenerate or overwrite those files when the lane is reconciled. Caribbean reef squid was added to #60 after the original Lane A map and is tracked here with the remaining generation batch rather than retroactively changing the lane ownership map.
 
@@ -172,6 +172,12 @@ Lane A's earlier branch `art/issue-62-distinctive-form-remakes` separately prese
 The reconciliation branch preserves the exact five historical Lane A v3 blobs for loggerhead sea turtle, Caribbean reef octopus, spotted moray, black grouper and splendid toadfish, one artwork commit per species. These files decode as opaque WebP but are **1254×1254**, so they remain review-only inputs pending owner acceptance and a later immutable 1024×1024 normalization revision. They are not catalog-selected or promoted.
 
 The older lane branch also contains non-decodable `candidate-v3.webp` blobs for spotted eagle ray and Caribbean cushion sea star. Those two commits are retained on the historical branch and excluded from reconciliation; the newer owner-approved, valid 1024×1024 v3 files already on `main` remain authoritative. No source history is overwritten or regenerated.
+
+## #60 guarded integration — 2026-10-01
+
+Nineteen recorded approved replacements were promoted, one species per commit: Lane B nine, Lane C six, and the four final owner-approved sources above. Exact source hashes and previous-candidate metadata are recorded in the catalog; selected source dimensions, opacity and runtime hashes were verified. The current catalog is **40 keep / 0 provisional / 16 remake**.
+
+Remaining: five recovered Lane A inputs need explicit owner acceptance and normalization, three Lane C approved originals need recovery, and eight Lane D approved originals need recovery. No missing approved image was regenerated or replaced by rejected review art. #60 remains incomplete.
 
 ## #34 sequencing — transparency follows current approval
 
@@ -214,7 +220,7 @@ See `docs/CREATURE_FALLBACK_SILHOUETTES.md`, issue #58 and PR #59.
 
 ## Legacy SVG status
 
-The repository still contains legacy marine-life SVG assets/tooling under `tools/creature_art/svg/` and procedural creature-art generator code. The application also has a `CreatureMark` fallback that uses generic icon/SVG rendering for missing or failed artwork.
+The repository still contains legacy marine-life SVG assets/tooling under `tools/creature_art/svg/` and procedural creature-art generator code. The current `CreatureMark` fallback uses the committed raster morphology silhouettes; legacy SVG helpers are historical tooling.
 
 These are **not approved creature-art inventory** and must not be used as the basis for new marine-life assets.
 
@@ -268,6 +274,6 @@ assets/creatures/<stable-id>/                   # canonical runtime only
 
 ## Work sequence
 
-1. **#60 — active:** replace and review the 35 `remake` candidates, promoting only accepted immutable revisions until the catalogue returns to 56 `keep`.
+1. **#60 — active:** resolve the remaining 16 `remake` candidates after the 19-species partial integration, promoting only accepted immutable revisions until the catalogue returns to 56 `keep`.
 2. **#34 — next where useful:** derive transparent raster specimen revisions only from currently approved realistic opaque masters; preserve originals and manually QA difficult alpha edges.
 3. Creature-count expansion can be considered separately after the current 56-creature visual family and any desired #34 extraction work are accepted.

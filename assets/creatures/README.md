@@ -9,6 +9,6 @@ Mexican-Caribbean pack. Each stable creature ID has a generated manifest plus
 deterministic `thumb.webp`, `gallery.webp` and `hero.webp` variants.
 
 Runtime-file coverage does not itself grant display approval. The application
-also consults `assets/source/creatures/catalog.json`: the current 21 `keep`
-records render canonical art, while the 35 `remake` records render the shared
+also consults `assets/source/creatures/catalog.json`: the current 40 `keep`
+records render canonical art, while the 16 `remake` records render the shared
 neutral fallback until an accepted immutable replacement is promoted.

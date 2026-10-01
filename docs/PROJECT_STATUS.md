@@ -1,20 +1,19 @@
 # Poseidon — current project status
 
-Last reconciled: **2026-09-18**
+Last reconciled: **2026-10-01**
 
 This is the living programme-status companion to the durable product contracts. It records current implementation and remaining work; it does not replace `PRODUCT.md` or `docs/PRD.md`.
 
 ## Current integrated baseline
 
-Current merged `main` authority at this reconciliation:
+The current deployed release baseline is **Poseidon 0.2.0**. The application is a deployed React/Vite/TypeScript PWA with Firebase-backed approved-user persistence, local/offline shadow persistence, canonical marine content and a guarded creature-asset pipeline.
 
-`327333d18cfe74a96ba1464d620f89cf2362a8bc`
+Production targets:
 
-Poseidon is a deployed React/Vite/TypeScript PWA with Firebase-backed approved-user persistence, local/offline shadow persistence, canonical marine content and a guarded creature-asset pipeline.
+- GitHub Pages: `https://benwassa.github.io/poseidon/` (continuous deployment from main);
+- Firebase Hosting: `https://poseidon-e1e34.web.app/` (separate release deployment).
 
-Production deployment:
-
-`https://benwassa.github.io/poseidon/`
+The live build revision, deployment workflow and release tag are exact deployment authorities.
 
 The full repository gate is:
 
@@ -22,7 +21,9 @@ The full repository gate is:
 npm run gate
 ```
 
-It covers canonical content/assets, lint/format, typechecks, domain/application tests, production build, PWA precache-budget verification and automated field-readiness acceptance.
+It includes strict source-catalog validation as well as canonical content/assets, lint/format, typechecks, domain/application tests, production build, PWA precache-budget verification and automated field-readiness acceptance.
+
+Latest integration state: PRs #69, #74 and #75 are merged. Repaired PR #73 is merged with six valid candidates; three corrupt unpublished replacements were excluded. Release 0.2.0 is the current deployed baseline; no source commit hash is recorded here as deployment authority.
 
 ## Product baseline
 
@@ -47,21 +48,21 @@ Technical runtime coverage is complete; current visual approval and display cove
 
 - Mexican-Caribbean content pack: **3 regions, 24 dive sites/areas, 56 creatures**;
 - **56 mapped source-catalog entries**;
-- current owner editorial state: **21 keep / 0 provisional / 35 remake**;
+- current integrated editorial state: **40 keep / 0 provisional / 16 remake**;
 - **56 canonical runtime manifests**, each with deterministic 192/512/1024 WebP variants;
 - **0 current content species** without a runtime manifest;
-- the 35 `remake`-flagged species render the shared fallback silhouette in the app rather than their manifest art — see #60 below;
+- remake-flagged species render the shared fallback silhouette in the app rather than their manifest art — see #60 below;
 - **26/26 former #33 vector/procedural coverage masters replaced under #55 with reviewed realistic raster revisions**.
 
 Owner direction on 2026-09-16 is **realistic HD raster marine-life imagery only**: no new creature SVG/vector art and no acceptance of vector-looking artwork merely because its runtime output is WebP.
 
 The historical human visual inventory is:
 
-- **30 original HD-source programme assets** — canonical runtime variants exist; the current review retains 21 as `keep` and flags 9 as `remake`;
+- **30 original HD-source programme assets** — canonical runtime variants exist; the 2026-09-18 review retained 21 as `keep` and flagged 9 as `remake`;
 - **26 former #33 coverage assets** — realistic raster replacements were promoted under #55, then all 26 current entries were marked `remake` by the later cross-library review;
 - legacy marine-life SVG tooling/fallbacks — deprecated and not part of the approved creature-art inventory.
 
-Original source revisions remain immutable. #38 / PR #42 supplied and promoted four accepted v2 replacements (spotted eagle ray, spotted trunkfish, Atlantic blue tang and Spanish hogfish). #39 completed the final four immutable v2 replacements (Caribbean cushion sea star, porkfish, queen conch and Caribbean reef octopus). That original batch was historically **30/30 keep and live**; the current 2026-09-18 owner review supersedes its editorial states above.
+Original source revisions remain immutable. #38 / PR #42 supplied and promoted four accepted v2 replacements (spotted eagle ray, spotted trunkfish, Atlantic blue tang and Spanish hogfish). #39 completed the final four immutable v2 replacements (Caribbean cushion sea star, porkfish, queen conch and Caribbean reef octopus). That original batch was historically **30/30 keep and live**; the 2026-09-18 owner review supersedes its editorial states above.
 
 #33 added the 26 previously uncovered content creatures in isolated reviewed batches and closed technical coverage at 56/56. PR #43 locked species-specific generation/review diagnostics for all 26 targets and corrected `honeycomb-cowfish` to accepted **`Acanthostracion polygonium`**. #55 then reused those diagnostic references while replacing every former #33 vector/procedural master with realistic raster art.
 
@@ -105,11 +106,11 @@ The later owner realism direction did not reopen #33's coverage result; it creat
 
 All 26 former #33 vector/procedural coverage masters now have reviewed realistic 1024×1024 raster replacement revisions. Each accepted source was preserved as a later immutable candidate, recorded with source/author/license provenance, and promoted one species at a time through strict source validation, guarded runtime promotion and canonical 192/512/1024 validation.
 
-The current curated 56-creature visual baseline no longer depends on vector-derived masters. Legacy creature SVG/procedural tooling remains historical/deprecated only. #34 may now derive transparent raster specimens from approved realistic opaque masters where useful.
+The current curated 56-creature visual baseline no longer depends on vector-derived masters. Legacy creature SVG/procedural tooling remains historical/deprecated only. #34 may derive transparent raster specimens from approved realistic opaque masters where useful.
 
 ### 2026-09-18 owner source-art review
 
-The owner completed a fresh visual review of all 56 source candidates. The catalog now records **21 keep / 35 remake**. `remake` is a source-art production queue, not a destructive runtime rollback: canonical files remain available to the guarded pipeline, while application display deliberately downgrades those 35 records to the shared fallback until an immutable replacement has been reviewed and promoted. The complete machine-readable list is `assets/source/creatures/catalog.json`.
+The owner completed a fresh visual review of all 56 source candidates. The review baseline became **21 keep / 35 remake** on 2026-09-24. The 2026-09-24 Caribbean reef squid reclassification from `keep` to `remake` accounts for the change from 22/34 to 21/35. `remake` is a source-art production queue, not a destructive runtime rollback: canonical files remain available to the guarded pipeline, while application display deliberately downgrades remake records to the shared fallback until an immutable replacement has been reviewed and promoted.
 
 ### #11 — source-art system — complete
 
@@ -133,43 +134,45 @@ Collection joins the full curated creature catalogue from `useCreatures()` with 
 
 The #51 matrix covers zero-history guide rendering, repeated sightings, edit/delete reversion to unseen, search/category/status composition, user-created denominator rules, unseen-detail access and missing-art fallback.
 
-## Active enhancement streams
+### #58 — raster marine fallback silhouettes — complete on PR #59
 
-### #58 — raster marine fallback silhouettes — implemented on PR #59
-
-Approved canonical HD raster art remains first priority. Genuine missing/failed curated art now resolves to one of 13 committed broad-morphology WebP silhouettes; user-created creatures retain monograms.
+Approved canonical HD raster art remains first priority. Genuine missing/failed curated art resolves to one of 13 committed broad-morphology WebP silhouettes; user-created creatures retain monograms.
 
 The fallback family lives under `assets/fallbacks/marine-life/` with a hash manifest, is BASE_URL-safe for GitHub Pages, remains outside curated art inventory, and is covered by mapping/hash/runtime tests. Marine-life fallback rendering no longer depends on SVG, Lucide creature icons or CSS-drawn animal geometry.
 
-### #60 — coherent creature-art remake programme
+## Active enhancement streams
 
-The 2026-09-18 owner review, updated by the 2026-09-24 squid reclassification, establishes **21 keep / 0 provisional / 35 remake** as current visual authority. #60 rebuilds those 35 sources into one realistic, clean underwater Poseidon field-guide family.
+### #60 — coherent creature-art remake programme — incomplete
 
-Runtime display already reflects the review: `apps/web/src/data/content.ts` cross-references the catalog and renders the shared `assets/fallbacks/marine-life/` family silhouette (#58) for any `remake`-flagged creature instead of its rejected art, even though the underlying `assets/creatures/<id>/manifest.json` is untouched and still says `curated`. This is a display-only downgrade to `placeholder`; the guarded promotion pipeline and its manifests are unaffected, so accepting a lane's replacement and promoting it to `keep` is what brings the real artwork back.
+The catalog records **40 keep / 0 provisional / 16 remake** after guarded promotion of 19 recorded approved replacements: Lane B's 9, Lane C's 6, and the final 4 accepted replacements. The earlier 21 keep sources remain selected. Source hashes and runtime manifests identify each promoted revision; all previous source files remain intact. This is a partial integration checkpoint; #60 remains open.
 
-Style authority is the 21 current `keep` candidates explicitly listed in `CLAUDE.md`; biological authority remains `docs/CREATURE_ART_QA_REFERENCES.md` plus high-confidence species imagery. Four isolated production lanes generate candidates, followed by one cross-library consistency review and one guarded integration/promotion stream.
+Sixteen species remain pending:
 
-The development source-art review also exports one snapshot containing browser verdicts and optional pinned reference IDs for review convenience; those local pins do not supersede the 21-image style authority.
+- five recovered Lane A review candidates still need explicit owner acceptance and normalization; their original 1254-pixel files are retained as historical inputs;
+- three Lane C candidates are corrupt, and their exact originals are unavailable;
+- all eight Lane D candidates remain unavailable.
+
+The five recovered Lane A files must not be counted as owner-accepted until the explicit acceptance and normalization step is complete. The unavailable or corrupt candidates remain unresolved; no replacement files or verdicts should be invented to close the count.
+
+The original 21 retained design-reference candidates remain the style authority listed in `CLAUDE.md`; biological authority remains `docs/CREATURE_ART_QA_REFERENCES.md` plus high-confidence species imagery. The source-art review documents lane candidate snapshots and preserves immutable source history. Catalog/runtime promotion and changes to the source verdicts remain an explicit integration step after acceptance.
 
 Programme authority: `docs/CREATURE_ART_REMAKE_PROGRAMME.md`.
 
-### #34 — derive transparent creature masters
+### #34 — derive transparent creature masters — deferred
 
-Transparent raster derivation remains valid and may now start from the approved realistic raster masters where the UI benefits from isolation.
+Transparent raster derivation may start from approved realistic raster masters where the UI benefits from isolation. Preserve original masters and manually QA fins, antennae, spines, tentacles, translucent margins and other high-risk edges. Never auto-trace creature illustrations to SVG. This work is deferred while #60 source acceptance and integration remain incomplete.
 
-Preserve original masters and manually QA fins, antennae, spines, tentacles, translucent margins and other high-risk edges. Never auto-trace creature illustrations to SVG.
-
-### #14 — owner-device Pixel acceptance
+### #14 — owner-device Pixel acceptance — open
 
 Engineering/deployment acceptance is automated. Keep #14 open until physical Pixel evidence covers standalone launcher behavior, airplane-mode cached launch, real keyboard/cutout/gesture behavior, system Back and practical post-dive use.
 
 ## Intended sequence
 
-1. merge/close #58 after PR #59 final gate and review are clean;
-2. use the 21 `keep` design-reference set from `CLAUDE.md` and complete #60's four parallel remake lanes;
-3. perform one cross-library QA pass, integrate accepted immutable replacements and return the catalog to 56 keep / 0 provisional / 0 remake;
-4. perform #34 transparent-raster derivation only from the newly approved coherent realistic masters where useful;
-5. perform/record #14 physical Pixel acceptance when desired;
+1. complete explicit review/normalization for the five recovered Lane A candidates and resolve the three corrupt/unavailable Lane C and eight unavailable Lane D candidates;
+2. complete cross-library review and integrate only accepted immutable replacements, tracking the integrated 40 keep / 16 remake state until the remaining sixteen are resolved;
+3. promote accepted replacements through the guarded runtime pipeline and verify canonical variants;
+4. consider #34 transparent-raster derivation from approved realistic masters where useful;
+5. perform and record #14 physical Pixel acceptance when desired;
 6. close parent/status items as appropriate;
 7. consider creature-count expansion as a separate product decision.
 
