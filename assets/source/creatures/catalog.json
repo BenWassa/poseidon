@@ -6,9 +6,9 @@
   "binaryImportStatus": "complete",
   "summary": {
     "total": 56,
-    "keep": 39,
+    "keep": 40,
     "provisional": 0,
-    "remake": 17
+    "remake": 16
   },
   "provenance": {
     "generator": "ChatGPT image generation",
@@ -1114,26 +1114,46 @@
       "id": "honeycomb-cowfish",
       "creatureId": "honeycomb-cowfish",
       "name": "Honeycomb cowfish",
-      "path": "assets/source/creatures/honeycomb-cowfish/candidate-v2.webp",
+      "path": "assets/source/creatures/honeycomb-cowfish/candidate-v3.webp",
       "score": 9.2,
-      "status": "remake",
+      "status": "keep",
       "identity": "high",
       "ingestMode": "opaque-scene",
-      "qaNote": "Issue #55 realistic replacement: licensed NOAA underwater photograph of the honeycomb cowfish from La Parguera, Puerto Rico. The thick box-like carapace and dark honeycomb/hexagonal network remain visible as natural photographic anatomy in Caribbean reef context, replacing the former vector source while preserving the accepted Acanthostracion polygonium content authority.",
-      "generator": "licensed underwater photograph",
-      "generatedOn": "2026-09-17",
-      "generationBatch": "issue-55-realistic-one-by-one",
-      "bytes": 417342,
-      "sha256": "8db24eef3a680f0e612b2357ce6314e5cda5cadba7ccc659f63847fa1495468b",
+      "qaNote": "Issue #60 integration: recorded owner-approved candidate v3; visually inspected for diagnostic identity, natural underwater treatment, source/card readability and collection cohesion. Approval/publication evidence: https://github.com/BenWassa/poseidon/pull/73. Historical numeric editorial score is retained; no new numeric score was assigned.",
+      "bytes": 60342,
+      "sha256": "be12493332c02c363e62e882c84029532fc9ca966f8874bfe3ddb2685955ac9b",
       "scientificName": "Acanthostracion polygonium",
+      "previousCandidateMetadata": {
+        "path": "assets/source/creatures/honeycomb-cowfish/candidate-v2.webp",
+        "score": 9.2,
+        "status": "remake",
+        "identity": "high",
+        "ingestMode": "opaque-scene",
+        "qaNote": "Issue #55 realistic replacement: licensed NOAA underwater photograph of the honeycomb cowfish from La Parguera, Puerto Rico. The thick box-like carapace and dark honeycomb/hexagonal network remain visible as natural photographic anatomy in Caribbean reef context, replacing the former vector source while preserving the accepted Acanthostracion polygonium content authority.",
+        "generator": "licensed underwater photograph",
+        "generatedOn": "2026-09-17",
+        "generationBatch": "issue-55-realistic-one-by-one",
+        "bytes": 417342,
+        "sha256": "8db24eef3a680f0e612b2357ce6314e5cda5cadba7ccc659f63847fa1495468b",
+        "provenance": {
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:Acanthostracion_polygonius_-_Reef1774.jpg",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Acanthostracion_polygonius_-_Reef1774.jpg",
+          "author": "NOAA Photo Library / CCMA Biogeography Team",
+          "license": "CC BY 2.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+          "transformation": "square crop, resize to 1024x1024, WebP encode; no generative anatomy edits",
+          "styleFamily": "poseidon-sunlit-square-v1"
+        }
+      },
+      "generator": "Owner-published AI-generated artwork",
+      "generationBatch": "issue-60-approved-integration",
+      "publishedOn": "2026-10-01",
       "provenance": {
-        "sourcePage": "https://commons.wikimedia.org/wiki/File:Acanthostracion_polygonius_-_Reef1774.jpg",
-        "sourceUrl": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Acanthostracion_polygonius_-_Reef1774.jpg",
-        "author": "NOAA Photo Library / CCMA Biogeography Team",
-        "license": "CC BY 2.0",
-        "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
-        "transformation": "square crop, resize to 1024x1024, WebP encode; no generative anatomy edits",
-        "styleFamily": "poseidon-sunlit-square-v1"
+        "sourceRevision": "assets/source/creatures/honeycomb-cowfish/candidate-v3.webp",
+        "approvalEvidence": "https://github.com/BenWassa/poseidon/pull/73",
+        "integrationOn": "2026-10-01",
+        "transformation": "Exact immutable opaque 1024x1024 WebP input; deterministic canonical pipeline only.",
+        "rightsNote": "Owner-published generated source. Superseded photograph attribution is retained only in previousCandidateMetadata."
       }
     },
     {
