@@ -8,29 +8,29 @@
     "variants": {
       "gallery": {
         "aspectRatio": 1.0,
-        "bytes": 20058,
+        "bytes": 29826,
         "height": 512,
         "mediaType": "image/webp",
         "path": "gallery.webp",
-        "sha256": "d313c0181f5151c50e6cd92534e3d09730e53968f20e6300cf8556adbe874758",
+        "sha256": "17f920b80c68ebd6499327b06a81e342071f7a1e607e7724808c44d4cc36944e",
         "width": 512
       },
       "hero": {
         "aspectRatio": 1.0,
-        "bytes": 73962,
+        "bytes": 103760,
         "height": 1024,
         "mediaType": "image/webp",
         "path": "hero.webp",
-        "sha256": "f1d0dddcb731aa4964324951fce7b6dd6f35596b16f3ea2aa1954248083381de",
+        "sha256": "750dc91e6d9c96b0f340e66de7196eb070d31a16cd3cb35af77fc66b5770f41e",
         "width": 1024
       },
       "thumb": {
         "aspectRatio": 1.0,
-        "bytes": 3706,
+        "bytes": 5164,
         "height": 192,
         "mediaType": "image/webp",
         "path": "thumb.webp",
-        "sha256": "f5c382eb789486dea43facfa9b02b7d81371ff1fb0d13aca3f3af057495a8423",
+        "sha256": "6bc0aed3432be3aa624587d717477ea7fa27805623537ddadafcb61cf5cb0042",
         "width": 192
       }
     }
@@ -38,11 +38,11 @@
   "creatureId": "princess-parrotfish",
   "source": {
     "aspectRatio": 1.0,
-    "bytes": 110404,
+    "bytes": 94268,
     "format": "webp",
     "height": 1024,
     "mode": "opaque-scene",
-    "sha256": "81454fcf7d464b1aefacfd3ccdf598a2f30783538824e065daeaff7ed6c3bdef",
+    "sha256": "5256689ecd0701b45565a9bfc42c898605fcb2e9a2565958f60f49fbd9f0088b",
     "width": 1024
   },
   "version": 1

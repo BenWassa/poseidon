@@ -6,9 +6,9 @@
   "binaryImportStatus": "complete",
   "summary": {
     "total": 56,
-    "keep": 28,
+    "keep": 29,
     "provisional": 0,
-    "remake": 28
+    "remake": 27
   },
   "provenance": {
     "generator": "ChatGPT image generation",
@@ -785,26 +785,46 @@
       "creatureId": "princess-parrotfish",
       "name": "Princess parrotfish",
       "scientificName": "Scarus taeniopterus",
-      "path": "assets/source/creatures/princess-parrotfish/candidate-v2.webp",
+      "path": "assets/source/creatures/princess-parrotfish/candidate-v4.webp",
       "score": 9.0,
-      "status": "remake",
+      "status": "keep",
       "identity": "high",
       "ingestMode": "opaque-scene",
-      "qaNote": "Issue #55 realistic replacement: licensed Caribbean reef photograph of Scarus taeniopterus. Natural terminal-phase parrotfish coloration and beak/body proportions replace the former vector treatment, with blue/pink/yellow diagnostic treatment, scale texture and reef depth preserved for card-scale recognition.",
-      "bytes": 110404,
-      "sha256": "81454fcf7d464b1aefacfd3ccdf598a2f30783538824e065daeaff7ed6c3bdef",
-      "provenance": {
-        "sourcePage": "https://commons.wikimedia.org/wiki/File:Scarus_taeniopterus.jpg",
-        "sourceUrl": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Scarus_taeniopterus.jpg",
-        "author": "LASZLO ILYES",
-        "license": "CC BY 2.0",
-        "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
-        "transformation": "square crop, resize to 1024x1024, WebP encode; no generative anatomy edits",
-        "styleFamily": "poseidon-sunlit-square-v1"
+      "qaNote": "Issue #60 integration: recorded owner-approved candidate v4; visually inspected for diagnostic identity, natural underwater treatment, source/card readability and collection cohesion. Approval/publication evidence: https://github.com/BenWassa/poseidon/pull/69. Historical numeric editorial score is retained; no new numeric score was assigned.",
+      "bytes": 94268,
+      "sha256": "5256689ecd0701b45565a9bfc42c898605fcb2e9a2565958f60f49fbd9f0088b",
+      "previousCandidateMetadata": {
+        "path": "assets/source/creatures/princess-parrotfish/candidate-v2.webp",
+        "score": 9.0,
+        "status": "remake",
+        "identity": "high",
+        "ingestMode": "opaque-scene",
+        "qaNote": "Issue #55 realistic replacement: licensed Caribbean reef photograph of Scarus taeniopterus. Natural terminal-phase parrotfish coloration and beak/body proportions replace the former vector treatment, with blue/pink/yellow diagnostic treatment, scale texture and reef depth preserved for card-scale recognition.",
+        "bytes": 110404,
+        "sha256": "81454fcf7d464b1aefacfd3ccdf598a2f30783538824e065daeaff7ed6c3bdef",
+        "provenance": {
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:Scarus_taeniopterus.jpg",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Scarus_taeniopterus.jpg",
+          "author": "LASZLO ILYES",
+          "license": "CC BY 2.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+          "transformation": "square crop, resize to 1024x1024, WebP encode; no generative anatomy edits",
+          "styleFamily": "poseidon-sunlit-square-v1"
+        },
+        "generatedOn": "2026-09-17",
+        "generationBatch": "issue-55-realistic-one-by-one",
+        "generator": "licensed underwater photograph"
       },
-      "generatedOn": "2026-09-17",
-      "generationBatch": "issue-55-realistic-one-by-one",
-      "generator": "licensed underwater photograph"
+      "generator": "Owner-published AI-generated artwork",
+      "generationBatch": "issue-60-approved-integration",
+      "publishedOn": "2026-10-01",
+      "provenance": {
+        "sourceRevision": "assets/source/creatures/princess-parrotfish/candidate-v4.webp",
+        "approvalEvidence": "https://github.com/BenWassa/poseidon/pull/69",
+        "integrationOn": "2026-10-01",
+        "transformation": "Exact immutable opaque 1024x1024 WebP input; deterministic canonical pipeline only.",
+        "rightsNote": "Owner-published generated source. Superseded photograph attribution is retained only in previousCandidateMetadata."
+      }
     },
     {
       "id": "spotted-moray",
