@@ -6,9 +6,9 @@
   "binaryImportStatus": "complete",
   "summary": {
     "total": 56,
-    "keep": 32,
+    "keep": 33,
     "provisional": 0,
-    "remake": 24
+    "remake": 23
   },
   "provenance": {
     "generator": "ChatGPT image generation",
@@ -459,14 +459,34 @@
       "id": "queen-conch",
       "creatureId": "queen-conch",
       "name": "Queen conch",
-      "path": "assets/source/creatures/queen-conch/candidate-v2.webp",
+      "path": "assets/source/creatures/queen-conch/candidate-v3.webp",
       "score": 8.2,
-      "status": "remake",
+      "status": "keep",
       "identity": "high",
       "ingestMode": "opaque-scene",
-      "qaNote": "Replacement v2: adult heavy weathered shell with broad flared pink/orange lip plus visible living eyestalks and proboscis; the shell-only souvenir presentation failure is removed.",
-      "bytes": 33046,
-      "sha256": "233c2b04d43ad5ba3bfe426f0cc29b2b692ec4fd11e406c6df9ab3a412a24c95"
+      "qaNote": "Issue #60 integration: recorded owner-approved candidate v3; visually inspected for diagnostic identity, natural underwater treatment, source/card readability and collection cohesion. Approval/publication evidence: https://github.com/BenWassa/poseidon/commit/5f2b27e. Historical numeric editorial score is retained; no new numeric score was assigned.",
+      "bytes": 1277824,
+      "sha256": "756e5aeae72cd459363ad9ac9edd9ebec557a20fd72af66c7d3a05f703d75616",
+      "previousCandidateMetadata": {
+        "path": "assets/source/creatures/queen-conch/candidate-v2.webp",
+        "score": 8.2,
+        "status": "remake",
+        "identity": "high",
+        "ingestMode": "opaque-scene",
+        "qaNote": "Replacement v2: adult heavy weathered shell with broad flared pink/orange lip plus visible living eyestalks and proboscis; the shell-only souvenir presentation failure is removed.",
+        "bytes": 33046,
+        "sha256": "233c2b04d43ad5ba3bfe426f0cc29b2b692ec4fd11e406c6df9ab3a412a24c95"
+      },
+      "generator": "Owner-published AI-generated artwork",
+      "generationBatch": "issue-60-approved-integration",
+      "publishedOn": "2026-10-01",
+      "provenance": {
+        "sourceRevision": "assets/source/creatures/queen-conch/candidate-v3.webp",
+        "approvalEvidence": "https://github.com/BenWassa/poseidon/commit/5f2b27e",
+        "integrationOn": "2026-10-01",
+        "transformation": "Exact immutable opaque 1024x1024 WebP input; deterministic canonical pipeline only.",
+        "rightsNote": "Owner-published generated source. Superseded photograph attribution is retained only in previousCandidateMetadata."
+      }
     },
     {
       "id": "juvenile-spotted-drum",
