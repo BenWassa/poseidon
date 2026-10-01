@@ -3,44 +3,38 @@ import {
   Check,
   ClipboardCopy,
   Play,
+  RefreshCw,
   Search,
   Undo2,
   X,
 } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 
-type EditorialStatus = 'keep' | 'provisional' | 'remake';
-
-interface SourceAsset {
-  id: string;
-  name: string;
-  path: string;
-  score: number;
-  status: EditorialStatus;
-  identity: string;
-  qaNote: string;
-}
+import { creatures } from '../data/content';
+import {
+  currentReview,
+  effectiveVerdict,
+  observeCatalog,
+  parseReviewHistory,
+  recordReview,
+  LEGACY_QUALITY_KEY,
+  REVIEW_HISTORY_KEY,
+  type ReviewHistory,
+  type ReviewVerdict,
+  type SourceAsset,
+} from './assetReviewHistory';
 
 interface SourceCatalog {
   styleFamily: string;
+  updatedOn?: string;
   assets: SourceAsset[];
 }
 
 const REFERENCE_KEY = 'poseidon.dev.asset-design-references';
 const MAX_REFERENCES = 4;
 
-/**
- * Your own per-candidate verdict, distinct from `asset.status` in
- * `catalog.json`. The catalog's status is the generator's own self-assessment
- * at import time and is machine-validated pipeline authority; it is never
- * written from the browser. This is a personal review queue that sits next to
- * it, so working through the 56 candidates and deciding which deserve
- * promotion doesn't require opening JSON by hand.
- */
-type ReviewVerdict = 'keep' | 'provisional' | 'remake';
 type ReviewFilter = 'all' | 'undecided' | ReviewVerdict;
 
-const QUALITY_KEY = 'poseidon.dev.asset-quality-review';
 const UNDO_WINDOW_MS = 6000;
 
 const VERDICTS: readonly {
@@ -75,7 +69,7 @@ const VERDICTS: readonly {
 
 /** What just happened, so a keystroke or the toast's Undo button can reverse it. */
 interface LastAction {
-  id: string;
+  asset: SourceAsset;
   name: string;
   previous: ReviewVerdict | undefined;
   applied: ReviewVerdict | undefined;
@@ -98,21 +92,14 @@ function readReferences(): string[] {
   }
 }
 
-function readQuality(): Record<string, ReviewVerdict> {
+function readHistory(): ReviewHistory {
   try {
-    const value: unknown = JSON.parse(
-      localStorage.getItem(QUALITY_KEY) ?? '{}',
+    return parseReviewHistory(
+      localStorage.getItem(REVIEW_HISTORY_KEY),
+      localStorage.getItem(LEGACY_QUALITY_KEY),
     );
-    if (typeof value !== 'object' || value === null) return {};
-    const entries = Object.entries(value as Record<string, unknown>).filter(
-      (entry): entry is [string, ReviewVerdict] =>
-        entry[1] === 'keep' ||
-        entry[1] === 'provisional' ||
-        entry[1] === 'remake',
-    );
-    return Object.fromEntries(entries);
   } catch {
-    return {};
+    return { schemaVersion: 2, events: [] };
   }
 }
 
@@ -134,8 +121,21 @@ export function DevAssetReview() {
   const [catalog, setCatalog] = useState<SourceCatalog | null>(null);
   const [query, setQuery] = useState('');
   const [references, setReferences] = useState<string[]>(readReferences);
-  const [quality, setQuality] =
-    useState<Record<string, ReviewVerdict>>(readQuality);
+  const [history, setHistory] = useState<ReviewHistory>(readHistory);
+  const [refreshToken, setRefreshToken] = useState(0);
+  const [refreshing, setRefreshing] = useState(false);
+  const [catalogError, setCatalogError] = useState(false);
+  const [storageFailed, setStorageFailed] = useState(false);
+  const quality = useMemo(
+    () =>
+      Object.fromEntries(
+        (catalog?.assets ?? []).flatMap((asset) => {
+          const verdict = currentReview(history, asset);
+          return verdict === undefined ? [] : [[asset.id, verdict]];
+        }),
+      ) as Record<string, ReviewVerdict>,
+    [catalog, history],
+  );
   const [reviewFilter, setReviewFilter] = useState<ReviewFilter>('all');
   const [toast, setToast] = useState<string | null>(null);
   const [lastAction, setLastAction] = useState<LastAction | null>(null);
@@ -148,30 +148,68 @@ export function DevAssetReview() {
   // window keydown listener (registered once) never acts on stale data —
   // important here because keys fire faster than React re-renders while
   // flying through a queue.
-  const qualityRef = useRef(quality);
-  qualityRef.current = quality;
+  const historyRef = useRef(history);
+  historyRef.current = history;
   const lastActionRef = useRef(lastAction);
   lastActionRef.current = lastAction;
   const queueRef = useRef({ assets: queueAssets, index: queueIndex });
   queueRef.current = { assets: queueAssets, index: queueIndex };
 
   useEffect(() => {
-    void fetch('/__poseidon-source-assets/catalog.json', { cache: 'no-store' })
-      .then((response) => {
+    let controller: AbortController | undefined;
+    async function refreshCatalog(): Promise<void> {
+      controller?.abort();
+      const request = new AbortController();
+      controller = request;
+      setRefreshing(true);
+      try {
+        const response = await fetch('/__poseidon-source-assets/catalog.json', {
+          cache: 'no-store',
+          signal: request.signal,
+        });
         if (!response.ok) throw new Error('Source catalog is unavailable.');
-        return response.json() as Promise<SourceCatalog>;
-      })
-      .then(setCatalog)
-      .catch(() => setCatalog({ styleFamily: '', assets: [] }));
-  }, []);
+        const latest = (await response.json()) as SourceCatalog;
+        if (!Array.isArray(latest.assets))
+          throw new Error('Invalid source catalog.');
+        if (request.signal.aborted) return;
+        const next = observeCatalog(
+          historyRef.current,
+          latest.assets,
+          new Date().toISOString(),
+        );
+        historyRef.current = next;
+        setHistory(next);
+        setCatalog(latest);
+        setCatalogError(false);
+      } catch {
+        if (!request.signal.aborted) setCatalogError(true);
+      } finally {
+        if (!request.signal.aborted) setRefreshing(false);
+      }
+    }
+    function refreshWhenVisible(): void {
+      if (!document.hidden) void refreshCatalog();
+    }
+    void refreshCatalog();
+    const interval = setInterval(refreshWhenVisible, 15000);
+    window.addEventListener('focus', refreshWhenVisible);
+    document.addEventListener('visibilitychange', refreshWhenVisible);
+    return () => {
+      controller?.abort();
+      clearInterval(interval);
+      window.removeEventListener('focus', refreshWhenVisible);
+      document.removeEventListener('visibilitychange', refreshWhenVisible);
+    };
+  }, [refreshToken]);
 
   useEffect(() => {
-    localStorage.setItem(REFERENCE_KEY, JSON.stringify(references));
-  }, [references]);
-
-  useEffect(() => {
-    localStorage.setItem(QUALITY_KEY, JSON.stringify(quality));
-  }, [quality]);
+    try {
+      localStorage.setItem(REFERENCE_KEY, JSON.stringify(references));
+      localStorage.setItem(REVIEW_HISTORY_KEY, JSON.stringify(history));
+    } catch {
+      queueMicrotask(() => setStorageFailed(true));
+    }
+  }, [references, history]);
 
   useEffect(() => {
     if (!toast) return;
@@ -185,43 +223,27 @@ export function DevAssetReview() {
     return () => clearTimeout(timer);
   }, [lastAction]);
 
-  // A design reference is, by definition, already a keeper — pinning one
-  // shouldn't leave it sitting in "needs review". Backfills existing browsers
-  // that picked references before this existed, too.
-  useEffect(() => {
-    if (references.length === 0) return;
-    setQuality((current) => {
-      let changed = false;
-      const next = { ...current };
-      for (const id of references) {
-        if (!next[id]) {
-          next[id] = 'keep';
-          changed = true;
-        }
-      }
-      return changed ? next : current;
-    });
-  }, [references]);
-
   function applyVerdict(
-    id: string,
-    name: string,
+    asset: SourceAsset,
     verdict: ReviewVerdict,
     queueIndexAtAction?: number,
   ): void {
-    const previous = qualityRef.current[id];
-    const cleared = previous === verdict;
-    setQuality((current) => {
-      const next = { ...current };
-      if (cleared) delete next[id];
-      else next[id] = verdict;
-      return next;
-    });
+    const previous = currentReview(historyRef.current, asset);
+    const applied = previous === verdict ? undefined : verdict;
+    const next = recordReview(
+      historyRef.current,
+      asset,
+      applied,
+      applied === undefined ? 'reset' : 'review',
+      new Date().toISOString(),
+    );
+    historyRef.current = next;
+    setHistory(next);
     setLastAction({
-      id,
-      name,
+      asset,
+      name: asset.name,
       previous,
-      applied: cleared ? undefined : verdict,
+      applied,
       queueIndex: queueIndexAtAction,
     });
   }
@@ -229,18 +251,23 @@ export function DevAssetReview() {
   function undo(): void {
     const action = lastActionRef.current;
     if (!action) return;
-    setQuality((current) => {
-      const next = { ...current };
-      if (action.previous === undefined) delete next[action.id];
-      else next[action.id] = action.previous;
-      return next;
-    });
+    const next = recordReview(
+      historyRef.current,
+      action.asset,
+      action.previous,
+      'undo',
+      new Date().toISOString(),
+    );
+    historyRef.current = next;
+    setHistory(next);
     if (action.queueIndex !== undefined) setQueueIndex(action.queueIndex);
     setLastAction(null);
   }
 
   function startQueue(pool: SourceAsset[]): void {
-    const pending = pool.filter((asset) => !qualityRef.current[asset.id]);
+    const pending = pool.filter(
+      (asset) => currentReview(historyRef.current, asset) === undefined,
+    );
     if (pending.length === 0) return;
     setQueueAssets(pending);
     setQueueIndex(0);
@@ -255,7 +282,7 @@ export function DevAssetReview() {
     const { assets: pool, index } = queueRef.current;
     const asset = pool[index];
     if (!asset) return;
-    applyVerdict(asset.id, asset.name, verdict, index);
+    applyVerdict(asset, verdict, index);
     setQueueIndex(index + 1);
   }
 
@@ -319,18 +346,44 @@ export function DevAssetReview() {
     if (reviewFilter === 'all') return searched;
     if (reviewFilter === 'undecided')
       return searched.filter((asset) => !quality[asset.id]);
-    return searched.filter((asset) => quality[asset.id] === reviewFilter);
-  }, [searched, reviewFilter, quality]);
+    return searched.filter(
+      (asset) => effectiveVerdict(history, asset) === reviewFilter,
+    );
+  }, [searched, reviewFilter, quality, history]);
 
   const counts = useMemo(() => {
-    const total = catalog?.assets.length ?? 0;
-    const byVerdict = { keep: 0, provisional: 0, remake: 0 };
-    for (const verdict of Object.values(quality)) byVerdict[verdict] += 1;
-    const decided = byVerdict.keep + byVerdict.provisional + byVerdict.remake;
-    return { ...byVerdict, undecided: total - decided, total };
-  }, [catalog, quality]);
+    const live = { keep: 0, provisional: 0, remake: 0 };
+    const effective = { keep: 0, provisional: 0, remake: 0 };
+    let undecided = 0;
+    let overrides = 0;
+    for (const asset of catalog?.assets ?? []) {
+      live[asset.status] += 1;
+      effective[effectiveVerdict(history, asset)] += 1;
+      const review = currentReview(history, asset);
+      if (review === undefined) undecided += 1;
+      else if (review !== asset.status) overrides += 1;
+    }
+    return {
+      ...effective,
+      live,
+      overrides,
+      undecided,
+      total: catalog?.assets.length ?? 0,
+    };
+  }, [catalog, history]);
+  const pendingCount = searched.filter(
+    (asset) => quality[asset.id] === undefined,
+  ).length;
 
-  const toggleReference = (id: string) => {
+  const toggleReference = (asset: SourceAsset) => {
+    const id = asset.id;
+    if (
+      !references.includes(id) &&
+      references.length < MAX_REFERENCES &&
+      currentReview(historyRef.current, asset) !== 'keep'
+    ) {
+      applyVerdict(asset, 'keep');
+    }
     setReferences((current) => {
       if (current.includes(id))
         return current.filter((reference) => reference !== id);
@@ -339,14 +392,21 @@ export function DevAssetReview() {
   };
 
   async function exportReviewSnapshot(): Promise<void> {
-    const verdicts = Object.entries(quality)
-      .map(([id, verdict]) => ({ id, verdict }))
-      .sort((a, b) => a.id.localeCompare(b.id));
+    const verdicts = (catalog?.assets ?? []).map((asset) => ({
+      id: asset.id,
+      path: asset.path,
+      sha256: asset.sha256,
+      verdict: effectiveVerdict(history, asset),
+      liveVerdict: asset.status,
+      localVerdict: currentReview(history, asset) ?? null,
+    }));
     const snapshot = {
-      schemaVersion: 1,
+      schemaVersion: 2,
       exportedOn: new Date().toISOString(),
       designReferences: [...references],
+      liveCatalog: catalog,
       verdicts,
+      history: history.events,
     };
     const json = JSON.stringify(snapshot, null, 2);
     try {
@@ -376,9 +436,8 @@ export function DevAssetReview() {
               Source art review
             </h1>
             <p className="mt-2 max-w-2xl text-sm leading-6 text-abyss/70">
-              Compare immutable source candidates, decide keep / maybe / remake
-              on each, and pin up to {MAX_REFERENCES} visual references for
-              future creature-art work.
+              Review the current source artwork, override its quality code, and
+              keep earlier decisions alongside each revision.
             </p>
           </div>
           <label className="relative block w-full sm:w-72">
@@ -410,30 +469,25 @@ export function DevAssetReview() {
                 Your quality review
               </h2>
               <p className="mt-1 text-xs text-abyss/65">
-                Your own call per candidate, stored locally in this browser. It
-                never edits <code>catalog.json</code> or promotes anything —
-                export one snapshot containing both verdicts and pinned design
-                references, then apply catalog changes by hand when you're
-                ready.
+                Current catalog codes are the default. Your calls apply only to
+                the exact image reviewed and stay in this browser with their
+                history. Export a snapshot to apply approved changes later.
               </p>
             </div>
             <div className="flex items-center gap-2">
               <button
                 type="button"
                 onClick={() => startQueue(searched)}
-                disabled={counts.undecided === 0}
+                disabled={pendingCount === 0}
                 className="flex items-center gap-1.5 rounded-full bg-marine px-3 py-2 text-xs font-bold text-surface disabled:cursor-not-allowed disabled:opacity-45"
               >
                 <Play size={14} aria-hidden="true" />
-                Review queue · {counts.undecided}
+                Review queue · {pendingCount}
               </button>
               <button
                 type="button"
                 onClick={() => void exportReviewSnapshot()}
-                disabled={
-                  counts.total - counts.undecided === 0 &&
-                  references.length === 0
-                }
+                disabled={counts.total === 0 && history.events.length === 0}
                 className="flex items-center gap-1.5 rounded-full border border-marine/40 bg-aqua-soft px-3 py-2 text-xs font-bold text-marine disabled:cursor-not-allowed disabled:opacity-45"
               >
                 <ClipboardCopy size={14} aria-hidden="true" />
@@ -442,9 +496,46 @@ export function DevAssetReview() {
             </div>
           </div>
           <div
+            className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs font-semibold text-abyss/70"
+            aria-label="Current catalog coding"
+          >
+            <span>
+              Current catalog: {counts.live.keep} Keep ·{' '}
+              {counts.live.provisional} Maybe · {counts.live.remake} Remake
+            </span>
+            <span>{counts.overrides} local overrides</span>
+            <button
+              type="button"
+              onClick={() => setRefreshToken((value) => value + 1)}
+              disabled={refreshing}
+              className="flex min-h-10 items-center gap-1.5 text-marine disabled:opacity-50"
+            >
+              <RefreshCw size={14} aria-hidden="true" />
+              {refreshing ? 'Refreshing catalog' : 'Refresh catalog'}
+            </button>
+          </div>
+          <p className="mt-1 text-xs text-abyss/60">
+            Refreshes every 15 seconds and when you return to this tab. Filters
+            below include your current-image overrides.
+          </p>
+          {catalogError ? (
+            <p role="alert" className="mt-2 text-sm text-danger">
+              Could not refresh the catalog.{' '}
+              {catalog
+                ? 'Showing the last loaded state.'
+                : 'Use Refresh catalog to try again.'}
+            </p>
+          ) : null}
+          {storageFailed ? (
+            <p role="alert" className="mt-2 text-sm text-danger">
+              This browser could not save review history. Export a snapshot
+              before closing.
+            </p>
+          ) : null}
+          <div
             className="mt-4 flex flex-wrap gap-2"
             role="group"
-            aria-label="Filter by your review"
+            aria-label="Filter current quality codes"
           >
             <ReviewFilterChip
               label="All"
@@ -453,7 +544,7 @@ export function DevAssetReview() {
               onClick={() => setReviewFilter('all')}
             />
             <ReviewFilterChip
-              label="Needs review"
+              label="Not reviewed here"
               count={counts.undecided}
               active={reviewFilter === 'undecided'}
               onClick={() => setReviewFilter('undecided')}
@@ -496,7 +587,7 @@ export function DevAssetReview() {
               </h2>
               <p className="mt-1 text-xs text-abyss/65">
                 Stored locally in this browser and included in the exported
-                review snapshot. Pinning one also counts it as a Keep above;
+                review snapshot. Pinning one confirms Keep for this exact image;
                 design references do not otherwise alter editorial status or
                 runtime promotion.
               </p>
@@ -517,7 +608,7 @@ export function DevAssetReview() {
                 <ReferenceThumb
                   key={asset.id}
                   asset={asset}
-                  onRemove={() => toggleReference(asset.id)}
+                  onRemove={() => toggleReference(asset)}
                 />
               ))}
             </div>
@@ -546,11 +637,10 @@ export function DevAssetReview() {
                 asset={asset}
                 selected={selected}
                 disableSelect={atLimit && !selected}
-                onSelect={() => toggleReference(asset.id)}
+                onSelect={() => toggleReference(asset)}
                 verdict={quality[asset.id]}
-                onVerdict={(verdict) =>
-                  applyVerdict(asset.id, asset.name, verdict)
-                }
+                history={history}
+                onVerdict={(verdict) => applyVerdict(asset, verdict)}
               />
             );
           })}
@@ -561,6 +651,7 @@ export function DevAssetReview() {
         <ReviewQueue
           assets={queueAssets}
           index={queueIndex}
+          history={history}
           onCommit={queueCommit}
           onNavigate={(delta) =>
             setQueueIndex((current) =>
@@ -604,12 +695,14 @@ export function DevAssetReview() {
 function ReviewQueue({
   assets,
   index,
+  history,
   onCommit,
   onNavigate,
   onClose,
 }: {
   assets: SourceAsset[];
   index: number;
+  history: ReviewHistory;
   onCommit: (verdict: ReviewVerdict) => void;
   onNavigate: (delta: 1 | -1) => void;
   onClose: () => void;
@@ -656,10 +749,13 @@ function ReviewQueue({
           <div className="max-w-md text-center">
             <h2 className="text-xl font-extrabold">{asset.name}</h2>
             <p className="mt-1 text-sm opacity-70">
-              Generator score {asset.score.toFixed(1)} — {asset.qaNote}
+              Recorded score {asset.score.toFixed(1)}. {asset.qaNote}
             </p>
           </div>
 
+          <div className="w-full max-w-md">
+            <CandidateCoding asset={asset} history={history} />
+          </div>
           <div className="grid w-full max-w-md grid-cols-3 gap-3">
             {VERDICTS.map((option) => (
               <button
@@ -764,6 +860,7 @@ function AssetCard({
   disableSelect,
   onSelect,
   verdict,
+  history,
   onVerdict,
 }: {
   asset: SourceAsset;
@@ -771,6 +868,7 @@ function AssetCard({
   disableSelect: boolean;
   onSelect: () => void;
   verdict: ReviewVerdict | undefined;
+  history: ReviewHistory;
   onVerdict: (verdict: ReviewVerdict) => void;
 }) {
   return (
@@ -788,7 +886,10 @@ function AssetCard({
           <h2 className="text-sm leading-5 font-extrabold text-abyss">
             {asset.name}
           </h2>
-          <span className="shrink-0 rounded-full bg-success-soft px-2 py-1 text-[0.625rem] font-bold text-success">
+          <span
+            title="Recorded editorial score"
+            className="shrink-0 rounded-full bg-aqua-soft px-2 py-1 text-[0.625rem] font-bold text-abyss/70"
+          >
             {asset.score.toFixed(1)}
           </span>
         </div>
@@ -796,13 +897,14 @@ function AssetCard({
           {asset.qaNote}
         </p>
 
+        <CandidateCoding asset={asset} history={history} inverse />
         <div
           className="mt-3 grid grid-cols-3 gap-1"
           role="group"
           aria-label={`Your quality call for ${asset.name}`}
         >
           {VERDICTS.map((option) => {
-            const isActive = verdict === option.value;
+            const isActive = (verdict ?? asset.status) === option.value;
             return (
               <button
                 key={option.value}
@@ -819,6 +921,15 @@ function AssetCard({
           })}
         </div>
 
+        {verdict !== undefined ? (
+          <button
+            type="button"
+            onClick={() => onVerdict(verdict)}
+            className="mt-1 min-h-10 text-xs font-bold text-marine"
+          >
+            Use catalog code
+          </button>
+        ) : null}
         <button
           type="button"
           onClick={onSelect}
@@ -835,5 +946,96 @@ function AssetCard({
         </button>
       </div>
     </article>
+  );
+}
+
+function verdictLabel(verdict: ReviewVerdict): string {
+  return VERDICTS.find((option) => option.value === verdict)!.label;
+}
+
+function revisionLabel(path: string | null): string {
+  return path?.match(/candidate-(v\d+)\.webp$/)?.[1] ?? 'Revision unknown';
+}
+
+function CandidateCoding({
+  asset,
+  history,
+  inverse = false,
+}: {
+  asset: SourceAsset;
+  history: ReviewHistory;
+  inverse?: boolean;
+}) {
+  const review = currentReview(history, asset);
+  const events = history.events.filter((event) => event.id === asset.id);
+  const currentArtwork = creatures.find(
+    (creature) => creature.id === asset.creatureId,
+  )?.artwork;
+  return (
+    <div className="mt-3 text-xs leading-5">
+      <p className="font-bold">
+        Catalog: {verdictLabel(asset.status)} · {revisionLabel(asset.path)}
+      </p>
+      <p className="opacity-70">
+        In app: {currentArtwork?.status === 'curated' ? 'artwork' : 'fallback'}
+      </p>
+      {review !== undefined ? (
+        <p
+          className={
+            inverse ? 'font-semibold text-surface' : 'font-semibold text-marine'
+          }
+        >
+          Your call: {verdictLabel(review)}
+          {review === asset.status ? ' (confirmed)' : ' (override)'}
+        </p>
+      ) : null}
+      <details className="mt-1">
+        <summary
+          className={`min-h-10 cursor-pointer py-2 font-semibold ${inverse ? 'text-surface' : 'text-marine'}`}
+        >
+          Coding history · {events.length}
+        </summary>
+        <ol className="space-y-3 border-t border-border pt-2">
+          {[...events].reverse().map((event, index) => (
+            <li key={index}>
+              <p className="font-semibold">
+                {event.verdict
+                  ? verdictLabel(event.verdict)
+                  : 'Use catalog code'}{' '}
+                ·{' '}
+                {event.origin === 'local'
+                  ? 'Your call'
+                  : event.origin === 'legacy'
+                    ? 'Earlier browser call'
+                    : 'Catalog'}
+              </p>
+              <p className="opacity-70">
+                {revisionLabel(event.path)}
+                {event.sha256 ? ` · ${event.sha256.slice(0, 8)}` : ''}
+                {event.action === 'undo' ? ' · Undo' : ''}
+              </p>
+              {event.recordedOn ? (
+                <time className="block opacity-60" dateTime={event.recordedOn}>
+                  {new Date(event.recordedOn).toLocaleString()}
+                </time>
+              ) : (
+                <p className="opacity-60">Date not recorded</p>
+              )}
+              {event.path ? (
+                <a
+                  href={sourceUrl(event.path)}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={`font-semibold underline underline-offset-2 ${inverse ? 'text-surface' : 'text-marine'}`}
+                >
+                  View source {revisionLabel(event.path)}
+                  {event.sha256 ? ` · ${event.sha256.slice(0, 8)}` : ''}
+                </a>
+              ) : null}
+            </li>
+          ))}
+        </ol>
+      </details>
+    </div>
   );
 }
