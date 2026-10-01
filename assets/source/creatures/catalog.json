@@ -6,9 +6,9 @@
   "binaryImportStatus": "complete",
   "summary": {
     "total": 56,
-    "keep": 33,
+    "keep": 34,
     "provisional": 0,
-    "remake": 23
+    "remake": 22
   },
   "provenance": {
     "generator": "ChatGPT image generation",
@@ -139,14 +139,34 @@
       "id": "caribbean-reef-squid",
       "creatureId": "caribbean-reef-squid",
       "name": "Caribbean reef squid",
-      "path": "assets/source/creatures/caribbean-reef-squid/candidate-v1.webp",
+      "path": "assets/source/creatures/caribbean-reef-squid/candidate-v2.webp",
       "score": 7.8,
-      "status": "remake",
+      "status": "keep",
       "identity": "high",
       "ingestMode": "opaque-scene",
-      "qaNote": "Owner rejected the vector-like appearance seen in the deployed app. Keep this immutable source as history and show the squid raster silhouette until a realistic replacement is reviewed.",
-      "bytes": 107806,
-      "sha256": "c8285bd1b4ba7f7bb7960ea2a325a3ed93a52965d8e5ff68df2841ebef52d4be"
+      "qaNote": "Issue #60 integration: recorded owner-approved candidate v2; visually inspected for diagnostic identity, natural underwater treatment, source/card readability and collection cohesion. Approval/publication evidence: https://github.com/BenWassa/poseidon/commit/5f2b27e. Historical numeric editorial score is retained; no new numeric score was assigned.",
+      "bytes": 1061714,
+      "sha256": "3c512ce65c8a78ceaf860d9bf36c6d305ec7cc30e2d442a4a1ee16b09fa00686",
+      "previousCandidateMetadata": {
+        "path": "assets/source/creatures/caribbean-reef-squid/candidate-v1.webp",
+        "score": 7.8,
+        "status": "remake",
+        "identity": "high",
+        "ingestMode": "opaque-scene",
+        "qaNote": "Owner rejected the vector-like appearance seen in the deployed app. Keep this immutable source as history and show the squid raster silhouette until a realistic replacement is reviewed.",
+        "bytes": 107806,
+        "sha256": "c8285bd1b4ba7f7bb7960ea2a325a3ed93a52965d8e5ff68df2841ebef52d4be"
+      },
+      "generator": "Owner-published AI-generated artwork",
+      "generationBatch": "issue-60-approved-integration",
+      "publishedOn": "2026-10-01",
+      "provenance": {
+        "sourceRevision": "assets/source/creatures/caribbean-reef-squid/candidate-v2.webp",
+        "approvalEvidence": "https://github.com/BenWassa/poseidon/commit/5f2b27e",
+        "integrationOn": "2026-10-01",
+        "transformation": "Exact immutable opaque 1024x1024 WebP input; deterministic canonical pipeline only.",
+        "rightsNote": "Owner-published generated source. Superseded photograph attribution is retained only in previousCandidateMetadata."
+      }
     },
     {
       "id": "caribbean-spiny-lobster",
