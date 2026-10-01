@@ -6,9 +6,9 @@
   "binaryImportStatus": "complete",
   "summary": {
     "total": 56,
-    "keep": 27,
+    "keep": 28,
     "provisional": 0,
-    "remake": 29
+    "remake": 28
   },
   "provenance": {
     "generator": "ChatGPT image generation",
@@ -588,26 +588,46 @@
       "id": "queen-parrotfish",
       "creatureId": "queen-parrotfish",
       "name": "Queen parrotfish",
-      "path": "assets/source/creatures/queen-parrotfish/candidate-v2.webp",
+      "path": "assets/source/creatures/queen-parrotfish/candidate-v4.webp",
       "score": 9.0,
-      "status": "remake",
+      "status": "keep",
       "identity": "high",
       "ingestMode": "opaque-scene",
-      "qaNote": "Issue #55 realistic replacement: licensed underwater photograph of Scarus vetula. The terminal-phase parrotfish form retains blue mouth/facial treatment, the oblique blue eye-to-back marking and pink caudal coloration in natural reef light, keeping queen parrotfish distinct from princess parrotfish while replacing flat vector rendering with photographic texture and depth.",
-      "generatedOn": "2026-09-17",
-      "generationBatch": "issue-55-realistic-one-by-one",
-      "bytes": 304450,
-      "sha256": "bb8d7cc972403385463987758c43dad56f930c51f5e2859e9c6d121eb9a318f1",
-      "generator": "licensed underwater photograph",
+      "qaNote": "Issue #60 integration: recorded owner-approved candidate v4; visually inspected for diagnostic identity, natural underwater treatment, source/card readability and collection cohesion. Approval/publication evidence: https://github.com/BenWassa/poseidon/pull/69. Historical numeric editorial score is retained; no new numeric score was assigned.",
+      "bytes": 90360,
+      "sha256": "63936408f440741fbbc58e958e4b8a1d45e48d4e4c63e21ae0fb630675b660ea",
       "scientificName": "Scarus vetula",
+      "previousCandidateMetadata": {
+        "path": "assets/source/creatures/queen-parrotfish/candidate-v2.webp",
+        "score": 9.0,
+        "status": "remake",
+        "identity": "high",
+        "ingestMode": "opaque-scene",
+        "qaNote": "Issue #55 realistic replacement: licensed underwater photograph of Scarus vetula. The terminal-phase parrotfish form retains blue mouth/facial treatment, the oblique blue eye-to-back marking and pink caudal coloration in natural reef light, keeping queen parrotfish distinct from princess parrotfish while replacing flat vector rendering with photographic texture and depth.",
+        "generatedOn": "2026-09-17",
+        "generationBatch": "issue-55-realistic-one-by-one",
+        "bytes": 304450,
+        "sha256": "bb8d7cc972403385463987758c43dad56f930c51f5e2859e9c6d121eb9a318f1",
+        "generator": "licensed underwater photograph",
+        "provenance": {
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:Queen_parrotfish_Scarus_vetula_(4658271432).jpg",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Queen_parrotfish_Scarus_vetula_%284658271432%29.jpg",
+          "author": "Paul Asman and Jill Lenoble",
+          "license": "CC BY 2.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+          "transformation": "square crop, resize to 1024x1024, WebP encode; no generative anatomy edits",
+          "styleFamily": "poseidon-sunlit-square-v1"
+        }
+      },
+      "generator": "Owner-published AI-generated artwork",
+      "generationBatch": "issue-60-approved-integration",
+      "publishedOn": "2026-10-01",
       "provenance": {
-        "sourcePage": "https://commons.wikimedia.org/wiki/File:Queen_parrotfish_Scarus_vetula_(4658271432).jpg",
-        "sourceUrl": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Queen_parrotfish_Scarus_vetula_%284658271432%29.jpg",
-        "author": "Paul Asman and Jill Lenoble",
-        "license": "CC BY 2.0",
-        "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
-        "transformation": "square crop, resize to 1024x1024, WebP encode; no generative anatomy edits",
-        "styleFamily": "poseidon-sunlit-square-v1"
+        "sourceRevision": "assets/source/creatures/queen-parrotfish/candidate-v4.webp",
+        "approvalEvidence": "https://github.com/BenWassa/poseidon/pull/69",
+        "integrationOn": "2026-10-01",
+        "transformation": "Exact immutable opaque 1024x1024 WebP input; deterministic canonical pipeline only.",
+        "rightsNote": "Owner-published generated source. Superseded photograph attribution is retained only in previousCandidateMetadata."
       }
     },
     {
