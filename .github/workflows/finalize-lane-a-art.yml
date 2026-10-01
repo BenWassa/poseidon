@@ -1,0 +1,85 @@
+name: Finalize Lane A uploaded source art
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/finalize-lane-a-art.yml'
+      - 'file_000000002300820c9d28f459367a0544.png'
+      - 'file_000000009a9081f699278a6f0d507564.png'
+      - 'file_00000000d05481f9a46043441d3b8ac2.png'
+      - 'file_00000000e3ac81f6bb29e10fe5091fb2.png'
+
+permissions:
+  contents: write
+
+jobs:
+  finalize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Verify exact uploaded PNGs
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo 'e86e73bb6c29d12ec8a87c61a4fd0c47ebb07811e68b29cb19849aff87333a1a  file_000000002300820c9d28f459367a0544.png' | sha256sum -c -
+          echo 'f4dcd876b91ba363ef4646d98530ba3326fa17bc0d5157709c473e09e129990b  file_000000009a9081f699278a6f0d507564.png' | sha256sum -c -
+          echo '087746a0a2b1560c92821e9589ab056f3e98948ee735c323424fc64c1e26bb8d  file_00000000d05481f9a46043441d3b8ac2.png' | sha256sum -c -
+          echo 'b0a7acf74523806e5861da7be44b2ad16b9836bb53b80c416f9cb60875a36efe  file_00000000e3ac81f6bb29e10fe5091fb2.png' | sha256sum -c -
+
+      - name: Convert exact approved images to canonical source format
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --disable-pip-version-check pillow
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image
+
+          mapping = {
+              'file_00000000e3ac81f6bb29e10fe5091fb2.png': Path('assets/source/creatures/spotted-eagle-ray/candidate-v3.webp'),
+              'file_00000000d05481f9a46043441d3b8ac2.png': Path('assets/source/creatures/caribbean-cushion-sea-star/candidate-v3.webp'),
+              'file_000000002300820c9d28f459367a0544.png': Path('assets/source/creatures/queen-conch/candidate-v3.webp'),
+              'file_000000009a9081f699278a6f0d507564.png': Path('assets/source/creatures/caribbean-reef-squid/candidate-v2.webp'),
+          }
+
+          for src, dst in mapping.items():
+              if dst.exists():
+                  raise SystemExit(f'refusing to overwrite existing immutable candidate: {dst}')
+              with Image.open(src) as image:
+                  if image.size != (1254, 1254):
+                      raise SystemExit(f'unexpected uploaded dimensions for {src}: {image.size}')
+                  image = image.convert('RGB').resize((1024, 1024), Image.Resampling.LANCZOS)
+                  dst.parent.mkdir(parents=True, exist_ok=True)
+                  image.save(dst, 'WEBP', lossless=True, method=6)
+                  with Image.open(dst) as check:
+                      if check.size != (1024, 1024) or check.format != 'WEBP':
+                          raise SystemExit(f'canonical conversion check failed for {dst}')
+          PY
+
+      - name: Replace root uploads with immutable candidate revisions
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git rm \
+            file_000000002300820c9d28f459367a0544.png \
+            file_000000009a9081f699278a6f0d507564.png \
+            file_00000000d05481f9a46043441d3b8ac2.png \
+            file_00000000e3ac81f6bb29e10fe5091fb2.png \
+            .github/workflows/finalize-lane-a-art.yml
+          git add \
+            assets/source/creatures/spotted-eagle-ray/candidate-v3.webp \
+            assets/source/creatures/caribbean-cushion-sea-star/candidate-v3.webp \
+            assets/source/creatures/queen-conch/candidate-v3.webp \
+            assets/source/creatures/caribbean-reef-squid/candidate-v2.webp
+          git commit -m 'art: place final approved creature candidates'
+          git push origin HEAD:main
