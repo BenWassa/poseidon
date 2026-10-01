@@ -6,9 +6,9 @@
   "binaryImportStatus": "complete",
   "summary": {
     "total": 56,
-    "keep": 23,
+    "keep": 24,
     "provisional": 0,
-    "remake": 33
+    "remake": 32
   },
   "provenance": {
     "generator": "ChatGPT image generation",
@@ -1032,27 +1032,47 @@
       "id": "ocean-surgeonfish",
       "creatureId": "ocean-surgeonfish",
       "name": "Ocean surgeonfish",
-      "path": "assets/source/creatures/ocean-surgeonfish/candidate-v2.webp",
+      "path": "assets/source/creatures/ocean-surgeonfish/candidate-v4.webp",
       "score": 9.5,
-      "status": "remake",
+      "status": "keep",
       "identity": "high",
       "ingestMode": "opaque-scene",
-      "qaNote": "Issue #55 realistic replacement: licensed Grand Cayman underwater photograph explicitly identified as Caribbean ocean surgeonfish, Acanthurus tractus. The relatively uniform grey-brown body lacks doctorfish bars and retains the pointed concave tail and pale rear-edge treatment expected by the locked diagnostics, replacing the former vector-derived source.",
-      "generator": "licensed underwater photograph",
-      "generatedOn": "2026-09-17",
-      "generationBatch": "issue-55-realistic-one-by-one",
-      "styleFamily": "poseidon-sunlit-square-v1",
-      "bytes": 361820,
-      "sha256": "d6b53a919e0736617398b96c69521848e51c06b7520132f5f844660a694802f5",
+      "qaNote": "Issue #60 integration: recorded owner-approved candidate v4; visually inspected for diagnostic identity, natural underwater treatment, source/card readability and collection cohesion. Approval/publication evidence: https://github.com/BenWassa/poseidon/pull/69. Historical numeric editorial score is retained; no new numeric score was assigned.",
+      "bytes": 83254,
+      "sha256": "6e9925a2debee88d50f2ae93adf7a43decbdafd2937aa0969fd724f291d8de6d",
       "scientificName": "Acanthurus tractus",
+      "previousCandidateMetadata": {
+        "path": "assets/source/creatures/ocean-surgeonfish/candidate-v2.webp",
+        "score": 9.5,
+        "status": "remake",
+        "identity": "high",
+        "ingestMode": "opaque-scene",
+        "qaNote": "Issue #55 realistic replacement: licensed Grand Cayman underwater photograph explicitly identified as Caribbean ocean surgeonfish, Acanthurus tractus. The relatively uniform grey-brown body lacks doctorfish bars and retains the pointed concave tail and pale rear-edge treatment expected by the locked diagnostics, replacing the former vector-derived source.",
+        "generator": "licensed underwater photograph",
+        "generatedOn": "2026-09-17",
+        "generationBatch": "issue-55-realistic-one-by-one",
+        "styleFamily": "poseidon-sunlit-square-v1",
+        "bytes": 361820,
+        "sha256": "d6b53a919e0736617398b96c69521848e51c06b7520132f5f844660a694802f5",
+        "provenance": {
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:Acanthurus_tractus_250882868.jpg",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Acanthurus_tractus_250882868.jpg",
+          "author": "Dan Schofield",
+          "license": "CC BY 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+          "transformation": "square crop, resize to 1024x1024, WebP encode; no generative anatomy edits",
+          "styleFamily": "poseidon-sunlit-square-v1"
+        }
+      },
+      "generator": "Owner-published AI-generated artwork",
+      "generationBatch": "issue-60-approved-integration",
+      "publishedOn": "2026-10-01",
       "provenance": {
-        "sourcePage": "https://commons.wikimedia.org/wiki/File:Acanthurus_tractus_250882868.jpg",
-        "sourceUrl": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Acanthurus_tractus_250882868.jpg",
-        "author": "Dan Schofield",
-        "license": "CC BY 4.0",
-        "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
-        "transformation": "square crop, resize to 1024x1024, WebP encode; no generative anatomy edits",
-        "styleFamily": "poseidon-sunlit-square-v1"
+        "sourceRevision": "assets/source/creatures/ocean-surgeonfish/candidate-v4.webp",
+        "approvalEvidence": "https://github.com/BenWassa/poseidon/pull/69",
+        "integrationOn": "2026-10-01",
+        "transformation": "Exact immutable opaque 1024x1024 WebP input; deterministic canonical pipeline only.",
+        "rightsNote": "Owner-published generated source. Superseded photograph attribution is retained only in previousCandidateMetadata."
       }
     },
     {
