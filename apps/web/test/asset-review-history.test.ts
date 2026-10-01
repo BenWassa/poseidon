@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import {
   currentReview,
+  needsReview,
   effectiveVerdict,
   observeCatalog,
   parseReviewHistory,
@@ -77,5 +78,25 @@ describe('artwork coding history', () => {
         .map((event) => event.verdict),
     ).toEqual(['keep', 'remake', 'keep']);
     expect(observeCatalog(history, [asset], time)).toBe(history);
+  });
+});
+
+describe('review queue', () => {
+  it('skips approved catalog decisions and current local decisions, while keeping unresolved replacements', () => {
+    const history = parseReviewHistory(null, '{"ray":"remake"}');
+    expect(needsReview(history, asset)).toBe(false);
+    const unresolved = { ...asset, status: 'remake' as const };
+    expect(needsReview(history, unresolved)).toBe(true);
+    const reviewed = recordReview(
+      history,
+      unresolved,
+      'remake',
+      'review',
+      time,
+    );
+    expect(needsReview(reviewed, unresolved)).toBe(false);
+    expect(
+      needsReview(reviewed, { ...unresolved, sha256: 'replacement' }),
+    ).toBe(true);
   });
 });

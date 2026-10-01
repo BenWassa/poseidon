@@ -198,3 +198,11 @@ export function effectiveVerdict(
 ): ReviewVerdict {
   return currentReview(history, asset) ?? asset.status;
 }
+
+/** Approved catalog artwork needs no repeat review; unresolved art remains actionable. */
+export function needsReview(
+  history: ReviewHistory,
+  asset: SourceAsset,
+): boolean {
+  return currentReview(history, asset) === undefined && asset.status !== 'keep';
+}

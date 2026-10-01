@@ -13,6 +13,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { creatures } from '../data/content';
 import {
   currentReview,
+  needsReview,
   effectiveVerdict,
   observeCatalog,
   parseReviewHistory,
@@ -265,8 +266,8 @@ export function DevAssetReview() {
   }
 
   function startQueue(pool: SourceAsset[]): void {
-    const pending = pool.filter(
-      (asset) => currentReview(historyRef.current, asset) === undefined,
+    const pending = pool.filter((asset) =>
+      needsReview(historyRef.current, asset),
     );
     if (pending.length === 0) return;
     setQueueAssets(pending);
@@ -345,7 +346,7 @@ export function DevAssetReview() {
   const assets = useMemo(() => {
     if (reviewFilter === 'all') return searched;
     if (reviewFilter === 'undecided')
-      return searched.filter((asset) => !quality[asset.id]);
+      return searched.filter((asset) => needsReview(history, asset));
     return searched.filter(
       (asset) => effectiveVerdict(history, asset) === reviewFilter,
     );
@@ -360,8 +361,8 @@ export function DevAssetReview() {
       live[asset.status] += 1;
       effective[effectiveVerdict(history, asset)] += 1;
       const review = currentReview(history, asset);
-      if (review === undefined) undecided += 1;
-      else if (review !== asset.status) overrides += 1;
+      if (needsReview(history, asset)) undecided += 1;
+      if (review !== undefined && review !== asset.status) overrides += 1;
     }
     return {
       ...effective,
@@ -371,8 +372,8 @@ export function DevAssetReview() {
       total: catalog?.assets.length ?? 0,
     };
   }, [catalog, history]);
-  const pendingCount = searched.filter(
-    (asset) => quality[asset.id] === undefined,
+  const pendingCount = searched.filter((asset) =>
+    needsReview(history, asset),
   ).length;
 
   const toggleReference = (asset: SourceAsset) => {
@@ -544,7 +545,7 @@ export function DevAssetReview() {
               onClick={() => setReviewFilter('all')}
             />
             <ReviewFilterChip
-              label="Not reviewed here"
+              label="Needs review"
               count={counts.undecided}
               active={reviewFilter === 'undecided'}
               onClick={() => setReviewFilter('undecided')}
