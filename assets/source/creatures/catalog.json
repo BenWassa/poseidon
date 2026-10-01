@@ -6,9 +6,9 @@
   "binaryImportStatus": "complete",
   "summary": {
     "total": 56,
-    "keep": 37,
+    "keep": 38,
     "provisional": 0,
-    "remake": 19
+    "remake": 18
   },
   "provenance": {
     "generator": "ChatGPT image generation",
@@ -997,26 +997,46 @@
       "creatureId": "yellowtail-damselfish",
       "name": "Yellowtail damselfish",
       "scientificName": "Microspathodon chrysurus",
-      "path": "assets/source/creatures/yellowtail-damselfish/candidate-v2.webp",
+      "path": "assets/source/creatures/yellowtail-damselfish/candidate-v3.webp",
       "score": 9.1,
-      "status": "remake",
+      "status": "keep",
       "identity": "high",
       "ingestMode": "opaque-scene",
-      "qaNote": "Issue #55 realistic replacement: licensed Caribbean photograph of adult Microspathodon chrysurus from the Cayman Islands. Deep robust damselfish form, brown adult body, bright yellow caudal fin and blue upper-body spotting are preserved as photographic markings, replacing the vector source while remaining diagnostic at card scale.",
-      "bytes": 160114,
-      "sha256": "2d52e53a34c3177867a3b047f5c76ef260c0b3ed2b8c5d37d3a0f26df62ca1e6",
-      "provenance": {
-        "sourcePage": "https://commons.wikimedia.org/wiki/File:Microspathodon_chrysurus,_9HGJ_372,_West_Bay,_Cayman_Islands_imported_from_iNaturalist_photo_312863957.jpg",
-        "sourceUrl": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Microspathodon_chrysurus%2C_9HGJ_372%2C_West_Bay%2C_Cayman_Islands_imported_from_iNaturalist_photo_312863957.jpg",
-        "author": "Dan Schofield",
-        "license": "CC BY 4.0",
-        "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
-        "transformation": "square crop, resize to 1024x1024, WebP encode; no generative anatomy edits",
-        "styleFamily": "poseidon-sunlit-square-v1"
+      "qaNote": "Issue #60 integration: recorded owner-approved candidate v3; visually inspected for diagnostic identity, natural underwater treatment, source/card readability and collection cohesion. Approval/publication evidence: https://github.com/BenWassa/poseidon/pull/73. Historical numeric editorial score is retained; no new numeric score was assigned.",
+      "bytes": 56730,
+      "sha256": "9c1be7bb5d155cf2b4b128678e91be2546002fa4ac38e1cc3cba3f6bc3782b11",
+      "previousCandidateMetadata": {
+        "path": "assets/source/creatures/yellowtail-damselfish/candidate-v2.webp",
+        "score": 9.1,
+        "status": "remake",
+        "identity": "high",
+        "ingestMode": "opaque-scene",
+        "qaNote": "Issue #55 realistic replacement: licensed Caribbean photograph of adult Microspathodon chrysurus from the Cayman Islands. Deep robust damselfish form, brown adult body, bright yellow caudal fin and blue upper-body spotting are preserved as photographic markings, replacing the vector source while remaining diagnostic at card scale.",
+        "bytes": 160114,
+        "sha256": "2d52e53a34c3177867a3b047f5c76ef260c0b3ed2b8c5d37d3a0f26df62ca1e6",
+        "provenance": {
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:Microspathodon_chrysurus,_9HGJ_372,_West_Bay,_Cayman_Islands_imported_from_iNaturalist_photo_312863957.jpg",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Microspathodon_chrysurus%2C_9HGJ_372%2C_West_Bay%2C_Cayman_Islands_imported_from_iNaturalist_photo_312863957.jpg",
+          "author": "Dan Schofield",
+          "license": "CC BY 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+          "transformation": "square crop, resize to 1024x1024, WebP encode; no generative anatomy edits",
+          "styleFamily": "poseidon-sunlit-square-v1"
+        },
+        "generatedOn": "2026-09-17",
+        "generationBatch": "issue-55-realistic-one-by-one",
+        "generator": "licensed underwater photograph"
       },
-      "generatedOn": "2026-09-17",
-      "generationBatch": "issue-55-realistic-one-by-one",
-      "generator": "licensed underwater photograph"
+      "generator": "Owner-published AI-generated artwork",
+      "generationBatch": "issue-60-approved-integration",
+      "publishedOn": "2026-10-01",
+      "provenance": {
+        "sourceRevision": "assets/source/creatures/yellowtail-damselfish/candidate-v3.webp",
+        "approvalEvidence": "https://github.com/BenWassa/poseidon/pull/73",
+        "integrationOn": "2026-10-01",
+        "transformation": "Exact immutable opaque 1024x1024 WebP input; deterministic canonical pipeline only.",
+        "rightsNote": "Owner-published generated source. Superseded photograph attribution is retained only in previousCandidateMetadata."
+      }
     },
     {
       "id": "bicolor-damselfish",
