@@ -6,9 +6,9 @@
   "binaryImportStatus": "complete",
   "summary": {
     "total": 56,
-    "keep": 22,
+    "keep": 23,
     "provisional": 0,
-    "remake": 34
+    "remake": 33
   },
   "provenance": {
     "generator": "ChatGPT image generation",
@@ -673,26 +673,46 @@
       "creatureId": "doctorfish",
       "name": "Doctorfish",
       "scientificName": "Acanthurus chirurgus",
-      "path": "assets/source/creatures/doctorfish/candidate-v2.webp",
+      "path": "assets/source/creatures/doctorfish/candidate-v4.webp",
       "score": 9.0,
-      "status": "remake",
+      "status": "keep",
       "identity": "high",
       "ingestMode": "opaque-scene",
-      "qaNote": "Issue #55 realistic replacement: licensed underwater photograph of Acanthurus chirurgus. The compressed grey-brown surgeonfish form and diagnostic narrow vertical barring are preserved in natural photographic anatomy and light; the replacement avoids a uniform surgeonfish treatment and removes the former vector appearance.",
-      "bytes": 132452,
-      "sha256": "625d04d0417cc47539ae238e2fcafcc4c102aa77e9ae44bfb2bb5f8268bf5afd",
-      "provenance": {
-        "sourcePage": "https://commons.wikimedia.org/wiki/File:Acanthurus_chirurgus_570598917.jpg",
-        "sourceUrl": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Acanthurus_chirurgus_570598917.jpg",
-        "author": "James-LaFontaine",
-        "license": "CC BY 4.0",
-        "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
-        "transformation": "square crop, resize to 1024x1024, WebP encode; no generative anatomy edits",
-        "styleFamily": "poseidon-sunlit-square-v1"
+      "qaNote": "Issue #60 integration: recorded owner-approved candidate v4; visually inspected for diagnostic identity, natural underwater treatment, source/card readability and collection cohesion. Approval/publication evidence: https://github.com/BenWassa/poseidon/pull/69. Historical numeric editorial score is retained; no new numeric score was assigned.",
+      "bytes": 106780,
+      "sha256": "1104655d6915352d150a6882ec79669b6fecf9584a17d96f2813162a1af6e885",
+      "previousCandidateMetadata": {
+        "path": "assets/source/creatures/doctorfish/candidate-v2.webp",
+        "score": 9.0,
+        "status": "remake",
+        "identity": "high",
+        "ingestMode": "opaque-scene",
+        "qaNote": "Issue #55 realistic replacement: licensed underwater photograph of Acanthurus chirurgus. The compressed grey-brown surgeonfish form and diagnostic narrow vertical barring are preserved in natural photographic anatomy and light; the replacement avoids a uniform surgeonfish treatment and removes the former vector appearance.",
+        "bytes": 132452,
+        "sha256": "625d04d0417cc47539ae238e2fcafcc4c102aa77e9ae44bfb2bb5f8268bf5afd",
+        "provenance": {
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:Acanthurus_chirurgus_570598917.jpg",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Acanthurus_chirurgus_570598917.jpg",
+          "author": "James-LaFontaine",
+          "license": "CC BY 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+          "transformation": "square crop, resize to 1024x1024, WebP encode; no generative anatomy edits",
+          "styleFamily": "poseidon-sunlit-square-v1"
+        },
+        "generatedOn": "2026-09-17",
+        "generationBatch": "issue-55-realistic-one-by-one",
+        "generator": "licensed underwater photograph"
       },
-      "generatedOn": "2026-09-17",
-      "generationBatch": "issue-55-realistic-one-by-one",
-      "generator": "licensed underwater photograph"
+      "generator": "Owner-published AI-generated artwork",
+      "generationBatch": "issue-60-approved-integration",
+      "publishedOn": "2026-10-01",
+      "provenance": {
+        "sourceRevision": "assets/source/creatures/doctorfish/candidate-v4.webp",
+        "approvalEvidence": "https://github.com/BenWassa/poseidon/pull/69",
+        "integrationOn": "2026-10-01",
+        "transformation": "Exact immutable opaque 1024x1024 WebP input; deterministic canonical pipeline only.",
+        "rightsNote": "Owner-published generated source. Superseded photograph attribution is retained only in previousCandidateMetadata."
+      }
     },
     {
       "id": "foureye-butterflyfish",
