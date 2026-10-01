@@ -6,9 +6,9 @@
   "binaryImportStatus": "complete",
   "summary": {
     "total": 56,
-    "keep": 38,
+    "keep": 39,
     "provisional": 0,
-    "remake": 18
+    "remake": 17
   },
   "provenance": {
     "generator": "ChatGPT image generation",
@@ -1042,26 +1042,46 @@
       "id": "bicolor-damselfish",
       "creatureId": "bicolor-damselfish",
       "name": "Bicolor damselfish",
-      "path": "assets/source/creatures/bicolor-damselfish/candidate-v2.webp",
+      "path": "assets/source/creatures/bicolor-damselfish/candidate-v3.webp",
       "score": 9.1,
-      "status": "remake",
+      "status": "keep",
       "identity": "high",
       "ingestMode": "opaque-scene",
-      "qaNote": "Issue #55 realistic replacement: licensed Bonaire photograph of adult Stegastes partitus. The deep damselfish body and sharply contrasting dark anterior/pale posterior bicolor pattern are preserved as natural reef coloration, replacing the vector source with photographic coral context, scale texture and depth.",
-      "generator": "licensed underwater photograph",
-      "generatedOn": "2026-09-17",
-      "generationBatch": "issue-55-realistic-one-by-one",
-      "bytes": 223030,
-      "sha256": "34c8b21b9cf6daa8b50c6e2b1138d09604d255e3597ebc153d121e56e068d19e",
+      "qaNote": "Issue #60 integration: recorded owner-approved candidate v3; visually inspected for diagnostic identity, natural underwater treatment, source/card readability and collection cohesion. Approval/publication evidence: https://github.com/BenWassa/poseidon/pull/73. Historical numeric editorial score is retained; no new numeric score was assigned.",
+      "bytes": 55620,
+      "sha256": "f7cbd33b2d0e78564dec288005b9cccdeb04e3273b0f8e9a11e5712cbd037863",
       "scientificName": "Stegastes partitus",
+      "previousCandidateMetadata": {
+        "path": "assets/source/creatures/bicolor-damselfish/candidate-v2.webp",
+        "score": 9.1,
+        "status": "remake",
+        "identity": "high",
+        "ingestMode": "opaque-scene",
+        "qaNote": "Issue #55 realistic replacement: licensed Bonaire photograph of adult Stegastes partitus. The deep damselfish body and sharply contrasting dark anterior/pale posterior bicolor pattern are preserved as natural reef coloration, replacing the vector source with photographic coral context, scale texture and depth.",
+        "generator": "licensed underwater photograph",
+        "generatedOn": "2026-09-17",
+        "generationBatch": "issue-55-realistic-one-by-one",
+        "bytes": 223030,
+        "sha256": "34c8b21b9cf6daa8b50c6e2b1138d09604d255e3597ebc153d121e56e068d19e",
+        "provenance": {
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:Stegastes_partitus_360685555.jpg",
+          "sourceUrl": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Stegastes_partitus_360685555.jpg",
+          "author": "desertnaturalist",
+          "license": "CC BY 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+          "transformation": "square crop, resize to 1024x1024, WebP encode; no generative anatomy edits",
+          "styleFamily": "poseidon-sunlit-square-v1"
+        }
+      },
+      "generator": "Owner-published AI-generated artwork",
+      "generationBatch": "issue-60-approved-integration",
+      "publishedOn": "2026-10-01",
       "provenance": {
-        "sourcePage": "https://commons.wikimedia.org/wiki/File:Stegastes_partitus_360685555.jpg",
-        "sourceUrl": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Stegastes_partitus_360685555.jpg",
-        "author": "desertnaturalist",
-        "license": "CC BY 4.0",
-        "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
-        "transformation": "square crop, resize to 1024x1024, WebP encode; no generative anatomy edits",
-        "styleFamily": "poseidon-sunlit-square-v1"
+        "sourceRevision": "assets/source/creatures/bicolor-damselfish/candidate-v3.webp",
+        "approvalEvidence": "https://github.com/BenWassa/poseidon/pull/73",
+        "integrationOn": "2026-10-01",
+        "transformation": "Exact immutable opaque 1024x1024 WebP input; deterministic canonical pipeline only.",
+        "rightsNote": "Owner-published generated source. Superseded photograph attribution is retained only in previousCandidateMetadata."
       }
     },
     {
