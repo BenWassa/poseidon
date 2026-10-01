@@ -137,9 +137,7 @@ Production agents own generation and visual/species QA only. They must not edit 
 
 #### Lane C finalization — issue #64
 
-The 2026-09-25 audit of PR #67 is complete and all nine Lane C species now have an approved immutable `candidate-v3.webp` source revision on the focused Lane C finalization branch.
-
-Preserved unchanged from the exact PR #67 review-stage file:
+The PR #67 audit accepted six review-stage candidates unchanged. Their next immutable `candidate-v3.webp` source revisions are valid and preserved on the focused Lane C finalization branch:
 
 - spotted trunkfish
 - banded butterflyfish
@@ -148,13 +146,15 @@ Preserved unchanged from the exact PR #67 review-stage file:
 - bicolor damselfish
 - honeycomb cowfish
 
-Remade after the PR #67 audit because the review-stage image missed locked diagnostics:
+Three species required remakes because the PR #67 review-stage images missed locked diagnostics:
 
 - blue chromis — stronger deeply forked, dark-margined caudal identity;
 - sharpnose puffer — corrected pointed-snout/body treatment and characteristic yellow/dark tail treatment;
 - balloonfish — corrected long erectile spines, dark eye-bar/body blotches and normal swimming presentation.
 
-These immutable source revisions are production-complete but deliberately **not promoted**. Catalog verdicts, runtime assets/manifests, taxonomy and application content remain unchanged pending centralized full-library integration and cross-library review.
+The approved replacement image bytes for those three are unavailable in a decodable form. Their committed 31/34/31-byte blobs were removed from the current branch tree; the rejected PR #67 review-stage files were not substituted. Publication of those three immutable revisions remains blocked until the exact approved bytes are recovered. Earlier source candidates remain intact.
+
+This lane is therefore **partially published**: six valid immutable candidates are present, three replacements remain pending. Catalog verdicts remain at the current 21 keep / 35 remake baseline; runtime assets/manifests, taxonomy and application content are unchanged pending centralized full-library integration and cross-library review.
 
 ### Lane D — larger reef fish
 

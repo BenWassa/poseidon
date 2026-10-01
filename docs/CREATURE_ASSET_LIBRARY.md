@@ -40,23 +40,23 @@ The curated Mexican-Caribbean catalogue contains **56 stable creature IDs**. Run
 
 Runtime format and source style remain separate questions. The former #33 outputs were technically valid WebP runtime assets but originated from procedural SVG/vector-assisted workflows; #55 replaced all 26 with reviewed realistic raster source revisions.
 
-## Issue #64 Lane C finalization — immutable source revisions complete
+## Issue #64 Lane C finalization — six valid source revisions published
 
-The PR #67 review-stage batch has been audited against current biological diagnostics, the keep-set visual family and card-scale readability. All nine Lane C species now have an approved next immutable source revision, `candidate-v3.webp`, on the focused Lane C finalization branch.
+The PR #67 review-stage batch was audited against current biological diagnostics, the keep-set visual family and card-scale readability. Six accepted files are preserved unchanged as valid `candidate-v3.webp` sources. Three remakes remain unpublished because their approved image bytes are unavailable in a decodable form.
 
-| Species | Finalization result | `candidate-v3` source |
+| Species | Current result | `candidate-v3` source |
 | --- | --- | --- |
 | spotted trunkfish | PASS | exact PR #67 review-stage image preserved unchanged |
 | banded butterflyfish | PASS | exact PR #67 review-stage image preserved unchanged |
 | foureye butterflyfish | PASS | exact PR #67 review-stage image preserved unchanged |
-| blue chromis | REMAKE | new approved replacement with stronger forked/dark-margined caudal identity |
+| blue chromis | BLOCKED | approved replacement bytes unavailable; corrupt 31-byte blob excluded |
 | yellowtail damselfish | PASS | exact PR #67 review-stage image preserved unchanged |
 | bicolor damselfish | PASS | exact PR #67 review-stage image preserved unchanged |
 | honeycomb cowfish | PASS | exact PR #67 review-stage image preserved unchanged |
-| sharpnose puffer | REMAKE | new approved replacement with corrected pointed-snout/body and characteristic tail treatment |
-| balloonfish | REMAKE | new approved replacement with long erectile spines, dark eye-bar/body blotches and normal swimming form |
+| sharpnose puffer | BLOCKED | approved replacement bytes unavailable; corrupt 34-byte blob excluded |
+| balloonfish | BLOCKED | approved replacement bytes unavailable; corrupt 31-byte blob excluded |
 
-Every previous source candidate remains intact. These Lane C revisions are **source-finalization only**: `assets/source/creatures/catalog.json`, runtime assets/manifests, taxonomy, application content and promotion state were intentionally not changed. Those belong to the later centralized full-library integration pass after cross-library review.
+The rejected PR #67 review-stage files were not substituted for the three remakes. Earlier source candidates remain intact. This is partial source publication only: `assets/source/creatures/catalog.json`, runtime assets/manifests, taxonomy, application content and promotion state remain unchanged. The three blocked replacements require recovery of their exact approved image bytes before publication; full-library integration and cross-library review remain centralized.
 
 ## Historical 30-asset realistic-HD programme
 
