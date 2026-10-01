@@ -266,3 +266,24 @@ Each generated candidate must pass all four dimensions.
 - 56 mapped source entries = 56 canonical runtime manifests;
 - full repository gate is green;
 - asset/status docs are reconciled.
+
+### Current artwork codes and review history
+
+The development-only review page (`npm run dev`, `#/dev/assets`) uses the current
+source catalog as its default quality coding. It reloads the catalog every 15
+seconds while visible, on returning to the tab, and through **Refresh catalog**.
+Keep/Maybe/Remake filters include local overrides; the catalog counts remain
+visible separately. The page also identifies whether the creature currently uses
+artwork or a fallback in the application.
+
+Local calls are recorded against both the selected source path and SHA-256. A
+replacement does not inherit an old override. **Use catalog code** and **Undo**
+append history rather than deleting decisions. Each creature's **Coding history**
+includes available prior catalog metadata, observed catalog transitions, and
+browser review calls. Earlier browser ratings without revision information are
+retained as **Revision unknown**, without applying them to the current image.
+
+History is stored in the same browser/origin; the old storage key is preserved.
+The version 2 review snapshot exports the current catalog, effective codes,
+revision-specific overrides and complete recorded history. These review calls do
+not change the committed catalog or promote runtime artwork.
