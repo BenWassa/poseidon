@@ -149,6 +149,12 @@ These are **source candidates only**. This publication did not change `assets/so
 
 Lane A's earlier branch `art/issue-62-distinctive-form-remakes` separately preserves new v3 candidates for loggerhead sea turtle, Caribbean reef octopus, spotted moray, black grouper and splendid toadfish. Do not regenerate or overwrite those files when the lane is reconciled. Caribbean reef squid was added to #60 after the original Lane A map and is tracked here with the remaining generation batch rather than retroactively changing the lane ownership map.
 
+## #62 recovered source candidates — 2026-10-01
+
+The reconciliation branch preserves the exact five historical Lane A v3 blobs for loggerhead sea turtle, Caribbean reef octopus, spotted moray, black grouper and splendid toadfish, one artwork commit per species. These files decode as opaque WebP but are **1254×1254**, so they remain review-only inputs pending owner acceptance and a later immutable 1024×1024 normalization revision. They are not catalog-selected or promoted.
+
+The older lane branch also contains non-decodable `candidate-v3.webp` blobs for spotted eagle ray and Caribbean cushion sea star. Those two commits are retained on the historical branch and excluded from reconciliation; the newer owner-approved, valid 1024×1024 v3 files already on `main` remain authoritative. No source history is overwritten or regenerated.
+
 ## #34 sequencing — transparency follows current approval
 
 Issue #34 may proceed for current `keep` artwork where isolated specimens improve the UI. It must not derive from a `remake` candidate merely because an older canonical runtime file exists:
