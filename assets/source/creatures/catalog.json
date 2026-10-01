@@ -6,9 +6,9 @@
   "binaryImportStatus": "complete",
   "summary": {
     "total": 56,
-    "keep": 30,
+    "keep": 31,
     "provisional": 0,
-    "remake": 26
+    "remake": 25
   },
   "provenance": {
     "generator": "ChatGPT image generation",
@@ -54,14 +54,34 @@
       "id": "spotted-eagle-ray",
       "creatureId": "spotted-eagle-ray",
       "name": "Spotted eagle ray",
-      "path": "assets/source/creatures/spotted-eagle-ray/candidate-v2.webp",
+      "path": "assets/source/creatures/spotted-eagle-ray/candidate-v3.webp",
       "score": 7.8,
-      "status": "remake",
+      "status": "keep",
       "identity": "high",
       "ingestMode": "opaque-scene",
-      "qaNote": "Replacement v2: eagle-ray disc/head silhouette and dense white dorsal spotting read clearly at card scale; long whip tail is explicit. Composite source uses an AI-generated specimen isolated into the established sunlit Caribbean scene treatment.",
-      "bytes": 17710,
-      "sha256": "0f8e4f5df8a99021dff15b5b4dcbb0d3db6ae2f3dce15baeabab5007b02a24aa"
+      "qaNote": "Issue #60 integration: recorded owner-approved candidate v3; visually inspected for diagnostic identity, natural underwater treatment, source/card readability and collection cohesion. Approval/publication evidence: https://github.com/BenWassa/poseidon/commit/5f2b27e. Historical numeric editorial score is retained; no new numeric score was assigned.",
+      "bytes": 1027022,
+      "sha256": "1e06c1e29031c5ee542c184504cbf3d40ffaedbf899e968265dd89a493756cad",
+      "previousCandidateMetadata": {
+        "path": "assets/source/creatures/spotted-eagle-ray/candidate-v2.webp",
+        "score": 7.8,
+        "status": "remake",
+        "identity": "high",
+        "ingestMode": "opaque-scene",
+        "qaNote": "Replacement v2: eagle-ray disc/head silhouette and dense white dorsal spotting read clearly at card scale; long whip tail is explicit. Composite source uses an AI-generated specimen isolated into the established sunlit Caribbean scene treatment.",
+        "bytes": 17710,
+        "sha256": "0f8e4f5df8a99021dff15b5b4dcbb0d3db6ae2f3dce15baeabab5007b02a24aa"
+      },
+      "generator": "Owner-published AI-generated artwork",
+      "generationBatch": "issue-60-approved-integration",
+      "publishedOn": "2026-10-01",
+      "provenance": {
+        "sourceRevision": "assets/source/creatures/spotted-eagle-ray/candidate-v3.webp",
+        "approvalEvidence": "https://github.com/BenWassa/poseidon/commit/5f2b27e",
+        "integrationOn": "2026-10-01",
+        "transformation": "Exact immutable opaque 1024x1024 WebP input; deterministic canonical pipeline only.",
+        "rightsNote": "Owner-published generated source. Superseded photograph attribution is retained only in previousCandidateMetadata."
+      }
     },
     {
       "id": "nurse-shark",
