@@ -1,5 +1,46 @@
 # Changelog
 
+## [0.2.1](https://github.com/BenWassa/poseidon/compare/poseidon-v0.2.0...poseidon-v0.2.1) (2026-10-01)
+
+
+### Features
+
+* **assets:** integrate 19 approved creature replacements ([0ab7d36](https://github.com/BenWassa/poseidon/commit/0ab7d36de1957e98370283a7e1d388e1415bec0a))
+* **assets:** promote approved banded-butterflyfish candidate v3 ([17e5a40](https://github.com/BenWassa/poseidon/commit/17e5a4015e00d198e438bef0e36f7d50690f150f))
+* **assets:** promote approved bicolor-damselfish candidate v3 ([d558d1c](https://github.com/BenWassa/poseidon/commit/d558d1c44ca7a1eb14817656fb802409e0053255))
+* **assets:** promote approved blue-tang candidate v3 ([2080b3c](https://github.com/BenWassa/poseidon/commit/2080b3c7b843a1042def0f95d3470ae8dad3eea1))
+* **assets:** promote approved bluehead-wrasse candidate v4 ([e0d7d16](https://github.com/BenWassa/poseidon/commit/e0d7d16db674f9a69270eecd8e1d1b1d98819b5f))
+* **assets:** promote approved caribbean-cushion-sea-star candidate v3 ([8037d28](https://github.com/BenWassa/poseidon/commit/8037d28fce0c4405ca03d4cb4ed1f6dea377cefc))
+* **assets:** promote approved caribbean-reef-squid candidate v2 ([ac5f83d](https://github.com/BenWassa/poseidon/commit/ac5f83de1175442ed2cbb0723023c8777c8e107d))
+* **assets:** promote approved doctorfish candidate v4 ([3fd6877](https://github.com/BenWassa/poseidon/commit/3fd6877b59d22f2c4bdfb5a5c9bc1449102ad653))
+* **assets:** promote approved foureye-butterflyfish candidate v3 ([c4e863b](https://github.com/BenWassa/poseidon/commit/c4e863bd8370baca2163dc36797d8ff5f5930825))
+* **assets:** promote approved honeycomb-cowfish candidate v3 ([a228f04](https://github.com/BenWassa/poseidon/commit/a228f0401bbac7c387b5a5eab2071317cc6c25fb))
+* **assets:** promote approved ocean-surgeonfish candidate v4 ([b16e273](https://github.com/BenWassa/poseidon/commit/b16e27365bafa37852d2579cb3fcc0501c2f4365))
+* **assets:** promote approved princess-parrotfish candidate v4 ([bce0257](https://github.com/BenWassa/poseidon/commit/bce02576881fff9a579f4b08b8f5741768775de0))
+* **assets:** promote approved queen-conch candidate v3 ([aaab235](https://github.com/BenWassa/poseidon/commit/aaab23546279cac0248919873d070ff01f2cf7af))
+* **assets:** promote approved queen-parrotfish candidate v4 ([c2bbc5e](https://github.com/BenWassa/poseidon/commit/c2bbc5e08e8547c5ee9b763a15e5719d751c9555))
+* **assets:** promote approved redband-parrotfish candidate v5 ([d44773b](https://github.com/BenWassa/poseidon/commit/d44773bb8f290771fa7a7df7bae45fdaab93d519))
+* **assets:** promote approved spanish-hogfish candidate v4 ([80377ff](https://github.com/BenWassa/poseidon/commit/80377ff16973dc9566407ccf5148fdef89c9feaf))
+* **assets:** promote approved spotted-eagle-ray candidate v3 ([9240f99](https://github.com/BenWassa/poseidon/commit/9240f9930e4afc0f639bc1b3ee720f55b9b7b6c7))
+* **assets:** promote approved spotted-trunkfish candidate v3 ([d1b64a4](https://github.com/BenWassa/poseidon/commit/d1b64a45a867dc03200bd932f70c52ac9d159844))
+* **assets:** promote approved yellowhead-wrasse candidate v4 ([3ff492c](https://github.com/BenWassa/poseidon/commit/3ff492cbabde25ac7eb80f8ee96b7d8cf76f5758))
+* **assets:** promote approved yellowtail-damselfish candidate v3 ([0472248](https://github.com/BenWassa/poseidon/commit/0472248767c8e0519a727873625eef73ac475e24))
+
+
+### Bug Fixes
+
+* **art:** exclude corrupt Lane C candidate blobs ([13a75ae](https://github.com/BenWassa/poseidon/commit/13a75ae2300026f1b3b410613699445aa2536968))
+* **assets:** reconcile [#60](https://github.com/BenWassa/poseidon/issues/60) creature verdict counts ([bad7e7d](https://github.com/BenWassa/poseidon/commit/bad7e7d959ff1f63e1eaeb275523e35eabf7f6a9))
+* **assets:** reconcile source catalog summary ([c4e5533](https://github.com/BenWassa/poseidon/commit/c4e553343f45acda887ce17ea79fd1c15bd56ac9))
+* **assets:** remove incidental catalog metadata edits ([a1ab11f](https://github.com/BenWassa/poseidon/commit/a1ab11f7df516fac945a0467954f0d386be2e05a))
+* **gate:** include strict source catalog validation ([c6e9323](https://github.com/BenWassa/poseidon/commit/c6e9323e8b478d57d9cbdc39da54510d7a7feb48))
+* **pwa:** snooze dismissed install prompts ([1168a22](https://github.com/BenWassa/poseidon/commit/1168a22d9cadea15f91656fecb13b695841d71ee))
+
+
+### Miscellaneous Chores
+
+* **release:** keep artwork refinements at patch version ([fca883e](https://github.com/BenWassa/poseidon/commit/fca883e3bca7690617af815643a86778109221ff))
+
 ## [0.2.0](https://github.com/BenWassa/poseidon/compare/poseidon-v0.1.3...poseidon-v0.2.0) (2026-09-25)
 
 
