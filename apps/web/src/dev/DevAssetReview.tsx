@@ -350,7 +350,7 @@ export function DevAssetReview() {
     return searched.filter(
       (asset) => effectiveVerdict(history, asset) === reviewFilter,
     );
-  }, [searched, reviewFilter, quality, history]);
+  }, [searched, reviewFilter, history]);
 
   const counts = useMemo(() => {
     const live = { keep: 0, provisional: 0, remake: 0 };
