@@ -8,29 +8,29 @@
     "variants": {
       "gallery": {
         "aspectRatio": 1.0,
-        "bytes": 18862,
+        "bytes": 31098,
         "height": 512,
         "mediaType": "image/webp",
         "path": "gallery.webp",
-        "sha256": "85ca7e7e0280efb79ad8d89d32b5eff83aa691e1b7da7b35026be81c59bec02d",
+        "sha256": "88ceca74cc4cc292de63d02cd2cbe7c04d6244f8a17aba1504710cd9a33937e2",
         "width": 512
       },
       "hero": {
         "aspectRatio": 1.0,
-        "bytes": 78844,
+        "bytes": 104610,
         "height": 1024,
         "mediaType": "image/webp",
         "path": "hero.webp",
-        "sha256": "b6eda2cb30b1d44de22712d40629cc17d20e1e9a71eb42917f0467813c05fa11",
+        "sha256": "c7ea14ceeead45e7b8ebbd67fea39c737eb56f46d6f700319ffc25ac71afca7d",
         "width": 1024
       },
       "thumb": {
         "aspectRatio": 1.0,
-        "bytes": 3094,
+        "bytes": 5262,
         "height": 192,
         "mediaType": "image/webp",
         "path": "thumb.webp",
-        "sha256": "e3ac07f99965f05f0c7c08903363adb34732b15ef6f5b47ce7c7b665aa6ae034",
+        "sha256": "0afe9f090b8c6c26ace6d1507c7ce1573ba39f0ff57cf5b585231e7c978dad76",
         "width": 192
       }
     }
@@ -38,11 +38,11 @@
   "creatureId": "yellowhead-wrasse",
   "source": {
     "aspectRatio": 1.0,
-    "bytes": 192412,
+    "bytes": 95602,
     "format": "webp",
     "height": 1024,
     "mode": "opaque-scene",
-    "sha256": "72b1797179d71970063f5d3a3670809cc5999991857866f6f506d2750a7f61aa",
+    "sha256": "7bb3e094ba563755cc0d6eb1113b233cb9bf5e334925a823ea53595c05d9f2ee",
     "width": 1024
   },
   "version": 1
