@@ -6,7 +6,7 @@ This is the living programme-status companion to the durable product contracts. 
 
 ## Current integrated baseline
 
-The current deployed release baseline is **Poseidon 0.2.0**. The application is a deployed React/Vite/TypeScript PWA with Firebase-backed approved-user persistence, local/offline shadow persistence, canonical marine content and a guarded creature-asset pipeline.
+The named product version is recorded in the workspace manifests and GitHub Releases; live deployment identity includes its exact Git revision. The application is a deployed React/Vite/TypeScript PWA with Firebase-backed approved-user persistence, local/offline shadow persistence, canonical marine content and a guarded creature-asset pipeline.
 
 Production targets:
 
@@ -23,7 +23,7 @@ npm run gate
 
 It includes strict source-catalog validation as well as canonical content/assets, lint/format, typechecks, domain/application tests, production build, PWA precache-budget verification and automated field-readiness acceptance.
 
-Latest integration state: PRs #69, #74 and #75 are merged. Repaired PR #73 is merged with six valid candidates; three corrupt unpublished replacements were excluded. Release 0.2.0 is the current deployed baseline; no source commit hash is recorded here as deployment authority.
+Latest integration state: PRs #69, #74 and #75 are merged. Repaired PR #73 is merged with six valid candidates; three corrupt unpublished replacements were excluded. Named release publication and Firebase Hosting deployment follow the repository release recipe; a source merge alone does not establish both deployment targets.
 
 ## Product baseline
 
@@ -58,7 +58,7 @@ Owner direction on 2026-09-16 is **realistic HD raster marine-life imagery only*
 
 The historical human visual inventory is:
 
-- **30 original HD-source programme assets** — canonical runtime variants exist; the 2026-09-18 review retained 21 as `keep` and flagged 9 as `remake`;
+- **30 original HD-source programme assets** — canonical runtime variants exist; the owner review, including the 2026-09-24 squid reclassification, retained 21 as `keep` and flagged 9 as `remake`;
 - **26 former #33 coverage assets** — realistic raster replacements were promoted under #55, then all 26 current entries were marked `remake` by the later cross-library review;
 - legacy marine-life SVG tooling/fallbacks — deprecated and not part of the approved creature-art inventory.
 
@@ -86,7 +86,7 @@ PR #32 promoted the 18 already-mapped `keep` source candidates through the guard
 
 ### #31 — original source mapping and closeout — complete
 
-PR #35 resolved every former `creatureId: null` candidate through explicit sourced content authority. PR #36 promoted the four newly mapped `keep` sources. #38 and #39 then supplied the eight required biological replacements, leaving the original batch historically resolved at **30 keep / 0 provisional / 0 remake**. The 2026-09-18 owner review is the current editorial authority.
+PR #35 resolved every former `creatureId: null` candidate through explicit sourced content authority. PR #36 promoted the four newly mapped `keep` sources. #38 and #39 then supplied the eight required biological replacements, leaving the original batch historically resolved at **30 keep / 0 provisional / 0 remake**. The current catalog supersedes historical editorial counts.
 
 ### #38 — remake batch A — complete
 

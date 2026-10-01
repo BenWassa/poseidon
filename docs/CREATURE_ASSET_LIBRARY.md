@@ -30,12 +30,12 @@ The curated Mexican-Caribbean catalogue contains **56 stable creature IDs**. Run
 - **0 current curated creatures are missing runtime artwork**;
 - the application displays canonical artwork for the 40 `keep` records and a shared neutral raster silhouette for each of the 16 `remake` records;
 - Caribbean reef squid moved to `remake` on 2026-09-24 after the owner flagged its vector-like deployed image; its existing WebP source and runtime variants remain immutable history while the UI shows the squid silhouette;
-- #55 replaced the former #33 vector/procedural masters with realistic raster revisions, but the later cross-library review remains the authority for their current `remake` status.
+- #55 replaced the former #33 vector/procedural masters with realistic raster revisions, but the later owner review established a remake queue; the current catalog records subsequent approved replacements.
 
 | Inventory group | Count | Current runtime state | Visual direction |
 | --- | ---: | --- | --- |
 | Original HD source programme | 30 | Canonical WebP variants exist; 21 currently display as approved art and 9 are suppressed as remakes | The current cross-library review, rather than historical promotion, determines display approval. |
-| #33 coverage programme | 26 | Realistic raster replacements were promoted under #55, then all 26 were marked `remake` in the current review and render fallbacks | Preserve immutable raster revisions as history; replace and re-review before any future display approval or #34 derivation. |
+| #33 coverage programme | 26 | Realistic raster replacements were promoted under #55, then all 26 were marked `remake` in the owner review; subsequent approved revisions are tracked in the current catalog | Preserve immutable raster revisions as history; replace and re-review before any future display approval or #34 derivation. |
 | Legacy SVG creature tooling/fallbacks | Not part of the 56-source inventory | Repository/tooling/fallback only | **Deprecated for marine-life artwork. Do not create new creature SVGs.** |
 
 Runtime format and source style remain separate questions. The former #33 outputs were technically valid WebP runtime assets but originated from procedural SVG/vector-assisted workflows; #55 replaced all 26 with reviewed realistic raster source revisions.
@@ -60,7 +60,7 @@ The rejected PR #67 review-stage files were not substituted for the three remake
 
 ## Historical 30-asset realistic-HD programme
 
-These are the original HD-source programme records. The later 2026-09-18 cross-library review is the current authority: 21 remain `keep` and 9 are now `remake`. Preserve every immutable source revision; do not infer current approval from this historical programme list.
+These are the original HD-source programme records. The later owner review, including the squid reclassification, retained 21 as `keep` and flagged 9 as `remake`; the current catalog reflects subsequent approved replacements. Preserve every immutable source revision; do not infer current approval from this historical programme list.
 
 - queen angelfish (`queen-angelfish`)
 - hawksbill sea turtle (`hawksbill-sea-turtle`)
@@ -97,7 +97,7 @@ The original batch is fully mapped and live. #38 / PR #42 supplied accepted v2 r
 
 ## #55 realistic-HD replacement programme — technically complete, subsequently re-reviewed
 
-Issue **#55** replaced all **26 #33 coverage assets** with realistic HD raster masters, preserving prior source revisions as immutable history and promoting canonical runtime variants. The 2026-09-18 cross-library review subsequently marked all 26 current source entries `remake`; their runtime files remain for pipeline/history purposes, while the application renders neutral fallbacks until reviewed replacements return to `keep`.
+Issue **#55** replaced all **26 #33 coverage assets** with realistic HD raster masters, preserving prior source revisions as immutable history and promoting canonical runtime variants. The 2026-09-18 cross-library review subsequently marked all 26 current source entries `remake`; their runtime files remain for pipeline/history purposes; subsequent reviewed replacements return individual records to `keep` through guarded promotion.
 
 ### Completed — Batch A — 7
 
