@@ -11,13 +11,15 @@ All generation/replacement work under this programme must follow `docs/CREATURE_
 
 The curated Mexican-Caribbean library contains 56 creatures.
 
-- 22 keep
+- 21 keep
 - 0 provisional
-- 34 remake
+- 35 remake
 - 56 mapped source entries
 - 56 canonical runtime manifests
 
-The 34 remake decisions are visual/editorial decisions. Existing runtime files remain valid pipeline/history artifacts until a reviewed replacement is promoted, but the application deliberately renders the neutral fallback for these records rather than displaying rejected art.
+The 35 remake decisions are visual/editorial decisions. Existing runtime files remain valid pipeline/history artifacts until a reviewed replacement is promoted, but the application deliberately renders the neutral fallback for these records rather than displaying rejected art.
+
+The original four #60 production lanes contain 34 species. Caribbean reef squid was reclassified from `keep` to `remake` on 2026-09-24 after owner review of its vector-like deployed image, bringing the active remake total to 35. It is a follow-up outside the original four-lane partition rather than a retroactive lane reassignment.
 
 ## Target visual family
 
@@ -43,10 +45,9 @@ Source format remains 1024×1024 opaque raster art.
 
 ### 1. Style authority
 
-`CLAUDE.md` already establishes the 22 current `keep` candidates as the durable design-reference set. These are the style authority for #60:
+`CLAUDE.md` establishes the 21 current `keep` candidates as the durable design-reference set. These are the style authority for #60:
 
 - banded coral shrimp
-- Caribbean reef squid
 - Caribbean spiny lobster
 - French angelfish
 - great barracuda
@@ -79,7 +80,7 @@ Together they establish:
 - card-scale readability;
 - collection cohesion.
 
-The development review page may still export a JSON review snapshot containing browser-pinned references and verdicts for convenience, but those local pins are not a production blocker and do not supersede this 22-image reference set.
+The development review page may still export a JSON review snapshot containing browser-pinned references and verdicts for convenience, but those local pins are not a production blocker and do not supersede this 21-image reference set.
 
 ### 2. Biological authority
 
@@ -145,7 +146,7 @@ Production agents own generation and visual/species QA only. They must not edit 
 7. mutton snapper
 8. rock beauty
 
-Total: 34 species, no overlap.
+The original four lanes total 34 species with no overlap. Caribbean reef squid is the additional follow-up remake described above, bringing the active #60 remake set to 35.
 
 ## Per-candidate acceptance
 
@@ -160,7 +161,7 @@ Each generated candidate must pass all four dimensions.
 
 ### Style
 
-- consistent with the 22-image owner design-reference set in `CLAUDE.md`;
+- consistent with the 21-image owner design-reference set in `CLAUDE.md`;
 - realistic without becoming an unrelated stock photograph;
 - same clean underwater visual family as accepted Poseidon sources.
 
@@ -180,11 +181,11 @@ Each generated candidate must pass all four dimensions.
 
 ## Production workflow
 
-1. use the 22 `keep` candidates in `CLAUDE.md` as shared style authority;
-2. dispatch four isolated generation lanes;
-3. each lane generates and rejects/remakes failures against species diagnostics;
-4. collect all 34 accepted lane candidates without promoting them;
-5. review the complete 34-image set together for collection consistency;
+1. use the 21 `keep` candidates in `CLAUDE.md` as shared style authority;
+2. dispatch the four isolated generation lanes plus the Caribbean reef squid follow-up;
+3. each lane/follow-up generates and rejects/remakes failures against species diagnostics;
+4. collect all 35 accepted replacement candidates without promoting them;
+5. review the complete 35-image replacement set together for collection consistency;
 6. send visual outliers back for another generation even if individually attractive;
 7. add accepted outputs as new immutable `candidate-vN` source revisions;
 8. update catalog status only after human acceptance;
@@ -206,8 +207,8 @@ Each generated candidate must pass all four dimensions.
 
 #60 is complete only when:
 
-- the 22-image design-reference set remains durable repository authority;
-- all 34 remakes have human-accepted replacements;
+- the 21-image design-reference set remains durable repository authority;
+- all 35 remakes have human-accepted replacements;
 - catalog reports 56 keep / 0 provisional / 0 remake;
 - every replacement is preserved as an immutable source revision;
 - canonical runtime variants are promoted and verified;
