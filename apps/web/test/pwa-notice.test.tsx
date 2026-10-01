@@ -85,4 +85,22 @@ describe('PWA notices', () => {
       screen.queryByText('Add Poseidon to your Home Screen'),
     ).not.toBeInTheDocument();
   });
+
+  it('does not show install guidance again during its seven day snooze', async () => {
+    const user = userEvent.setup();
+    const prompt = vi.fn<() => Promise<void>>().mockResolvedValue(undefined);
+    const deferred = {
+      prompt,
+      userChoice: Promise.resolve({ outcome: 'accepted' as const }),
+    };
+    const { unmount } = render(<PwaNotice />);
+
+    announceInstallAvailable(deferred);
+    await user.click(await screen.findByRole('button', { name: 'Not now' }));
+    unmount();
+
+    render(<PwaNotice />);
+    announceInstallAvailable(deferred);
+    expect(screen.queryByText('Install Poseidon')).not.toBeInTheDocument();
+  });
 });

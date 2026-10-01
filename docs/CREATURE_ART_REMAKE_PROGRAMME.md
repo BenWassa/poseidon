@@ -3,6 +3,10 @@
 Issue: #60  
 Owner review authority: 2026-09-18
 
+## Required execution workflow
+
+All generation/replacement work under this programme must follow `docs/CREATURE_ART_PRODUCTION_WORKFLOW.md`. That workflow is the execution authority for repo preflight, 6-8-species review batches, one independent image/file per species, pre-GitHub owner approval, exact-file publication, immutable candidate revisions, one artwork commit per species, one branch/PR per lane, and post-publication documentation. Where older issue text conflicts with it, the workflow wins.
+
 ## Current state
 
 The curated Mexican-Caribbean library contains 56 creatures.

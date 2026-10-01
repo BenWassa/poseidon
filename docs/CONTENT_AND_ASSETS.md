@@ -194,6 +194,8 @@ Do not suppress creatures because production art is incomplete. Do not create a 
 
 # 13. Production workflow
 
+For any generated or replacement creature artwork, `docs/CREATURE_ART_PRODUCTION_WORKFLOW.md` is the required execution workflow and supersedes older ad-hoc batch instructions. The normal production cadence is roughly 6-8 species per review batch, with every species generated as its own independent image/file and all owner review completed before repository publication.
+
 For each new/replacement creature asset:
 
 1. choose the stable content ID;
@@ -209,7 +211,7 @@ For each new/replacement creature asset:
 11. inspect the result in actual phone gallery/detail surfaces;
 12. only then treat runtime art as curated.
 
-Do not generate a large library and review it only at the end. Work in small batches, remake failures immediately, and preserve biological QA ahead of coverage metrics.
+Do not generate the whole library and review it only at the end. Use the production workflow's roughly 6-8-species batches, generate every species independently, preserve approved images unchanged, remake only failures, and keep biological QA ahead of coverage metrics.
 
 ---
 

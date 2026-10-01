@@ -9,6 +9,7 @@ Read these before changing product behavior:
 5. `docs/BRAND.md`
 6. `docs/CONTENT_AND_ASSETS.md`
 7. `docs/UI_DATA_CONTRACT.md`
+8. for creature-art generation/replacement: `docs/CREATURE_ART_PRODUCTION_WORKFLOW.md`
 
 ## Current repository authority
 
@@ -107,6 +108,10 @@ Current residual work is tracked under #5, especially:
 - #16 sourced map/geodata.
 
 Keep photos, dive-computer sync, PADI integration, social mechanics, technical telemetry, mandatory accounts and global content breadth out of these streams unless explicitly promoted into new scope.
+
+## Creature-art production
+
+Any agent generating or replacing marine-life artwork must follow `docs/CREATURE_ART_PRODUCTION_WORKFLOW.md` before touching source assets. In particular: preflight current repo state; work in efficient 6-8 species batches while generating one independent file per species; perform agent QA; show the owner all images before GitHub writes; upload the exact approved file; preserve immutable candidate history; use one artwork commit per species and one branch/PR per lane; document only after approved files are safe. Catalog/runtime promotion is a separate owner-directed phase.
 
 ## Visual implementation
 

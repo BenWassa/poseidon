@@ -6,7 +6,7 @@
  * bathymetric atlas motif, place typography and — when the dive has one — the
  * highlight creature's own artwork.
  */
-import { Clock, Gauge, MapPin } from 'lucide-react';
+import { ArrowDownToLine, Clock, MapPin } from 'lucide-react';
 
 import type { Creature, Dive } from '@poseidon/domain';
 
@@ -20,24 +20,34 @@ import { AtlasMotif } from './AtlasMotif';
 import { CreatureImage } from './CreatureImage';
 
 /**
- * The creature that best represents a dive: the diver's own choice first, and
- * only then a fallback so the card is never blank. Poseidon never overrules a
- * chosen highlight.
+ * Prefer the diver's chosen highlight when it has usable artwork; otherwise
+ * show the first illustrated encounter. Fall back to the chosen creature only
+ * when none of the sightings has artwork.
  */
 export function heroCreature(
   dive: Dive,
   index: Map<string, Creature>,
+  variant: 'gallery' | 'hero' = 'gallery',
 ): Creature | null {
-  if (dive.highlightCreatureId) {
-    const chosen = index.get(dive.highlightCreatureId);
-    if (chosen) return chosen;
-  }
+  const hasArtwork = (creature: Creature | undefined): creature is Creature =>
+    creature?.artwork?.status === 'curated' &&
+    Boolean(creature.artwork[variant]);
+  const chosen = dive.highlightCreatureId
+    ? index.get(dive.highlightCreatureId)
+    : undefined;
+  if (hasArtwork(chosen)) return chosen;
+
   for (const sighting of dive.sightings) {
     const creature = index.get(sighting.creatureId);
-    if (creature?.artwork?.status === 'curated') return creature;
+    if (hasArtwork(creature)) return creature;
   }
-  const first = dive.sightings[0];
-  return first ? (index.get(first.creatureId) ?? null) : null;
+
+  if (chosen) return chosen;
+  for (const sighting of dive.sightings) {
+    const creature = index.get(sighting.creatureId);
+    if (creature) return creature;
+  }
+  return null;
 }
 
 function seedFrom(value: string): number {
@@ -73,16 +83,25 @@ export function DiveHero({
   eyebrow?: string;
   size?: 'lg' | 'sm';
 }) {
-  const creature = heroCreature(dive, creatureIndex);
+  const creature = heroCreature(
+    dive,
+    creatureIndex,
+    size === 'lg' ? 'hero' : 'gallery',
+  );
   // Only finished artwork floats on the hero. A creature still waiting for its
   // painting is honoured elsewhere; here the motif and typography carry the
   // card, which is the whole point of not depending on imagery.
   const art = creature?.artwork?.status === 'curated' ? creature : null;
+  const otherCreatures = dive.sightings
+    .filter((sighting) => sighting.creatureId !== creature?.id)
+    .map((sighting) => creatureIndex.get(sighting.creatureId))
+    .filter((sighting): sighting is Creature => Boolean(sighting))
+    .slice(0, 2);
 
   return (
     <div
       className={`tap-lift group relative overflow-hidden rounded-card bg-gradient-to-br from-marine to-abyss text-white shadow-lift ${
-        size === 'lg' ? 'min-h-56 p-6' : 'min-h-40 p-5'
+        size === 'lg' ? 'min-h-56 p-6' : 'h-64 p-5 min-[370px]:h-48'
       }`}
     >
       <AtlasMotif className="text-white" seed={seedFrom(dive.id)} />
@@ -92,7 +111,7 @@ export function DiveHero({
           className={`pointer-events-none absolute ${
             size === 'lg'
               ? '-right-3 -bottom-4 w-44'
-              : '-right-2 -bottom-3 w-28'
+              : 'right-4 bottom-4 w-24 min-[370px]:w-28'
           }`}
         >
           <CreatureImage
@@ -106,7 +125,7 @@ export function DiveHero({
       ) : null}
 
       <div
-        className={`relative ${art ? (size === 'lg' ? 'pr-32' : 'pr-24') : ''}`}
+        className={`relative ${size === 'lg' ? (art ? 'pr-32' : '') : 'pr-24'}`}
       >
         {eyebrow ? (
           <span className="mb-3 inline-block rounded-full bg-coral px-3 py-1.5 text-[10px] font-black tracking-[0.16em] text-abyss uppercase">
@@ -127,16 +146,30 @@ export function DiveHero({
         </p>
 
         <div className="mt-4 flex flex-wrap gap-2">
-          <Metric icon={<Gauge size={13} aria-hidden="true" />}>
+          <Metric icon={<ArrowDownToLine size={13} aria-hidden="true" />}>
             {formatDepth(dive.maxDepth)}
           </Metric>
           <Metric icon={<Clock size={13} aria-hidden="true" />}>
             {formatDuration(dive.durationMinutes)}
           </Metric>
           {dive.sightings.length > 0 ? (
-            <Metric icon={null}>
-              {pluralize(dive.sightings.length, 'creature')}
-            </Metric>
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-white/15 py-1.5 pr-2.5 pl-2 text-xs font-bold text-white backdrop-blur-sm">
+              {otherCreatures.length > 0 ? (
+                <span className="flex -space-x-1" aria-hidden="true">
+                  {otherCreatures.map((other) => (
+                    <CreatureImage
+                      key={other.id}
+                      creature={other}
+                      variant="thumb"
+                      className="h-5 w-5 shrink-0 ring-2 ring-abyss/70"
+                    />
+                  ))}
+                </span>
+              ) : null}
+              <span className="whitespace-nowrap">
+                {pluralize(dive.sightings.length, 'creature')}
+              </span>
+            </span>
           ) : null}
         </div>
       </div>

@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.0](https://github.com/BenWassa/poseidon/compare/poseidon-v0.1.3...poseidon-v0.2.0) (2026-09-25)
+
+
+### Features
+
+* **journal:** show creature previews in recent dive cards ([52f1d14](https://github.com/BenWassa/poseidon/commit/52f1d14e44da6c8cd895b886fcaa82033d7542b6))
+
 ## [0.1.3](https://github.com/BenWassa/poseidon/compare/poseidon-v0.1.2...poseidon-v0.1.3) (2026-09-24)
 
 

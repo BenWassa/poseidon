@@ -4,6 +4,8 @@ Last updated: **2026-09-24**
 
 This is the human inventory and production-order authority for Poseidon creature artwork. The machine-readable provenance authority is [`assets/source/creatures/catalog.json`](../assets/source/creatures/catalog.json). Runtime assets remain under `assets/creatures/` and are produced only through the canonical #11 pipeline.
 
+For any new or replacement creature image, first follow [`docs/CREATURE_ART_PRODUCTION_WORKFLOW.md`](CREATURE_ART_PRODUCTION_WORKFLOW.md). It governs batch size, independent image generation, owner approval, immutable revisions, commits/branches and documentation before any later promotion step.
+
 ## Owner visual authority — realistic HD raster only
 
 Marine-life artwork is now governed by a simple product rule:
