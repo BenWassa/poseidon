@@ -1,6 +1,6 @@
 # Poseidon Creature Asset Library
 
-Last updated: **2026-09-25**
+Last updated: **2026-10-01**
 
 This is the human inventory and production-order authority for Poseidon creature artwork. The machine-readable provenance authority is [`assets/source/creatures/catalog.json`](../assets/source/creatures/catalog.json). Runtime assets remain under `assets/creatures/` and are produced only through the canonical #11 pipeline.
 
@@ -38,6 +38,8 @@ The curated Mexican-Caribbean catalogue contains **56 stable creature IDs**. Run
 | #33 coverage programme | 26 | Realistic raster replacements were promoted under #55, then all 26 were marked `remake` in the current review and render fallbacks | Preserve immutable raster revisions as history; replace and re-review before any future display approval or #34 derivation. |
 | Legacy SVG creature tooling/fallbacks | Not part of the 56-source inventory | Repository/tooling/fallback only | **Deprecated for marine-life artwork. Do not create new creature SVGs.** |
 
+Runtime format and source style remain separate questions. The former #33 outputs were technically valid WebP runtime assets but originated from procedural SVG/vector-assisted workflows; #55 replaced all 26 with reviewed realistic raster source revisions.
+
 ## Issue #64 Lane C finalization — immutable source revisions complete
 
 The PR #67 review-stage batch has been audited against current biological diagnostics, the keep-set visual family and card-scale readability. All nine Lane C species now have an approved next immutable source revision, `candidate-v3.webp`, on the focused Lane C finalization branch.
@@ -55,8 +57,6 @@ The PR #67 review-stage batch has been audited against current biological diagno
 | balloonfish | REMAKE | new approved replacement with long erectile spines, dark eye-bar/body blotches and normal swimming form |
 
 Every previous source candidate remains intact. These Lane C revisions are **source-finalization only**: `assets/source/creatures/catalog.json`, runtime assets/manifests, taxonomy, application content and promotion state were intentionally not changed. Those belong to the later centralized full-library integration pass after cross-library review.
-
-Runtime format and source style remain separate questions. The former #33 outputs were technically valid WebP runtime assets but originated from procedural SVG/vector-assisted workflows; #55 replaced all 26 with reviewed realistic raster source revisions.
 
 ## Historical 30-asset realistic-HD programme
 
@@ -151,6 +151,21 @@ For each replacement, the production contract was:
 8. regenerate and validate canonical 192/512/1024 runtime variants.
 
 Mexican-Caribbean plausibility and species identity outrank aesthetics. Realism is an additional gate, not a substitute for biological QA.
+
+## #60 current source-art production — 2026-10-01
+
+The final owner-reviewed batch from the current generation pass is now preserved on `main` as immutable 1024×1024 opaque WebP source revisions:
+
+- spotted eagle ray — `assets/source/creatures/spotted-eagle-ray/candidate-v3.webp`;
+- Caribbean cushion sea star — `assets/source/creatures/caribbean-cushion-sea-star/candidate-v3.webp`;
+- queen conch — `assets/source/creatures/queen-conch/candidate-v3.webp`;
+- Caribbean reef squid — `assets/source/creatures/caribbean-reef-squid/candidate-v2.webp`.
+
+The exact owner-approved PNG uploads from commit `9fd77d1` were SHA-256 verified before conversion, resized to the required 1024×1024 source dimensions and encoded as lossless WebP without regenerating the artwork. The temporary root uploads were removed after successful conversion.
+
+These are **source candidates only**. This publication did not change `assets/source/creatures/catalog.json`, runtime assets/manifests, taxonomy, application content or promotion state. All four records therefore retain their existing `remake` verdict until the centralized cross-library integration/acceptance step explicitly changes them.
+
+Lane A's earlier branch `art/issue-62-distinctive-form-remakes` separately preserves new v3 candidates for loggerhead sea turtle, Caribbean reef octopus, spotted moray, black grouper and splendid toadfish. Do not regenerate or overwrite those files when the lane is reconciled. Caribbean reef squid was added to #60 after the original Lane A map and is tracked here with the remaining generation batch rather than retroactively changing the lane ownership map.
 
 ## #34 sequencing — transparency follows current approval
 
@@ -247,6 +262,6 @@ assets/creatures/<stable-id>/                   # canonical runtime only
 
 ## Work sequence
 
-1. **#60 — active:** replace and review the 35 `remake` candidates, promoting only accepted immutable revisions until the catalogue returns to 56 `keep`. Lane C / issue #64 source finalization is complete; catalog/runtime integration remains deferred to the centralized cross-library pass.
+1. **#60 — active:** replace and review the 35 `remake` candidates, promoting only accepted immutable revisions until the catalogue returns to 56 `keep`.
 2. **#34 — next where useful:** derive transparent raster specimen revisions only from currently approved realistic opaque masters; preserve originals and manually QA difficult alpha edges.
 3. Creature-count expansion can be considered separately after the current 56-creature visual family and any desired #34 extraction work are accepted.

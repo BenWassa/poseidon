@@ -1,8 +1,7 @@
 # Creature Art Remake Programme
 
 Issue: #60  
-Owner review authority: 2026-09-18  
-Last reconciled: 2026-09-25
+Owner review authority: 2026-09-18
 
 ## Required execution workflow
 
@@ -20,7 +19,7 @@ The curated Mexican-Caribbean library contains 56 creatures.
 
 The 35 remake decisions are visual/editorial decisions. Existing runtime files remain valid pipeline/history artifacts until a reviewed replacement is promoted, but the application deliberately renders the neutral fallback for these records rather than displaying rejected art.
 
-The original four #60 production lanes contain 34 species. Caribbean reef squid was reclassified from `keep` to `remake` on 2026-09-24 after owner review of its vector-like deployed image, bringing the active remake total to 35. It is handled as a follow-up outside the original four-lane partition rather than being silently inserted into another lane.
+The original four #60 production lanes contain 34 species. Caribbean reef squid was reclassified from `keep` to `remake` on 2026-09-24 after owner review of its vector-like deployed image, bringing the active remake total to 35. It is a follow-up outside the original four-lane partition rather than a retroactive lane reassignment.
 
 ## Target visual family
 
@@ -46,9 +45,7 @@ Source format remains 1024×1024 opaque raster art.
 
 ### 1. Style authority
 
-The current `keep` candidates are the durable design-reference set. As of 2026-09-25 there are 21 current keep references; Caribbean reef squid is no longer a keep/style-authority image after its 2026-09-24 reclassification.
-
-Current style-authority set:
+`CLAUDE.md` establishes the 21 current `keep` candidates as the durable design-reference set. These are the style authority for #60:
 
 - banded coral shrimp
 - Caribbean spiny lobster
@@ -83,7 +80,7 @@ Together they establish:
 - card-scale readability;
 - collection cohesion.
 
-The development review page may still export a JSON review snapshot containing browser-pinned references and verdicts for convenience, but those local pins are not a production blocker and do not supersede the current keep reference set.
+The development review page may still export a JSON review snapshot containing browser-pinned references and verdicts for convenience, but those local pins are not a production blocker and do not supersede this 21-image reference set.
 
 ### 2. Biological authority
 
@@ -157,7 +154,7 @@ Remade after the PR #67 audit because the review-stage image missed locked diagn
 - sharpnose puffer — corrected pointed-snout/body treatment and characteristic yellow/dark tail treatment;
 - balloonfish — corrected long erectile spines, dark eye-bar/body blotches and normal swimming presentation.
 
-These immutable source revisions are production-complete but deliberately **not promoted** here. `assets/source/creatures/catalog.json`, runtime assets/manifests, taxonomy and application content remain unchanged until the later full-library integration pass and cross-library review.
+These immutable source revisions are production-complete but deliberately **not promoted**. Catalog verdicts, runtime assets/manifests, taxonomy and application content remain unchanged pending centralized full-library integration and cross-library review.
 
 ### Lane D — larger reef fish
 
@@ -185,7 +182,7 @@ Each generated candidate must pass all four dimensions.
 
 ### Style
 
-- consistent with the current owner keep/reference set;
+- consistent with the 21-image owner design-reference set in `CLAUDE.md`;
 - realistic without becoming an unrelated stock photograph;
 - same clean underwater visual family as accepted Poseidon sources.
 
@@ -205,14 +202,14 @@ Each generated candidate must pass all four dimensions.
 
 ## Production workflow
 
-1. use the current `keep` candidates as shared style authority;
-2. dispatch isolated generation lanes/follow-up batches;
-3. each lane generates and rejects/remakes failures against species diagnostics;
-4. collect all 35 accepted replacement candidates without promoting them prematurely;
-5. review the complete replacement set together for collection consistency;
+1. use the 21 `keep` candidates in `CLAUDE.md` as shared style authority;
+2. dispatch the four isolated generation lanes plus the Caribbean reef squid follow-up;
+3. each lane/follow-up generates and rejects/remakes failures against species diagnostics;
+4. collect all 35 accepted replacement candidates without promoting them;
+5. review the complete 35-image replacement set together for collection consistency;
 6. send visual outliers back for another generation even if individually attractive;
 7. add accepted outputs as new immutable `candidate-vN` source revisions;
-8. update catalog status only after human acceptance and centralized integration;
+8. update catalog status only after human acceptance;
 9. promote through the existing guarded pipeline;
 10. verify full-size and card-scale runtime rendering;
 11. run the full repository gate;
@@ -231,7 +228,7 @@ Each generated candidate must pass all four dimensions.
 
 #60 is complete only when:
 
-- the current keep/reference set remains durable repository authority;
+- the 21-image design-reference set remains durable repository authority;
 - all 35 remakes have human-accepted replacements;
 - catalog reports 56 keep / 0 provisional / 0 remake;
 - every replacement is preserved as an immutable source revision;
