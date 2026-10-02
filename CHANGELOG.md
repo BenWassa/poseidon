@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.3.0](https://github.com/BenWassa/poseidon/compare/poseidon-v0.2.1...poseidon-v0.3.0) (2026-10-02)
+
+
+### Features
+
+* add portfolio demo build (seeded, no sign-in, no Firebase) ([b8cf398](https://github.com/BenWassa/poseidon/commit/b8cf398860a039745ba505c5426099d56f54776f))
+* portfolio demo build (seeded, no sign-in, no Firebase) ([3b1af0c](https://github.com/BenWassa/poseidon/commit/3b1af0c6a12f7210196aefefd5311596c882e38a))
+
 ## [0.2.1](https://github.com/BenWassa/poseidon/compare/poseidon-v0.2.0...poseidon-v0.2.1) (2026-10-01)
 
 
