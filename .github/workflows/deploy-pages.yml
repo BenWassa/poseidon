@@ -59,6 +59,15 @@ jobs:
         env:
           POSEIDON_BASE_PATH: /${{ github.event.repository.name }}/
         run: npm run verify:field --workspace @poseidon/web
+      # The portfolio demo: seeded in-memory history, no sign-in, no Firebase,
+      # no secrets. It ships beside the real app at <site>/demo/ and is copied
+      # in only after the real build, which would otherwise empty dist/.
+      - name: Build portfolio demo and publish under /demo/
+        env:
+          POSEIDON_BASE_PATH: /${{ github.event.repository.name }}/demo/
+        run: |
+          npm run build:demo
+          cp -R apps/web/dist-demo apps/web/dist/demo
       - uses: actions/upload-pages-artifact@v3
         with:
           path: apps/web/dist

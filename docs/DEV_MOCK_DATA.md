@@ -50,6 +50,32 @@ Presets are `0`, `3`, `5`, `15` and `30`; `off` (or `real`) returns to the real 
 
 Resolution order is **query parameter → stored choice → real application**.
 
+## Portfolio demo build
+
+The `import.meta.env.DEV` fence above exists so a normal production build can never enter mock mode. A second, explicit build exists for the portfolio iframe: a **demo build** that is production-optimised, seeded, and has no real application inside it at all.
+
+```bash
+npm run build:demo        # -> apps/web/dist-demo, base /poseidon/demo/, needs no secrets
+npm run preview:demo      # serves it at http://127.0.0.1:4173/poseidon/demo/
+```
+
+It is `vite build --mode demo`, which loads `apps/web/.env.demo` (`VITE_POSEIDON_DEMO=true`, Firebase variables blanked). `POSEIDON_BASE_PATH` overrides the base for a local preview or another host. Default builds do not set the flag and behave exactly as before.
+
+`main.tsx` checks `import.meta.env.VITE_POSEIDON_DEMO === 'true'` inline, so Vite removes the other side at build time: a default build contains no demo path, and a demo build contains no `AuthProvider`, `AuthGate` or Firebase code (the acceptance probe greps the bundle for it).
+
+Demo behaviour:
+
+- boots the 15-dive preset with no parameter; `?mock=0|3|5|15|30` may pick another size;
+- `?mock=off|real`, the stored `poseidon.dev.selection` choice and everything else that could lead to the real application are ignored, and nothing is written to storage;
+- all history is in memory (`MemoryPersistence`), so a reload returns to the baseline;
+- no service worker and no manifest, so a redeploy is never masked by a cached demo;
+- a "Demo" strip above the screens says the data is sample data and resets on reload;
+- the real build's service worker denylists `<base>demo/` navigations, so on a device that installed the real app the demo iframe can never render the real, signed-in app.
+
+The Atlas screen still loads Leaflet from unpkg and map tiles from OpenStreetMap, exactly as the real app does. These are third-party static assets, not a Poseidon backend.
+
+`npm run test:mock` builds the demo bundle, serves it at `/poseidon/demo/`, and fails on any Firebase/backend reference in the bundle or any backend request, console error, sign-in UI, service worker, or stale-selection leak at runtime. The Pages workflow publishes the demo beside the real app at `<site>/demo/`.
+
 ## Stale service workers
 
 Poseidon is a PWA, so a production build, `npm run preview`, the PWA probes or an installed PWA can leave a service worker registered on an origin. A worker registered on the development origin keeps serving its precached **production** bundle on top of the development server, and the failure is completely silent: no console error, no development badge, `?mock=` ignored, and source edits that never appear — because development code is never fetched at all.

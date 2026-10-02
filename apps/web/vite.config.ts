@@ -17,7 +17,23 @@ function normalizeBase(value: string): string {
   return leading.endsWith('/') ? leading : `${leading}/`;
 }
 
-const base = normalizeBase(process.env.POSEIDON_BASE_PATH ?? '/');
+/**
+ * The portfolio demo is built with `vite build --mode demo` (`npm run
+ * build:demo`). It publishes under `<pages-site>/demo/` beside the real app, so
+ * its default base is `/poseidon/demo/`; POSEIDON_BASE_PATH overrides that for
+ * a local preview or a different host. It writes to `dist-demo/` so it can
+ * never overwrite or be confused with the real build in `dist/`.
+ */
+const DEMO_DEFAULT_BASE = '/poseidon/demo/';
+
+function resolveBase(mode: string): string {
+  const fallback = mode === 'demo' ? DEMO_DEFAULT_BASE : '/';
+  return normalizeBase(process.env.POSEIDON_BASE_PATH ?? fallback);
+}
+
+function escapeRegExp(value: string): string {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
 
 /**
  * A service worker from a production build, `npm run preview`, the PWA probes or
@@ -109,107 +125,122 @@ function developmentSourceAssetReview(): Plugin {
   };
 }
 
-export default defineConfig({
-  base,
-  define: {
-    __POSEIDON_VERSION__: JSON.stringify(productVersion),
-    __POSEIDON_BUILD_SHA__: JSON.stringify(buildRevision),
-  },
-  plugins: [
-    developmentServiceWorkerReset(`${base}sw.js`),
-    developmentSourceAssetReview(),
-    react(),
-    tailwindcss(),
-    VitePWA({
-      registerType: 'prompt',
-      // Core logging and browsing must survive a cold start with no network,
-      // so the shell, the content pack and the thumb/gallery creature
-      // variants used by dense grids are precached. `hero.webp` is the
-      // largest variant (up to 700 KiB each) and is only needed for a
-      // creature's own Detail view, so it is cached on first view instead
-      // of bloating every cold install/update with every hero image.
-      workbox: {
-        globPatterns: ['**/*.{js,css,html,webp,png,svg,woff2,mp4}'],
-        globIgnores: ['**/assets/creatures/*/hero.webp'],
-        maximumFileSizeToCacheInBytes: 4 * 1024 * 1024,
-        cleanupOutdatedCaches: true,
-        ignoreURLParametersMatching: [/^v$/],
-        /*
-         * A precache entry with a null revision tells Workbox the URL is
-         * immutable, so it is never re-fetched again on any later update.
-         * That is true of Vite's own bundles, whose filenames carry a content
-         * hash, and false of everything `scripts/sync-assets.mjs` mounts:
-         * `assets/creatures/<id>/gallery.webp` keeps its name for the life of
-         * the species while its bytes change every time art is promoted or
-         * remade.
-         *
-         * vite-plugin-pwa defaults this to the whole `assets/` directory,
-         * which is where both kinds of file live, so a device that had
-         * precached a creature's old artwork kept serving it forever — the
-         * grids read from the precache, while Detail looked correct because
-         * `hero.webp` is runtime-cached instead. Match only the hashed build
-         * output at the root of `assets/`, so the mounted art trees are
-         * revisioned by content and a promoted asset actually lands.
-         */
-        dontCacheBustURLsMatching: /^assets\/[^/]+-[\w-]{8}\.(?:js|css)$/,
-        runtimeCaching: [
-          {
-            urlPattern: ({ url }) => url.pathname.endsWith('/hero.webp'),
-            // Stale-while-revalidate, not cache-first: a hero keeps rendering
-            // instantly and offline from cache, but a hero whose art has been
-            // replaced since it was cached is refreshed in the background
-            // rather than pinned for its full year.
-            handler: 'StaleWhileRevalidate',
-            options: {
-              cacheName: 'poseidon-creature-hero',
-              expiration: {
-                maxEntries: 200,
-                maxAgeSeconds: 60 * 60 * 24 * 365,
+export default defineConfig(({ mode }) => {
+  const demo = mode === 'demo';
+  const base = resolveBase(mode);
+
+  return {
+    base,
+    build: demo ? { outDir: 'dist-demo' } : {},
+    define: {
+      __POSEIDON_VERSION__: JSON.stringify(productVersion),
+      __POSEIDON_BUILD_SHA__: JSON.stringify(buildRevision),
+    },
+    plugins: [
+      developmentServiceWorkerReset(`${base}sw.js`),
+      developmentSourceAssetReview(),
+      react(),
+      tailwindcss(),
+      VitePWA({
+        // The demo is an iframe, not an installable app: no worker, no manifest.
+        disable: demo,
+        registerType: 'prompt',
+        // Core logging and browsing must survive a cold start with no network,
+        // so the shell, the content pack and the thumb/gallery creature
+        // variants used by dense grids are precached. `hero.webp` is the
+        // largest variant (up to 700 KiB each) and is only needed for a
+        // creature's own Detail view, so it is cached on first view instead
+        // of bloating every cold install/update with every hero image.
+        workbox: {
+          globPatterns: ['**/*.{js,css,html,webp,png,svg,woff2,mp4}'],
+          globIgnores: ['**/assets/creatures/*/hero.webp'],
+          maximumFileSizeToCacheInBytes: 4 * 1024 * 1024,
+          cleanupOutdatedCaches: true,
+          // The portfolio demo is published under `<base>demo/`, inside this
+          // worker's scope. Never answer its navigations with this app's shell:
+          // on a device that installed the real app, the demo iframe would
+          // otherwise render the real (signed-in) application.
+          navigateFallbackDenylist: [
+            new RegExp(`^${escapeRegExp(base)}demo(/|$)`),
+          ],
+          ignoreURLParametersMatching: [/^v$/],
+          /*
+           * A precache entry with a null revision tells Workbox the URL is
+           * immutable, so it is never re-fetched again on any later update.
+           * That is true of Vite's own bundles, whose filenames carry a content
+           * hash, and false of everything `scripts/sync-assets.mjs` mounts:
+           * `assets/creatures/<id>/gallery.webp` keeps its name for the life of
+           * the species while its bytes change every time art is promoted or
+           * remade.
+           *
+           * vite-plugin-pwa defaults this to the whole `assets/` directory,
+           * which is where both kinds of file live, so a device that had
+           * precached a creature's old artwork kept serving it forever — the
+           * grids read from the precache, while Detail looked correct because
+           * `hero.webp` is runtime-cached instead. Match only the hashed build
+           * output at the root of `assets/`, so the mounted art trees are
+           * revisioned by content and a promoted asset actually lands.
+           */
+          dontCacheBustURLsMatching: /^assets\/[^/]+-[\w-]{8}\.(?:js|css)$/,
+          runtimeCaching: [
+            {
+              urlPattern: ({ url }) => url.pathname.endsWith('/hero.webp'),
+              // Stale-while-revalidate, not cache-first: a hero keeps rendering
+              // instantly and offline from cache, but a hero whose art has been
+              // replaced since it was cached is refreshed in the background
+              // rather than pinned for its full year.
+              handler: 'StaleWhileRevalidate',
+              options: {
+                cacheName: 'poseidon-creature-hero',
+                expiration: {
+                  maxEntries: 200,
+                  maxAgeSeconds: 60 * 60 * 24 * 365,
+                },
               },
             },
-          },
-        ],
+          ],
+        },
+        manifest: {
+          id: '/',
+          name: 'Poseidon',
+          short_name: 'Poseidon',
+          description: 'A beautiful personal atlas of your underwater life.',
+          start_url: `${base}#/`,
+          scope: base,
+          display: 'standalone',
+          background_color: '#F3FAFA',
+          theme_color: '#F3FAFA',
+          icons: [
+            {
+              src: `${base}icons/icon-192.png`,
+              sizes: '192x192',
+              type: 'image/png',
+            },
+            {
+              src: `${base}icons/icon-512.png`,
+              sizes: '512x512',
+              type: 'image/png',
+            },
+            {
+              src: `${base}icons/icon-maskable-512.png`,
+              sizes: '512x512',
+              type: 'image/png',
+              purpose: 'maskable',
+            },
+          ],
+        },
+      }),
+    ],
+    resolve: {
+      alias: {
+        '@poseidon/domain': fileURLToPath(
+          new URL('../../packages/domain/src/index.ts', import.meta.url),
+        ),
+        '@': fileURLToPath(new URL('./src', import.meta.url)),
       },
-      manifest: {
-        id: '/',
-        name: 'Poseidon',
-        short_name: 'Poseidon',
-        description: 'A beautiful personal atlas of your underwater life.',
-        start_url: `${base}#/`,
-        scope: base,
-        display: 'standalone',
-        background_color: '#F3FAFA',
-        theme_color: '#F3FAFA',
-        icons: [
-          {
-            src: `${base}icons/icon-192.png`,
-            sizes: '192x192',
-            type: 'image/png',
-          },
-          {
-            src: `${base}icons/icon-512.png`,
-            sizes: '512x512',
-            type: 'image/png',
-          },
-          {
-            src: `${base}icons/icon-maskable-512.png`,
-            sizes: '512x512',
-            type: 'image/png',
-            purpose: 'maskable',
-          },
-        ],
-      },
-    }),
-  ],
-  resolve: {
-    alias: {
-      '@poseidon/domain': fileURLToPath(
-        new URL('../../packages/domain/src/index.ts', import.meta.url),
-      ),
-      '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
-  },
-  server: {
-    fs: { allow: [workspaceRoot] },
-  },
+    server: {
+      fs: { allow: [workspaceRoot] },
+    },
+  };
 });
