@@ -287,3 +287,8 @@ History is stored in the same browser/origin; the old storage key is preserved.
 The version 2 review snapshot exports the current catalog, effective codes,
 revision-specific overrides and complete recorded history. These review calls do
 not change the committed catalog or promote runtime artwork.
+
+The review queue and **Needs review** filter skip catalog-approved Keep artwork
+and exact-revision local calls. Unresolved Maybe/Remake candidates remain in the
+queue until reviewed locally; a new replacement becomes reviewable again unless
+already approved as Keep in the catalog.
