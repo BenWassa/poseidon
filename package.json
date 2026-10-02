@@ -10,6 +10,7 @@
   ],
   "scripts": {
     "build": "npm run build --workspace @poseidon/domain && npm run build --workspace @poseidon/web",
+    "build:demo": "npm run build:demo --workspace @poseidon/web",
     "release:hosting": "npm run build && npx -y firebase-tools@latest deploy --only hosting",
     "check": "npm run lint && npm run format:check && npm run typecheck && npm run test",
     "check:assets": "npm run validate:content && npm run validate:assets && npm run validate:source-assets && npm run test:assets",
@@ -23,6 +24,7 @@
     "test:pwa": "npm run test:pwa --workspace @poseidon/web",
     "dev": "npm run dev --workspace @poseidon/web",
     "preview": "npm run preview --workspace @poseidon/web",
+    "preview:demo": "npm run preview:demo --workspace @poseidon/web",
     "screenshots": "npm run screenshots --workspace @poseidon/web",
     "gemini:export": "node tools/gemini-screen-export.mjs",
     "assets:sync": "node apps/web/scripts/sync-assets.mjs",

@@ -88,7 +88,14 @@ function isImmersive(pathname: string): boolean {
   );
 }
 
-export function AppShell({ children }: { children: ReactNode }) {
+export function AppShell({
+  children,
+  banner,
+}: {
+  children: ReactNode;
+  /** Optional strip above the screens; only the portfolio demo supplies one. */
+  banner?: ReactNode;
+}) {
   const { pathname } = useLocation();
   const immersive = isImmersive(pathname);
   const reviewStudio = pathname === '/dev/assets';
@@ -100,6 +107,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           reviewStudio ? 'max-w-[90rem]' : 'max-w-md sm:shadow-2xl'
         }`}
       >
+        {banner}
         <PwaNotice />
         <main
           id="main"

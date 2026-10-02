@@ -86,6 +86,11 @@ async function releaseDevelopmentServiceWorkers(): Promise<void> {
 }
 
 export function registerPoseidonServiceWorker() {
+  // The portfolio demo is an iframe, not an installable app: no worker (a
+  // cached demo would outlive a redeploy) and no install prompts. Inline so a
+  // default build drops this line and a demo build drops everything below it.
+  if (import.meta.env.VITE_POSEIDON_DEMO === 'true') return;
+
   if (import.meta.env.DEV) {
     void releaseDevelopmentServiceWorkers();
   } else {

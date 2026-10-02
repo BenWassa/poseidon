@@ -1,9 +1,21 @@
 import assert from 'node:assert/strict';
-import { dirname, resolve } from 'node:path';
+import {
+  mkdtempSync,
+  readFileSync,
+  readdirSync,
+  rmSync,
+  statSync,
+} from 'node:fs';
+import { tmpdir } from 'node:os';
+import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { chromium } from 'playwright';
-import { createServer as createViteServer } from 'vite';
+import {
+  build as viteBuild,
+  createServer as createViteServer,
+  preview as vitePreview,
+} from 'vite';
 
 import { launchOptions } from '../../../tools/chromium.mjs';
 
@@ -134,3 +146,168 @@ try {
 }
 
 console.log('[mock] development mock-mode acceptance passed');
+
+// ---------------------------------------------------------------------------
+// Portfolio demo build (`npm run build:demo`, VITE_POSEIDON_DEMO=true).
+//
+// The development server above proves the mock boundary on the dev site. The
+// demo is different: it is a *production* bundle that a stranger reaches with no
+// sign-in, so it is built for real, served as built, and probed the same way.
+// ---------------------------------------------------------------------------
+const demoOut = mkdtempSync(join(tmpdir(), 'poseidon-demo-'));
+const demoBase = '/poseidon/demo/';
+const demoErrors = [];
+const demoRequests = [];
+
+function* walk(directory) {
+  for (const entry of readdirSync(directory)) {
+    const path = join(directory, entry);
+    if (statSync(path).isDirectory()) yield* walk(path);
+    else yield path;
+  }
+}
+
+const savedBase = process.env.POSEIDON_BASE_PATH;
+delete process.env.POSEIDON_BASE_PATH; // exercise the real Pages default
+let previewServer;
+let demoBrowser;
+try {
+  await viteBuild({
+    root,
+    mode: 'demo',
+    logLevel: 'error',
+    build: { outDir: demoOut, emptyOutDir: true },
+  });
+
+  // Static: the demo bundle must not contain the real backend at all, and must
+  // not ship a service worker that could outlive a redeploy.
+  const backendPattern =
+    /firebase|firestore|identitytoolkit|securetoken|googleapis\.com/i;
+  const files = [...walk(demoOut)];
+  for (const file of files.filter((name) => /\.(js|html|css)$/.test(name))) {
+    assert.ok(
+      !backendPattern.test(readFileSync(file, 'utf8')),
+      `demo bundle contains a real-backend reference: ${file}`,
+    );
+  }
+  assert.ok(
+    !files.some((name) => /(^|\/)(sw\.js|manifest\.webmanifest)$/.test(name)),
+    'demo bundle shipped a service worker or manifest',
+  );
+  console.log(
+    '[demo] bundle has no Firebase/backend code, no service worker: ok',
+  );
+
+  previewServer = await vitePreview({
+    root,
+    mode: 'demo',
+    logLevel: 'error',
+    build: { outDir: demoOut },
+    preview: { host: '127.0.0.1', port: 0 },
+  });
+  const demoAddress = previewServer.httpServer.address();
+  assert.ok(
+    demoAddress && typeof demoAddress !== 'string',
+    'demo preview did not bind',
+  );
+  const demoOrigin = `http://127.0.0.1:${demoAddress.port}`;
+  const demoUrl = `${demoOrigin}${demoBase}`;
+
+  demoBrowser = await chromium.launch(launchOptions());
+  const demoContext = await demoBrowser.newContext({
+    viewport: { width: 412, height: 915 },
+    isMobile: true,
+    hasTouch: true,
+    reducedMotion: 'reduce',
+    serviceWorkers: 'allow',
+  });
+  // A stale dev/real selection in storage must be ignored by the demo.
+  await demoContext.addInitScript(() => {
+    if (!window.sessionStorage.getItem('seeded')) {
+      window.sessionStorage.setItem('seeded', '1');
+      window.localStorage.setItem(
+        'poseidon.dev.selection',
+        JSON.stringify({ kind: 'real' }),
+      );
+    }
+  });
+  const demoPage = await demoContext.newPage();
+  demoPage.on('request', (request) => demoRequests.push(request.url()));
+  demoPage.on('pageerror', (error) => demoErrors.push(error.message));
+  demoPage.on('console', (message) => {
+    if (message.type() === 'error') demoErrors.push(message.text());
+  });
+
+  // No parameter: populated by default, no sign-in, visible demo messaging.
+  await demoPage.goto(demoUrl, { waitUntil: 'domcontentloaded' });
+  await demoPage
+    .getByText(/A permanent record of 15 dives exploring/)
+    .waitFor();
+  await demoPage.getByTestId('demo-notice').waitFor();
+  assert.equal(
+    await demoPage.getByRole('button', { name: /sign in/i }).count(),
+    0,
+    'demo build rendered sign-in UI',
+  );
+  assert.equal(
+    await demoPage.getByTestId('dev-mode-badge').count(),
+    0,
+    'demo build rendered the development badge',
+  );
+
+  // `?mock=off` / `?mock=real` must not reach the real application.
+  for (const value of ['off', 'real']) {
+    await demoPage.goto(`${demoUrl}?mock=${value}#/`, {
+      waitUntil: 'domcontentloaded',
+    });
+    await demoPage
+      .getByText(/A permanent record of 15 dives exploring/)
+      .waitFor();
+  }
+
+  // An explicit preset is still honoured, and nothing is persisted.
+  await demoPage.goto(`${demoUrl}?mock=5#/`, { waitUntil: 'domcontentloaded' });
+  await demoPage.getByText(/A permanent record of 5 dives exploring/).waitFor();
+  assert.equal(
+    await demoPage.evaluate(() =>
+      window.localStorage.getItem('poseidon.dev.selection'),
+    ),
+    JSON.stringify({ kind: 'real' }),
+    'demo build wrote to the development selection key',
+  );
+  assert.equal(
+    (await demoPage.evaluate(() => navigator.serviceWorker.getRegistrations()))
+      .length,
+    0,
+    'demo build registered a service worker',
+  );
+
+  // A plain reload boots the same baseline (session edits are never stored).
+  await demoPage.goto(`${demoUrl}#/`, { waitUntil: 'domcontentloaded' });
+  await demoPage
+    .getByText(/A permanent record of 15 dives exploring/)
+    .waitFor();
+
+  console.log(
+    '[demo] populated default, no sign-in, stale selection ignored: ok',
+  );
+
+  await demoPage.waitForTimeout(250);
+  const foreign = demoRequests.filter(
+    (url) => new URL(url).origin !== demoOrigin,
+  );
+  assert.deepEqual(
+    foreign.filter((url) => backendPattern.test(url)),
+    [],
+    'demo build contacted a real backend',
+  );
+  assert.deepEqual(demoErrors, [], `demo build logged errors: ${demoErrors}`);
+  console.log('[demo] zero backend requests, zero console errors: ok');
+} finally {
+  if (savedBase !== undefined) process.env.POSEIDON_BASE_PATH = savedBase;
+  await demoBrowser?.close();
+  await previewServer?.close();
+  rmSync(demoOut, { recursive: true, force: true });
+}
+
+console.log('[demo] demo-build acceptance passed');

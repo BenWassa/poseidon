@@ -7,10 +7,36 @@ import './index.css';
 
 registerPoseidonServiceWorker();
 
-async function bootstrap(): Promise<void> {
-  const container = document.getElementById('root');
-  if (!container) throw new Error('Poseidon could not find its root element.');
+/**
+ * The portfolio demo build: seeded in-memory history, no sign-in, no Firebase.
+ * Nothing here is reachable from a default build, and nothing in
+ * `bootstrapStandard` (auth, Firestore) is reachable from this one.
+ */
+async function bootstrapDemo(container: HTMLElement): Promise<void> {
+  const [{ App }, { PoseidonProvider }, mock, { resolveDemoPreset }, notice] =
+    await Promise.all([
+      import('./App'),
+      import('./data/provider'),
+      import('./dev/mock-data'),
+      import('./dev/demo'),
+      import('./dev/DemoNotice'),
+    ]);
+  const client = await mock.createMockPoseidonClient(
+    resolveDemoPreset(window.location.search),
+  );
 
+  createRoot(container).render(
+    <StrictMode>
+      <HashRouter>
+        <PoseidonProvider client={client}>
+          <App banner={<notice.DemoNotice />} />
+        </PoseidonProvider>
+      </HashRouter>
+    </StrictMode>,
+  );
+}
+
+async function bootstrapStandard(container: HTMLElement): Promise<void> {
   let application: ReactNode = null;
   let devBadge: ReactNode = null;
   let devAssetReview: ReactNode = null;
@@ -68,6 +94,20 @@ async function bootstrap(): Promise<void> {
       </HashRouter>
     </StrictMode>,
   );
+}
+
+async function bootstrap(): Promise<void> {
+  const container = document.getElementById('root');
+  if (!container) throw new Error('Poseidon could not find its root element.');
+
+  // Keep this check inline, like the DEV guard below: Vite replaces the env
+  // constant at build time, so a default build drops the demo path entirely and
+  // a demo build drops the whole real path (AuthProvider, AuthGate, Firebase).
+  if (import.meta.env.VITE_POSEIDON_DEMO === 'true') {
+    await bootstrapDemo(container);
+  } else {
+    await bootstrapStandard(container);
+  }
 }
 
 void bootstrap();

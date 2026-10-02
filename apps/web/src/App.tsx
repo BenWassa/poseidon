@@ -12,9 +12,15 @@ import { Journal } from './screens/Journal';
 import { LogDive } from './screens/LogDive';
 import { PlaceDetail } from './screens/PlaceDetail';
 
-export function App({ devAssetReview }: { devAssetReview?: ReactNode }) {
+export function App({
+  devAssetReview,
+  banner,
+}: {
+  devAssetReview?: ReactNode;
+  banner?: ReactNode;
+}) {
   return (
-    <AppShell>
+    <AppShell banner={banner}>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/journal" element={<Journal />} />
