@@ -169,15 +169,29 @@ Lane A's earlier branch `art/issue-62-distinctive-form-remakes` separately prese
 
 ## #62 recovered source candidates — 2026-10-01
 
-The reconciliation branch preserves the exact five historical Lane A v3 blobs for loggerhead sea turtle, Caribbean reef octopus, spotted moray, black grouper and splendid toadfish, one artwork commit per species. These files decode as opaque WebP but are **1254×1254**, so they remain review-only inputs pending owner acceptance and a later immutable 1024×1024 normalization revision. They are not catalog-selected or promoted.
+The reconciliation branch preserves the exact five historical Lane A v3 blobs for loggerhead sea turtle, Caribbean reef octopus, spotted moray, black grouper and splendid toadfish, one artwork commit per species. They are **1254×1254 historical inputs**, were explicitly approved by the owner on 2026-10-23, and were subsequently normalized to five distinct new 1024×1024 immutable v4 revisions on PR #82. The historical v3 files remain unchanged. The five accepted v4 revisions are **not yet catalog-selected or runtime-promoted**.
 
 The older lane branch also contains non-decodable `candidate-v3.webp` blobs for spotted eagle ray and Caribbean cushion sea star. Those two commits are retained on the historical branch and excluded from reconciliation; the newer owner-approved, valid 1024×1024 v3 files already on `main` remain authoritative. No source history is overwritten or regenerated.
+
+## #62 — 2026-10-23 owner-approved Lane A v4 normalization (PR #82)
+
+All five recovered historical v3 visuals were reviewed individually by the owner and **approved without remaking**. On the isolated Lane A branch, the exact original 1254×1254 opaque WebP file for each species was resized with Pillow 12.3.0 / LANCZOS to **1024×1024 opaque lossless WebP**, saved as a **new immutable `candidate-v4.webp`**, and committed independently. Conversion checked source file immutability, output format, RGB opacity and dimensions. The one-time automation passed and was removed from the PR branch.
+
+| Species | v3 SHA-256 (historical input) | v4 SHA-256 (normalized output) | v4 bytes |
+| --- | --- | --- | ---: |
+| loggerhead sea turtle | `cd4a473b230db6f3b9790089d52470be75c86a93e198a9538e3dc453e0696ed3` | `f04ae1da22307b224c4ee9539a434e6b60663689c260e87b2c888f8a9b8ef20e` | 1,163,682 |
+| Caribbean reef octopus | `b5db73a0516289165f00828593debfc4fc2d211482448842db1241a88c9e7034` | `ec6e5d9692c6424001173f86032d32d73654234e1f086ec09d820ab516d033f0` | 1,393,276 |
+| spotted moray | `eb1b910609d03af7186f55e3f12b9259d543a06ab92b19500441091d456eb089` | `eb933447e6cafe8df84f7c10a01d68569eb26f7fb98f3c021a4d8303f706be27` | 1,123,468 |
+| black grouper | `abef280addc8fae6908f90562dbcba1091e5b4066a682095bd9732402f07054c` | `05b8fdd5293df25cd205c61aa909e8bad01037b25ef77009812832734b9ed35b` | 927,562 |
+| splendid toadfish | `7717962edb180b0933a53a90549351fcdcd9dea5277191cf4797f63b2256fb04` | `4fe4727456e7e877a6551892ff8753fe231bd5e632ba4724a742411add05dc59` | 1,329,678 |
+
+Publication evidence: [PR #82](https://github.com/BenWassa/poseidon/pull/82) and its [successful conversion run](https://github.com/BenWassa/poseidon/actions/runs/39966324832). Owner approval is recorded in the corresponding review conversation and #62. This is **source publication only**: later selection into `assets/source/creatures/catalog.json`, runtime promotion and full-library validation are separately owned by #60. Five additional `keep` verdicts must not be counted yet.
 
 ## #60 guarded integration — 2026-10-01
 
 Nineteen recorded approved replacements were promoted, one species per commit: Lane B nine, Lane C six, and the four final owner-approved sources above. Exact source hashes and previous-candidate metadata are recorded in the catalog; selected source dimensions, opacity and runtime hashes were verified. The current catalog is **40 keep / 0 provisional / 16 remake**.
 
-Remaining: five recovered Lane A inputs need explicit owner acceptance and normalization, three Lane C approved originals need recovery, and eight Lane D approved originals need recovery. No missing approved image was regenerated or replaced by rejected review art. #60 remains incomplete.
+Remaining: five Lane A **accepted v4 source revisions** need centralized catalog/runtime integration, three Lane C approved originals need recovery and eight Lane D approved originals need recovery. No missing approved image was regenerated or replaced by rejected review art. #60 remains incomplete; the selected catalog count stays **40 keep / 16 remake** until the integration gate.
 
 ## #34 sequencing — transparency follows current approval
 
