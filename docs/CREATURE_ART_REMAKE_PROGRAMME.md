@@ -45,11 +45,21 @@ The 19 promoted replacements are Lane B's nine (including retained blue tang v3)
 
 Remaining work is explicit:
 
-- Lane A: loggerhead sea turtle, Caribbean reef octopus, spotted moray, black grouper and splendid toadfish are recovered v3 review inputs (1254×1254). Owner acceptance and an immutable 1024×1024 normalization revision are pending.
+- Lane A: loggerhead sea turtle, Caribbean reef octopus, spotted moray, black grouper and splendid toadfish were explicitly owner-approved on 2026-10-23; each exact historical 1254×1254 v3 was normalized to a new immutable 1024×1024 WebP v4 in PR #82. Source art is staged, but their catalog verdicts/runtime promotions remain pending centralized #60 integration.
 - Lane C: blue chromis, sharpnose puffer and balloonfish require recovery of the exact approved replacements. Their published tiny blobs did not decode and are excluded from the current tree; rejected review-stage art is not a substitute.
 - Lane D: all eight final approved images are recorded in issue #65 but their exact bytes are unavailable locally or on the lane branch. Recover those files without regeneration.
 
 The full-library completion/review remains pending. #60 is not complete and #34 remains deferred. Historical branches/commits are retained; stale coordination PR #68 is superseded by this checkpoint.
+
+## 2026-10-23 Lane A owner approval and source normalization (PR #82)
+
+The owner reviewed the **five actual recovered historical v3 images** separately and approved **all five** without regeneration: loggerhead sea turtle, Caribbean reef octopus, spotted moray, black grouper and splendid toadfish.
+
+A one-time, branch-scoped GitHub Actions job opened each exact opaque **1254×1254 WebP** source, resized it to **1024×1024** with Pillow 12.3.0 (LANCZOS) and wrote a **lossless opaque WebP** new immutable `candidate-v4.webp` for each species. The job verified format, source/output dimensions, RGB opacity, and that every v3 source remained byte-identical. Each approved species was committed independently. The transient automation workflow was removed from the PR branch after its successful publication run.
+
+Exact source/output SHA-256 hashes, output byte sizes and PR traceability are recorded in `docs/CREATURE_ASSET_LIBRARY.md`. None of these revisions is catalog-selected or runtime-promoted yet: keep the catalogue at **40 keep / 16 remake** until the separate centralized #60 integration passes biological/collection/runtime checks.
+
+The remaining **source-recovery/production** blockers are now the **three Lane C** and **eight Lane D** species. In addition, the five accepted Lane A v4 files still require centralized catalog and runtime promotion. All existing v3 sources and earlier historical revisions remain immutable.
 
 ## Target visual family
 
