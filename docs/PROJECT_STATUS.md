@@ -1,8 +1,20 @@
 # Poseidon — current project status
 
-Last reconciled: **2026-10-01**
+Last reconciled: **2026-10-23**
 
 This is the living programme-status companion to the durable product contracts. It records current implementation and remaining work; it does not replace `PRODUCT.md` or `docs/PRD.md`.
+
+## 2026-10-23 operational closeout checkpoint
+
+This checkpoint updates tracking and release triage only; it does **not** change asset verdicts, source bytes, runtime manifests, production deployments or field-test evidence. The catalog remains the machine authority.
+
+- **Current integrated application:** the repo manifests remain at **0.2.1** on `main`. PR #79 merged the isolated portfolio demo build on 2026-10-02; the intended GitHub Pages demo path is `/poseidon/demo/` (live availability has not been independently verified here). The next named release is still pending: Release Please PR **#80** proposes **0.3.0**, is mergeable, and has two reported workflow conclusions of `action_required`, not passing checks. Do not claim 0.3.0 was released or that CI is green until verified.
+- **Art programme #60:** **56 total / 40 keep / 0 provisional / 16 remake**. Of the 35 original post-review remake targets, 19 approved replacements have been integrated. Pending: **five Lane A** historical 1254-pixel candidates needing owner acceptance and 1024-pixel immutable normalization; **three Lane C** approved replacement images with unrecoverable/corrupt published bytes (blue chromis, sharpnose puffer, balloonfish); **eight Lane D** images documented as approved but not present as retrievable source bytes on the active repository branch.
+- **Recovery first:** audit existing local, uploaded, GitHub and previous-source revisions for the exact accepted images before considering new generation. Do not substitute earlier rejected files or invent approval or hashes. Keep one file per species, immutable candidate revision, owner review gate, per-species commits and centralized catalog/runtime promotion per `docs/CREATURE_ART_PRODUCTION_WORKFLOW.md`.
+- **Other gates:** #14 requires physical Pixel acceptance evidence; #34 transparent specimen derivation remains deferred until the image programme completes. Parent issues #1 and #5 should remain open until the appropriate closeout conditions are met.
+- **Next sequence:** Lane A owner review/normalization; Lane C and D exact-image recovery/publication; cross-library approval and guarded promotion; `npm run gate`; Pixel field acceptance; issue/release closeout.
+
+The detailed historical integration state and permanent product rules remain below.
 
 ## Current integrated baseline
 
